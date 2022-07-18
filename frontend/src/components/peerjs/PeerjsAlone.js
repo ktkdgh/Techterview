@@ -69,13 +69,12 @@ function PeerjsAlone({closeModal}) {
         </div>
         <div class="video-container">
             <div>
-            <img id="interviewer" className="interview" src={require("../images/man.png")} alt={"video thumbnail"} style={{width:"640px", height:"480px",display:"none"}} />
-            </div>
+            <video autoPlay muted id="interviewer"  src="/videos/sample1.mp4" loop type="video/mp4" className='VideoBox' style={{ width:" 100%", height: "480px" ,display: "none"}}></video>
+                </div>
             <div>
             <video ref={currentUserVideoRef} />
             </div>
         </div>
-        {/* <video ref="vidRef" src="/videos/sample1.mp4" loop type="video/mp4" className='VideoBox' style={{ width: 400, height: 400 }}></video> */}
 
         <div >
           <video ref={remoteVideoRef}  />
@@ -89,6 +88,16 @@ function getHide(){
 }
 
 function getShow(){
+    
     document.getElementById("interviewer").style.display= ""
+    // document.getElementById("interviewer").addEventListener("canplay")
 }
+
+// const video = document.getElementById("interviewer");
+// video.addEventListener("canplay", function() {
+//   setTimeout(function() {
+//     video.play();
+//   }, 5000);
+// });
+
 export default PeerjsAlone;
