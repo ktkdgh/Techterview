@@ -6,8 +6,12 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 // import SampleVideo from '../../../../public/videos/sample1.mp4';
 // import sample from '../../../audios/샘플음성/10/1.mp3';
+import PeerjsAlone from '../peerjs/PeerjsAlone';
+
 
 function TrainingAlone() {
+    const [openModal, setOpenModal] = useState(false);
+
     const { key } = useParams();
     let data = []
 
@@ -46,7 +50,8 @@ function TrainingAlone() {
             <div className='traing-inner-box'>
                 <div style={{ color: 'white' }}>{Questions[QuestionsIndex]}</div>
                 {/* <video ref="vidRef" source src="/videos/sample1.mp4" loop type="video/mp4" className='VideoBox' style={{ width: 400, height: 400 }}></video> */}
-                <div className='training-alone-dropbox'></div>
+                {/* <div className='training-alone-dropbox'></div> */}
+                <PeerjsAlone/>
                 {/* <div><audio controls src='../../../assets/샘플음성/14/1.mp3'> </audio></div> */}
             </div>
             <div className='training-footer'>
