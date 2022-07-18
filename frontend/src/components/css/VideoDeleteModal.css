@@ -1,0 +1,200 @@
+.video-delete-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+}
+
+.video-delete-modal-content {
+    width: 300px;
+    background-color: white;
+    padding: 50px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.video-delete-modal-footer {
+    padding: 10px;
+}
+
+.modal-title {
+    margin: 0;
+}
+
+.video-delete-modal-body {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+
+.button.btn-yes {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    padding: 5px 20px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.btn-yes {
+    transition-duration: 0.4s;
+}
+
+.btn-yes:hover {
+    background-color: black;
+    /* Green */
+    color: white;
+}
+
+button.btn-cancel {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    /* Green */
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+
+.btn-cancel {
+    transition-duration: 0.4s;
+}
+
+.btn-cancel:hover {
+    background-color: red;
+    /* Green */
+    color: black;
+}
+
+/* my video page */
+.my-video-title {
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    text-align: center;
+    margin: 30px;
+}
+
+/* Video Face Voice Edit Modal */
+.video-edit-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+}
+
+.video-edit-thumbnail {
+    display: inline-block;
+}
+
+.video-edit-voice-filter {
+    display: inline-block;
+}
+
+.video-edit-modal-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.video-edit-modal-content {
+    width: 800px;
+    height: 500px;
+    background-color: white;
+    padding: 50px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.video-edit-modal-footer {
+    margin-top: 50px;
+}
+
+.video-edit-modal-title {
+    margin: 0;
+}
+
+.video-edit-modal-body {
+    margin-top: 50px;
+    border-bottom: 1px solid #eee;
+}
+
+button.btn-yes {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    /* Green */
+    padding: 5px 20px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.btn-yes {
+    transition-duration: 0.4s;
+}
+
+.btn-yes:hover {
+    background-color: black;
+    /* Green */
+    color: white;
+}
+
+button.btn-cancel {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    /* Green */
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+
+.btn-cancel {
+    transition-duration: 0.4s;
+}
+
+.btn-cancel:hover {
+    background-color: red;
+    /* Green */
+    color: black;
+}
+
+.video-edit-face-btn {
+    background-color: white;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #000000;
+    font-size: 18px;
+    border-radius: 8px 8px 0 0;
+    padding: 5px 10px;
+    margin: 3px;
+}
+
+.video-edit-voice-btn {
+    background-color: white;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: black;
+    font-size: 18px;
+    border-radius: 8px 8px 0 0;
+    padding: 5px 10px;
+}
+
+.video-edit-face-btn:hover {
+    border: 3px solid lightseagreen;
+    color: black;
+}
+
+.video-edit-voice-btn:hover {
+    border: 3px solid lightseagreen;
+    color: black;
+}
