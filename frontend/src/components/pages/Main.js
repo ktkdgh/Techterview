@@ -16,7 +16,7 @@ function Mainbody() {
                 {/* <Link to="/training/alone"><button className='main-page-enter-btn ' onClick={() => { setOpenModal(true); }}  >혼자 연습하기</button></Link> */}
                 <button className='main-page-enter-btn ' onClick={() => { setOpenModal(true); }}  >혼자 연습하기</button>
 
-                <Link to="/training/otherslobby"><button className='main-page-enter-btn'>함께 연습하기</button></Link>
+                <Link to="/training/others/lobby"><button className='main-page-enter-btn'>함께 연습하기</button></Link>
                 {openModal && <CreateRoomAlone closeModal={setOpenModal} />}
 
             </div>
