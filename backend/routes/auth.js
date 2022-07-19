@@ -10,29 +10,25 @@ dotenv.config();
 const KAKAO_AUTH_URL = process.env.KAKAO_AUTH_URL
 const KAKAO_AUTH_REDIRECT_URL = process.env.KAKAO_AUTH_REDIRECT_URL
 
-router.post("/api/silentRefresh", (req, res, next) =>{
-    const {refreshToken} = req.cookies;
-    const verifyAccessToken = verifyToken(refreshToken);
-    console.log('verifyAccessToken : ', verifyAccessToken);
+// router.post("/api/silentRefresh", (req, res, next) =>{
+//     const {refreshToken} = req.cookies;
+//     const verifyAccessToken = verifyToken(refreshToken);
+//     console.log('verifyAccessToken : ', verifyAccessToken);
 
-    if(verifyAccessToken.id){
-        const accessToken = makeAccessToken(verifyAccessToken.id);
-        const refreshToken = makeRefreshToken(verifyAccessToken.id);
+//     if(verifyAccessToken.id){
+//         const accessToken = makeAccessToken(verifyAccessToken.id);
+//         const refreshToken = makeRefreshToken(verifyAccessToken.id);
 
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true
-        });
-        return res.json({accessToken})
-    }
-    return res.json({test:"Test"})
-});
+//         res.cookie('refreshToken', refreshToken, {
+//             httpOnly: true
+//         });
+//         return res.json({accessToken})
+//     }
+//     return res.json({test:"Test"})
+// });
 
-router.get("/kakao", (req, res, next) => {
-    return res.redirect(`${KAKAO_AUTH_URL}/authorize?client_id=${process.env.KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_AUTH_REDIRECT_URL}&response_type=code`)
-})
-
-router.get("/kakao/callback", async(req, res, next) => {
-    const {code} = req.query;
+router.get("/kakao/callback/:code", async(req, res, next) => {
+    console.log(req.params.code);
     
     try {
         const {data} = await axios({
@@ -48,6 +44,7 @@ router.get("/kakao/callback", async(req, res, next) => {
                 code:code,
             }
         })
+    
     const kakao_access_token = data['access_token'];
     
     const {data:me} = await axios({
@@ -57,6 +54,7 @@ router.get("/kakao/callback", async(req, res, next) => {
             'authorization':`bearer ${kakao_access_token}`,
         }
     });
+    
     const {id, kakao_account} = me;
         
     const userInformation = {
@@ -66,8 +64,6 @@ router.get("/kakao/callback", async(req, res, next) => {
     };
 
     const user_id = await isExistSnsId(userInformation.provider, userInformation.sns_id);
-    console.log('user_id : ', user_id);
-
     if(user_id) {
         const refreshToken = makeRefreshToken(user_id);
         res.cookie('refreshToken', refreshToken, {
@@ -75,7 +71,6 @@ router.get("/kakao/callback", async(req, res, next) => {
         });
     } else {
         const signUpUserId = await snsSignUp(userInformation);
-        console.log('signUpUserId : ', signUpUserId);
         const refreshToken = makeRefreshToken(signUpUserId);
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true

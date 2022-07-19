@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { KAKAO_AUTH_URL } from '../shared/kakaoApi'
 
 
 
@@ -17,10 +18,7 @@ class Login extends Component {
                             </div>
                             <div className="logInImage">
                                 <div className="kakaoImage">
-                                    <a href='http://localhost:8000/auth/kakao'><img src={require("../images/kakao_login.png")} alt="my image" onClick={this.myfunction} /></a>
-                                </div>
-                                <div className="googleImage">
-                                    <a href='http://localhost:8000/auth/google'><img src={require("../images/google_login.png")} alt="my image" onClick={this.myfunction} /></a>
+                                    <a href={ KAKAO_AUTH_URL }><img src={require("../images/kakao_login.png")} alt="my image" onClick={this.myfunction} /></a>
                                 </div>
                             </div>
                         </div>
