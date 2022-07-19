@@ -7,7 +7,8 @@ function TrainingAlone() {
     const { key } = useParams();
     let data = [];
     const [Questions, SetQuestions] = useState([]);
-    const [QuestionsIndex, SetQuestionsIndex] = useState(-1);
+    const [QuestionsIndex, SetQuestionsIndex] = useState(0);
+    const [AudioIndex, SetAudioIndex] = useState(0);
 
     // const getQuestions = async () => {
     //     const { data } = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`);
@@ -23,15 +24,7 @@ function TrainingAlone() {
 
         }
         getQuestions();
-        // const getQuestions = async () => {
-        //     // const { data } = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => SetQuestions(res.data));
-        //     await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => SetQuestions(res.data));
-        //     // SetQuestions(data);
-        // };
-        // getQuestions();
-        // console.log("Questions:", (Questions));
-        // // console.log("Questions:", JSON.stringify(Questions));
-        // console.log("Questions:", typeof Questions);
+
     }, []);
 
     const getQuestion = () => {
@@ -47,50 +40,16 @@ function TrainingAlone() {
     const getQuestionAudio = () => {
         if (Questions && Questions.length !== 0) {
             if (QuestionsIndex !== -1) {
-                const q = Questions[QuestionsIndex];
+                const q = Questions[AudioIndex];
                 if (q && q.length !== 0) {
-                    return;
+                    return q[1];
                 }
             }
         }
     };
-    // const getGroupList = async () => {
-    //     axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then((res) => getGroupList(res.data));
-    // };
 
-    // useEffect(() => {
-    //     getGroupList();
-    // }, []);
-    // console.log(Questions);
-    // useEffect(() => {
+    let audio = new Audio(getQuestionAudio());
 
-    // axios.get(`http://localhost:8000/training/alone/api/questions/${key}`)
-    //         .then((res) => {
-    //             (res.data).map((value) => {
-    //                 SetQuestions(value)
-    //                 console.log("@#@#", value);
-    //             });
-    //         })
-    // }, [])
-
-    // axios.get(`http://localhost:8000/training/alone/api/questions/${key}`)
-    //     .then((res) => {
-    //         (res.data).map((value) => {
-    //             data.push(value)
-    //         });
-    //     })
-
-
-
-    // axios.get(`http://localhost:8000/training/alone/api/questions/${key}`)
-    //     .then((res) => {
-    //         (res.data).map((value) => {
-    //             data.push(value)
-    //         });
-    //     })
-
-    // console.log("Questions:", Questions[0][1]);
-    let copy = Questions
 
     return (
         <div className="training-container">
@@ -105,11 +64,13 @@ function TrainingAlone() {
                     <div>
                     </div>
                     <div className="training-item1" onClick={() => {
-                        SetQuestionsIndex(0)
-
+                        audio.play()
+                        SetAudioIndex(AudioIndex + 1)
                     }} ><img className="video-thumbnail-second-place" src={require("../images/start.png")} alt={"start button"} /></div>
                     <div className="training-item-first-place" onClick={() => {
                         SetQuestionsIndex(QuestionsIndex + 1)
+                        audio.play()
+
                     }} ><img className="video-thumbnail-first-place" src={require("../images/next.png")} alt={"next button"} />   </div>
                     <div className="training-item"><img className="video-thumbnail-third-place" src={require("../images/end.png")} alt={"end button"} />   </div>
                 </div>
