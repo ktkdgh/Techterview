@@ -4,7 +4,7 @@ const app = express();
 // const app = express();
 const server = require("http").Server(router);
 const { resourceLimits } = require('worker_threads');
-const io = require("socket.io")(8001, { cors:{ origin: ['http://localhost:3000']} });
+const io = require("socket.io")(8001, { cors:{ origin: ['http://3.35.82.134:3000']} });
 
 
 io.on("connection", (socket) => {

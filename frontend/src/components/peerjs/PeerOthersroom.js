@@ -7,7 +7,7 @@ import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 
 function PeerOthersroom() {
 
-  const socket = io.connect('http://localhost:8001')
+  const socket = io.connect('http://3.35.82.134:8001')
   const url = window.location.pathname.split('/');
   const ROOM_ID = url[3]
   const remoteVideoRef = useRef(null);
