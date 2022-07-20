@@ -3,6 +3,11 @@ import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import PeerjsAlone from '../peerjs/PeerjsAlone';
+import { Link } from 'react-router-dom';
+import "../css/TrainingAloneStartModal.css"
+import '../../../node_modules/font-awesome/css/font-awesome.min.css'; 
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 function TrainingAlone() {
@@ -45,33 +50,41 @@ function TrainingAlone() {
             }
         }
     };
-
+     
+    function IncreaseAudioIndex() {
+        SetAudioIndex(AudioIndex + 1);
+      }
+    
     let audio = new Audio(getQuestionAudio());
 
-
+    function SetQuestionIndex() {
+        SetQuestionIndex(QuestionsIndex +1);
+    }
     return (
+
+
+    
         <div className="training-container">
             <Helmet><style>{'body { background-color: black; }'}</style></Helmet>
-            <div className="training-navigation-bar-logo"> TECHTERVIEW </div>
-            <div className='traing-inner-box'>
-                <div style={{ color: 'white', fontSize: '32px', textAlign: "center" }}>{getQuestion()}</div>
-                <PeerjsAlone />
-            </div >
+            <Link to="/" style={{textDecoration: 'none'}}><div className="training-navigation-bar-logo"> TECHTERVIEW </div></Link> 
+            <div className='training-inner-box'>
+                <div id='alone-questions' style={{ color: 'white', fontSize: '32px', textAlign: "center", display:"none" }}>{getQuestion()}</div>
+                <PeerjsAlone IncreaseAudioIndex={IncreaseAudioIndex} autoAudioPlay={audio} SetQuestionIndex={SetQuestionIndex}/></div>
+                <div className='video-next-icon-container'>
+                    <div className="video-next-question-btn" onClick={() => {
+                            audio.play()
+                            SetQuestionsIndex(QuestionsIndex + 1)
+                            SetAudioIndex(AudioIndex + 1)
+                        }} >
+                            <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+                        Next
+                        </div>
+                </div>
             <div className='training-footer'>
                 <div className="training-container-box">
                     <div>
                     </div>
-                    <div className="training-item1" onClick={() => {
-                        audio.play()
-                        SetAudioIndex(AudioIndex + 1)
-                    }} ><img className="video-thumbnail-second-place" src={require("../images/start.png")} alt={"start button"} /></div>
-                    <div className="training-item-first-place" onClick={() => {
-                        SetQuestionsIndex(QuestionsIndex + 1)
-                        SetAudioIndex(AudioIndex + 1)
-                        audio.play()
 
-                    }} ><img className="video-thumbnail-first-place" src={require("../images/next.png")} alt={"next button"} />   </div>
-                    <div className="training-item"><img className="video-thumbnail-third-place" src={require("../images/end.png")} alt={"end button"} />   </div>
                 </div>
             </div>
         </div >

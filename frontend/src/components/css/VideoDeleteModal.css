@@ -198,3 +198,28 @@ button.btn-cancel {
     border: 3px solid lightseagreen;
     color: black;
 }
+
+span.video-end-btn {
+    background-color: rgba(rgb(180, 28, 28), green, blue, alpha);
+}
+
+
+.video-question-list {
+    background-color: white;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #000000;
+    font-size: 18px;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin: 3px;
+}
+.video-question-list:hover {
+    border: 2px solid lightseagreen;
+    color: black;
+}
+.video-edit-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
