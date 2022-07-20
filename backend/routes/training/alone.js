@@ -8,13 +8,14 @@ router.get('/api/questions/:subcategory', async (req, res) => {
         const questionsDB = await Questions.findAll({
             where: { SubCategoryId: req.params.subcategory },
         })
-        
+
         var questions = [];
         questionsDB.forEach((value) => {
             questions.push([value.questions_name, value.questions_url])
         })
-        
-        res.send(shuffle(questions))
+
+        // res.send(shuffle(questions))
+        res.send((questions))
     } catch (err) {
         console.error(err);
         done(err);

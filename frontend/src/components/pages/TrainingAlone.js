@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -48,7 +48,7 @@ function TrainingAlone() {
 
     let audio = new Audio(getQuestionAudio());
 
-
+    console.log(Questions);
     return (
         <div className="training-container">
             <Helmet><style>{'body { background-color: black; }'}</style></Helmet>
