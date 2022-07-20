@@ -69,6 +69,7 @@ function TrainingAlone() {
                     }} ><img className="video-thumbnail-second-place" src={require("../images/start.png")} alt={"start button"} /></div>
                     <div className="training-item-first-place" onClick={() => {
                         SetQuestionsIndex(QuestionsIndex + 1)
+                        SetAudioIndex(AudioIndex + 1)
                         audio.play()
 
                     }} ><img className="video-thumbnail-first-place" src={require("../images/next.png")} alt={"next button"} />   </div>
