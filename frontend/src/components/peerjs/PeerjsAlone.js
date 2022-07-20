@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
-
+from
 function PeerjsAlone() {
   const currentUserVideoRef = useRef(null);
   const call = () => {
@@ -26,7 +26,7 @@ function PeerjsAlone() {
       </div >
       <div class='video-container'>
         <div>
-          <video autoPlay muted id='interviewer' src='/videos/sample1.mp4' loop type='video/mp4' className='VideoBox' style={{ width: ' 100%', height: '480px', display: 'none' }} ></video>
+          <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='VideoBox' style={{ width: '100%', height: '480px', display: 'none' }} ></video>
         </div>
         <div>
           <video muted ref={currentUserVideoRef} />
@@ -43,4 +43,6 @@ function getHide() {
 function getShow() {
   document.getElementById("interviewer").style.display = "none"
 }
+
+
 export default PeerjsAlone;
