@@ -120,7 +120,6 @@ function PeerjsAlone() {
   );
 }
 
-
 function getHide() {
   document.getElementById("training-alone-start-modal").style.display = "none"
 }

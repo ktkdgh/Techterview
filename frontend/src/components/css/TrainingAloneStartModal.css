@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 .training-alone-start-modal {
     position: fixed;
     left: 0;
@@ -51,4 +53,22 @@
     /* align-items: center; */
     padding-top: 100px;
 
+}
+
+/* Training Others */
+.main_controls_block , .main_controls_button.leaveMeeting {
+    display: flex;
+    color: white;
+    font-size: xx-large;
+    justify-content: space-between;
+
+}
+.training-others-main_controls {
+    display:flex;
+    justify-content: space-evenly;
+
+}
+
+.training-others-main_controls_button {
+    margin: 0 30px;
 }
