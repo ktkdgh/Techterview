@@ -1,18 +1,24 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
-// import Spinner from "./Spinner";
+import jwt from "jwt-decode"
+import axios from "axios"
 
-const KakaoAuthHandle = (props) => {
-    const dispatch = useDispatch();
+const KakaoAuthHandle = () => {
     let code = new URL(window.location.href).searchParams.get("code");
     useEffect(() => {
-        dispatch(userActions.kakaoLogin(code));    
+        async function getCode() {
+            const data = await axios.get(`http://localhost:8000/auth/api/${code}`)
+                .then(res => {
+                    const userInfo = jwt(res.data.accessToken)
+                    sessionStorage.setItem("Authorization", res.data.accessToken);
+                    sessionStorage.setItem("userName", userInfo.name);
+                    window.location.href = '/';
+                })
+        }
+        getCode();
     }, []);
 
     return (
-        <div>123</div>
+        <div>로그인 중입니다 잠시만 기다려주세요 ^-^</div>
     );
 };
-
 export default KakaoAuthHandle;

@@ -7,24 +7,18 @@ function TrainingAlone() {
     const { key } = useParams();
     let data = [];
     const [Questions, SetQuestions] = useState([]);
-    const [QuestionsIndex, SetQuestionsIndex] = useState(0);
-    const [AudioIndex, SetAudioIndex] = useState(0);
-
-    // const getQuestions = async () => {
-    //     const { data } = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`);
-    //     SetQuestions(data);
-    // };
+    const [QuestionsIndex, SetQuestionsIndex] = useState(-1);
+    const [AudioIndex, SetAudioIndex] = useState(-1);
 
     useEffect(() => {
         async function getQuestions() {
-            const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
-                console.log(res)
-                SetQuestions(res.data);
+            const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`)
+                .then(res => {
+                    console.log(res)
+                    SetQuestions(res.data);
             });
-
         }
         getQuestions();
-
     }, []);
 
     const getQuestion = () => {
@@ -64,12 +58,14 @@ function TrainingAlone() {
                     <div>
                     </div>
                     <div className="training-item1" onClick={() => {
-                        audio.play()
-                        SetAudioIndex(AudioIndex + 1)
+                        SetQuestionsIndex(QuestionsIndex + 1);
+                        SetAudioIndex(AudioIndex + 1);
+                        audio.play();
                     }} ><img className="video-thumbnail-second-place" src={require("../images/start.png")} alt={"start button"} /></div>
                     <div className="training-item-first-place" onClick={() => {
-                        SetQuestionsIndex(QuestionsIndex + 1)
-                        audio.play()
+                        SetQuestionsIndex(QuestionsIndex + 1);
+                        SetAudioIndex(AudioIndex + 1);
+                        audio.play();
 
                     }} ><img className="video-thumbnail-first-place" src={require("../images/next.png")} alt={"next button"} />   </div>
                     <div className="training-item"><img className="video-thumbnail-third-place" src={require("../images/end.png")} alt={"end button"} />   </div>
@@ -78,7 +74,4 @@ function TrainingAlone() {
         </div >
     )
 }
-
-
-
-export default TrainingAlone
+export default TrainingAlone;

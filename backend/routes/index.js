@@ -5,10 +5,4 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     res.render('index', { title : 'Techterview'});
 });
-
-router.get('/logout', (req, res) => {
-  req.logout
-  req.session.destroy();
-  res.redirect('http://localhost:3000/')
-})
 module.exports = router;
