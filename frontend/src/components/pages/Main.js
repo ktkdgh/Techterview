@@ -13,7 +13,6 @@ function Mainbody() {
                 <div className="body-phrase2">TECHTERVIEW에서 실제 면접을 보는 듯한 긴장감을 느끼세요! </div>
             </div>
             <div className='main-page-enter-btn'>
-                {/* <Link to="/training/alone"><button className='main-page-enter-btn ' onClick={() => { setOpenModal(true); }}  >혼자 연습하기</button></Link> */}
                 <button className='main-page-enter-btn ' onClick={() => { setOpenModal(true); }}  >혼자 연습하기</button>
 
                 <Link to="/training/others/lobby"><button className='main-page-enter-btn'>함께 연습하기</button></Link>

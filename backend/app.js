@@ -51,7 +51,7 @@ app.use('/auth', authRouter);
 app.use('/feedback', feedbackRouter);
 app.use('/questionList', questionListRouter);
 app.use('/training/alone', aloneRouter);
-app.use('/training/other', othersRouter);
+app.use('/training/others', othersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

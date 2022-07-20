@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 import "./index.css"
 import "./components/css/VideoDeleteModal.css"
@@ -20,7 +21,6 @@ import OthersLobby from "./components/pages/TrainingOthersLobby";
 
 class App extends  Component {
   render() {
-
     return (
       <div className="App">
         <BrowserRouter>
@@ -37,7 +37,7 @@ class App extends  Component {
             </Route>
 
             <Route path="/page/training/alone/:key" element={<TrainingAlone />} />
-            <Route path="/training/others" element={<TrainingOthers />} />
+            <Route path="/training/others/:id" element={<TrainingOthers />} />
             
 
           </Routes>
