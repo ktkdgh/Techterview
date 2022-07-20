@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { useState } from 'react';
-import VideoDeleteModal from './../modal/VideoDeleteModal';
-import VideoFaceVoiceEditModal from './../modal/VideoFaceVoiceEditModal'
-import FeedbackMenu from "../../components/includes/FeedbackMenubar"
+import React, { Component, useState} from 'react';
+import VideoDeleteModal from '../modal/VideoDeleteModal';
+import VideoFaceVoiceEditModal from '../modal/VideoFaceVoiceEditModal'
+import FeedbackMenu from "../includes/FeedbackMenubar"
 import { Link } from 'react-router-dom';
 
 function MyVideo() {

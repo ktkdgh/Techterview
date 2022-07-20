@@ -8,9 +8,9 @@ const isExistSnsId = async(provider, sns_id) => {
                 provider
             }
         });
-    
+        
         if(result['dataValues'].id){
-            return result['dataValues'].name;
+            return result['dataValues'];
         }else{
             throw new Error();
         }
@@ -28,7 +28,7 @@ const snsSignUp = async({ sns_id, provider, name }) => {
             name : name,
             provider : provider
         });
-        return user['dataValues'].name;
+        return user['dataValues'];
     } catch (error) {
         console.log(error);
         return false;
