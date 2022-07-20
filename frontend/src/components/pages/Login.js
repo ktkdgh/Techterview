@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { KAKAO_AUTH_URL } from '../shared/kakaoApi'
 
 
@@ -28,4 +28,3 @@ class Login extends Component {
     }
 }
 export default Login
-
