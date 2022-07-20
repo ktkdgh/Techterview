@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 import "./index.css"
 import "./components/css/VideoDeleteModal.css"
@@ -17,10 +18,10 @@ import QuestionList from "./components/pages/QuestionListMain";
 import TrainingAlone from "./components/pages/TrainingAlone";
 import TrainingOthers from "./components/pages/TrainingOthers";
 import OthersLobby from "./components/pages/TrainingOthersLobby";
+import KakaoAuthHandle from "./components/pages/KakaoAuthHandle";
 
 class App extends  Component {
   render() {
-
     return (
       <div className="App">
         <BrowserRouter>
@@ -28,6 +29,7 @@ class App extends  Component {
             <Route element={<Navbar />}>
               <Route path="/" element={<Mainbody />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/auth/kakao/callback" element={<KakaoAuthHandle />} />
               <Route path="/feedback/myvideo" element={<MyVideo />} />
               <Route path="/questionlist/main" element={<QuestionList />} />
               <Route path="/feedback/main" element={<Feedback />} />
@@ -37,7 +39,7 @@ class App extends  Component {
             </Route>
 
             <Route path="/page/training/alone/:key" element={<TrainingAlone />} />
-            <Route path="/training/others" element={<TrainingOthers />} />
+            <Route path="/training/others/:id" element={<TrainingOthers />} />
             
 
           </Routes>

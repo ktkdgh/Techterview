@@ -239,9 +239,9 @@ td {
 }
 
 .others-lobby-enter-room-btn {
-  /* margin: 200px 100px; */
-  /* border: #4e4b4b; */
-  border: 1px solid #4e4b4b;
+  margin: 70px 100px;
+  padding: 10px 50px;
+  border: 3px solid #4e4b4b;
   border-radius: 10px;
 }
 

@@ -1,24 +1,22 @@
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const verifyToken = (token) => {
     try {
-        const decoded = jwt.verify(token, "PASSWORD")
+        const decoded = jwt.verify(token, process.env.TECHTERVIEW)
         return decoded;
     } catch (error) {
-        /* TokenExpiredError : 기간 만료 
-            JsonWebTokenError : 서명이 유효하지 않거나 수정된 경우 
-            NotBeforeError : jwt형식이 아닌경우  */
         console.log(err)
         return false
     }   
 }
 
-// access 토큰 유효기간 2시간  매 요청마다 로그인 수행 한다 -> cookie에 있는 거로 
-const makeAccessToken = (id) => {
+const makeAccessToken = ({id, sns_id, name}) => {
     try {
         return jwt.sign({
-            id
-        }, "PASSWORD", {
+            id, sns_id, name
+        }, process.env.TECHTERVIEW, {
             expiresIn: '2h'
         })
     } catch (error) {
@@ -26,18 +24,15 @@ const makeAccessToken = (id) => {
     }
 }
 
-// refresh 토큰 유효기간 2주
-const makeRefreshToken = (id) => {
+const makeRefreshToken = ({id, sns_id, name}) => {
     try {
         return jwt.sign({
-            id
-        }, "PASSWORD", {
+            id, sns_id, name
+        }, process.env.TECHTERVIEW, {
             expiresIn: '14d'
         })
-        
     } catch (error) {
         return "error"
     }
 }
-
 module.exports = {verifyToken , makeAccessToken, makeRefreshToken}

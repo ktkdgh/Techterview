@@ -7,7 +7,6 @@ import PeerjsAlone from '../peerjs/PeerjsAlone';
 
 function TrainingAlone() {
     const [openModal, setOpenModal] = useState(false);
-
     const { key } = useParams();
     let data = [];
     const [Questions, SetQuestions] = useState([]);
