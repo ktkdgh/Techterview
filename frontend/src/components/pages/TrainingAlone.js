@@ -2,18 +2,17 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import PeerjsAlone from '../peerjs/PeerjsAlone';
+
 
 function TrainingAlone() {
+    const [openModal, setOpenModal] = useState(false);
+
     const { key } = useParams();
     let data = [];
     const [Questions, SetQuestions] = useState([]);
     const [QuestionsIndex, SetQuestionsIndex] = useState(0);
     const [AudioIndex, SetAudioIndex] = useState(0);
-
-    // const getQuestions = async () => {
-    //     const { data } = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`);
-    //     SetQuestions(data);
-    // };
 
     useEffect(() => {
         async function getQuestions() {
@@ -56,9 +55,9 @@ function TrainingAlone() {
             <Helmet><style>{'body { background-color: black; }'}</style></Helmet>
             <div className="training-navigation-bar-logo"> TECHTERVIEW </div>
             <div className='traing-inner-box'>
-                <div style={{ color: 'white' }}>{getQuestion()}</div>
-                <div className='training-alone-dropbox'></div>
-            </div>
+                <div style={{ color: 'white', fontSize: '32px', textAlign: "center" }}>{getQuestion()}</div>
+                <PeerjsAlone />
+            </div >
             <div className='training-footer'>
                 <div className="training-container-box">
                     <div>
