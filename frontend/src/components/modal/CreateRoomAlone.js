@@ -7,19 +7,19 @@ function CreateRoomAlone({ closeModal }) {
     const Options = [
         {
             key: 1,
-            value: "컴퓨터구조",
+            value: "네트워크",
         },
         {
             key: 2,
-            value: "자료구조",
-        },
-        {
-            key: 3,
             value: "데이터베이스",
         },
         {
+            key: 3,
+            value: "디자인패턴",
+        },
+        {
             key: 4,
-            value: "네트워크",
+            value: "알고리즘",
         },
         {
             key: 5,
@@ -27,46 +27,47 @@ function CreateRoomAlone({ closeModal }) {
         },
         {
             key: 6,
-            value: "알고리즘",
+            value: "자료구조",
         },
         {
             key: 7,
-            value: "디자인패턴"
+            value: "컴퓨터구조"
         }];
 
     const Options1 = [
         {
             key: 8,
-            value: "JavaScript",
+            value: "개발상식",
         },
         {
             key: 9,
-            value: "Java",
-        },
-        {
-            key: 10,
-            value: "React",
+            value: "기본질문",
         }];
+
 
     const Options2 = [
         {
+            key: 10,
+            value: "React",
+        },
+        {
             key: 11,
-            value: "기본질문",
+            value: "JAVA",
         },
         {
             key: 12,
-            value: "개발상식",
+            value: "JavaScript",
         }];
 
     const Options3 = [
 
         {
             key: 13,
-            value: "프론트엔드",
+            value: "frontend",
         },
         {
             key: 14,
-            value: "백엔드"
+            value: "backend"
         }
     ];
 
@@ -90,13 +91,13 @@ function CreateRoomAlone({ closeModal }) {
                             </DropdownButton>
                         </div>
                         <div>
-                            <DropdownButton id="dropdown-basic-button" title="언어">
+                            <DropdownButton id="dropdown-basic-button" title="기본질문 및 개발 상식">
                                 {Options1.map((element) => <Dropdown.Item onClick={() => setSendNum(element.key)} href=""> {element.value}</Dropdown.Item>)}
 
                             </DropdownButton>
                         </div>
                         <div>
-                            <DropdownButton id="dropdown-basic-button" title="기본질문 및 개발상식">
+                            <DropdownButton id="dropdown-basic-button" title="언어">
                                 {Options2.map((element) => <Dropdown.Item onClick={() => setSendNum(element.key)} href=""> {element.value}</Dropdown.Item>)}
 
                             </DropdownButton>
