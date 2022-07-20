@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
-from
+
 function PeerjsAlone() {
   const currentUserVideoRef = useRef(null);
   const call = () => {
