@@ -81,6 +81,7 @@ function PeerOthersroom() {
         <video muted ref={remoteVideoRef} />
         <div id="video-grid"></div>
       </div>
+
       <div class="training-others-main_controls">
         <div class="main_controls_block">
           <div

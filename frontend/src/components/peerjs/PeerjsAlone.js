@@ -1,19 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
 import uuid from 'react-uuid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
+import VideoQuestionModal from "../modal/VideoQuestionModal"
 
-// function PeerjsAlone() {
-//   const currentUserVideoRef = useRef(null);
-//   const call = () => {
-//     var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-//     getUserMedia({ video: true, audio: true }, (mediaStream) => {
-//       currentUserVideoRef.current.srcObject = mediaStream;
-//       currentUserVideoRef.current.play();
-//     });
-//   }
-function PeerjsAlone() {
+function PeerjsAlone({ IncreaseAudioIndex, autoAudioPlay, SetQuestionIndex }) {
   const currentUserVideoRef = useRef(null);
   const recordedVideo = useRef(null);
+  const [openModal, setOpenModal] = useState(false);
 
   // let mediaStream = null;
   let mediaRecorder = null;
@@ -101,31 +97,77 @@ function PeerjsAlone() {
             면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
           </div>
           <div className='training-alone-start-modal-footer'>
-            <button className='btn-yes' onClick={() => { call(); getHide(); getShow(); }} > 시작하기</button>
+            <button className='btn-yes' onClick={() => { call(); getHide(); getShow(); autoAudioPlay.play(); IncreaseAudioIndex(); }} > 시작하기</button>
           </div >
         </div >
       </div >
-      <div class='video-container'>
-        <div>
-          <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='VideoBox' style={{ width: '100%', height: '480px', display: 'none' }} ></video>
+
+
+
+      <div class="training-others-main-body">
+        <div class="traing-inner-box">
+          <div class='video-container'>
+            <div>
+              <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='VideoBox' style={{ width: '100%', height: '480px', display: 'none' }} ></video>
+            </div>
+            <div>
+              <video muted ref={currentUserVideoRef}></video>
+            </div>
+          </div>
         </div>
-        <div>
-          <video muted ref={currentUserVideoRef} />
-          <button onClick={() => { start(); }} >1</button>
-          <button onClick={() => { finish(); }} >2</button>
-          <button onClick={() => { download(); }} >3</button>
+        <div class="training-others-main_controls">
+          <div class="main_controls_block">
+
+            <div
+              class="training-others-main_controls_button"
+              id="playPauseVideo"
+              onclick="playStop()">
+              <i class="fa fa-video-camera" size="lg" ></i>
+              <span onClick={() => { start(); }}>Record</span>
+            </div>
+            <div class="training-others-main_controls_button">
+              <i class="fa fa-pause"></i>
+              <span onClick={() => { finish(); }}>Pause Record</span>
+            </div>
+            <div class="training-others-main_controls_button">
+              <FontAwesomeIcon icon={faCloudArrowDown} />
+              <span onClick={() => { download(); }}>Download</span>
+            </div>
+
+            {/* <div class="training-others-main_controls_button">
+            <FontAwesomeIcon icon={faArrowAltCircleRight} />
+            <span class="video-next-btn" onClick={() => { autoAudioPlay.play();SetQuestionIndex(); IncreaseAudioIndex();}}>Next</span>
+          </div> */}
+          </div>
+          <div class="training-others-main_controls_block">
+            <div class="main_controls_button-leave-meeting" id="leave-meeting">
+
+              <button class="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+              {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
+
+            </div>
+          </div>
+          <div class="training-others-main_controls_button">
+
+          </div>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }
 
 function getHide() {
   document.getElementById("training-alone-start-modal").style.display = "none"
+
 }
 function getShow() {
-  document.getElementById("interviewer").style.display = "none"
+  document.getElementById("interviewer").style.display = ""
+  document.getElementById("alone-questions").style.display = ""
+
+
 }
+
+
 
 
 export default PeerjsAlone;
