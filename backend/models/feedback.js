@@ -15,6 +15,12 @@ module.exports = class Feedback extends Sequelize.Model{
                 feedback_title: {
                     type: Sequelize.STRING(50),
                 },
+                like_cnt: {
+                    type: Sequelize.INTEGER
+                },
+                reply_cnt: {
+                    type: Sequelize.INTEGER
+                }
             }, {
                 sequelize,
                 underscored: false,
