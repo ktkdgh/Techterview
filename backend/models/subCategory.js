@@ -26,5 +26,6 @@ module.exports = class SubCategory extends Sequelize.Model{
     static associate(db) {
         db.SubCategory.belongsTo(db.MainCategory);
         db.SubCategory.hasMany(db.Questions);
+        db.SubCategory.hasMany(db.Feedback);
     }
 };

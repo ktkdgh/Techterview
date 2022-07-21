@@ -8,9 +8,9 @@ import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal  from "../modal/VideoQuestionModal"
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import uuid from 'react-uuid';
 import { faShareFromSquare} from '@fortawesome/free-solid-svg-icons';
+import api from '../shared/api';
 
 function PeerOthersroom() {
 
@@ -86,7 +86,7 @@ const recordedVideo = useRef(null);
 const [openModal, setOpenModal] = useState(false);
 
  /*녹화, 질문 버튼 관련 함수 */
- const start = () => {
+const start = () => {
   let recordedChunks = [];
   // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
   // TypeError: Failed to construct 'MediaRecorder': parameter 1 is not of type 'MediaStream'.
@@ -147,7 +147,7 @@ const [AudioIndex, SetAudioIndex] = useState(0);
 
 useEffect(() => {
     async function getQuestions() {
-        const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
+        const data = await api.get(`/training/alone/api/questions/${key}`).then(res => {
             console.log(res)
             SetQuestions(res.data);
         });

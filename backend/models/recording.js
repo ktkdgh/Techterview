@@ -9,7 +9,7 @@ module.exports = class Recording extends Sequelize.Model{
                     autoIncrement: true,
                     primaryKey: true
                 },
-                recording_name: {
+                recording_title: {
                     type: Sequelize.STRING(50)
                 },
                 recording_url: {
@@ -34,5 +34,6 @@ module.exports = class Recording extends Sequelize.Model{
 
     static associate(db) {
         db.Recording.belongsTo(db.Member);
+        db.Recording.hasOne(db.Feedback);
     }
 };

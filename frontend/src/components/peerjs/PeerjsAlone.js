@@ -6,7 +6,7 @@ import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal  from "../modal/VideoQuestionModal"
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../shared/api';
 
 
 function PeerjsAlone() {
@@ -95,7 +95,7 @@ function PeerjsAlone() {
 
   useEffect(() => {
       async function getQuestions() {
-          const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
+          const data = await api.get(`/training/alone/api/questions/${key}`).then(res => {
               console.log(res)
               SetQuestions(res.data);
           });

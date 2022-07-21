@@ -63,6 +63,7 @@ router.get("/api/:code", async(req, res, next) => {
         return res.json({success : false})
     } catch (error){
         console.log(error);
+        done(error);
     }
 });
 module.exports = router;

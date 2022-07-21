@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import jwt from "jwt-decode"
-import axios from "axios"
+import api from "../shared/api";
 
 const KakaoAuthHandle = () => {
     let code = new URL(window.location.href).searchParams.get("code");
     useEffect(() => {
         async function getCode() {
-            const data = await axios.get(`http://localhost:8000/auth/api/${code}`)
+            const data = await api.get(`/auth/api/${code}`)
                 .then(res => {
                     const userInfo = jwt(res.data.accessToken)
                     sessionStorage.setItem("Authorization", res.data.accessToken);

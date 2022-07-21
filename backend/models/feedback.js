@@ -9,17 +9,16 @@ module.exports = class Feedback extends Sequelize.Model{
                     autoIncrement: true,
                     primaryKey: true
                 },
-                feedback_url: {
-                    type: Sequelize.STRING(200)
-                },
                 feedback_title: {
                     type: Sequelize.STRING(50),
                 },
                 like_cnt: {
-                    type: Sequelize.INTEGER
-                },
+                    type: Sequelize.INTEGER,
+                    defaultValue: 0
+                },                
                 reply_cnt: {
-                    type: Sequelize.INTEGER
+                    type: Sequelize.INTEGER,
+                    defaultValue: 0
                 }
             }, {
                 sequelize,
@@ -36,5 +35,7 @@ module.exports = class Feedback extends Sequelize.Model{
     static associate(db) {
         db.Feedback.hasMany(db.LikeCnt);
         db.Feedback.hasMany(db.Reply);
+        db.Feedback.belongsTo(db.Recording);
+        db.Feedback.belongsTo(db.SubCategory);
     }
 };

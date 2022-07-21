@@ -1,14 +1,19 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import FeedbackMenu from "../includes/FeedbackMenubar"
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from "../shared/api";
 
 function Feedback() {
+    const [Array, SetArray] = useState([]);
     useEffect(() => {
         async function getFeedback() {
-            const data = await axios.get('http://localhost:8000/feedback/api/getfeedback')
+            const data = await api.get('/feedback/api/getfeedback')
                 .then(res => {
-                    console.log(res);
+                    const array = {
+                        data: res.data,
+                        header: ["순위", "제목", "작성자", "좋아요 수", "댓글 수"]
+                    }
+                    SetArray(array)
                 });
     
         }
@@ -16,6 +21,7 @@ function Feedback() {
     
     }, []);
 
+    console.log("Array : ", Array.data);
     return (
         <div>
             <FeedbackMenu />
@@ -34,19 +40,26 @@ function Feedback() {
                     <table>
                         <thead>
                             <tr>
-                                <th>순위</th><th>제목</th><th>작성자</th><th>좋아요 수</th><th>댓글 수</th>
+                            {/* {Array.header.map((value) => {
+                                return(
+                                    <th>{value}</th>
+                                );
+                            })} */}
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>4</td><Link to="/feedback/detail"><td>회사 지원 동기</td></Link><td>abd3</td><td>44</td><td>33</td>
-                            </tr>
-                            <tr>
-                                <td>5</td><td>다른 사람보다 뛰어난 점</td><td>Dolor</td><td>32</td><td>22</td>
-                            </tr>
-                            <tr>
-                                <td>6</td><td>ARP 매커니즘에 대해서</td><td>Dolor</td><td>34</td><td>55</td>
-                            </tr>
+                            {/* {Array.data.map((value, idx) => {
+                                return(
+                                    <tr>
+                                        <td> {idx + 1} </td>
+                                        <td> { value.feedback_title } </td>
+                                        <td> { value.feedback_title } </td>
+                                        <td> { value.feedback_title } </td>
+                                        <td> { value.feedback_title } </td>
+                                        <td> { value.feedback_title } </td>
+                                    </tr>
+                                );
+                            })} */}
                         </tbody>
                     </table>
                 </div>

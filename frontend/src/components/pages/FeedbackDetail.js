@@ -1,12 +1,23 @@
-import React, {Component} from 'react';
-import FeedbackMenu from "../includes/FeedbackMenubar"
+import React, { useState } from 'react';
+import FeedbackMenu from "../includes/FeedbackMenubar";
+import jwt from "jwt-decode";
+import api from "../shared/api"
 // import {Link} from 'react-router-dom';
 
+function FeedbackDetail() {
+    // const [Array, SetArray] = useState([]);
+    let feedbackId = new URL(window.location.href).pathname.split('/')[3]
+    const Token = sessionStorage.getItem('Authorization')
+    const userInfo = jwt(Token)
 
+    const upLikeCnt = async() => {
+        const data = await api.post(`/feedback/api/${userInfo.id}/${feedbackId}`)
+            .then(res => {
+                console.log(res);
+            })
+    }
 
-class FeedbackDetail extends Component {
-    render() {
-        return (
+    return (
         <div>
         <FeedbackMenu />
 
@@ -14,6 +25,7 @@ class FeedbackDetail extends Component {
             <div className="feedbackdetail-title">   
                 <span className="feedbackdetail-title-left">우리 회사에 지원한 동기</span>
                 <span className='feedbackdetail-title-right'>ㅅㅇㅅ</span>
+                <button style={{ color: 'red', backgroundColor: 'black'}} onClick={()=> { upLikeCnt() }}>좋아요</button>
             </div>
             <div class="feedbackdetail-video-grid-container-box">
                 <div class="feedbackdetail-video-grid-box">
@@ -44,6 +56,5 @@ class FeedbackDetail extends Component {
         </div>
         </div>
         )
-    }
 }
 export default FeedbackDetail
