@@ -4,8 +4,10 @@ module.exports = class LikeCnt extends Sequelize.Model{
     static init(sequelize){
         return super.init(
             {
-                like_cnt: {
-                    type: Sequelize.INTEGER
+                id: {
+                    type: Sequelize.INTEGER,
+                    autoIncrement: true,
+                    primaryKey: true
                 }
             }, {
                 sequelize,
