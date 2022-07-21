@@ -95,7 +95,7 @@ function PeerjsAlone() {
 
   useEffect(() => {
       async function getQuestions() {
-          const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
+          const data = await axios.get(`https://3.35.82.134:8000/training/alone/api/questions/${key}`).then(res => {
               console.log(res)
               SetQuestions(res.data);
           });

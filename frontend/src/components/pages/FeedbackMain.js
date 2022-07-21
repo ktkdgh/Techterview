@@ -6,7 +6,7 @@ import axios from 'axios';
 function Feedback() {
     useEffect(() => {
         async function getFeedback() {
-            const data = await axios.get('http://localhost:8000/feedback/api/getfeedback')
+            const data = await axios.get('https://3.35.82.134:8000/feedback/api/getfeedback')
                 .then(res => {
                     console.log(res);
                 });

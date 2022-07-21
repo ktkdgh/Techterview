@@ -14,7 +14,7 @@ import { faShareFromSquare} from '@fortawesome/free-solid-svg-icons';
 
 function PeerOthersroom() {
 
-  const socket = io.connect('http://localhost:8001')
+  const socket = io.connect('https://3.35.82.134:8001')
   const url = window.location.pathname.split('/');
   const ROOM_ID = url[3]
   const remoteVideoRef = useRef(null);
@@ -147,7 +147,7 @@ const [AudioIndex, SetAudioIndex] = useState(0);
 
 useEffect(() => {
     async function getQuestions() {
-        const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
+        const data = await axios.get(`https://3.35.82.134:8000/training/alone/api/questions/${key}`).then(res => {
             console.log(res)
             SetQuestions(res.data);
         });
