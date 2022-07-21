@@ -2,11 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
 import uuid from 'react-uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal  from "../modal/VideoQuestionModal"
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-function PeerjsAlone({IncreaseAudioIndex, autoAudioPlay, SetQuestionIndex}) {
+
+function PeerjsAlone() {
   const currentUserVideoRef = useRef(null);
   const recordedVideo = useRef(null);
   const [openModal, setOpenModal] = useState(false);
@@ -20,6 +23,7 @@ function PeerjsAlone({IncreaseAudioIndex, autoAudioPlay, SetQuestionIndex}) {
     video: true
   });
 
+  /* 화면 노출 */
   const call = () => {
     var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     getUserMedia({ video: true, audio: true }, (mediaStream) => {
@@ -27,14 +31,9 @@ function PeerjsAlone({IncreaseAudioIndex, autoAudioPlay, SetQuestionIndex}) {
       currentUserVideoRef.current.play();
     })
   }
-  // const call = () => {
-  //   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-  //   getUserMedia({ video: true, audio: true }, (mediaStream) => {
-  //     currentUserVideoRef.current.srcObject = mediaStream;
-  //     currentUserVideoRef.current.play();
-  //   })
-  // }
 
+
+  /*녹화, 질문 버튼 관련 함수 */
   const start = () => {
     let recordedChunks = [];
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
@@ -87,6 +86,49 @@ function PeerjsAlone({IncreaseAudioIndex, autoAudioPlay, SetQuestionIndex}) {
     }
   }
 
+
+  const { key } = useParams();
+  let data = [];
+  const [Questions, SetQuestions] = useState([]);
+  const [QuestionsIndex, SetQuestionsIndex] = useState(0);
+  const [AudioIndex, SetAudioIndex] = useState(0);
+
+  useEffect(() => {
+      async function getQuestions() {
+          const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
+              console.log(res)
+              SetQuestions(res.data);
+          });
+
+      }
+      getQuestions();
+
+  }, []);
+
+  const getQuestion = () => {
+      if (Questions && Questions.length !== 0) {
+          if (QuestionsIndex !== -1) {
+              const q = Questions[QuestionsIndex];
+              if (q && q.length !== 0) {
+                  return q[0];
+              }
+          }
+      }
+  };
+  const getQuestionAudio = () => {
+      if (Questions && Questions.length !== 0) {
+          if (QuestionsIndex !== -1) {
+              const q = Questions[AudioIndex];
+              if (q && q.length !== 0) {
+                  return q[1];
+              }
+          }
+      }
+  };
+   
+  let audio = new Audio(getQuestionAudio());
+
+
   return (
     <div>
       <div className='training-alone-start-modal' id='training-alone-start-modal'>
@@ -97,14 +139,19 @@ function PeerjsAlone({IncreaseAudioIndex, autoAudioPlay, SetQuestionIndex}) {
             면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
           </div>
           <div className='training-alone-start-modal-footer'>
-            <button className='btn-yes' onClick={() => { call(); getHide(); getShow();  autoAudioPlay.play(); IncreaseAudioIndex();}} > 시작하기</button>
+            <button className='btn-yes' onClick={() => { call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();}} > 시작하기</button>
           </div >
         </div >
       </div >
 
         
+      <div id='alone-questions' style={{ color: 'white', fontSize: '32px', textAlign: "center", display:"none" }}>{getQuestion()}</div>
+                
 
-    <div class="training-others-main-body">
+
+
+
+    <div class="training-alone-main-body">
       <div class="traing-inner-box">
         <div class='video-container'>
           <div>
@@ -115,41 +162,42 @@ function PeerjsAlone({IncreaseAudioIndex, autoAudioPlay, SetQuestionIndex}) {
           </div>      
         </div>
       </div>
-      <div class="training-others-main_controls">
-        <div class="main_controls_block">
-          
+      <div class="training-alone-main-controls">
+        <div class="main-controls-block">
           <div
-            class="training-others-main_controls_button"
+            class="training-alone-main-controls-button"
             id="playPauseVideo"
             onclick="playStop()">
           <i class="fa fa-video-camera" size="lg" ></i>
             <span onClick={() => { start(); }}>Record</span>
           </div>
-          <div class="training-others-main_controls_button">
+          <div class="training-alone-main-controls-button">
           <i class="fa fa-pause"></i>
             <span onClick={() => { finish(); }}>Pause Record</span>
           </div>
-          <div class="training-others-main_controls_button">
+          <div class="training-alone-main-controls-button">
           <FontAwesomeIcon icon={faCloudArrowDown} />
             <span onClick={() => { download(); }}>Download</span>
           </div>
-
-        {/* <div class="training-others-main_controls_button">
-            <FontAwesomeIcon icon={faArrowAltCircleRight} />
-            <span class="video-next-btn" onClick={() => { autoAudioPlay.play();SetQuestionIndex(); IncreaseAudioIndex();}}>Next</span>
-          </div> */}
+          <div class="training-alone-main-controls-button" onClick={() => {
+                  audio.play()
+                  SetQuestionsIndex(QuestionsIndex + 1)
+                  SetAudioIndex(AudioIndex + 1)
+              }}>
+            <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+              Next
           </div>
-        <div class="training-others-main_controls_block">
-          <div class="main_controls_button-leave-meeting" id="leave-meeting">
-        
+
+        </div>
+        <div class="training-alone-main-controls-block">
+          <div class="main-controls-button-leave-meeting" id="leave-meeting">
+  
             <button class="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
             {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
 
           </div>
         </div>
-        <div class="training-others-main_controls_button">
 
-        </div>
       </div>
     </div>
         </div>
