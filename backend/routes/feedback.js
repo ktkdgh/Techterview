@@ -5,7 +5,9 @@ const { Feedback, LikeCnt, Member } = require('../models');
 router.get('/api/getfeedback', async (req, res) => {
     try {
         const feedbackAll = await Feedback.findAll({ order: [['like_cnt', 'DESC']]})
-        // const like_cnt = await LikeCnt.findAll([{include: Member}])
+        const like_cnt = await LikeCnt.findAll({
+            include: [{ model: Member }, { model: Feedback }]
+        })
         feedback_array = []
         feedbackAll.forEach((value) => {
             feedback_array.push(value.dataValues)
