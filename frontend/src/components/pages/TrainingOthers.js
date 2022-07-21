@@ -5,6 +5,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import PeerOthersroom from '../peerjs/PeerOthersroom'
 import { v4 as uuidv4 } from 'uuid';
 import { useLocation } from "react-router-dom"; 
+import { Link } from 'react-router-dom';
 
 
 function TrainingOthers() {
@@ -15,7 +16,7 @@ function TrainingOthers() {
     return (
         <div className="training-container">
             <Helmet><style>{'body { background-color: black; }'}</style></Helmet>
-            <div className="training-navigation-bar-logo"> TECHTERVIEW </div>
+            <Link to="/" style={{textDecoration: 'none'}}><div className="training-navigation-bar-logo"> TECHTERVIEW </div></Link> 
                 <PeerOthersroom  />
 
             <div className='training-footer'>
