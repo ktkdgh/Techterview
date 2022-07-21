@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import '../css/TrainingAloneStartModal.css';
 
 function CreateRoomAlone({ closeModal }) {
 
@@ -77,7 +78,10 @@ function CreateRoomAlone({ closeModal }) {
     }
     return (
         <div className="Create-delete-modal">
+
             <div className="Create-delete-modal-content">
+            {/* <i class="fa fa-times" size="6x" style={{color:"black", size:"6x"}} ></i> */}
+
                 <div className="Create-delete-modal-body">
                     <h1>연습을 준비해 볼까요?</h1>
                 </div>
