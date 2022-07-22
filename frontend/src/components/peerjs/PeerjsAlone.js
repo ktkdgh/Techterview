@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
-import uuid from 'react-uuid';
+import { v1 as uuid } from 'uuid';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from "../modal/VideoQuestionModal"
@@ -11,14 +12,16 @@ import axios from 'axios';
 import { uploadFile } from 'react-s3';
 
 function PeerjsAlone() {
-  const currentUserVideoRef = useRef(null);
-  const recordedVideo = useRef(null);
+  const currentUserVideoRef = useRef(null); //recordRef
+  const recordedVideo = useRef(null); // stopRef
+
   // const [videoUrl, setVideoUrl] = useState("");
   const [flag, setFlag] = useState(false)
   const [openModal, setOpenModal] = useState(false);
   // let mediaStream = null;
   let mediaRecorder = null;
   let recordedMediaURL = null;
+  let recordedChunks = [];
 
   const mediaStream = navigator.mediaDevices.getUserMedia({
     audio: true,
@@ -37,77 +40,115 @@ function PeerjsAlone() {
 
   /*녹화, 질문 버튼 관련 함수 */
   const start = () => {
-    let recordedChunks = [];
+    // let recordedChunks = [];
+
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
     // TypeError: Failed to construct 'MediaRecorder': parameter 1 is not of type 'MediaStream'.
-    mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject);
+    mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+      mimeType: 'video/webm; codecs=vp8'
+    });
+    mediaRecorder.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
+
     console.log("start check");
-    console.log("mediaRecorder:", mediaRecorder);
+    console.log("mediaRecorder start:", mediaRecorder); // 첫 start 여기까지 출력
 
     // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
     mediaRecorder.ondataavailable = function (e) {
-      console.log("success");
-      if (e.data && e.data.size > 0) {
-        console.log('ondataavailable');
-        recordedChunks.push(e.data);
-      }
+      console.log('ondataavailable');
+      recordedChunks.push(e.data);
     };
 
+    // 초기 start 누르고 난 뒤 이후, 나머지는 동일하게 작동, 이제부터 밑으로는 크게 변화함
+
+    //on.stop  원래 지점 잠시이동
+    // 3. 녹화 중지 이벤트 핸들러 등록 /
+    // mediaRecorder.onstop = function () {
+    //   // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
+    //   // 그렇지 않으면 메모리 누수 문제가 발생합니다.
+    //   console.log('mediaRecorder.onstop:', mediaRecorder);
+    //   if (recordedMediaURL) {
+    //     URL.revokeObjectURL(recordedMediaURL);
+    //   }
+
+    //   const blob = new Blob(recordedChunks, { type: 'video/mp4;' });
+    //   const fileName = uuid();
+    //   const recordFile = new File([blob], fileName + ".mp4", {
+    //     type: blob.type,
+    //   })
+    //   console.log("recordFile:", recordFile);
+
+    //   recordedMediaURL = window.URL.createObjectURL(recordFile);
+    //   // recordedVideo.src = recordedMediaURL; // 사용되지 않는 코드로 판별
+
+    //   console.log("before record");
+    //   // 녹화 관련 설정 
+    //   const config = {
+    //     bucketName: process.env.REACT_APP_S3_BUCKET,
+    //     dirName: process.env.REACT_APP_DIR_NAME,
+    //     region: process.env.REACT_APP_REGION,
+    //     accessKeyId: process.env.REACT_APP_ACCESS_KEY,
+    //     secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
+    //   };
+    //   console.log("recording");
+
+    //   uploadFile(recordFile, config)
+    //     .then(data => console.log(data))
+    //     .catch(err => console.error(err))
+    //   console.log("recored");
+    // };
+  }
 
 
-    // 3. 녹화 중지 이벤트 핸들러 등록
+  function finish() {
     mediaRecorder.onstop = function () {
       // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
       // 그렇지 않으면 메모리 누수 문제가 발생합니다.
-      console.log('function3');
+      console.log('mediaRecorder.onstop:', mediaRecorder);
       if (recordedMediaURL) {
         URL.revokeObjectURL(recordedMediaURL);
       }
 
       const blob = new Blob(recordedChunks, { type: 'video/mp4;' });
       const fileName = uuid();
-      const recordFile = new File([blob], fileName + ".webm", {
+      const recordFile = new File([blob], fileName + ".mp4", {
         type: blob.type,
       })
+      console.log("recordFile:", recordFile);
+
       recordedMediaURL = window.URL.createObjectURL(recordFile);
-      recordedVideo.src = recordedMediaURL;
+      // recordedVideo.src = recordedMediaURL; // 사용되지 않는 코드로 판별
 
+      console.log("before record");
       // 녹화 관련 설정 
-
       const config = {
-        bucketName: "techterview",
-        dirName: "test",
-        region: "ap-northeast-2",
-        accessKeyId: "AKIAU6F7Y3ACUVNPW6XG",
-        secretAccessKey: "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",
+        bucketName: process.env.REACT_APP_S3_BUCKET,
+        dirName: process.env.REACT_APP_DIR_NAME,
+        region: process.env.REACT_APP_REGION,
+        accessKeyId: process.env.REACT_APP_ACCESS_KEY,
+        secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
       };
+      console.log("recording");
 
       uploadFile(recordFile, config)
         .then(data => console.log(data))
         .catch(err => console.error(err))
+      console.log("recored");
 
-      mediaRecorder.start();
-      setFlag(true)
-    }
-  };
-
-  function finish() {
-    if (mediaRecorder) {
-      // 5. 녹화 중지
-      mediaRecorder.stop();
-    }
-  }
-
-  function download() {
-    if (recordedMediaURL) {
       const link = document.createElement('a');
       document.body.appendChild(link);
       link.href = recordedMediaURL;
       link.download = 'video.mp4';
       link.click();
       document.body.removeChild(link);
-    }
+
+    };
+    mediaRecorder.stop();
   }
+
+  // function download() {
+  //   if (recordedMediaURL) {
+  //   }
+  // }
 
   // // 녹화 관련 설정 
 
@@ -221,7 +262,7 @@ function PeerjsAlone() {
             <>
               <button onClick={() => { start(); }}>start</button>
               <button onClick={() => { finish(); }}>finish</button>
-              <button onClick={() => { download(); }}>download</button>
+              {/* <button onClick={() => { download(); }}>download</button> */}
             </>
             <div class="training-alone-main-controls-button" onClick={() => {
               audio.play()

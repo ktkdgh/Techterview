@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
-import uuid from 'react-uuid';
+import { v1 as uuid } from 'uuid';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from "../modal/VideoQuestionModal"
@@ -8,16 +9,18 @@ import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+import { uploadFile } from 'react-s3';
 
 function PeerjsAlone() {
-  const currentUserVideoRef = useRef(null);
-  const recordedVideo = useRef(null);
+  const currentUserVideoRef = useRef(null); //recordRef
+  const recordedVideo = useRef(null); // stopRef
+
+  // const [videoUrl, setVideoUrl] = useState("");
+  const [flag, setFlag] = useState(false)
   const [openModal, setOpenModal] = useState(false);
-  const [flag, setFlag] = useState(false);
   // let mediaStream = null;
   let mediaRecorder = null;
-  let recordedMediaURL = null
-  // const [recordedMediaURL, setrecordedMediaURL] = useState[""];
+  let recordedMediaURL = null;
 
   const mediaStream = navigator.mediaDevices.getUserMedia({
     audio: true,
@@ -33,43 +36,74 @@ function PeerjsAlone() {
     })
   }
 
+
   /*녹화, 질문 버튼 관련 함수 */
   const start = () => {
     let recordedChunks = [];
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
-    mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject);
+    // TypeError: Failed to construct 'MediaRecorder': parameter 1 is not of type 'MediaStream'.
+    mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+      mimeType: 'video/webm; codecs=vp8'
+    });
+
+    console.log("start check");
+    console.log("mediaRecorder start:", mediaRecorder);
 
     // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
     mediaRecorder.ondataavailable = function (e) {
+      console.log("success");
       if (e.data && e.data.size > 0) {
         console.log('ondataavailable');
         recordedChunks.push(e.data);
       }
     };
 
+
+
     // 3. 녹화 중지 이벤트 핸들러 등록
     mediaRecorder.onstop = function () {
       // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
       // 그렇지 않으면 메모리 누수 문제가 발생합니다.
+      console.log('mediaRecorder.onstop:', mediaRecorder);
       if (recordedMediaURL) {
         URL.revokeObjectURL(recordedMediaURL);
       }
 
-      const blob = new Blob(recordedChunks, { type: 'video/webm;' });
+      const blob = new Blob(recordedChunks, { type: 'video/mp4;' });
       const fileName = uuid();
-      const recordFile = new File([blob], fileName + ".webm", {
+      const recordFile = new File([blob], fileName + ".mp4", {
         type: blob.type,
       })
+
       recordedMediaURL = window.URL.createObjectURL(recordFile);
       recordedVideo.src = recordedMediaURL;
+
+      console.log("before record");
+      // 녹화 관련 설정 
+      const config = {
+        bucketName: process.env.REACT_APP_S3_BUCKET,
+        dirName: process.env.REACT_APP_DIR_NAME,
+        region: process.env.REACT_APP_REGION,
+        accessKeyId: process.env.REACT_APP_ACCESS_KEY,
+        secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
+      };
+      console.log("recording");
+
+      uploadFile(recordFile, config)
+        .then(data => console.log(data))
+        .catch(err => console.error(err))
+
+      console.log("recored");
+
     };
     mediaRecorder.start();
-    setFlag(true);
-    console.log(flag);
+    setFlag(true)
   }
+
 
   function finish() {
     if (mediaRecorder) {
+      // 5. 녹화 중지
       mediaRecorder.stop();
     }
   }
@@ -85,18 +119,34 @@ function PeerjsAlone() {
     }
   }
 
+  // // 녹화 관련 설정 
+
+  // const config = {
+  //   bucketName: "techterview",
+  //   dirName: "test",
+  //   region: "ap-northeast-2",
+  //   accessKeyId: "AKIAU6F7Y3ACUVNPW6XG",
+  //   secretAccessKey: "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",
+  // };
+
+  // uploadFile(recordFile, config)
+  //   .then(data => console.log(data))
+  //   .catch(err => console.error(err))
+
+
   const { key } = useParams();
+  let data = [];
   const [Questions, SetQuestions] = useState([]);
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
   const [AudioIndex, SetAudioIndex] = useState(0);
 
-  let leftQuestions = Questions.length - QuestionsIndex - 1
-  console.log(leftQuestions)
   useEffect(() => {
     async function getQuestions() {
       const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
+        // console.log(res)
         SetQuestions(res.data);
       });
+
     }
     getQuestions();
   }, []);
@@ -111,6 +161,7 @@ function PeerjsAlone() {
       }
     }
   };
+
   const getQuestionAudio = () => {
     if (Questions && Questions.length !== 0) {
       if (QuestionsIndex !== -1) {
@@ -121,6 +172,9 @@ function PeerjsAlone() {
       }
     }
   };
+
+
+
 
   let audio = new Audio(getQuestionAudio());
 
@@ -140,12 +194,12 @@ function PeerjsAlone() {
         </div >
       </div >
 
-      <div id='alone-questions' style={{ color: 'white', fontSize: '32px', textAlign: "center", display: "none" }}>{getQuestion()}
-        <hr></hr>
-        <>
-          남은 문제수 : {leftQuestions}
-        </>
-      </div>
+
+      <div id='alone-questions' style={{ color: 'white', fontSize: '32px', textAlign: "center", display: "none" }}>{getQuestion()}</div>
+
+
+
+
 
       <div class="training-alone-main-body">
         <div class="traing-inner-box">
@@ -160,25 +214,34 @@ function PeerjsAlone() {
         </div>
         <div class="training-alone-main-controls">
           <div class="main-controls-block">
-
+            {/* <div
+              class="training-alone-main-controls-button"
+              id="playPauseVideo">
+              <i class="fa fa-video-camera" size="lg" ></i>
+              <span onClick={() => { start(); }}>Record</span>
+            </div>
+            <div class="training-alone-main-controls-button">
+              <i class="fa fa-pause"></i>
+              <span onClick={() => { finish(); }}>Pause Record</span>
+            </div>
+            <div class="training-alone-main-controls-button">
+              <FontAwesomeIcon icon={faCloudArrowDown} />
+              <span onClick={() => { download(); }}>Download</span>
+            </div> */}
             <>
-              <button onClick={() => {
-                start();
-                // SetQuestionsIndex(QuestionsIndex + 1);
-                // SetAudioIndex(AudioIndex + 1);
-                // audio.play();
-              }}>start</button>
+              <button onClick={() => { start(); }}>start</button>
               <button onClick={() => { finish(); }}>finish</button>
               <button onClick={() => { download(); }}>download</button>
-              <div class="training-alone-main-controls-button" onClick={() => {
-                SetQuestionsIndex(QuestionsIndex + 1)
-                SetAudioIndex(AudioIndex + 1)
-                audio.play();
-              }}>
-                <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                Next
-              </div>
             </>
+            <div class="training-alone-main-controls-button" onClick={() => {
+              audio.play()
+              SetQuestionsIndex(QuestionsIndex + 1)
+              SetAudioIndex(AudioIndex + 1)
+            }}>
+              <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+              Next
+            </div>
+
           </div>
           <div class="training-alone-main-controls-block">
             <div class="main-controls-button-leave-meeting" id="leave-meeting">
@@ -210,20 +273,3 @@ function getShow() {
 
 
 export default PeerjsAlone;
-
-  // function next() {
-  //   SetQuestionsIndex(QuestionsIndex + 1);
-  //   SetAudioIndex(AudioIndex + 1);
-  //   audio.play();
-  // };
-
-  // useEffect(() => {
-  //   if (flag === true) {
-  //     function next() {
-  //       SetQuestionsIndex(QuestionsIndex + 1);
-  //       SetAudioIndex(AudioIndex + 1);
-  //       audio.play();
-  //     };
-  //   }
-  //   next();
-  // }, []);
