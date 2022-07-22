@@ -32,9 +32,9 @@
     "redux": "^4.2.0",
     "redux-actions": "^2.6.5",
     "redux-thunk": "^2.4.1",
-    "web-vitals": "^2.1.4",
     "socket.io": "^4.5.1",
-    "socket.io-client": "^4.5.1"
+    "socket.io-client": "^4.5.1",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

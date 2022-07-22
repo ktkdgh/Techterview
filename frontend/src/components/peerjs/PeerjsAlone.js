@@ -8,11 +8,12 @@ import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+import { uploadFile } from 'react-s3';
 
 function PeerjsAlone() {
   const currentUserVideoRef = useRef(null);
   const recordedVideo = useRef(null);
-  const [videourl, setVideourl] = useState("")
+  // const [videoUrl, setVideoUrl] = useState("");
   const [flag, setFlag] = useState(false)
   const [openModal, setOpenModal] = useState(false);
   // let mediaStream = null;
@@ -70,11 +71,25 @@ function PeerjsAlone() {
       })
       recordedMediaURL = window.URL.createObjectURL(recordFile);
       recordedVideo.src = recordedMediaURL;
-    };
-    mediaRecorder.start();
-    setFlag(true)
-  }
 
+      // 녹화 관련 설정 
+
+      const config = {
+        bucketName: "techterview",
+        dirName: "test",
+        region: "ap-northeast-2",
+        accessKeyId: "AKIAU6F7Y3ACUVNPW6XG",
+        secretAccessKey: "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",
+      };
+
+      uploadFile(recordFile, config)
+        .then(data => console.log(data))
+        .catch(err => console.error(err))
+
+      mediaRecorder.start();
+      setFlag(true)
+    }
+  };
 
   function finish() {
     if (mediaRecorder) {
@@ -93,6 +108,20 @@ function PeerjsAlone() {
       document.body.removeChild(link);
     }
   }
+
+  // // 녹화 관련 설정 
+
+  // const config = {
+  //   bucketName: "techterview",
+  //   dirName: "test",
+  //   region: "ap-northeast-2",
+  //   accessKeyId: "AKIAU6F7Y3ACUVNPW6XG",
+  //   secretAccessKey: "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",
+  // };
+
+  // uploadFile(recordFile, config)
+  //   .then(data => console.log(data))
+  //   .catch(err => console.error(err))
 
 
   const { key } = useParams();
@@ -133,6 +162,9 @@ function PeerjsAlone() {
       }
     }
   };
+
+
+
 
   let audio = new Audio(getQuestionAudio());
 
