@@ -1,19 +1,22 @@
 var express = require('express');
 var router = express.Router();
-const { Feedback, LikeCnt, Member } = require('../models');
+const { Feedback, LikeCnt, Member, Recording } = require('../models');
 
 router.get('/api/getfeedback', async (req, res) => {
     try {
-        const feedbackAll = await Feedback.findAll({ order: [['like_cnt', 'DESC']]})
-        const like_cnt = await LikeCnt.findAll({
-            include: [{ model: Member }, { model: Feedback }]
-        })
-        feedback_array = []
+        const feedbackAll = await Feedback.findAll({ order: [['like_cnt', 'DESC']], include: {model:Recording, include:{model:Member}}})
+        feedbackArray = []
         feedbackAll.forEach((value) => {
-            feedback_array.push(value.dataValues)
+            feedbackArray.push({
+                id: value.id,
+                feedback_title: value.feedback_title,
+                like_cnt: value.like_cnt,
+                reply_cnt: value.reply_cnt,
+                user_name: value.Recording.Member.name,
+                createdAt: value.createdAt
+            })
         })
-        res.send(feedback_array)
-        console.log(JSON.stringify(like_cnt, null, 2));
+        res.json(feedbackArray);
     } catch (err) {
         console.error(err);
         done(err);
@@ -23,8 +26,8 @@ router.get('/api/getfeedback', async (req, res) => {
 // LikeCnt
 router.post('/api/:memberId/:feedbackId', async (req, res) => {
     try {
-        memId = res.params.memberId;
-        feedId = res.params.feedbackId;
+        memId = req.params.memberId;
+        feedId = req.params.feedbackId;
         const likes = await LikeCnt.findOne({ where: { MemberId: memId, FeedbackId: feedId }})
         
         if (likes) {

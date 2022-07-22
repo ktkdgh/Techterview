@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import FeedbackMenu from "../includes/FeedbackMenubar";
 import jwt from "jwt-decode";
 import api from "../shared/api"
-// import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom'; 
 
 function FeedbackDetail() {
-    // const [Array, SetArray] = useState([]);
     let feedbackId = new URL(window.location.href).pathname.split('/')[3]
     const Token = sessionStorage.getItem('Authorization')
     const userInfo = jwt(Token)
+    console.log(userInfo.id);
+    console.log(feedbackId);
 
     const upLikeCnt = async() => {
         const data = await api.post(`/feedback/api/${userInfo.id}/${feedbackId}`)
