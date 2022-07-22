@@ -7,7 +7,7 @@ function Feedback() {
     const [FeedArray, SetFeedArray] = useState([]);
     useEffect(() => {
         async function getFeedback() {
-            await api.get('/feedback/api/getfeedback')
+            await api.get('/api/feedback/getfeedback')
                 .then(res => {
                     SetFeedArray(res.data)
                 });

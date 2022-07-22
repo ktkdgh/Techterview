@@ -6,7 +6,7 @@ const KakaoAuthHandle = () => {
     let code = new URL(window.location.href).searchParams.get("code");
     useEffect(() => {
         async function getCode() {
-            const data = await api.get(`/auth/api/${code}`)
+            await api.get(`api/auth/${code}`)
                 .then(res => {
                     const userInfo = jwt(res.data.accessToken)
                     sessionStorage.setItem("Authorization", res.data.accessToken);

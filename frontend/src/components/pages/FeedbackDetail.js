@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FeedbackMenu from "../includes/FeedbackMenubar";
 import jwt from "jwt-decode";
 import api from "../shared/api"
@@ -11,8 +11,16 @@ function FeedbackDetail() {
     console.log(userInfo.id);
     console.log(feedbackId);
 
+    useEffect(() => {
+        async function getFeedDetail(){
+            api.get('/api')
+
+        }
+    
+    },[])
+
     const upLikeCnt = async() => {
-        const data = await api.post(`/feedback/api/${userInfo.id}/${feedbackId}`)
+        const data = await api.post(`/api/feedback/${userInfo.id}/${feedbackId}`)
             .then(res => {
                 console.log(res);
             })

@@ -3,7 +3,7 @@ var router = express.Router();
 var shuffle = require('shuffle-array');
 const { Questions } = require('../../models');
 
-router.get('/api/questions/:subcategory', async (req, res) => {
+router.get('/questions/:subcategory', async (req, res) => {
     try {
         const questionsDB = await Questions.findAll({
             where: { SubCategoryId: req.params.subcategory },
@@ -20,7 +20,4 @@ router.get('/api/questions/:subcategory', async (req, res) => {
         done(err);
     }
 })
-
-
-
 module.exports = router;

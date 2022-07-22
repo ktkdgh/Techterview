@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const { Feedback, LikeCnt, Member, Recording } = require('../models');
 
-router.get('/api/getfeedback', async (req, res) => {
+router.get('/getfeedback', async (req, res) => {
     try {
         const feedbackAll = await Feedback.findAll({ order: [['like_cnt', 'DESC']], include: {model:Recording, include:{model:Member}}})
         feedbackArray = []
@@ -24,7 +24,7 @@ router.get('/api/getfeedback', async (req, res) => {
 })
 
 // LikeCnt
-router.post('/api/:memberId/:feedbackId', async (req, res) => {
+router.post('/:memberId/:feedbackId', async (req, res) => {
     try {
         memId = req.params.memberId;
         feedId = req.params.feedbackId;

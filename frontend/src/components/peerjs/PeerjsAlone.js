@@ -95,7 +95,7 @@ function PeerjsAlone() {
 
   useEffect(() => {
       async function getQuestions() {
-          const data = await api.get(`/training/alone/api/questions/${key}`).then(res => {
+          const data = await api.get(`/api/training/alone/questions/${key}`).then(res => {
               console.log(res)
               SetQuestions(res.data);
           });

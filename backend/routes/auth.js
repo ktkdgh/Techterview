@@ -9,7 +9,7 @@ dotenv.config();
 const KAKAO_AUTH_URL = process.env.KAKAO_AUTH_URL
 const KAKAO_AUTH_REDIRECT_URL = process.env.KAKAO_AUTH_REDIRECT_URL
 
-router.get("/api/:code", async(req, res, next) => {
+router.get("/:code", async(req, res, next) => {
     try {
         const {data} = await axios({
             method: 'POST',
