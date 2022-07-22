@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-module.exports = class LikeCnt extends Sequelize.Model{
-    static init(sequelize){
+module.exports = class LikeCnt extends Sequelize.Model {
+    static init(sequelize) {
         return super.init(
             {
                 id: {
@@ -10,16 +10,16 @@ module.exports = class LikeCnt extends Sequelize.Model{
                     primaryKey: true
                 }
             }, {
-                sequelize,
-                primarykey: false,
-                underscored: false,
-                charset: "utf8", 
-                collate: "utf8_bin", 
-                tableName: "likecnt", 
-                timestamps: false, 
-                paranoid: false, 
-            });
-        }
+            sequelize,
+            primarykey: false,
+            underscored: false,
+            charset: "utf8",
+            collate: "utf8_bin",
+            tableName: "likecnt",
+            timestamps: false,
+            paranoid: false,
+        });
+    }
 
     static associate(db) {
         db.LikeCnt.belongsTo(db.Member);

@@ -20,7 +20,7 @@ import TrainingOthers from "./components/pages/TrainingOthers";
 import OthersLobby from "./components/pages/TrainingOthersLobby";
 import KakaoAuthHandle from "./components/pages/KakaoAuthHandle";
 
-class App extends  Component {
+class App extends Component {
   render() {
     return (
       <div className="App">
@@ -39,8 +39,8 @@ class App extends  Component {
             </Route>
 
             <Route path="/page/training/alone/:key" element={<TrainingAlone />} />
-            <Route path="/training/others/:id" element={<TrainingOthers />} />
-            
+            <Route path="/training/page/training/with/:key/:id" element={<TrainingOthers />} />
+
 
           </Routes>
         </BrowserRouter>

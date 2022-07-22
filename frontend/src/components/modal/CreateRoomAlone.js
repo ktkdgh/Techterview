@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import '../css/TrainingAloneStartModal.css';
 
 function CreateRoomAlone({ closeModal }) {
 
@@ -38,37 +37,36 @@ function CreateRoomAlone({ closeModal }) {
     const Options1 = [
         {
             key: 8,
-            value: "개발상식",
+            value: "JavaScript",
         },
         {
             key: 9,
-            value: "기본질문",
-        }];
-
-
-    const Options2 = [
+            value: "Java",
+        },
         {
             key: 10,
             value: "React",
-        },
+        }];
+
+    const Options2 = [
         {
             key: 11,
-            value: "JAVA",
+            value: "기본질문",
         },
         {
             key: 12,
-            value: "JavaScript",
+            value: "개발상식",
         }];
 
     const Options3 = [
 
         {
             key: 13,
-            value: "frontend",
+            value: "프론트엔드",
         },
         {
             key: 14,
-            value: "backend"
+            value: "백엔드"
         }
     ];
 
@@ -78,10 +76,7 @@ function CreateRoomAlone({ closeModal }) {
     }
     return (
         <div className="Create-delete-modal">
-
             <div className="Create-delete-modal-content">
-            {/* <i class="fa fa-times" size="6x" style={{color:"black", size:"6x"}} ></i> */}
-
                 <div className="Create-delete-modal-body">
                     <h1>연습을 준비해 볼까요?</h1>
                 </div>
@@ -95,13 +90,13 @@ function CreateRoomAlone({ closeModal }) {
                             </DropdownButton>
                         </div>
                         <div>
-                            <DropdownButton id="dropdown-basic-button" title="기본질문 및 개발 상식">
+                            <DropdownButton id="dropdown-basic-button" title="언어">
                                 {Options1.map((element) => <Dropdown.Item onClick={() => setSendNum(element.key)} href=""> {element.value}</Dropdown.Item>)}
 
                             </DropdownButton>
                         </div>
                         <div>
-                            <DropdownButton id="dropdown-basic-button" title="언어">
+                            <DropdownButton id="dropdown-basic-button" title="기본질문 및 개발상식">
                                 {Options2.map((element) => <Dropdown.Item onClick={() => setSendNum(element.key)} href=""> {element.value}</Dropdown.Item>)}
 
                             </DropdownButton>

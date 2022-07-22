@@ -146,40 +146,33 @@ function PeerjsAlone() {
 
         
       <div id='alone-questions' style={{ color: 'white', fontSize: '32px', textAlign: "center", display:"none" }}>{getQuestion()}</div>
-                
-
-
-
-
+              
     <div class="training-alone-main-body">
       <div class="traing-inner-box">
         <div class='video-container'>
-          <div>
-            <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='VideoBox' style={{ width: '100%', height: '480px', display: 'none' }} ></video>
-          </div>
-          <div>
-            <video muted ref={currentUserVideoRef}></video>
-          </div>      
+        <div>
+              <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='VideoBox' style={{ width: '100%', height: '480px', display: 'none' }} ></video>
+            </div>
+            <div>
+              <video muted ref={currentUserVideoRef}></video>
+            </div>
         </div>
       </div>
       <div class="training-alone-main-controls">
         <div class="main-controls-block">
           <div
-            class="training-alone-main-controls-button"
-            id="playPauseVideo"
-            onclick="playStop()">
-          <i class="fa fa-video-camera" size="lg" ></i>
-            <span onClick={() => { start(); }}>Record</span>
+            class="training-alone-main-controls"
+            id="playPauseVideo">
+            <span class="training-alone-main-controls-button"onClick={() => { start(); }}><i class="fa fa-video-camera" size="lg" >
+            </i>Record</span>
           </div>
-          <div class="training-alone-main-controls-button">
-          <i class="fa fa-pause"></i>
-            <span onClick={() => { finish(); }}>Pause Record</span>
+          <div class="training-alone-main-controls">
+            <span class="training-alone-main-controls-button" onClick={() => { finish(); }}><i class="fa fa-pause"></i>Pause Record</span>
           </div>
-          <div class="training-alone-main-controls-button">
-          <FontAwesomeIcon icon={faCloudArrowDown} />
-            <span onClick={() => { download(); }}>Download</span>
+          <div class="training-alone-main-controls">
+            <span class="training-alone-main-controls-button" onClick={() => { download(); }}><FontAwesomeIcon icon={faCloudArrowDown} />Download</span>
           </div>
-          <div class="training-alone-main-controls-button" onClick={() => {
+          <div id="faArrowAltIcon" class="training-alone-main-controls" onClick={() => {
                   audio.play()
                   SetQuestionsIndex(QuestionsIndex + 1)
                   SetAudioIndex(AudioIndex + 1)
@@ -195,27 +188,24 @@ function PeerjsAlone() {
             <button class="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
             {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
 
+            </div>
           </div>
         </div>
-
       </div>
     </div>
-        </div>
   );
 }
 
 function getHide() {
   document.getElementById("training-alone-start-modal").style.display = "none"
-  
+
 }
 function getShow() {
   document.getElementById("interviewer").style.display = ""
   document.getElementById("alone-questions").style.display = ""
-
-
 }
 
 
-
-
 export default PeerjsAlone;
+
+

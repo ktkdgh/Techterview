@@ -211,10 +211,12 @@ button.btn-cancel {
     padding: 5px 10px;
     margin: 3px;
 }
+
 .video-question-list:hover {
     border: 2px solid lightseagreen;
     color: black;
 }
+
 .video-edit-modal-content {
     display: flex;
     flex-direction: column;
