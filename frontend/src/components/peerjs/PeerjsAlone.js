@@ -165,21 +165,18 @@ function PeerjsAlone() {
       <div class="training-alone-main-controls">
         <div class="main-controls-block">
           <div
-            class="training-alone-main-controls-button"
-            id="playPauseVideo"
-            onclick="playStop()">
-          <i class="fa fa-video-camera" size="lg" ></i>
-            <span onClick={() => { start(); }}>Record</span>
+            class="training-alone-main-controls"
+            id="playPauseVideo">
+            <span class="training-alone-main-controls-button"onClick={() => { start(); }}><i class="fa fa-video-camera" size="lg" >
+            </i>Record</span>
           </div>
-          <div class="training-alone-main-controls-button">
-          <i class="fa fa-pause"></i>
-            <span onClick={() => { finish(); }}>Pause Record</span>
+          <div class="training-alone-main-controls">
+            <span class="training-alone-main-controls-button" onClick={() => { finish(); }}><i class="fa fa-pause"></i>Pause Record</span>
           </div>
-          <div class="training-alone-main-controls-button">
-          <FontAwesomeIcon icon={faCloudArrowDown} />
-            <span onClick={() => { download(); }}>Download</span>
+          <div class="training-alone-main-controls">
+            <span class="training-alone-main-controls-button" onClick={() => { download(); }}><FontAwesomeIcon icon={faCloudArrowDown} />Download</span>
           </div>
-          <div class="training-alone-main-controls-button" onClick={() => {
+          <div class="training-alone-main-controls" onClick={() => {
                   audio.play()
                   SetQuestionsIndex(QuestionsIndex + 1)
                   SetAudioIndex(AudioIndex + 1)

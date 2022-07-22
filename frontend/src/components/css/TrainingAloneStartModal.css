@@ -170,3 +170,8 @@
     padding: 5px 40px;
     border-radius: 10px;
 }
+
+span.training-alone-main-controls-button {
+    display: flex;
+    flex-direction: column;
+}
