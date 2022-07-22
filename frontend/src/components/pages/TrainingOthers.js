@@ -53,9 +53,6 @@ function TrainingOthers() {
             <div className="training-navigation-bar-logo"> TECHTERVIEW </div>
             <div style={{ color: 'white', fontSize: '32px', textAlign: "center" }}>{getQuestion()}</div>
             <PeerOthersroom />
-            {/* <Link to="/" style={{textDecoration: 'none'}}><div className="training-navigation-bar-logo"> TECHTERVIEW </div></Link> 
-                <PeerOthersroom  />
->>>>>>> af75ee1434e93b6bc636210dda1437b994dc331a */}
 
             <div className='training-footer'>
                 <div className="training-container-box">

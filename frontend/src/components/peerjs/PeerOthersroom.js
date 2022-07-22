@@ -3,14 +3,21 @@ import React, { useEffect, useState, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import "../css/TrainingAloneStartModal.css"
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
+import VideoQuestionModal from "../modal/VideoQuestionModal"
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import uuid from 'react-uuid';
+import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 
 function PeerOthersroom() {
 
   const socket = io.connect('http://localhost:8001')
   const url = window.location.pathname.split('/');
   const ROOM_ID = url[5]
-  console.log(ROOM_ID);
+  // console.log(ROOM_ID);
   const remoteVideoRef = useRef(null);
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
@@ -22,7 +29,7 @@ function PeerOthersroom() {
 
     peer.on("open", (id) => {
       socket.emit("join-room", ROOM_ID, id);
-      console.log(ROOM_ID, peer);
+      // console.log(ROOM_ID, peer);
     });
 
     socket.on("user-connected", (userId) => {
@@ -73,54 +80,163 @@ function PeerOthersroom() {
     alert("URL Copied.");
   };
 
+
+  let mediaRecorder = null;
+  let recordedMediaURL = null;
+  const recordedVideo = useRef(null);
+  const [openModal, setOpenModal] = useState(false);
+
+  /*녹화, 질문 버튼 관련 함수 */
+  const start = () => {
+    let recordedChunks = [];
+    // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
+    // TypeError: Failed to construct 'MediaRecorder': parameter 1 is not of type 'MediaStream'.
+    mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject);
+
+    // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
+    mediaRecorder.ondataavailable = function (e) {
+      if (e.data && e.data.size > 0) {
+        console.log('ondataavailable');
+        recordedChunks.push(e.data);
+      }
+    };
+
+    // 3. 녹화 중지 이벤트 핸들러 등록
+    mediaRecorder.onstop = function () {
+      // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
+      // 그렇지 않으면 메모리 누수 문제가 발생합니다.
+      if (recordedMediaURL) {
+        URL.revokeObjectURL(recordedMediaURL);
+      }
+
+      const blob = new Blob(recordedChunks, { type: 'video/webm;' });
+      const fileName = uuid();
+      const recordFile = new File([blob], fileName + ".webm", {
+        type: blob.type,
+      })
+      recordedMediaURL = window.URL.createObjectURL(recordFile);
+      recordedVideo.src = recordedMediaURL;
+    };
+    mediaRecorder.start();
+  }
+
+
+  function finish() {
+    if (mediaRecorder) {
+      // 5. 녹화 중지
+      mediaRecorder.stop();
+    }
+  }
+
+  function download() {
+    if (recordedMediaURL) {
+      const link = document.createElement('a');
+      document.body.appendChild(link);
+      link.href = recordedMediaURL;
+      link.download = 'video.webm';
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+
+
+  const { key } = useParams();
+  let data = [];
+  const [Questions, SetQuestions] = useState([]);
+  const [QuestionsIndex, SetQuestionsIndex] = useState(0);
+  const [AudioIndex, SetAudioIndex] = useState(0);
+
+  useEffect(() => {
+    async function getQuestions() {
+      const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
+        // console.log(res)
+        SetQuestions(res.data);
+      });
+
+    }
+    getQuestions();
+
+  }, []);
+
+  const getQuestion = () => {
+    if (Questions && Questions.length !== 0) {
+      if (QuestionsIndex !== -1) {
+        const q = Questions[QuestionsIndex];
+        if (q && q.length !== 0) {
+          return q[0];
+        }
+      }
+    }
+  };
+  const getQuestionAudio = () => {
+    if (Questions && Questions.length !== 0) {
+      if (QuestionsIndex !== -1) {
+        const q = Questions[AudioIndex];
+        if (q && q.length !== 0) {
+          return q[1];
+        }
+      }
+    }
+  };
+
+  let audio = new Audio(getQuestionAudio());
+
+
+
+
   return (
     <div class="training-others-main-body">
-      <div class="traing-inner-box" >
-        <div id="video-grid"></div>
-        <video muted ref={currentUserVideoRef} />
-        <video muted ref={remoteVideoRef} />
-        <div id="video-grid"></div>
+      <div class="training-others-inner-box" >
+        <div class="training-others-main-controls-share-button" >
+          <div class="main-controls-button-share-icon" id="leave-meeting">
+            <FontAwesomeIcon icon={faShareFromSquare} onClick={() => { copyToClipboard(); }} />
+          </div>
+        </div>
+        <div id="video-grid">
+          <video ref={currentUserVideoRef} />
+          <video ref={remoteVideoRef} />
+        </div>
       </div>
 
-      <div class="training-others-main_controls">
-        <div class="main_controls_block">
+      <div class="training-others-main-controls">
+        <div class="main-controls-block">
           <div
-            class="training-others-main_controls_button"
-            id="muteButton"
-            onclick="muteUnmute()">
-            <i class="fa fa-microphone" size="lg"></i>
-            <span>Mute</span>
-          </div>
-          <div
-            class="training-others-main_controls_button"
+            class="training-others-main-controls-button"
             id="playPauseVideo"
-            onclick="playStop()"
-          >
-            <i class="fa fa-pause"></i>
-            <span>Pause Video</span>
-          </div>
-
-          <div class="training-others-main_controls_button">
-            <i class="fa fa-comment" size="lg"></i>
-            <span>Record</span>
-          </div>
-        </div>
-        <div class="training-others-main_controls_block">
-          <div class="main_controls_button leaveMeeting" id="leave-meeting">
-            <i class="fa fa-times" size="6x"></i>
-            <span class="">Leave Meeting</span>
-          </div>
-        </div>
-        <div class="training-others-main_controls_button">
-          <div class="main_controls_button leaveMeeting" id="leave-meeting">
-
+            onClick="playStop()">
             <i class="fa fa-video-camera" size="lg" ></i>
-            <input type="button" value="Copy Url" onClick={() => { copyToClipboard(); }} />
-            <br />
+            <span onClick={() => { start(); }}>Record</span>
           </div>
+          <div class="training-others-main-controls-button">
+            <i class="fa fa-pause"></i>
+            <span onClick={() => { finish(); }}>Pause Record</span>
+          </div>
+          <div class="training-others-main-controls-button">
+            <FontAwesomeIcon icon={faCloudArrowDown} />
+            <span onClick={() => { download(); }}>Download</span>
+          </div>
+          <div class="training-others-main-controls-button" onClick={() => {
+            audio.play()
+            SetQuestionsIndex(QuestionsIndex + 1)
+            SetAudioIndex(AudioIndex + 1)
+          }}>
+            <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+            Next
+          </div>
+
         </div>
-      </div>
-    </div>
+        <div class="training-others-main-controls-block">
+          <div class="main-controls-button-leave-meeting" id="leave-meeting">
+
+            <button class="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+            {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
+
+          </div >
+        </div >
+
+      </div >
+
+    </div >
   );
 
 }
