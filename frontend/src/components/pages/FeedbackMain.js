@@ -7,7 +7,7 @@ function Feedback() {
     const [FeedArray, SetFeedArray] = useState([]);
     useEffect(() => {
         async function getFeedback() {
-            await api.get('/api/feedback/getfeedback')
+            await api.get('/api/feedback/getMain')
                 .then(res => {
                     SetFeedArray(res.data)
                 });
@@ -53,7 +53,7 @@ function Feedback() {
                                 return(
                                     <tr>
                                         <td> {idx + 1} </td>
-                                        <a href={`/feedback/detail/${value.id}`}><td> { value.feedback_title } </td></a>
+                                        <a href= {`/feedback/detail/${value.id}`}><td> { value.feedback_title } </td></a>
                                         <td> { value.user_name } </td>
                                         <td> { value.like_cnt } </td>
                                         <td> { value.reply_cnt } </td>

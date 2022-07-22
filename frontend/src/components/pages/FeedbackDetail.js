@@ -5,24 +5,27 @@ import api from "../shared/api"
 // import {Link} from 'react-router-dom'; 
 
 function FeedbackDetail() {
+    let [DetailFeedback, SetDetailFeedback] = useState([]);
+    let [LikeStatus, SetLikeStatus] = useState("");
     let feedbackId = new URL(window.location.href).pathname.split('/')[3]
     const Token = sessionStorage.getItem('Authorization')
     const userInfo = jwt(Token)
-    console.log(userInfo.id);
-    console.log(feedbackId);
-
+    
     useEffect(() => {
         async function getFeedDetail(){
-            api.get('/api')
-
+            api.get(`/api/feedback/getDetail/${feedbackId}/${userInfo.id}`)
+                .then(res => {
+                    SetDetailFeedback(res.data);
+                    SetLikeStatus(res.data.userLikeCheck);
+                });
         }
-    
+        getFeedDetail();
     },[])
 
     const upLikeCnt = async() => {
-        const data = await api.post(`/api/feedback/${userInfo.id}/${feedbackId}`)
+        await api.post(`/api/feedback/${userInfo.id}/${feedbackId}`)
             .then(res => {
-                console.log(res);
+                console.log(res.data);
             })
     }
 
@@ -32,17 +35,19 @@ function FeedbackDetail() {
 
         <div>
             <div className="feedbackdetail-title">   
-                <span className="feedbackdetail-title-left">우리 회사에 지원한 동기</span>
-                <span className='feedbackdetail-title-right'>ㅅㅇㅅ</span>
-                <button style={{ color: 'red', backgroundColor: 'black'}} onClick={()=> { upLikeCnt() }}>좋아요</button>
+                <span className="feedbackdetail-title-left"> {DetailFeedback.title}</span>
+                <span className='feedbackdetail-title-right'>{DetailFeedback.name}</span>
+                { LikeStatus ? 123 : 789}
+                <button style={{ color: 'red', backgroundColor: 'black'}} onClick={()=> { upLikeCnt(); }}>좋아요  </button> ^_^ { DetailFeedback.likes } 
             </div>
             <div class="feedbackdetail-video-grid-container-box">
                 <div class="feedbackdetail-video-grid-box">
-                    <div class="grid-item"><img className="video-thumbnail-second-place"  src={require("../images/video_thumbnail.png")} alt={"video thumbnail"}/>   </div>        
-                    <div class="grid-item">1</div>
+                    <div class="grid-item">url : {DetailFeedback.recordingUrl}   </div>        
+                    {/* <div class="grid-item"><img className="video-thumbnail-second-place"  src={require("../images/video_thumbnail.png")} alt={"video thumbnail"}/>   </div>         */}
                 </div>
             </div>
             <div className='feedback-table'>
+                댓글 수 : {DetailFeedback.replys}
                 <table>
                     <thead>
                         <tr>
