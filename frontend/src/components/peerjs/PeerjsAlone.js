@@ -96,7 +96,6 @@ function PeerjsAlone() {
   useEffect(() => {
       async function getQuestions() {
           const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
-              console.log(res)
               SetQuestions(res.data);
           });
 
@@ -146,20 +145,16 @@ function PeerjsAlone() {
 
         
       <div id='alone-questions' style={{ color: 'white', fontSize: '32px', textAlign: "center", display:"none" }}>{getQuestion()}</div>
-                
-
-
-
-
+              
     <div class="training-alone-main-body">
       <div class="traing-inner-box">
         <div class='video-container'>
-          <div>
-            <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='VideoBox' style={{ width: '100%', height: '480px', display: 'none' }} ></video>
-          </div>
-          <div>
-            <video muted ref={currentUserVideoRef}></video>
-          </div>      
+        <div>
+              <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='VideoBox' style={{ width: '100%', height: '480px', display: 'none' }} ></video>
+            </div>
+            <div>
+              <video muted ref={currentUserVideoRef}></video>
+            </div>
         </div>
       </div>
       <div class="training-alone-main-controls">
@@ -176,7 +171,7 @@ function PeerjsAlone() {
           <div class="training-alone-main-controls">
             <span class="training-alone-main-controls-button" onClick={() => { download(); }}><FontAwesomeIcon icon={faCloudArrowDown} />Download</span>
           </div>
-          <div class="training-alone-main-controls" onClick={() => {
+          <div id="faArrowAltIcon" class="training-alone-main-controls" onClick={() => {
                   audio.play()
                   SetQuestionsIndex(QuestionsIndex + 1)
                   SetAudioIndex(AudioIndex + 1)
@@ -192,27 +187,24 @@ function PeerjsAlone() {
             <button class="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
             {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
 
+            </div>
           </div>
         </div>
-
       </div>
     </div>
-        </div>
   );
 }
 
 function getHide() {
   document.getElementById("training-alone-start-modal").style.display = "none"
-  
+
 }
 function getShow() {
   document.getElementById("interviewer").style.display = ""
   document.getElementById("alone-questions").style.display = ""
-
-
 }
 
 
-
-
 export default PeerjsAlone;
+
+

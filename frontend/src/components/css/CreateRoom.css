@@ -205,10 +205,12 @@ button.btn-cancel {
     margin-right: 0.5vw;
     margin-bottom: 2.8vh;
 }
-button.btn-start , button.btn-close {
+
+button.btn-start,
+button.btn-close {
     width: 100px;
     font-size: 17px;
-    
+
 
 }
 
@@ -218,15 +220,19 @@ button.btn-start , button.btn-close {
     align-items: center;
     justify-content: center;
 }
+
 button#dropdown-basic-button {
-    margin: 7px; 
+    margin: 7px;
 }
 
 .video-next-question-btn {
     display: flex;
-    height : 50px;
+    height: 50px;
     margin: 20px;
 }
+
+
 #faArrowAltIcon {
     margin: 5px;
+    cursor: pointer;
 }
