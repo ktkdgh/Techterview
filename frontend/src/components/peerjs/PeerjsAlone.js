@@ -15,9 +15,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function PeerjsAlone() {
   const currentUserVideoRef = useRef(null); //recordRef
-  const recordedVideo = useRef(null); // stopRef
 
-  // const [videoUrl, setVideoUrl] = useState("");
   const [flag, setFlag] = useState(false)
   const [openModal, setOpenModal] = useState(false);
   // let mediaStream = null;
@@ -45,7 +43,6 @@ function PeerjsAlone() {
     // let recordedChunks = [];
 
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
-    // TypeError: Failed to construct 'MediaRecorder': parameter 1 is not of type 'MediaStream'.
     mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
       mimeType: 'video/webm; codecs=vp8'
     });
@@ -57,47 +54,9 @@ function PeerjsAlone() {
     // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
     mediaRecorder.ondataavailable = function (e) {
       console.log('ondataavailable');
+      console.log("e.data:", e.data);
       recordedChunks.push(e.data);
     };
-
-    // 초기 start 누르고 난 뒤 이후, 나머지는 동일하게 작동, 이제부터 밑으로는 크게 변화함
-
-    //on.stop  원래 지점 잠시이동
-    // 3. 녹화 중지 이벤트 핸들러 등록 /
-    // mediaRecorder.onstop = function () {
-    //   // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
-    //   // 그렇지 않으면 메모리 누수 문제가 발생합니다.
-    //   console.log('mediaRecorder.onstop:', mediaRecorder);
-    //   if (recordedMediaURL) {
-    //     URL.revokeObjectURL(recordedMediaURL);
-    //   }
-
-    //   const blob = new Blob(recordedChunks, { type: 'video/mp4;' });
-    //   const fileName = uuid();
-    //   const recordFile = new File([blob], fileName + ".mp4", {
-    //     type: blob.type,
-    //   })
-    //   console.log("recordFile:", recordFile);
-
-    //   recordedMediaURL = window.URL.createObjectURL(recordFile);
-    //   // recordedVideo.src = recordedMediaURL; // 사용되지 않는 코드로 판별
-
-    //   console.log("before record");
-    //   // 녹화 관련 설정 
-    //   const config = {
-    //     bucketName: process.env.REACT_APP_S3_BUCKET,
-    //     dirName: process.env.REACT_APP_DIR_NAME,
-    //     region: process.env.REACT_APP_REGION,
-    //     accessKeyId: process.env.REACT_APP_ACCESS_KEY,
-    //     secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
-    //   };
-    //   console.log("recording");
-
-    //   uploadFile(recordFile, config)
-    //     .then(data => console.log(data))
-    //     .catch(err => console.error(err))
-    //   console.log("recored");
-    // };
   }
 
 
@@ -118,7 +77,6 @@ function PeerjsAlone() {
       console.log("recordFile:", recordFile);
 
       recordedMediaURL = window.URL.createObjectURL(recordFile);
-      // recordedVideo.src = recordedMediaURL; // 사용되지 않는 코드로 판별
 
       // aws s3 upload 설정 
       const config = {
@@ -136,47 +94,16 @@ function PeerjsAlone() {
         .then(recordFile => console.log(recordFile))
         .catch(err => console.error(err))
 
-      // console.log("document.createElement('a');", document)
-
-
-      const link = document.createElement('a');
-      document.body.appendChild(link);
-      link.href = recordedMediaURL;
-      link.download = 'video.mp4';
-      link.click();
-
-
-
+      //로컬 다운로드 기능
       // const link = document.createElement('a');
       // document.body.appendChild(link);
       // link.href = recordedMediaURL;
       // link.download = 'video.mp4';
       // link.click();
-      // document.body.removeChild(link);
 
     };
     mediaRecorder.stop();
   }
-
-  // function download() {
-  //   if (recordedMediaURL) {
-  //   }
-  // }
-
-  // 녹화 관련 설정 
-
-  // const config = {
-  //   bucketName: "techterview",
-  //   dirName: "test",
-  //   region: "ap-northeast-2",
-  //   accessKeyId: "AKIAU6F7Y3ACUVNPW6XG",
-  //   secretAccessKey: "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",
-  // };
-
-  // uploadFile(recordFile, config)
-  //   .then(data => console.log(data))
-  //   .catch(err => console.error(err))
-
 
   const { key } = useParams();
   let data = [];
@@ -192,6 +119,7 @@ function PeerjsAlone() {
       });
     }
     getQuestions();
+    call();
   }, []);
 
   const getQuestion = () => {
@@ -221,7 +149,6 @@ function PeerjsAlone() {
 
   let audio = new Audio(getQuestionAudio());
 
-
   return (
     <div>
       <div className='training-alone-start-modal' id='training-alone-start-modal'>
@@ -232,18 +159,13 @@ function PeerjsAlone() {
             면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
           </div>
           <div className='training-alone-start-modal-footer'>
-            <button className='btn-yes' onClick={() => { call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play(); }} > 시작하기</button>
+            <button className='btn-yes' onClick={() => { call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play(); start(); }} > 시작하기</button>
           </div >
         </div >
       </div >
 
 
       <div id='alone-questions' style={{ color: 'white', fontSize: '32px', textAlign: "center", display: "none" }}>{getQuestion()}</div>
-
-
-
-
-
       <div class="training-alone-main-body">
         <div class="traing-inner-box">
           <div class='video-container'>
@@ -273,13 +195,13 @@ function PeerjsAlone() {
             </div> */}
             <>
               <button onClick={() => { start(); }}>start</button>
-              <button onClick={() => { finish(); }}>finish</button>
               {/* <button onClick={() => { download(); }}>download</button> */}
             </>
             <div class="training-alone-main-controls-button" onClick={() => {
               audio.play()
               SetQuestionsIndex(QuestionsIndex + 1)
               SetAudioIndex(AudioIndex + 1)
+              finish();
             }}>
               <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
               Next
