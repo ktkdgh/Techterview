@@ -11,6 +11,8 @@ import axios from 'axios';
 
 import { uploadFile } from 'react-s3';
 
+window.Buffer = window.Buffer || require("buffer").Buffer;
+
 function PeerjsAlone() {
   const currentUserVideoRef = useRef(null); //recordRef
   const recordedVideo = useRef(null); // stopRef
@@ -118,8 +120,7 @@ function PeerjsAlone() {
       recordedMediaURL = window.URL.createObjectURL(recordFile);
       // recordedVideo.src = recordedMediaURL; // 사용되지 않는 코드로 판별
 
-      console.log("before record");
-      // 녹화 관련 설정 
+      // aws s3 upload 설정 
       const config = {
         bucketName: process.env.REACT_APP_S3_BUCKET,
         dirName: process.env.REACT_APP_DIR_NAME,
@@ -127,19 +128,31 @@ function PeerjsAlone() {
         accessKeyId: process.env.REACT_APP_ACCESS_KEY,
         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
       };
-      console.log("recording");
+
+      console.log("data:", data);
+      console.log("recordFile:", recordFile);
 
       uploadFile(recordFile, config)
-        .then(data => console.log(data))
+        .then(recordFile => console.log(recordFile))
         .catch(err => console.error(err))
-      console.log("recored");
+
+      // console.log("document.createElement('a');", document)
+
 
       const link = document.createElement('a');
       document.body.appendChild(link);
       link.href = recordedMediaURL;
       link.download = 'video.mp4';
       link.click();
-      document.body.removeChild(link);
+
+
+
+      // const link = document.createElement('a');
+      // document.body.appendChild(link);
+      // link.href = recordedMediaURL;
+      // link.download = 'video.mp4';
+      // link.click();
+      // document.body.removeChild(link);
 
     };
     mediaRecorder.stop();
@@ -150,7 +163,7 @@ function PeerjsAlone() {
   //   }
   // }
 
-  // // 녹화 관련 설정 
+  // 녹화 관련 설정 
 
   // const config = {
   //   bucketName: "techterview",
@@ -177,7 +190,6 @@ function PeerjsAlone() {
         // console.log(res)
         SetQuestions(res.data);
       });
-
     }
     getQuestions();
   }, []);
