@@ -32,7 +32,7 @@ module.exports = class Recording extends Sequelize.Model{
     }
 
     static associate(db) {
-        db.Recording.belongsTo(db.Member);
+        db.Recording.belongsTo(db.Member, { onDelete: "CASCADE" });
         db.Recording.hasOne(db.Feedback, { onDelete: "CASCADE" });
     }
 };

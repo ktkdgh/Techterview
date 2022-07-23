@@ -35,7 +35,7 @@ module.exports = class Feedback extends Sequelize.Model{
     static associate(db) {
         db.Feedback.hasMany(db.LikeCnt, { onDelete: "CASCADE" });
         db.Feedback.hasMany(db.Reply, { onDelete: "CASCADE" });
-        db.Feedback.belongsTo(db.Recording);
-        db.Feedback.belongsTo(db.Questions);
+        db.Feedback.belongsTo(db.Recording, { onDelete: "CASCADE" });
+        db.Feedback.belongsTo(db.Questions, { onDelete: "CASCADE" });
     }
 };

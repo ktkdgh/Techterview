@@ -10,7 +10,7 @@ module.exports = class Reply extends Sequelize.Model{
                     primaryKey: true
                 },
                 reply_comment: {
-                    type: Sequelize.STRING(50),
+                    type: Sequelize.STRING(200),
                 },
             }, {
                 sequelize,
@@ -25,8 +25,8 @@ module.exports = class Reply extends Sequelize.Model{
     }
 
     static associate(db) {
-        db.Reply.belongsTo(db.Member);
-        db.Reply.belongsTo(db.Feedback);
+        db.Reply.belongsTo(db.Member, { onDelete: "CASCADE" });
+        db.Reply.belongsTo(db.Feedback, { onDelete: "CASCADE" });
         
     }
 };

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const { Feedback, LikeCnt, Member, Recording } = require('../models');
+const { Feedback, LikeCnt, Member, Recording, Reply } = require('../models');
+const axios = require('axios');
 
 // Feedback Main
 router.get('/getMain', async (req, res) => {
@@ -25,10 +26,10 @@ router.get('/getMain', async (req, res) => {
 })
 
 // LikeCnt
-router.post('/:memberId/:feedbackId', async (req, res) => {
+router.post('/LikeCnt', async (req, res) => {
     try {
-        memId = req.params.memberId;
-        feedId = req.params.feedbackId;
+        memId = req.body.userId;
+        feedId = req.body.feedId;
         const likes = await LikeCnt.findOne({ where: { MemberId: memId, FeedbackId: feedId }})
         
         if (likes) {
@@ -55,6 +56,21 @@ router.get('/getDetail/:feedbackId/:memberId', async (req, res) => {
         let DetailId = feedback.Recording.Member.id
         let userId = req.params.memberId
         if (likeCheck) { flag = true; } 
+
+        replyList = []
+        const reply = await Reply.findAll({order: [['createdAt', 'DESC']], where: {FeedbackId : req.params.feedbackId}, include: {model: Member}})
+        reply.forEach((value) => {
+            replyList.push({
+                id: value.id,
+                reply_comment: value.reply_comment,
+                createdAt: value.createdAt,
+                updatedAt: value.updatedAt,
+                user_name: value.Member.name,
+                user_id: value.Member.id,
+                replyCheck: userId == value.Member.id
+            })
+        })
+
         const detail = {
             title : feedback.feedback_title,
             name : feedback.Recording.Member.name,
@@ -62,7 +78,8 @@ router.get('/getDetail/:feedbackId/:memberId', async (req, res) => {
             replys : feedback.reply_cnt,
             recordingUrl : feedback.Recording.recording_url,
             userLikeCheck : flag,
-            deletebotton : DetailId == userId
+            deletebotton : DetailId == userId,
+            replyList : replyList
         }
         res.json(detail)
     } catch (err) {
@@ -86,6 +103,7 @@ router.delete('/deletePage/:feedbackId', async (req, res) => {
     }
 })
 
+
 // Feedback Category Select
 router.get('/getCategory/:categoryId', async (req, res) => {
     try {
@@ -93,7 +111,36 @@ router.get('/getCategory/:categoryId', async (req, res) => {
 
     } catch (err) {
         console.error(err);
+
+        done(err);
+    }
+})
+
+router.post('/replyCreate', async(req, res) => {
+    try {
+        const result = await Reply.create({ MemberId : req.body.userId, FeedbackId : req.body.feedbackId, reply_comment: req.body.text })
+        await Feedback.increment({reply_cnt: 1}, {where: { id: req.body.feedbackId }})
+        if (result) {
+            res.json({ success : true })
+        } else {
+            res.json({ success : false })
+        }
+    } catch (err) {
+        console.error(err);
+        done(err);
+    }
+})
+
+router.delete('/replyDelete/:replyId', async(req, res) => {
+    try {
+        const findReply = await Reply.findOne({where: {id: req.params.replyId}, include: {model: Feedback}})
+        await Feedback.decrement({reply_cnt: 1}, {where: { id: findReply.Feedback.id }})
+        await Reply.destroy({ where: { id: req.params.replyId }})
         
+        const replys = await Feedback.findOne({ where: {id: findReply.Feedback.id}})
+        res.json({replys: replys.reply_cnt})
+    } catch (err) {
+        console.error(err);
         done(err);
     }
 })
