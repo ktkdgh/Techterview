@@ -20,14 +20,14 @@ const KakaoAuthHandle = () => {
 
     function BasicExample() {
         return (
-            <Spinner animation="border" role="status" style={{width: "23rem", height: "23rem"}} className="justify-content-center align-items-center">
-        
-           </Spinner>
-     
+            <Spinner animation="border" role="status" style={{ width: "23rem", height: "23rem" }} className="justify-content-center align-items-center">
+
+            </Spinner>
+
         );
     }
-    
-    
+
+
     return (
         <div>
             <div><BasicExample ></BasicExample></div>

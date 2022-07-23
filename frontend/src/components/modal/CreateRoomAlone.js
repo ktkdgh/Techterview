@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
@@ -70,10 +70,13 @@ function CreateRoomAlone({ closeModal }) {
         }
     ];
 
-    const [SendNum, setSendNum] = useState([])
-    function handleClick(e) {
+    const [SendNum, setSendNum] = useState()
+
+    function handleClick() {
         window.location.replace("../page/training/Alone/" + SendNum)
     }
+
+
     return (
         <div className="Create-delete-modal">
             <div className="Create-delete-modal-content">
@@ -113,7 +116,7 @@ function CreateRoomAlone({ closeModal }) {
                     </div>
 
                     <div className="Create-delete-modal-footer">
-                        <button className="btn-start" onClick={handleClick}>연습시작</button>
+                        <button className="btn-start" onClick={() => { handleClick(); }}>연습시작</button>
                         <button className="btn-close" onClick={() => closeModal(false)}>취소</button>
                     </div>
                 </div >

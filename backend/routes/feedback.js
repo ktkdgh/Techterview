@@ -70,6 +70,7 @@ router.get('/getDetail/:feedbackId/:memberId', async (req, res) => {
                 updateCheck: Number(value.createdAt)  ==  Number(value.updatedAt)
             })
         })
+    
 
         const detail = {
             title : feedback.feedback_title,

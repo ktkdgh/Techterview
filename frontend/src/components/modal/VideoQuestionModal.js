@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-function VideoQuestionModal ({closeModal}){
+function VideoQuestionModal({ closeModal }) {
     return (
         <div className="video-edit-modal" >
             <div className="video-edit-modal-content">

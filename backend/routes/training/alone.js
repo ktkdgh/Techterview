@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var shuffle = require('shuffle-array');
-const { Questions } = require('../../models');
+const { Questions, Recording } = require('../../models');
 
 router.get('/questions/:subcategory', async (req, res) => {
     try {
@@ -16,6 +16,20 @@ router.get('/questions/:subcategory', async (req, res) => {
 
         // res.send(shuffle(questions))
         res.send((questions))
+    } catch (err) {
+        console.error(err);
+        done(err);
+    }
+})
+
+router.post('/recordingCreate', async (req, res) => {
+    try {
+        await Recording.create({
+            recording_title : req.body.title,
+            recording_url: req.body.recording_url,
+            MemberId: req.body.id
+        })
+        res.json({success : true})
     } catch (err) {
         console.error(err);
         done(err);

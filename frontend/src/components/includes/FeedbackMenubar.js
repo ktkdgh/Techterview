@@ -1,24 +1,45 @@
-import React from 'react';
-import {Navigation} from 'react-minimal-side-navigation';
+import React, { useState } from 'react';
+import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
+import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 function FeedbackMenu() {
+
+    const [feedbackNum, SetFeedbackNum] = useState("")
+
+    function handleClick() {
+        window.location.replace("../feedback/" + feedbackNum)
+    }
+
+    const history = useNavigate();
+    const location = useLocation();
+
+
+
     return (
         <>
             <Navigation
-                activeItemId="/management/members"
-                onSelect={({itemId}) => {
-                    // maybe push to the route
+                // activeItemId={location.pathname}
+                onSelect={({ itemId }) => {
+                    (0 <= itemId && itemId < 6)
+                        ? console.log("itemId") : window.location.replace("../feedback" + itemId)
+
+                    // console.log("copy", copy);
+                    // SetFeedbackNum(copy);
+                    // console.log("feedbackNum", feedbackNum)
+                    // window.location.replace("../feedback" + copy)
                 }}
                 items={[
                     {
+                        itemId: '0',
                         title: '모두 보기',
-                        itemId: '/dashboard',
+                        // itemId: '/dashboard',
                     },
                     {
                         title: 'CS',
-                        itemId: '/CS',
+                        itemId: '1',
                         subNav: [
                             {
                                 title: '네트워크',
@@ -52,7 +73,7 @@ function FeedbackMenu() {
                     },
                     {
                         title: '기본질문 및 개발상식',
-                        itemId: '/basic',
+                        itemId: '2',
                         subNav: [
                             {
                                 title: '개발상식',
@@ -66,7 +87,7 @@ function FeedbackMenu() {
                     },
                     {
                         title: '언어',
-                        itemId: '/language',
+                        itemId: '3',
                         subNav: [
                             {
                                 title: 'React',
@@ -84,21 +105,21 @@ function FeedbackMenu() {
                     },
                     {
                         title: '직무별',
-                        itemId: '/duty',
+                        itemId: '4',
                         subNav: [
                             {
                                 title: '프론트엔드',
-                                itemId: '/duty/13',
+                                itemId: '/position/13',
                             },
                             {
                                 title: '백엔드',
-                                itemId: '/duty/14',
+                                itemId: '/position/14',
                             },
                         ]
                     },
                     {
                         title: 'My 영상 관리',
-                        itemId: '/recording',
+                        itemId: '5',
                         subNav: [
                             {
                                 title: 'My 영상 목록',
@@ -110,7 +131,7 @@ function FeedbackMenu() {
                             },
                         ],
                     },
-            ]}
+                ]}
             />
         </>
     );
