@@ -32,6 +32,26 @@ const io = require("socket.io")(8001, { cors:{ origin: ['http://localhost:3000']
 //     method: ["GET", "POST"],
 //   },
 // });
+// PORTNUM = 8000;
+
+io.on("connection", (socket) => {
+  socket.onAny(e => {
+    console.log(`SOCKET EVENT::::::${e}`);
+  });
+
+  // Connection
+  SocketRoutes.video.joinRoom(socket, SocketRoutes.video.event.joinRoom);  
+  SocketRoutes.video.waitUser(socket, SocketRoutes.video.event.waitUser);
+
+});
+
+// server.listen(PORTNUM, () => {
+//   console.log(`Server is running... port: ${PORTNUM}`);
+// });
+
+
+
+
 
 
 
