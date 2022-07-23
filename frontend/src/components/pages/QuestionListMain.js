@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 // import * as Icon from 'react-bootstrap-icons';
 import QuestionMenu from './QuestionListMenu';
+import '../css/Question.css'
 
 
 
-class QuestionList extends Component {
-    render() {
-        return (
-            <div>
+function QuestionList() {
+
+    return (
+        <div className='Wrapper'>
+            <div className='left-menu' >
                 <QuestionMenu />
+            </div>
+            <div className='Main-body'>
                 <div>
                     <div class="grid-container-box">
                         <div class="grid-container">
@@ -32,8 +36,8 @@ class QuestionList extends Component {
                     </div>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 export default QuestionList
 

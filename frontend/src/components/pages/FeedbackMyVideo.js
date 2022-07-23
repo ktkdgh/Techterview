@@ -3,6 +3,7 @@ import VideoDeleteModal from '../modal/VideoDeleteModal';
 import VideoFaceVoiceEditModal from '../modal/VideoFaceVoiceEditModal'
 import FeedbackMenu from "../includes/FeedbackMenubar"
 import { Link } from 'react-router-dom';
+import '../css/FeedBack.css'
 
 function MyVideo() {
     const [openModal, setOpenModal] = useState(false);
@@ -10,8 +11,10 @@ function MyVideo() {
 
 
     return (
-        <div>
-            <FeedbackMenu />
+        <div className='Wrapper'>
+            <div className='left-menu' >
+                <FeedbackMenu />
+            </div>
             <div>
                 <div className="my-video-title">나의 녹화 영상 목록</div>
                 <div class="grid-container-box">

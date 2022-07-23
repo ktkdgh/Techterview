@@ -1,0 +1,15 @@
+.Wrapper {
+    margin-top: 50px;
+}
+
+.left-menu {
+    width: 25%;
+    float: left;
+    background-color: yellow;
+}
+
+.Main-body {
+    background-color: brown;
+    width: 75%;
+    float: right;
+}
