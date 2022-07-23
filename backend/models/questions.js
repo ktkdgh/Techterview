@@ -28,7 +28,7 @@ module.exports = class Questions extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.Questions.belongsTo(db.SubCategory);
+        db.Questions.belongsTo(db.SubCategory, { onDelete: "CASCADE" });
         db.Questions.hasMany(db.Feedback, { onDelete: "CASCADE" });
     }
 };

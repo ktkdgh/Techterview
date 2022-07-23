@@ -5,9 +5,14 @@ import api from "../shared/api"
 // import {Link} from 'react-router-dom'; 
 
 function FeedbackDetail() {
-    let [DetailFeedback, SetDetailFeedback] = useState([]);
-    let [LikeStatus, SetLikeStatus] = useState("");
-    let [FeedLikeCnt, SetFeedLikeCnt] = useState(0);
+    const [DetailFeedback, SetDetailFeedback] = useState([]);
+    const [LikeStatus, SetLikeStatus] = useState("");
+    const [text, setText] = useState('');
+    const [FeedLikeCnt, SetFeedLikeCnt] = useState(0);
+    const [ReplyList, SetReplyList] = useState([]);
+    const [Modify, SetModify] = useState(false);
+    const [Idx, SetIdx] = useState(0);
+    const [UpdateText, SetUpdateText] = useState("");
 
     let feedbackId = new URL(window.location.href).pathname.split('/')[3]
     const Token = sessionStorage.getItem('Authorization')
@@ -20,13 +25,15 @@ function FeedbackDetail() {
                     SetDetailFeedback(res.data);
                     SetLikeStatus(res.data.userLikeCheck);
                     SetFeedLikeCnt(res.data.likes)
+                    SetReplyList(res.data.replyList)
                 });
         }
         getFeedDetail();
     },[])
-
+    
     const upLikeCnt = async () => {
-        await api.post(`/api/feedback/${userInfo.id}/${feedbackId}`)
+        const LikeCntData = { userId : userInfo.id, feedId: feedbackId }
+        await api.post('/api/feedback/LikeCnt', LikeCntData)
             .then(res => {
                 if (LikeStatus) {
                     SetLikeStatus(false)
@@ -39,12 +46,46 @@ function FeedbackDetail() {
     };
 
     const deleteFeedbackPage = async () => {
-        await api.delete(`api/feedback/deletePage/${feedbackId}`)
+        await api.delete(`/api/feedback/deletePage/${feedbackId}`)
             .then(res => {
-                console.log(res);
                 window.location.href = '/feedback/main'
             })
     };
+
+    const onChange = (e) => {
+        setText(e.target.value);
+    };
+
+    const onUpdate = (e) => {
+        SetUpdateText(e.target.value);
+    };
+
+    const replyCreate = async () => {
+        const replyData = { text: text, userId: userInfo.id, feedbackId: feedbackId }
+        await api.post("/api/feedback/replyCreate", replyData)
+            .then(res => {
+                window.location.reload(true)
+            })
+    }
+
+    const YMDFormat = (num) => {
+        if (!num) return "";
+        let firstNum = num.slice(0, 10);
+        let secondNum = num.slice(11, 16);
+        return firstNum + " " + secondNum
+    }
+
+    const replyDelete = async (id) => {
+        await api.delete(`/api/feedback/replyDelete/${id}`)
+            .then(res => {
+                window.location.reload(true)
+            })
+    }
+
+    const replyUpdate = async (idx, id) => {
+        SetModify(true)
+        SetIdx(idx)
+    }
 
     return (
         <div>
@@ -66,23 +107,31 @@ function FeedbackDetail() {
                 </div>
             </div>
             <div className='feedback-table'>
-                댓글 수 : {DetailFeedback.replys}
+                {DetailFeedback.replys}의 댓글
+
+                <input onChange={onChange} value={text} /><button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { replyCreate() }}>등록</button>
                 <table>
                     <thead>
                         <tr>
-                        <th>작성자</th><th>제목</th>
+                            <th>작성자</th><th>내용</th><th>등록일</th><th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <td>abc234</td><td>정말 도움이 많이 됐습니다</td>
-                        </tr>
-                        <tr>
-                        <td>dddd</td><td>너무 잘생겼어요 좋아요!!!</td>
-                        </tr>
-                        <tr>
-                        <td>999d9s</td><td>제가 생각한 답변이랑 많이 다른 것 같네요</td>
-                        </tr>
+                        { ReplyList.map((value, idx) => {
+                                return(
+                                    <tr>
+                                        <td> { value.user_name } </td>
+                                        {Modify &&  Idx == idx+1 ? 
+                                        <td> <input onChange={onUpdate} value={value.reply_comment}/> </td>:
+                                        <td>{value.reply_comment}</td>}
+                                        <td> { YMDFormat(value.createdAt) } </td>
+                                        { value.replyCheck ? 
+                                        <td><button style={{ color: 'white', backgroundColor: 'black'}} onClick={() => { replyDelete(value.id) }}>삭제</button>
+                                        <button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { replyUpdate(idx + 1, value.id) }}>수정</button></td>
+                                        : ""}
+                                    </tr>
+                                );
+                            })}
                     </tbody>
                 </table>
             </div>    

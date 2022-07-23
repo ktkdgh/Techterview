@@ -25,7 +25,7 @@ module.exports = class SubCategory extends Sequelize.Model{
     }
 
     static associate(db) {
-        db.SubCategory.belongsTo(db.MainCategory);
+        db.SubCategory.belongsTo(db.MainCategory, { onDelete: "CASCADE" });
         db.SubCategory.hasMany(db.Questions, { onDelete: "CASCADE" });
     }
 };

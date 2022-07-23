@@ -23,7 +23,7 @@ module.exports = class LikeCnt extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.LikeCnt.belongsTo(db.Member);
-        db.LikeCnt.belongsTo(db.Feedback);
+        db.LikeCnt.belongsTo(db.Member, { onDelete: "CASCADE" });
+        db.LikeCnt.belongsTo(db.Feedback, { onDelete: "CASCADE" });
     }
 };
