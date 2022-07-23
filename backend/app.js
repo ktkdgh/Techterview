@@ -16,7 +16,24 @@ var questionListRouter = require('./routes/questionList');
 var aloneRouter = require('./routes/training/alone');
 var othersRouter = require('./routes/training/others');
 
-var app = express();
+
+//socket//
+
+const http = require("http");
+const SocketRoutes = require("./socketRoutes");
+const app = express();
+const SocketIO = require("socket.io");
+const server = http.createServer(app);
+const io = require("socket.io")(8001, { cors:{ origin: ['http://localhost:3000']} });
+
+// const io = SocketIO(server, {
+//   cors: {
+//     origin: "*",
+//     method: ["GET", "POST"],
+//   },
+// });
+
+
 
 app.use(cors());
 
@@ -53,7 +70,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/feedback', feedbackRouter);
 app.use('/api/questionList', questionListRouter);
 app.use('/api/training/alone', aloneRouter);
-app.use('/api/training/others', othersRouter);
+// app.use('/api/training/others', othersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -70,5 +87,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
