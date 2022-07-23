@@ -9,7 +9,7 @@ module.exports = class Reply extends Sequelize.Model{
                     autoIncrement: true,
                     primaryKey: true
                 },
-                Reply_comment: {
+                reply_comment: {
                     type: Sequelize.STRING(50),
                 },
             }, {
@@ -20,8 +20,9 @@ module.exports = class Reply extends Sequelize.Model{
                 tableName: "reply", 
                 timestamps: true, 
                 paranoid: false, 
-            });
-        }
+            },
+        );
+    }
 
     static associate(db) {
         db.Reply.belongsTo(db.Member);

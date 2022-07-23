@@ -1,45 +1,92 @@
 import React, { useState } from 'react';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import { Navigate, useParams } from 'react-router-dom';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 
 function FeedbackMenu() {
 
-    const [feedbackNum, SetFeedbackNum] = useState("")
+    const Options = [
+        {
+            key: 1,
+            value: "네트워크",
+        },
+        {
+            key: 2,
+            value: "데이터베이스",
+        },
+        {
+            key: 3,
+            value: "디자인패턴",
+        },
+        {
+            key: 4,
+            value: "알고리즘",
+        },
+        {
+            key: 5,
+            value: "운영체제",
+        },
+        {
+            key: 6,
+            value: "자료구조",
+        },
+        {
+            key: 7,
+            value: "컴퓨터구조"
+        },
+        {
+            key: 8,
+            value: "JavaScript",
+        },
+        {
+            key: 9,
+            value: "Java",
+        },
+        {
+            key: 10,
+            value: "React",
+        },
+        {
+            key: 11,
+            value: "기본질문",
+        },
+        {
+            key: 12,
+            value: "개발상식",
+        },
+        {
+            key: 13,
+            value: "프론트엔드",
+        },
+        {
+            key: 14,
+            value: "백엔드"
+        }
+    ];
+
+
+    const [feedbackNum, SetFeedbackNum] = useState([])
 
     function handleClick() {
-        window.location.replace("../feedback/" + feedbackNum)
+        window.location.replace("../feedback/main/" + feedbackNum)
     }
-
-    const history = useNavigate();
-    const location = useLocation();
-
-
 
     return (
         <>
             <Navigation
-                // activeItemId={location.pathname}
+                activeItemId="/management/members"
                 onSelect={({ itemId }) => {
-                    (0 <= itemId && itemId < 6)
-                        ? console.log("itemId") : window.location.replace("../feedback" + itemId)
-
-                    // console.log("copy", copy);
-                    // SetFeedbackNum(copy);
-                    // console.log("feedbackNum", feedbackNum)
-                    // window.location.replace("../feedback" + copy)
+                    // maybe push to the route
                 }}
                 items={[
                     {
-                        itemId: '0',
                         title: '모두 보기',
                         // itemId: '/dashboard',
                     },
                     {
                         title: 'CS',
-                        itemId: '1',
+                        itemId: '/CS',
                         subNav: [
                             {
                                 title: '네트워크',
@@ -73,7 +120,7 @@ function FeedbackMenu() {
                     },
                     {
                         title: '기본질문 및 개발상식',
-                        itemId: '2',
+                        itemId: '/basic',
                         subNav: [
                             {
                                 title: '개발상식',
@@ -87,7 +134,7 @@ function FeedbackMenu() {
                     },
                     {
                         title: '언어',
-                        itemId: '3',
+                        itemId: '/language',
                         subNav: [
                             {
                                 title: 'React',
@@ -105,21 +152,21 @@ function FeedbackMenu() {
                     },
                     {
                         title: '직무별',
-                        itemId: '4',
+                        itemId: '/duty',
                         subNav: [
                             {
                                 title: '프론트엔드',
-                                itemId: '/position/13',
+                                itemId: '/duty/13',
                             },
                             {
                                 title: '백엔드',
-                                itemId: '/position/14',
+                                itemId: '/duty/14',
                             },
                         ]
                     },
                     {
                         title: 'My 영상 관리',
-                        itemId: '5',
+                        itemId: '/recording',
                         subNav: [
                             {
                                 title: 'My 영상 목록',

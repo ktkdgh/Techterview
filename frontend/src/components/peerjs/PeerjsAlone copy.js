@@ -4,8 +4,8 @@ import { v1 as uuid } from 'uuid';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
-import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from "../modal/VideoQuestionModal"
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -160,7 +160,8 @@ function PeerjsAlone() {
             면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
           </div>
           <div className='training-alone-start-modal-footer'>
-            <button className='btn-yes' onClick={() => { call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play(); }} > 시작하기</button>
+            {/* <button className='btn-yes' onClick={() => { getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play(); }} > 시작하기</button> */}
+            <button className='btn-yes' onClick={() => { SetAudioIndex(AudioIndex + 1); audio.play(); }} > 시작하기</button>
           </div >
         </div >
       </div >
@@ -226,13 +227,10 @@ function PeerjsAlone() {
 
 function getHide() {
   document.getElementById("training-alone-start-modal").style.display = "none"
-
 }
 function getShow() {
   document.getElementById("interviewer").style.display = ""
   document.getElementById("alone-questions").style.display = ""
-
-
 }
 
 

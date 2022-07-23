@@ -8,11 +8,9 @@ import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from "../modal/VideoQuestionModal"
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
-
-
+import api from '../shared/api';
 import { uploadFile } from 'react-s3';
 
 //함께하기에서는 버퍼 문제가 없는듯
@@ -186,8 +184,8 @@ function PeerOthersroom() {
 
   useEffect(() => {
     async function getQuestions() {
-      const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
-        // console.log(res)
+      const data = await api.get(`/training/alone/api/questions/${key}`).then(res => {
+        console.log(res)
         SetQuestions(res.data);
       });
 
@@ -220,10 +218,9 @@ function PeerOthersroom() {
   let audio = new Audio(getQuestionAudio());
 
 
-
-
   return (
     <div class="training-others-main-body">
+
       <div class="training-others-inner-box" >
         <div class="training-others-main-controls-share-button" >
           <div class="main-controls-button-share-icon" id="leave-meeting">
@@ -278,7 +275,8 @@ function PeerOthersroom() {
 
     </div >
   );
-
 }
 
 export default PeerOthersroom;
+
+

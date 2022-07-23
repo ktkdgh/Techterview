@@ -50,7 +50,7 @@ function TrainingOthers() {
     return (
         <div className="training-container">
             <Helmet><style>{'body { background-color: black; }'}</style></Helmet>
-            <div className="training-navigation-bar-logo"> TECHTERVIEW </div>
+            <Link to="/" style={{ textDecoration: 'none' }}><div className="training-navigation-bar-logo"> TECHTERVIEW </div></Link>
             <div style={{ color: 'white', fontSize: '32px', textAlign: "center" }}>{getQuestion()}</div>
             <PeerOthersroom />
 

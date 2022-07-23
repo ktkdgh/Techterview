@@ -9,17 +9,15 @@ module.exports = class Recording extends Sequelize.Model{
                     autoIncrement: true,
                     primaryKey: true
                 },
-                recording_name: {
+                recording_title: {
                     type: Sequelize.STRING(50)
                 },
                 recording_url: {
                     type: Sequelize.STRING(100)
                 },
-                recording_size: {
-                    type: Sequelize.STRING(100)
-                },
-                extension: {
-                    type: Sequelize.STRING(50)
+                registered: {
+                    type: Sequelize.ENUM('0', '1'),
+                    defaultValue: '0'
                 }
             }, {
                 sequelize,
@@ -29,10 +27,12 @@ module.exports = class Recording extends Sequelize.Model{
                 tableName: "recording", 
                 timestamps: true, 
                 paranoid: false, 
-            });
-        }
+            },
+        );
+    }
 
     static associate(db) {
         db.Recording.belongsTo(db.Member);
+        db.Recording.hasOne(db.Feedback, { onDelete: "CASCADE" });
     }
 };

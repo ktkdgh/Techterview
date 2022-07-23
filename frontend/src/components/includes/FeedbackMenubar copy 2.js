@@ -13,33 +13,30 @@ function FeedbackMenu() {
         window.location.replace("../feedback/" + feedbackNum)
     }
 
+
+
+
     const history = useNavigate();
     const location = useLocation();
-
-
 
     return (
         <>
             <Navigation
                 // activeItemId={location.pathname}
                 onSelect={({ itemId }) => {
-                    (0 <= itemId && itemId < 6)
-                        ? console.log("itemId") : window.location.replace("../feedback" + itemId)
+                    console.log(itemId);
+                    window.location.replace("../feedback/" + itemId)
 
-                    // console.log("copy", copy);
-                    // SetFeedbackNum(copy);
-                    // console.log("feedbackNum", feedbackNum)
-                    // window.location.replace("../feedback" + copy)
                 }}
+
                 items={[
                     {
-                        itemId: '0',
                         title: '모두 보기',
                         // itemId: '/dashboard',
                     },
                     {
                         title: 'CS',
-                        itemId: '1',
+                        itemId: '/CS',
                         subNav: [
                             {
                                 title: '네트워크',
@@ -73,7 +70,7 @@ function FeedbackMenu() {
                     },
                     {
                         title: '기본질문 및 개발상식',
-                        itemId: '2',
+                        itemId: '/basic',
                         subNav: [
                             {
                                 title: '개발상식',
@@ -87,7 +84,7 @@ function FeedbackMenu() {
                     },
                     {
                         title: '언어',
-                        itemId: '3',
+                        itemId: '/language',
                         subNav: [
                             {
                                 title: 'React',
@@ -105,7 +102,7 @@ function FeedbackMenu() {
                     },
                     {
                         title: '직무별',
-                        itemId: '4',
+                        itemId: '/position',
                         subNav: [
                             {
                                 title: '프론트엔드',
@@ -119,7 +116,7 @@ function FeedbackMenu() {
                     },
                     {
                         title: 'My 영상 관리',
-                        itemId: '5',
+                        itemId: '/recording',
                         subNav: [
                             {
                                 title: 'My 영상 목록',

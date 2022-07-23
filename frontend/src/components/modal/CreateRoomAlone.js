@@ -70,7 +70,8 @@ function CreateRoomAlone({ closeModal }) {
         }
     ];
 
-    const [SendNum, setSendNum] = useState([])
+    const [SendNum, setSendNum] = useState()
+
     function handleClick() {
         window.location.replace("../page/training/Alone/" + SendNum)
     }
