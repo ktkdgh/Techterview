@@ -38,35 +38,62 @@ router.post('/:memberId/:feedbackId', async (req, res) => {
             await LikeCnt.create({ MemberId : memId, FeedbackId : feedId })
             await Feedback.increment({like_cnt: 1}, {where: { id: feedId }})
         }
-
         const feedback_likes = await Feedback.findOne({where: {id: feedId}})
-        console.log(feedback_likes.like_cnt);
-        res.send(feedback_likes.like_cnt)
+        res.json({Detaillikes : feedback_likes.like_cnt})
     } catch (err) {
         console.error(err);
         done(err);
     }
 })
 
+// Feedback Detail
 router.get('/getDetail/:feedbackId/:memberId', async (req, res) => {
     try {
         let flag = false;
-        const feedback = await Feedback.findOne({where : {id : req.params.feedbackId}, include: {model:Recording, include:{model:Member}}}) 
+        const feedback = await Feedback.findOne({where : {id : req.params.feedbackId}, include: {model:Recording, include:{model:Member}}})
         const likeCheck = await LikeCnt.findOne({where: { FeedbackId : req.params.feedbackId, MemberId: req.params.memberId}})
+        let DetailId = feedback.Recording.Member.id
+        let userId = req.params.memberId
         if (likeCheck) { flag = true; } 
         const detail = {
             title : feedback.feedback_title,
             name : feedback.Recording.Member.name,
             likes : feedback.like_cnt,
             replys : feedback.reply_cnt,
-
             recordingUrl : feedback.Recording.recording_url,
-            userLikeCheck : flag
+            userLikeCheck : flag,
+            deletebotton : DetailId == userId
         }
         res.json(detail)
-        
     } catch (err) {
         console.error(err);
+        done(err);
+    }
+})
+
+// Feedback delete
+router.delete('/deletePage/:feedbackId', async (req, res) => {
+    try {
+        const result = await Feedback.destroy({where: {id: req.params.feedbackId}})
+        if (result) {
+            res.json({success : true })
+        } else {
+            res.json({success : false })
+        }
+    } catch (err) {
+        console.error(err);
+        done(err)
+    }
+})
+
+// Feedback Category Select
+router.get('/getCategory/:categoryId', async (req, res) => {
+    try {
+        console.log(11);
+
+    } catch (err) {
+        console.error(err);
+        
         done(err);
     }
 })

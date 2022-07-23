@@ -4,11 +4,13 @@ import FeedbackMenu from "../includes/FeedbackMenubar"
 import api from "../shared/api";
 
 function Feedback() {
+    const [MainLengthCheck, SetMainLengthCheck] = useState("");
     const [FeedArray, SetFeedArray] = useState([]);
     useEffect(() => {
         async function getFeedback() {
             await api.get('/api/feedback/getMain')
                 .then(res => {
+                    SetMainLengthCheck((res.data).length)
                     SetFeedArray(res.data)
                 });
         }
@@ -19,12 +21,13 @@ function Feedback() {
         if (!num) return "";
         let firstNum = num.slice(0, 10);
         let secondNum = num.slice(11, 16);
-        return firstNum +" " + secondNum
+        return firstNum + " " + secondNum
     }
-
+    
     return (
         <div>
             <FeedbackMenu />
+            { MainLengthCheck ?
             <div>
                 {/* <div class="grid-container-box">
                     <div class="grid-container">
@@ -64,7 +67,7 @@ function Feedback() {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div>: "아무것도 없어용~ 이것도 아이콘 넣어서 이쁘게 꾸미면 될 것 같아요 ~"}
         </div>
     )
 }

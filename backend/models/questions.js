@@ -16,17 +16,19 @@ module.exports = class Questions extends Sequelize.Model {
                     type: Sequelize.STRING(200)
                 }
             }, {
-            sequelize,
-            underscored: false,
-            charset: "utf8",
-            collate: "utf8_bin",
-            tableName: "questions",
-            timestamps: false,
-            paranoid: false,
-        });
+                sequelize,
+                underscored: false,
+                charset: "utf8",
+                collate: "utf8_bin",
+                tableName: "questions",
+                timestamps: false,
+                paranoid: false,
+            },
+        );
     }
 
     static associate(db) {
         db.Questions.belongsTo(db.SubCategory);
+        db.Questions.hasMany(db.Feedback, { onDelete: "CASCADE" });
     }
 };

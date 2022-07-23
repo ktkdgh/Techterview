@@ -1,21 +1,56 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
+
+import {Navigation} from 'react-minimal-side-navigation';
+import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 
 
-class FeedbackMenu extends Component {
-    render() {
-        return (
-        <div>
-            <div className="naviagation-bar-vertical-container">
-                <ul className='navigation-bar-vertical'>
-                    <li><div >모두 보기 </div></li>
-                    <li><div >카테고리 보기 </div></li>
-                    <li><div >MY 영상 관리</div ></li>
-                </ul>
-            </div>  
-        </div>
+function FeedbackMenu() {
 
-        )
-    }
+    return (
+        <>
+        <Navigation
+            activeItemId="/management/members"
+            onSelect={({itemId}) => {
+                // maybe push to the route
+            }}
+            items={[
+                {
+                title: '모두 보기',
+                itemId: '/dashboard',
+                },
+                {
+                title: '카테고리 보기',
+                itemId: '/management',
+                subNav: [
+                    {
+                    title: 'Projects',
+                    itemId: '/management/projects',
+                    subNav: [{
+                        title: 'Projects',
+                        itemId: '/project/projectt',
+                    }
+                    ]
+                    },
+                    {
+                    title: 'Members',
+                    itemId: '/management/members',
+                    },
+                ],
+                },
+                {
+                title: 'My 영상 관리',
+                itemId: '/another',
+                subNav: [
+                    {
+                    title: 'Teams',
+                    itemId: '/management/teams',
+                    },
+                ],
+                },
+            ]}
+            />
+        </>
+    );
 }
-export default FeedbackMenu
 
+export default FeedbackMenu

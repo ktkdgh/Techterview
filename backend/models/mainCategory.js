@@ -20,10 +20,11 @@ module.exports = class MainCategory extends Sequelize.Model{
                 tableName: "mainCategory", 
                 timestamps: false,
                 paranoid: false,
-            });
-        }
+            },
+        );
+    }
 
     static associate(db) {
-        db.MainCategory.hasMany(db.SubCategory);
+        db.MainCategory.hasMany(db.SubCategory, { onDelete: "CASCADE" });
     }
 };
