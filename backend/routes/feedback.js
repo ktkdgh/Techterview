@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const { Feedback, LikeCnt, Member, Recording, Reply } = require('../models');
-const axios = require('axios');
 
 // Feedback Main
 router.get('/getMain', async (req, res) => {
@@ -67,7 +66,8 @@ router.get('/getDetail/:feedbackId/:memberId', async (req, res) => {
                 updatedAt: value.updatedAt,
                 user_name: value.Member.name,
                 user_id: value.Member.id,
-                replyCheck: userId == value.Member.id
+                replyCheck: userId == value.Member.id,
+                updateCheck: Number(value.createdAt)  ==  Number(value.updatedAt)
             })
         })
 
@@ -105,17 +105,18 @@ router.delete('/deletePage/:feedbackId', async (req, res) => {
 
 
 // Feedback Category Select
-router.get('/getCategory/:categoryId', async (req, res) => {
-    try {
-        console.log(11);
+// router.get('/getCategory/:categoryId', async (req, res) => {
+//     try {
+//         console.log(11);
 
-    } catch (err) {
-        console.error(err);
+//     } catch (err) {
+//         console.error(err);
 
-        done(err);
-    }
-})
+//         done(err);
+//     }
+// })
 
+// reply create
 router.post('/replyCreate', async(req, res) => {
     try {
         const result = await Reply.create({ MemberId : req.body.userId, FeedbackId : req.body.feedbackId, reply_comment: req.body.text })
@@ -131,6 +132,7 @@ router.post('/replyCreate', async(req, res) => {
     }
 })
 
+// reply delete
 router.delete('/replyDelete/:replyId', async(req, res) => {
     try {
         const findReply = await Reply.findOne({where: {id: req.params.replyId}, include: {model: Feedback}})
@@ -139,6 +141,19 @@ router.delete('/replyDelete/:replyId', async(req, res) => {
         
         const replys = await Feedback.findOne({ where: {id: findReply.Feedback.id}})
         res.json({replys: replys.reply_cnt})
+    } catch (err) {
+        console.error(err);
+        done(err);
+    }
+})
+
+// reply update
+router.put('/replyUpdate', async(req, res) => {
+    try {
+        await Reply.update({reply_comment : req.body.comment}, {where: {id : req.body.reply_id}})
+        
+        res.json({success: true})
+        
     } catch (err) {
         console.error(err);
         done(err);
