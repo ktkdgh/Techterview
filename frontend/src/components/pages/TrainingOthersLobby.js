@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import QuestionMenu from './QuestionListMenu';
+import QuestionMenuNavBar from '../includes/QuestionListMenubar';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useLocation } from "react-router-dom";
@@ -14,7 +14,7 @@ function OthersLobby() {
     return (
         <div>
             <div className='others-lobby-header2'>
-                <QuestionMenu />
+                <QuestionMenuNavBar />
                 <div>
                     {/* <Link to=
                         {{
@@ -56,4 +56,3 @@ function OthersLobby() {
 }
 
 export default OthersLobby
-
