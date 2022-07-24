@@ -279,3 +279,32 @@ td {
 .section {
   margin: 15px;
 }
+
+@font-face {
+  font-family: "DohyeonRegular";
+  src: url("../assets/fonts/DoHyeon-Regular.ttf");
+}
+
+@font-face {
+  font-family: "DohyeonRegular";
+  src: url("../assets/fonts/DoHyeon-Regular.ttf");
+}
+
+@font-face {
+  font-family: "DohyeonBlack";
+  src: url("../assets/fonts/NotoSansKR-Black.otf");
+}
+
+@font-face {
+  font-family: "DohyeonBold";
+  src: url("../assets/fonts/NotoSansKR-Bold.otf");
+}
+@font-face {
+  font-family: "DohyeonMedium";
+  src: url("../assets/fonts/NotoSansKR-Medium.otf");
+}
+@font-face {
+  font-family: "DohyeonLight";
+  src: url("../assets/fonts/NotoSansKR-Light.otf");
+}
+

@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { v4 as uuidv4 } from 'uuid';
 
 import "./index.css"
 import "./components/css/VideoDeleteModal.css"
@@ -19,9 +18,11 @@ import TrainingAlone from "./components/pages/TrainingAlone";
 import TrainingOthers from "./components/pages/TrainingOthers";
 import OthersLobby from "./components/pages/TrainingOthersLobby";
 import KakaoAuthHandle from "./components/pages/KakaoAuthHandle";
-
+import CreateRoomWith from "./components/modal/CreateRoomWith"
 class App extends Component {
   render() {
+
+
     return (
       <div className="App">
         <BrowserRouter>
@@ -36,10 +37,11 @@ class App extends Component {
               <Route path="/feedback/detail/:feedId" element={<FeedbackDetail />} />
               <Route path="/training/detail" element={<FeedbackDetail />} />
               <Route path="/training/others/lobby" element={<OthersLobby />} />
+              <Route path= "training/others/modal" element = {<CreateRoomWith />}/>
             </Route>
 
             <Route path="/page/training/alone/:key" element={<TrainingAlone />} />
-            <Route path="/training/page/training/with/:key/:id" element={<TrainingOthers />} />
+            <Route path="/training/with/:key/:id" element={<TrainingOthers />} />
 
 
           </Routes>

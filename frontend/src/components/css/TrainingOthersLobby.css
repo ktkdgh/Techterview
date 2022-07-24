@@ -1,0 +1,63 @@
+
+.interview-room-body {
+    display: flex;
+    justify-content: center;
+}
+
+.interview-room-container-box {
+    width: 80%;
+    background-color: rgb(235, 255, 248);
+    height: 100vh;
+    margin : 0;
+    display: flex;
+
+}
+.interview-room{
+width : 30%;
+height : 30%;
+border : 1px soild #2b6dae;
+border-radius : 10px;
+display:flex;
+background-color: #F9F9FA;
+margin: 1vw;
+padding : 2%;
+cursor : pointer;
+display: flex;
+flex-direction: column;
+position: relative;
+box-shadow: 3px 3px 3px;
+}
+.interview-room-name {
+    font-family: "DohyeonBold";
+    font-size: 300%;
+    text-align: center;
+    margin-bottom: 3%;
+}
+.category-people-count-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-right: 2%;
+
+}
+
+.interview-room-category-container {
+    width: 70%;
+    display: flex;
+}
+.interview-room-category {
+    font-family: "DohyeonLight";
+    font-size: 110%;
+    background-color: rgb(182, 243, 222);
+    margin: 1%;
+    color: rgb(10, 46, 37);
+    border-radius: 10%;
+    padding: 2%;
+}
+
+
+.room-people-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

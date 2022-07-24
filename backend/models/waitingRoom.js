@@ -1,54 +1,45 @@
+const e = require("express");
 
 let idx = 0;
 const room = {}
-const waitIndices = new Set();
+let roomInfo =  new Set()
+roomInfo = [
+{ roomName: '방제목 1입니다', tag0: 'CS' , tag1: "프론트엔드", tag2: "네트워크"}, 
+{ roomName: '방제목 2입니다', tag0: '네트워크', tag1: "프론트엔드", tag2: "네트워크"}, 
+{ roomName: '방제목 3입니다', tag0: '프론트엔드',tag1: "프론트엔드", tag2: "네트워크" }
+]
 
-function increaseIdx() {
-    idx += 1;
-    return idx;
-  }
   
   function getIdx() {
     return idx;
   }
 
+function addUser(idx, socketId, roomId, userId ) {
+    room[idx]={socketId,roomId,userId};
+}
 
-function getStatus(idx) {
-    return room[idx].status;
-  }
-  
-  
-  function setStatus(idx, status) {
-    room[idx].status = status;
-  }
-
-  
-function getRoom(socket) {
-    const rooms = socket.rooms;
-
-    for (let i of rooms) {
-        if(i != socket.id) {
-            return i;
+function addRoomInfo(socketId, roomId,sendNum,roomName,tag0,tag1,tag2) {
+    count = 0
+    for (var i = 0; i < roomInfo.length; i++) {
+        if (roomInfo[i].socketId == socketId)
+        {
+        count += 1 
         }
     }
-}
 
-function setRoom(roomInfo) {
-    if(roomInfo) {
-        room[idx].users = roomInfo;
-    }
-}
+if (count == 0){
+    roomInfo.push({
 
-function createRoom(userInfo) {
-    if(room[idx]?.status==='interviewing') {
-        idx ++;
-    }
-    room[idx] = {
-        users: [userInfo],
-        status: 'waiting'
-    }
-    waitIndices.add(idx);
+        socketId : socketId,
+        roomId : roomId,
+        sendNum : sendNum,
+        roomName : roomName,
+        tag0  : tag0,
+        tag1  : tag1,
+        tag2  : tag2,
+})
 }
+  }
 
 function joinRoom(userInfo) {
     try {
@@ -62,15 +53,10 @@ function joinRoom(userInfo) {
 
 
 module.exports = {
-    room,
-    waitIndices,
-    getRoom,
-    setRoom,
-    getStatus,
-    setStatus,
-    createRoom,
+    roomInfo,
     joinRoom,
-    increaseIdx,
-    getIdx
+    getIdx,
+    addUser,
+    addRoomInfo,
   };
 

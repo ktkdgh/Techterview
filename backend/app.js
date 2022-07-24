@@ -36,24 +36,17 @@ const io = require("socket.io")(8001, { cors:{ origin: ['http://localhost:3000']
 
 io.on("connection", (socket) => {
   socket.onAny(e => {
+  socket.onAny(e => {
     console.log(`SOCKET EVENT::::::${e}`);
   });
-
   // Connection
   SocketRoutes.video.joinRoom(socket, SocketRoutes.video.event.joinRoom);  
-  SocketRoutes.video.waitUser(socket, SocketRoutes.video.event.waitUser);
-
+  SocketRoutes.video.createRoom(socket, SocketRoutes.video.event.createRoom);
+  SocketRoutes.video.enterWaitRoom(socket, SocketRoutes.video.event.enterWaitRoom);
+  })
 });
 
-// server.listen(PORTNUM, () => {
-//   console.log(`Server is running... port: ${PORTNUM}`);
-// });
-
-
-
-
-
-
+////////////
 
 app.use(cors());
 
