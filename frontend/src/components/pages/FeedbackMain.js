@@ -6,6 +6,7 @@ import '../css/FeedBack.css'
 
 function Feedback() {
     const [MainLengthCheck, SetMainLengthCheck] = useState("");
+    const [SelectFeedPath, SetSelectFeedPath] = useState("");
     const [FeedArray, SetFeedArray] = useState([]);
     useEffect(() => {
         async function getFeedback() {
@@ -25,10 +26,24 @@ function Feedback() {
         return firstNum + " " + secondNum
     }
 
+    const selectFeedMenu = (path) => {
+        SetSelectFeedPath(path);
+        getCategoryFeed(path);
+    }
+
+    const getCategoryFeed = async (path) => {
+        await api.get(`/api/feedback/category${path}`)
+            .then(res => {
+                console.log(res.data);
+                SetMainLengthCheck((res.data).length)
+                SetFeedArray(res.data)
+            })
+    }
+
     return (
         <div className='Wrapper'>
-            <div className="left-navbar" >
-                <FeedbackMenu />
+            <div className="others-lobby-header2" >
+                <FeedbackMenu  selectFeedMenu={(id) => selectFeedMenu(id)}/>
             </div>
             {MainLengthCheck ?
             <div className="Main-body">

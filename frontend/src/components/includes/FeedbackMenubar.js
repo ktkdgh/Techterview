@@ -1,41 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import { Navigate, useParams } from 'react-router-dom';
-import { useNavigate, useLocation } from "react-router-dom";
 import "../css/FeedBack.css"
 
-function FeedbackMenu() {
-
-    const [feedbackNum, SetFeedbackNum] = useState("")
-
-    function handleClick() {
-        window.location.replace("../feedback/" + feedbackNum)
-    }
-
-    const history = useNavigate();
-    const location = useLocation();
-
-
+function FeedbackMenu({ selectFeedMenu }) {
 
     return (
         <>
             <Navigation
                 // activeItemId={location.pathname}
                 onSelect={({ itemId }) => {
-                    (0 <= itemId && itemId < 6)
-                        ? console.log("itemId") : window.location.replace("../feedback" + itemId)
-
-                    // console.log("copy", copy);
-                    // SetFeedbackNum(copy);
-                    // console.log("feedbackNum", feedbackNum)
-                    // window.location.replace("../feedback" + copy)
+                    selectFeedMenu(itemId)
                 }}
                 items={[
                     {
                         itemId: '0',
                         title: '모두 보기',
-                        // itemId: '/dashboard',
+                        itemId: '/main',
                     },
                     {
                         title: 'CS',
@@ -136,5 +117,4 @@ function FeedbackMenu() {
         </>
     );
 }
-
 export default FeedbackMenu

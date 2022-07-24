@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { Feedback, LikeCnt, Member, Recording, Reply } = require('../models');
+const { Feedback, LikeCnt, Member, Recording, Reply, Questions, SubCategory } = require('../models');
 
 // Feedback Main
 router.get('/getMain', async (req, res) => {
@@ -67,11 +67,10 @@ router.get('/getDetail/:feedbackId/:memberId', async (req, res) => {
                 user_name: value.Member.name,
                 user_id: value.Member.id,
                 replyCheck: userId == value.Member.id,
-                updateCheck: Number(value.createdAt)  ==  Number(value.updatedAt)
+                updateCheck: Number(value.createdAt) == Number(value.updatedAt)
             })
         })
     
-
         const detail = {
             title : feedback.feedback_title,
             name : feedback.Recording.Member.name,
@@ -104,18 +103,31 @@ router.delete('/deletePage/:feedbackId', async (req, res) => {
     }
 })
 
+// feedback category get
+router.get('/category/:main/:subcategoryId', async (req, res) => {
+    try {
+        const feedback_category = await Feedback.findAll({ order: [['like_cnt', 'DESC']], include:[{model: Recording, include:{model: Member}},{model:Questions, where: {SubCategoryId : req.params.subcategoryId}}]})
+        feedbackList = []
+        if(feedback_category) {
+            feedback_category.forEach((value) => {
+                feedbackList.push({
+                    id: value.id,
+                    feedback_title: value.feedback_title,
+                    like_cnt: value.like_cnt,
+                    reply_cnt: value.reply_cnt,
+                    user_name: value.Recording.Member.name,
+                    createdAt: value.createdAt
+                })
+            })
+        }
+        console.log(feedbackList);
+        res.json(feedbackList)
 
-// Feedback Category Select
-// router.get('/getCategory/:categoryId', async (req, res) => {
-//     try {
-//         console.log(11);
-
-//     } catch (err) {
-//         console.error(err);
-
-//         done(err);
-//     }
-// })
+    } catch (err) {
+        console.error(err);
+        done(err);
+    }
+})
 
 // reply create
 router.post('/replyCreate', async(req, res) => {

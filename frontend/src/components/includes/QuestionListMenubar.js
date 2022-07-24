@@ -99,6 +99,4 @@ function QuestionMenuNavBar({ selectMenu }) {
         </>
     );
 }
-
-
 export default QuestionMenuNavBar

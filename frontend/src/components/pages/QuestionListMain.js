@@ -6,44 +6,28 @@ import api from "../shared/api";
 
 
 function Question() {
-    const [LengthCheck, SetLengthCheck] = useState("");
     const [QuestionArray, SetQuestionArray] = useState([]);
     const [selectedPath, setSelectedPath] = useState('');
-    const [openModal, setOpenModal] = useState(false);
     useEffect(() => {
         console.log('select url ', `/api/questionList/getQuestionList${selectedPath}`);
         async function getQuestion() {
             await api.get(`/api/questionList/getQuestionList${selectedPath}`)
                 .then(res => {
-                    SetLengthCheck((res.data).length)
                     SetQuestionArray(res.data)
                 });
         }
         getQuestion();
     }, [selectedPath]);
 
-
-    console.log(QuestionArray);
-
-    // const YMDFormat = (num) => {
-    //     if (!num) return "";
-    //     let firstNum = num.slice(0, 10);
-    //     let secondNum = num.slice(11, 16);
-    //     return firstNum + " " + secondNum
-    // }
-
-
     const selectMenu = (path) => {
         setSelectedPath(path);
+        console.log(path);
     }
 
     return (
         <div className='Wrapper'>
-            <div className='left-menu'>
+            <div className='others-lobby-header2'>
                 <QuestionMenuNavBar selectMenu={(id) => selectMenu(id)} />
-                <div>
-                    {openModal && <QuestionMenuNavBar closeModal={setOpenModal} />}
-                </div>
             </div>
 
             <div>
