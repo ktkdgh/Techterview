@@ -11,6 +11,7 @@
 }
 
 .Main-body {
+    margin-top: 55px;
     background-color: brown;
     width: 75%;
     float: right;
