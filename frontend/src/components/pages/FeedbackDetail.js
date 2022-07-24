@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import FeedbackMenu from "../includes/FeedbackMenubar";
 import jwt from "jwt-decode";
 import api from "../shared/api"
-// import {Link} from 'react-router-dom'; 
 
 function FeedbackDetail() {
     const [DetailFeedback, SetDetailFeedback] = useState([]);
@@ -52,14 +50,6 @@ function FeedbackDetail() {
             })
     };
 
-    const onChange = (e) => {
-        setText(e.target.value);
-    };
-
-    const onUpdate = (e) => {
-        SetUpdateText(e.target.value);
-    };
-
     const replyCreate = async () => {
         const replyData = { text: text, userId: userInfo.id, feedbackId: feedbackId }
         await api.post("/api/feedback/replyCreate", replyData)
@@ -68,24 +58,11 @@ function FeedbackDetail() {
             })
     }
 
-    const YMDFormat = (num) => {
-        if (!num) return "";
-        let firstNum = num.slice(0, 10);
-        let secondNum = num.slice(11, 16);
-        return firstNum + " " + secondNum
-    }
-
     const replyDelete = async (id) => {
         await api.delete(`/api/feedback/replyDelete/${id}`)
             .then(res => {
                 window.location.reload(true)
             })
-    }
-
-    const replyUpdateClick = async (idx, text) => {
-        SetModify(true)
-        SetIdx(idx)
-        SetUpdateText(text)
     }
 
     const replyUpdate = async (id) => {
@@ -98,10 +75,29 @@ function FeedbackDetail() {
             })
     }
 
+    const onChange = (e) => {
+        setText(e.target.value);
+    };
+
+    const onUpdate = (e) => {
+        SetUpdateText(e.target.value);
+    };
+
+    const replyUpdateClick = async (idx, text) => {
+        SetModify(true)
+        SetIdx(idx)
+        SetUpdateText(text)
+    }
+
+    const YMDFormat = (num) => {
+        if (!num) return "";
+        let firstNum = num.slice(0, 10);
+        let secondNum = num.slice(11, 16);
+        return firstNum + " " + secondNum
+    }
+
     return (
         <div>
-            <FeedbackMenu />
-
             <div>
                 <div className="feedbackdetail-title">
                     <span className="feedbackdetail-title-left"> {DetailFeedback.title}</span>
@@ -117,31 +113,9 @@ function FeedbackDetail() {
                         <div class="grid-item">url : {DetailFeedback.recordingUrl}   </div>
                     </div>
                 </div>
-                <div className='feedback-table'>
-                    댓글 수 : {DetailFeedback.replys}
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>작성자</th><th>제목</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>abc234</td><td>정말 도움이 많이 됐습니다</td>
-                            </tr>
-                            <tr>
-                                <td>dddd</td><td>너무 잘생겼어요 좋아요!!!</td>
-                            </tr>
-                            <tr>
-                                <td>999d9s</td><td>제가 생각한 답변이랑 많이 다른 것 같네요</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
             <div className='feedback-table'>
                 {DetailFeedback.replys}의 댓글
-
                 <input onChange={onChange} value={text} /><button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { replyCreate() }}>등록</button>
                 <table>
                     <thead>
@@ -151,27 +125,26 @@ function FeedbackDetail() {
                     </thead>
                     <tbody>
                         { ReplyList.map((value, idx) => {
-                                return(
-                                    <tr>
-                                        <td> { value.user_name } </td>
-                                        { Modify &&  Idx == idx+1 ? 
-                                        <td> <input onChange={ onUpdate } value={UpdateText}/> </td> :
-                                        <td>{value.reply_comment}{value.updateCheck ? "": "(수정됨)"}</td>} 
-                                        
-                                        <td> { YMDFormat(value.createdAt) } </td>
-                                        { !value.replyCheck  ? "" : Modify &&  Idx == idx+1 ? 
-                                            <td>
-                                                <button style={{ color: 'white', backgroundColor: 'black'}} onClick={() => { replyUpdate(value.id) }}>수정</button>
-                                                <button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { window.location.reload(true) }}>취소</button>
-                                            </td> :
-                                            <td>
-                                                <button style={{ color: 'white', backgroundColor: 'black'}} onClick={() => { replyDelete(value.id) }}>삭제</button>
-                                                <button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
-                                            </td>
-                                        }
-                                    </tr>
-                                );
-                            })}
+                            return(
+                                <tr>
+                                    <td> { value.user_name } </td>
+                                    { Modify &&  Idx == idx+1 ? 
+                                    <td> <input onChange={ onUpdate } value={UpdateText}/> </td> :
+                                    <td>{value.reply_comment}{value.updateCheck ? "": "(수정됨)"}</td>} 
+                                    <td> { YMDFormat(value.createdAt) } </td>
+                                    { !value.replyCheck  ? "" : Modify &&  Idx == idx+1 ? 
+                                        <td>
+                                            <button style={{ color: 'white', backgroundColor: 'black'}} onClick={() => { replyUpdate(value.id) }}>수정</button>
+                                            <button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { window.location.reload(true) }}>취소</button>
+                                        </td>:
+                                        <td>
+                                            <button style={{ color: 'white', backgroundColor: 'black'}} onClick={() => { replyDelete(value.id) }}>삭제</button>
+                                            <button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
+                                        </td>
+                                    }
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

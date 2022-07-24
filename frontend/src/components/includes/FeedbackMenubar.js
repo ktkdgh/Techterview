@@ -97,21 +97,7 @@ function FeedbackMenu({ selectFeedMenu }) {
                                 itemId: '/position/14',
                             },
                         ]
-                    },
-                    {
-                        title: 'My 영상 관리',
-                        itemId: '5',
-                        subNav: [
-                            {
-                                title: 'My 영상 목록',
-                                itemId: '/recording/main',
-                            },
-                            {
-                                title: 'My 피드백 목록',
-                                itemId: '/recording/feedback',
-                            },
-                        ],
-                    },
+                    }
                 ]}
             />
         </>

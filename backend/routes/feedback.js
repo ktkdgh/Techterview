@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const { Feedback, LikeCnt, Member, Recording, Reply, Questions, SubCategory } = require('../models');
+const { Feedback, LikeCnt, Member, Recording, Reply, Questions } = require('../models');
 
 // Feedback Main
-router.get('/getMain', async (req, res) => {
+router.get('/category/main', async (req, res) => {
     try {
         const feedbackAll = await Feedback.findAll({ order: [['like_cnt', 'DESC']], include: {model:Recording, include:{model:Member}}})
         feedbackArray = []
@@ -67,7 +67,7 @@ router.get('/getDetail/:feedbackId/:memberId', async (req, res) => {
                 user_name: value.Member.name,
                 user_id: value.Member.id,
                 replyCheck: userId == value.Member.id,
-                updateCheck: Number(value.createdAt) == Number(value.updatedAt)
+                updateCheck: value.createdAt == value.updatedAt
             })
         })
     
@@ -120,9 +120,7 @@ router.get('/category/:main/:subcategoryId', async (req, res) => {
                 })
             })
         }
-        console.log(feedbackList);
         res.json(feedbackList)
-
     } catch (err) {
         console.error(err);
         done(err);
@@ -134,6 +132,7 @@ router.post('/replyCreate', async(req, res) => {
     try {
         const result = await Reply.create({ MemberId : req.body.userId, FeedbackId : req.body.feedbackId, reply_comment: req.body.text })
         await Feedback.increment({reply_cnt: 1}, {where: { id: req.body.feedbackId }})
+
         if (result) {
             res.json({ success : true })
         } else {
@@ -151,8 +150,8 @@ router.delete('/replyDelete/:replyId', async(req, res) => {
         const findReply = await Reply.findOne({where: {id: req.params.replyId}, include: {model: Feedback}})
         await Feedback.decrement({reply_cnt: 1}, {where: { id: findReply.Feedback.id }})
         await Reply.destroy({ where: { id: req.params.replyId }})
-        
         const replys = await Feedback.findOne({ where: {id: findReply.Feedback.id}})
+
         res.json({replys: replys.reply_cnt})
     } catch (err) {
         console.error(err);
@@ -164,9 +163,51 @@ router.delete('/replyDelete/:replyId', async(req, res) => {
 router.put('/replyUpdate', async(req, res) => {
     try {
         await Reply.update({reply_comment : req.body.comment}, {where: {id : req.body.reply_id}})
-        
+
         res.json({success: true})
-        
+    } catch (err) {
+        console.error(err);
+        done(err);
+    }
+})
+
+// feedback My recording 
+router.get('/recording/:number/:userId', async(req, res) => {
+    try {
+        const user_name = await Member.findOne({where: {id : req.params.userId}})
+        let recordingList = []
+        if(req.params.number == 15) {
+            const recording = await Recording.findAll({order: [['createdAt', 'DESC']],where: { registered : '0',  MemberId: req.params.userId}})
+
+            if(recording) {
+                recording.forEach((value) => {
+                    recordingList.push({
+                        id: value.id,
+                        title: value.recording_title,
+                        name: user_name.name,
+                        createdAt: value.createdAt,
+                        recordingUrl: value.recording_url
+                    })
+                })
+            }
+            return res.json(recordingList)
+        } else {
+            const MyFeedbackAll = await Recording.findAll({where: { registered : '1',  MemberId: req.params.userId}})
+            let MyFeedbackArray = []
+            for (const value of MyFeedbackAll) {
+                const feedbackInfo = await Feedback.findOne({where: {RecordingId : value.id}})
+                MyFeedbackArray.push({
+                    id: value.id,
+                    feedback_title: feedbackInfo.feedback_title,
+                    like_cnt: feedbackInfo.like_cnt,
+                    reply_cnt: feedbackInfo.reply_cnt,
+                    user_name: user_name.name,
+                    createdAt: feedbackInfo.createdAt
+                })
+            }
+            return res.json(MyFeedbackArray)
+        }
+
     } catch (err) {
         console.error(err);
         done(err);
