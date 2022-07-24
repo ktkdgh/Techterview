@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import FeedbackDeleteModal from '../modal/FeedbackDeleteModal'
+import ReplyDeleteModal from '../modal/ReplyDeleteModal';
+import ReactPlayer from 'react-player'
 import jwt from "jwt-decode";
 import api from "../shared/api"
 
 function FeedbackDetail() {
+    const [openFeedbackDeleteModal, SetopenFeedbackDeleteModal] = useState(false);
+    const [openReplyDeleteModal, SetopenReplyDeleteModal] = useState(false);
     const [DetailFeedback, SetDetailFeedback] = useState([]);
     const [LikeStatus, SetLikeStatus] = useState("");
     const [text, setText] = useState('');
@@ -11,6 +16,7 @@ function FeedbackDetail() {
     const [Modify, SetModify] = useState(false);
     const [Idx, SetIdx] = useState(0);
     const [UpdateText, SetUpdateText] = useState("");
+    const [ReplyId, SetReplyId] = useState(0);
 
     let feedbackId = new URL(window.location.href).pathname.split('/')[3]
     const Token = sessionStorage.getItem('Authorization')
@@ -43,23 +49,9 @@ function FeedbackDetail() {
             })
     };
 
-    const deleteFeedbackPage = async () => {
-        await api.delete(`/api/feedback/deletePage/${feedbackId}`)
-            .then(res => {
-                window.location.href = '/feedback/main'
-            })
-    };
-
     const replyCreate = async () => {
         const replyData = { text: text, userId: userInfo.id, feedbackId: feedbackId }
         await api.post("/api/feedback/replyCreate", replyData)
-            .then(res => {
-                window.location.reload(true)
-            })
-    }
-
-    const replyDelete = async (id) => {
-        await api.delete(`/api/feedback/replyDelete/${id}`)
             .then(res => {
                 window.location.reload(true)
             })
@@ -103,14 +95,18 @@ function FeedbackDetail() {
                     <span className="feedbackdetail-title-left"> {DetailFeedback.title}</span>
                     <span className='feedbackdetail-title-right'>{DetailFeedback.name}</span>
                     {DetailFeedback.deletebotton ?
-                        <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { deleteFeedbackPage() }}>삭제</button>
-                        : ""}
+                        <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { SetopenFeedbackDeleteModal(true) }}>삭제</button>
+                    : ""}
+                        {openFeedbackDeleteModal && <FeedbackDeleteModal closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
+                        {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
                     {LikeStatus ? "누른상태" : "안누른상태"}
                     <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { upLikeCnt() }}>좋아요  </button> ^_^ {FeedLikeCnt}
                 </div>
                 <div class="feedbackdetail-video-grid-container-box">
                     <div class="feedbackdetail-video-grid-box">
-                        <div class="grid-item">url : {DetailFeedback.recordingUrl}   </div>
+                        <div class="grid-item">
+                            <ReactPlayer  controls url={DetailFeedback.recordingUrl} />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,7 +134,8 @@ function FeedbackDetail() {
                                             <button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { window.location.reload(true) }}>취소</button>
                                         </td> :
                                         <td>
-                                            <button style={{ color: 'white', backgroundColor: 'black' }} onClick={() => { replyDelete(value.id) }}>삭제</button>
+                                            {/*  onClick={() => { replyDelete(value.id) }} */}
+                                            <button style={{ color: 'white', backgroundColor: 'black' }} onClick={() => { SetopenReplyDeleteModal(true); SetReplyId(value.id) }} >삭제</button>
                                             <button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
                                         </td>
                                     }

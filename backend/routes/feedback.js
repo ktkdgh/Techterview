@@ -91,7 +91,9 @@ router.get('/getDetail/:feedbackId/:memberId', async (req, res) => {
 // Feedback delete
 router.delete('/deletePage/:feedbackId', async (req, res) => {
     try {
+        const feedback = await Feedback.findOne({where: {id : req.params.feedbackId}})
         const result = await Feedback.destroy({where: {id: req.params.feedbackId}})
+        await Recording.destroy({where: {id: feedback.RecordingId}})
         if (result) {
             res.json({success : true })
         } else {
@@ -196,8 +198,9 @@ router.get('/recording/:number/:userId', async(req, res) => {
             let MyFeedbackArray = []
             for (const value of MyFeedbackAll) {
                 const feedbackInfo = await Feedback.findOne({where: {RecordingId : value.id}})
+                console.log(feedbackInfo);
                 MyFeedbackArray.push({
-                    id: value.id,
+                    id: feedbackInfo.id,
                     feedback_title: feedbackInfo.feedback_title,
                     like_cnt: feedbackInfo.like_cnt,
                     reply_cnt: feedbackInfo.reply_cnt,
@@ -208,6 +211,38 @@ router.get('/recording/:number/:userId', async(req, res) => {
             return res.json(MyFeedbackArray)
         }
 
+    } catch (err) {
+        console.error(err);
+        done(err);
+    }
+})
+
+router.delete('/deleterecording/:checklist', async (req, res) => {
+    try {
+        const recordingId = req.params.checklist.split(',')
+        for (let value of recordingId) {
+            await Recording.destroy({where: {id: value}})
+        }
+        res.json({success : true})
+    } catch (err) {
+        console.error(err);
+        done(err);
+    }
+})
+
+router.post('/createfeedback', async (req, res) => {
+    try {
+        for (let value of req.body.recordingIdList) {
+            const recording = await Recording.findOne({where : {id : value}})
+            const questions = await Questions.findOne({where: {questions_name : recording.recording_title}})
+            await Feedback.create({
+                feedback_title : recording.recording_title,
+                RecordingId : value,
+                QuestionId : questions.id
+            })
+            await Recording.update({registered : '1'}, {where: {id: value}})
+        }
+        res.json({success : true})
     } catch (err) {
         console.error(err);
         done(err);

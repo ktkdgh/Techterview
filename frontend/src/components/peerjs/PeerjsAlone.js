@@ -136,7 +136,6 @@ function PeerjsAlone() {
           console.log(recordFile);
         })
         .catch(err => console.error(err))
-
     };
     mediaRecorder.stop();
   }

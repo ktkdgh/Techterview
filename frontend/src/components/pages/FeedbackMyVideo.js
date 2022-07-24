@@ -1,8 +1,9 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useCallback, useEffect, useState } from 'react';
 import VideoDeleteModal from '../modal/VideoDeleteModal';
 import VideoFaceVoiceEditModal from '../modal/VideoFaceVoiceEditModal'
+import FeedbackCreateModal from '../modal/FeedbackCreateModal'
+import MyVideoPreviewModal from '../modal/MyVideoPreviewModal'
 import MyVideoMenubar from "../includes/MyVideoMenubar"
-import { Link } from 'react-router-dom';
 import '../css/FeedBack.css'
 import api from '../shared/api';
 import jwt from 'jwt-decode';
@@ -10,9 +11,13 @@ import jwt from 'jwt-decode';
 function MyVideo() {
     const [openModal, setOpenModal] = useState(false);
     const [openVideoFaceVoiceEditModal, setOpenVideoFaceVoiceEditModal] = useState(false);
+    const [openFeedbackCreateModal, SetopenFeedbackCreateModal] = useState(false);
+    const [openMyVideoPreviewModal, SetopenMyVideoPreviewModal] = useState(false);
     const [RecordingLengthCheck, SetRecordingLengthCheck] = useState("");
     const [RecordingList, SetRecordingList] = useState([]);
     const [StatusCheck, SetStatusCheck] = useState(false);
+    const [checkedList, setCheckedLists] = useState([]);
+    const [priviewUrl, SetpriviewUrl] = useState("");
 
     const Token = sessionStorage.getItem('Authorization')
     const userInfo = jwt(Token)
@@ -35,7 +40,6 @@ function MyVideo() {
             SetStatusCheck(true)
         }
         getMyRecording(path);
-
     }
 
     const getMyRecording = async (path) => {
@@ -53,6 +57,16 @@ function MyVideo() {
         return firstNum + " " + secondNum
     }
 
+    const onCheckedElement = useCallback(
+        (checked, id) => {
+        if (checked) {
+            setCheckedLists([...checkedList, id]);
+        } else {
+            setCheckedLists(checkedList.filter((el) => el !== id));
+        }
+    },[checkedList]);
+
+
     return (
         <div className='Wrapper'>
             <div className='left-menu' >
@@ -64,13 +78,15 @@ function MyVideo() {
                     <div class="grid-container-box">
                         <div class="video-edit-btn">
                             <button className="add-face-filter-voice-btn" onClick={() => { setOpenVideoFaceVoiceEditModal(true); }} >영상 필터 및 목소리 변조</button>
-                            <button className="video-delete-btn" onClick={() => { setOpenModal(true); }} >영상 삭제</button>
+                            <button className="video-delete-btn" onClick={() => { setOpenModal(true) }} >영상 삭제</button>
+                            <button className="video-delete-btn" onClick={() => { SetopenFeedbackCreateModal(true) }} >피드백 등록</button>
                             {openVideoFaceVoiceEditModal && <VideoFaceVoiceEditModal closeModal={setOpenVideoFaceVoiceEditModal} />}
-
-                            {openModal && <VideoDeleteModal closeModal={setOpenModal} />}
+                            {openModal && <VideoDeleteModal closeModal={setOpenModal} checkedList={checkedList} />}
+                            {openFeedbackCreateModal && <FeedbackCreateModal closeModal={SetopenFeedbackCreateModal} checkedList={checkedList}/>}
                         </div>
                     </div>
                 }
+
 
                 {RecordingLengthCheck ?
                     <div className='feedback-table'>
@@ -81,7 +97,7 @@ function MyVideo() {
                                         <th>번호</th><th>제목</th><th>작성자</th><th>좋아요 수</th><th>댓글 수</th><th>등록일</th>
                                     </tr> :
                                     <tr>
-                                        <th>번호</th><th>제목</th><th>작성자</th><th>등록일</th>
+                                        <th></th><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th>
                                     </tr>
                                 }
                             </thead>
@@ -102,11 +118,17 @@ function MyVideo() {
                                 </tbody> :
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
-                                        console.log(value);
                                         return (
                                             <tr>
+                                                <td> <input
+                                                    key={value.id}
+                                                    type="checkbox"
+                                                    onChange={(e) => onCheckedElement(e.target.checked, value.id)}
+                                                    checked={checkedList.includes(value.id) ? true : false}
+                                                    /></td>
                                                 <td> {idx + 1} </td>
-                                                <td> {value.title} </td>
+                                                <td> <button onClick={()=> {SetopenMyVideoPreviewModal(true); SetpriviewUrl(value.recordingUrl)}}>{value.title}</button> </td>
+                                                {openMyVideoPreviewModal && <MyVideoPreviewModal closeModal={SetopenMyVideoPreviewModal} videoUrl={priviewUrl}/>}
                                                 <td> {value.name} </td>
                                                 <td> {YMDFormat(value.createdAt)} </td>
                                             </tr>
@@ -120,5 +142,4 @@ function MyVideo() {
         </div>
     )
 }
-
 export default MyVideo
