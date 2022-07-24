@@ -1,26 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import "../css/Question.css"
+
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import "../css/FeedBack.css"
 
-function FeedbackMenu({ selectFeedMenu }) {
+function QuestionMenuNavBar({ selectMenu }) {
 
     return (
         <>
             <Navigation
-                // activeItemId={location.pathname}
+                activeItemId="/management/members"
                 onSelect={({ itemId }) => {
-                    selectFeedMenu(itemId)
+                    selectMenu(itemId);
                 }}
                 items={[
                     {
-                        itemId: '0',
-                        title: '모두 보기',
-                        itemId: '/main',
-                    },
-                    {
                         title: 'CS',
-                        itemId: '1',
+                        itemId: '/CS',
                         subNav: [
                             {
                                 title: '네트워크',
@@ -54,7 +50,7 @@ function FeedbackMenu({ selectFeedMenu }) {
                     },
                     {
                         title: '기본질문 및 개발상식',
-                        itemId: '2',
+                        itemId: '/basic',
                         subNav: [
                             {
                                 title: '개발상식',
@@ -68,7 +64,7 @@ function FeedbackMenu({ selectFeedMenu }) {
                     },
                     {
                         title: '언어',
-                        itemId: '3',
+                        itemId: '/language',
                         subNav: [
                             {
                                 title: 'React',
@@ -86,21 +82,21 @@ function FeedbackMenu({ selectFeedMenu }) {
                     },
                     {
                         title: '직무별',
-                        itemId: '4',
+                        itemId: '/duty',
                         subNav: [
                             {
                                 title: '프론트엔드',
-                                itemId: '/position/13',
+                                itemId: '/duty/13',
                             },
                             {
                                 title: '백엔드',
-                                itemId: '/position/14',
+                                itemId: '/duty/14',
                             },
                         ]
-                    }
+                    },
                 ]}
             />
         </>
     );
 }
-export default FeedbackMenu
+export default QuestionMenuNavBar

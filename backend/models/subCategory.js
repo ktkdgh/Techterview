@@ -20,12 +20,12 @@ module.exports = class SubCategory extends Sequelize.Model{
                 tableName: "subCategory", 
                 timestamps: false, 
                 paranoid: false, 
-            });
-        }
+            },
+        );
+    }
 
     static associate(db) {
-        db.SubCategory.belongsTo(db.MainCategory);
-        db.SubCategory.hasMany(db.Questions);
-        db.SubCategory.hasMany(db.Feedback);
+        db.SubCategory.belongsTo(db.MainCategory, { onDelete: "CASCADE" });
+        db.SubCategory.hasMany(db.Questions, { onDelete: "CASCADE" });
     }
 };

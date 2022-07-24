@@ -1,0 +1,13 @@
+.Wrapper {
+    margin-top: 50px;
+}
+
+.left-navbar {
+    width: 280px;
+    float: left;
+    background-color: aquamarine;
+}
+
+/* .Main-body {
+    background-color: blueviolet;
+} */

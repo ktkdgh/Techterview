@@ -34,6 +34,7 @@ class App extends Component {
               <Route path="/feedback/myvideo" element={<MyVideo />} />
               <Route path="/questionlist/main" element={<QuestionList />} />
               <Route path="/feedback/main" element={<Feedback />} />
+              <Route path="/feedback/:key" element={<Feedback />} />
               <Route path="/feedback/detail/:feedId" element={<FeedbackDetail />} />
               <Route path="/training/detail" element={<FeedbackDetail />} />
               <Route path="/training/others/lobby" element={<OthersLobby />} />

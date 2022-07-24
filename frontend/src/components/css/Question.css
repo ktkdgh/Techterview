@@ -1,0 +1,18 @@
+.Wrapper {
+    margin-top: 70px;
+    margin: 30px;
+}
+
+.left-menu {
+    margin-top: 55px;
+    width: 280px;
+    float: left;
+    background-color: pink;
+}
+
+.Main-body {
+    display: flex;
+    flex-basis: 60%;
+    width: 75%;
+    float: right;
+}

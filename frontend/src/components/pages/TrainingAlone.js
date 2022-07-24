@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import PeerjsAlone from '../peerjs/PeerjsAlone';
 import { Link } from 'react-router-dom';
 import "../css/TrainingAloneStartModal.css"
-import '../../../node_modules/font-awesome/css/font-awesome.min.css'; 
+import '../../../node_modules/font-awesome/css/font-awesome.min.css';
+
+
 
 
 function TrainingAlone() {
+
     return (
 
         <div className="training-container">

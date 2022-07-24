@@ -9,8 +9,8 @@ module.exports = class Reply extends Sequelize.Model{
                     autoIncrement: true,
                     primaryKey: true
                 },
-                Reply_comment: {
-                    type: Sequelize.STRING(50),
+                reply_comment: {
+                    type: Sequelize.STRING(200),
                 },
             }, {
                 sequelize,
@@ -20,12 +20,13 @@ module.exports = class Reply extends Sequelize.Model{
                 tableName: "reply", 
                 timestamps: true, 
                 paranoid: false, 
-            });
-        }
+            },
+        );
+    }
 
     static associate(db) {
-        db.Reply.belongsTo(db.Member);
-        db.Reply.belongsTo(db.Feedback);
+        db.Reply.belongsTo(db.Member, { onDelete: "CASCADE" });
+        db.Reply.belongsTo(db.Feedback, { onDelete: "CASCADE" });
         
     }
 };

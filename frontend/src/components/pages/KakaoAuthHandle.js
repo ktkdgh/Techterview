@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import jwt from "jwt-decode"
 import api from "../shared/api";
+import Spinner from 'react-bootstrap/Spinner';
 
 const KakaoAuthHandle = () => {
     let code = new URL(window.location.href).searchParams.get("code");
@@ -17,8 +18,22 @@ const KakaoAuthHandle = () => {
         getCode();
     }, []);
 
+    function BasicExample() {
+        return (
+            <Spinner animation="border" role="status" style={{ width: "23rem", height: "23rem" }} className="justify-content-center align-items-center">
+
+            </Spinner>
+
+        );
+    }
+
+
     return (
-        <div>로그인 중입니다 잠시만 기다려주세요 ^-^</div>
+        <div>
+            <div><BasicExample ></BasicExample></div>
+            <div className="display-3">로딩중 ..........</div>
+
+        </div>
     );
 };
 export default KakaoAuthHandle;

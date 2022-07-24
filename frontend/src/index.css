@@ -34,23 +34,28 @@ button {
 }
 
 .main-page-body {
-  margin: 100px;
+  position: relative;
+  margin: 20px;
   font-family: Montserrat, sans-serif;
 }
 
 .body-phrase1 {
-  font-size: 80px;
+  font-size: 3em;
   text-align: center;
 }
 
 .body-phrase2 {
-  font-size: 24px;
+  font-size: 1em;
   text-align: center;
   margin: 30px;
 }
 
 .main-photo1 {
   text-align: center;
+}
+
+.main-photo {
+  width: 362px;
 }
 
 .main-page-enter-btn {
@@ -87,6 +92,7 @@ li {
   margin: 45px;
   justify-content: center;
   font-family: Montserrat, sans-serif;
+  flex: 1;
 }
 
 table {
@@ -130,9 +136,16 @@ td {
 }
 
 /* login */
+
+.Wrapper-login {
+  margin: 50px;
+  margin-top: 50px;
+}
+
 .login-body {
-  display: flex;
+  /* display: flex; */
   justify-content: space-evenly;
+  margin-top: 80px;
 }
 
 .login-box {
@@ -142,30 +155,37 @@ td {
   margin-top: 6.75rem;
   display: block;
   width: 100%;
-  align-items: right;
+  align-items: center;
 
   margin-bottom: 3.75rem;
-  text-align: right;
+  text-align: center;
 }
 
 .login-box2 {
   width: 100%;
   /* border: 1px solid #d7d7d7; */
-  margin-top: 6.75rem;
+  /* margin-top: 6.75rem; */
   background: #ffffff;
-  border-radius: 0.9375rem;
-  margin-top: 1.875rem;
+  /* border-radius: 0.9375rem; */
+  /* margin-top: 1.875rem; */
 }
 
 .login-photo {
-  text-align: left;
-  display: block;
+  text-align: center;
+  /* display: block; */
+}
+
+.kakaoImage {
+  text-align: center;
+  margin-bottom: 90px;
 }
 
 .login-phrase1 {
   color: rgba(24, 119, 242, 1);
   font-size: 2.5rem;
   font-weight: 700;
+  margin-left: 250px;
+  margin-top: 50px;
 }
 
 .login-phrase2 {
@@ -224,9 +244,16 @@ td {
 }
 
 .others-lobby-header2 {
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
-  height: 200px;
+  height: 200px;  미정이 css*/   
+
+  /* 뷰트캠프 css */
+  min-width: 272px;
+  height: 100vh;
+  position: fixed;
+  background-color: white;
+  z-index: 9;
 }
 
 /* .others-lobby-header2 {
@@ -240,7 +267,8 @@ td {
 }
 
 .others-lobby-enter-room-btn {
-  margin: 70px 100px;
+  /* margin: 70px 100px; */
+  float: right;
   padding: 10px 50px;
   border: 3px solid #4e4b4b;
   border-radius: 10px;
@@ -308,3 +336,12 @@ td {
   src: url("../assets/fonts/NotoSansKR-Light.otf");
 }
 
+.big_wrapper {
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: rgb(245, 245, 251);
+}
+
+.anything_woosik{
+  margin-right: 45%;
+}

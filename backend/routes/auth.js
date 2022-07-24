@@ -9,7 +9,7 @@ dotenv.config();
 const KAKAO_AUTH_URL = process.env.KAKAO_AUTH_URL
 const KAKAO_AUTH_REDIRECT_URL = process.env.KAKAO_AUTH_REDIRECT_URL
 
-router.get("/:code", async(req, res, next) => {
+router.get("/:code", async(req, res) => {
     try {
         const {data} = await axios({
             method: 'POST',
@@ -18,10 +18,10 @@ router.get("/:code", async(req, res, next) => {
                 'content-type':'application/x-www-form-urlencoded;charset=utf-8'
             }, params:{
                 grant_type: 'authorization_code',
-                client_id:process.env.KAKAO_CLIENT_ID,
-                client_secret:process.env.KAKAO_CLIENT_SECRET,
-                redirectUri:KAKAO_AUTH_REDIRECT_URL,
-                code:req.params.code,
+                client_id: process.env.KAKAO_CLIENT_ID,
+                client_secret: process.env.KAKAO_CLIENT_SECRET,
+                redirectUri: KAKAO_AUTH_REDIRECT_URL,
+                code: req.params.code,
             }
         })
     
@@ -30,7 +30,7 @@ router.get("/:code", async(req, res, next) => {
             method: 'GET',
             url: `https://kapi.kakao.com/v2/user/me`,
             headers:{
-                'authorization':`bearer ${kakao_access_token}`,
+                'authorization': `bearer ${kakao_access_token}`,
             }
         });
         
@@ -38,7 +38,7 @@ router.get("/:code", async(req, res, next) => {
         const userInformation = {
             sns_id: id,
             provider: 'kakao',  
-            name : kakao_account.profile.nickname,
+            name: kakao_account.profile.nickname,
         };
 
         const user_id = await isExistSnsId(userInformation.provider, userInformation.sns_id);

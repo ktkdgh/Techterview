@@ -31,8 +31,8 @@ module.exports = class Member extends Sequelize.Model{
     }
 
     static associate(db) {
-        db.Member.hasMany(db.LikeCnt);
-        db.Member.hasMany(db.Reply);
-        db.Member.hasMany(db.Recording);
+        db.Member.hasMany(db.LikeCnt, { onDelete: "CASCADE" });
+        db.Member.hasMany(db.Reply, { onDelete: "CASCADE" });
+        db.Member.hasMany(db.Recording, { onDelete: "CASCADE" });
     }
 };

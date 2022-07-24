@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+// import Selection from "../includes/Selection";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 function CreateRoomAlone({ closeModal }) {
 
@@ -70,48 +76,109 @@ function CreateRoomAlone({ closeModal }) {
         }
     ];
 
-    const [SendNum, setSendNum] = useState([])
-    function handleClick(e) {
+    const [SendNum, setSendNum] = useState()
+    const [checked, setChecked] = useState(false);
+    const [radioValue, setRadioValue] = useState('1');
+
+    function handleClick() {
         window.location.replace("../page/training/Alone/" + SendNum)
     }
     return ( 
         <div className="Create-delete-modal">
             <div className="Create-delete-modal-content">
                 <div className="Create-delete-modal-body">
-                    <h1>연습을 준비해 볼까요?</h1>
+                    <h2>어떤 면접을 준비해 볼까요?</h2>
                 </div>
                 <div className="CreateRoomAlone-Check" style={{}}>
                     <div>
-                        <div><h3>CS/언어/기본질문 및 개발상식/직무별</h3></div>
-                        <div>
+                        <Tabs style={{ width: 525 }}
+                            defaultActiveKey="profile"
+                            id="uncontrolled-tab-example"
+                            className="mb-3"
+                        >
+                            <Tab eventKey="CS" title="CS">
 
-                            <DropdownButton id="dropdown-basic-button" title="CS">
-                                {Options.map((element) => <Dropdown.Item onClick={() => setSendNum(element.key)} href=""> {element.value}</Dropdown.Item>)}
-                            </DropdownButton>
-                        </div>
-                        <div>
-                            <DropdownButton id="dropdown-basic-button" title="언어">
-                                {Options1.map((element) => <Dropdown.Item onClick={() => setSendNum(element.key)} href=""> {element.value}</Dropdown.Item>)}
+                                <ButtonGroup className="mb-2">
+                                    {Options.map((radio, idx) => (
+                                        <ToggleButton
+                                            key={idx}
+                                            id={`radio-${idx}`}
+                                            type="radio"
+                                            variant="outline-primary"
+                                            name="radio"
+                                            value={radio.value}
+                                            checked={radioValue === radio.value}
+                                            onChange={(e) => setRadioValue(e.currentTarget.value)}
+                                            onClick={() => setSendNum(radio.key)}
+                                        >
+                                            {radio.value}
+                                        </ToggleButton>
+                                    ))}
+                                </ButtonGroup>
+                            </Tab>
+                            <Tab eventKey="Language" title="언어">
+                                <ButtonGroup className="mb-2">
+                                    {Options1.map((element, idx) => (
+                                        <ToggleButton
+                                            key={idx}
+                                            id={`radio-${idx}`}
+                                            type="radio"
+                                            variant="outline-primary"
+                                            name="radio"
+                                            value={element.value}
+                                            checked={radioValue === element.value}
+                                            onChange={(e) => setRadioValue(e.currentTarget.value)}
+                                            onClick={() => setSendNum(element.key)}
+                                        >
+                                            {element.value}
+                                        </ToggleButton>
+                                    ))}
+                                </ButtonGroup>
 
-                            </DropdownButton>
-                        </div>
-                        <div>
-                            <DropdownButton id="dropdown-basic-button" title="기본질문 및 개발상식">
-                                {Options2.map((element) => <Dropdown.Item onClick={() => setSendNum(element.key)} href=""> {element.value}</Dropdown.Item>)}
-
-                            </DropdownButton>
-                        </div>
-                        <div>
-                            <DropdownButton id="dropdown-basic-button" title="직무별">
-                                {Options3.map((element) => <Dropdown.Item onClick={() => setSendNum(element.key)} href=""> {element.value}</Dropdown.Item>)}
-
-                            </DropdownButton>
-                        </div>
+                            </Tab>
+                            <Tab eventKey="base" title="기본질문 및 개발상식" >
+                                <ButtonGroup className="mb-2">
+                                    {Options2.map((element, idx) => (
+                                        <ToggleButton
+                                            key={idx}
+                                            id={`radio-${idx}`}
+                                            type="radio"
+                                            variant="outline-primary"
+                                            name="radio"
+                                            value={Options.value}
+                                            checked={radioValue === element.value}
+                                            onChange={(e) => setRadioValue(e.currentTarget.value)}
+                                            onClick={() => setSendNum(element.key)}
+                                        >
+                                            {element.value}
+                                        </ToggleButton>
+                                    ))}
+                                </ButtonGroup>
+                            </Tab>
+                            <Tab eventKey="position" title="직무별" >
+                                <ButtonGroup className="mb-2">
+                                    {Options3.map((element, idx) => (
+                                        <ToggleButton
+                                            key={idx}
+                                            id={`radio-${idx}`}
+                                            type="radio"
+                                            variant="outline-primary"
+                                            name="radio"
+                                            value={Options.value}
+                                            checked={radioValue === element.value}
+                                            onChange={(e) => setRadioValue(e.currentTarget.value)}
+                                            onClick={() => setSendNum(element.key)}
+                                        >
+                                            {element.value}
+                                        </ToggleButton>
+                                    ))}
+                                </ButtonGroup>
+                            </Tab>
+                        </Tabs>
                     </div>
-                    <div>
-
+                    <div> 
                     </div>
-                    <div className="Create-delete-modal-footer">
+                    <div className="Create-delete-modal-footer"style={{ marginTop: 200, backgroundColor: "yellow" }}>
                         <button className="btn-start" onClick={handleClick}>연습시작</button>
                         <button className="btn-close" onClick={() => closeModal(false)}>취소</button>
                     </div>
@@ -121,7 +188,28 @@ function CreateRoomAlone({ closeModal }) {
     )
 }
 
-
+// function Selection() {
+//     return (
+//         <Tabs style={{ width: 525 }}
+//             defaultActiveKey="profile"
+//             id="uncontrolled-tab-example"
+//             className="mb-3"
+//         >
+//             <Tab eventKey="CS" title="CS">
+//                 123123
+//             </Tab>
+//             <Tab eventKey="Language" title="언어">
+//                 456456
+//             </Tab>
+//             <Tab eventKey="base" title="기본질문 및 개발상식" >
+//                 678678
+//             </Tab>
+//             <Tab eventKey="position" title="직무별" >
+//                 890890
+//             </Tab>
+//         </Tabs>
+//     );
+// }
 
 
 export default CreateRoomAlone

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-function VideoQuestionModal ({closeModal}){
+function VideoQuestionModal({ closeModal }) {
     return (
         <div className="video-edit-modal" >
             <div className="video-edit-modal-content">
@@ -19,8 +19,8 @@ function VideoQuestionModal ({closeModal}){
                     </div>
                 </div>
                 <div className="video-edit-modal-footer">
-                    <button onClick={() => closeModal(false)} className="btn-yes">저장</button>
-                    <button className="btn-cancel">취소</button>
+                    <button className="btn-cancel">저장</button>
+                    <button onClick={() => closeModal(false)} className="btn-yes">취소</button>
                 </div>
             </div>
         </div>
