@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component, useCallback, useEffect, useState } from 'react';
 import QuestionMenuNavBar from '../includes/QuestionListMenubar';
 import api from "../shared/api";
+import '../css/Question.css'
 
 // import * as Icon from 'react-bootstrap-icons';
 
 
 function Question() {
     const [QuestionArray, SetQuestionArray] = useState([]);
+    const [ClickArray, setClickArray] = useState([]);
+    const [DeleteIdx, SetDeleteIdx] = useState(0);
     const [selectedPath, setSelectedPath] = useState('');
     useEffect(() => {
-        console.log('select url ', `/api/questionList/getQuestionList${selectedPath}`);
+        // console.log('select url ', `/api/questionList/getQuestionList${selectedPath}`);
         async function getQuestion() {
             await api.get(`/api/questionList/getQuestionList${selectedPath}`)
                 .then(res => {
@@ -21,8 +24,23 @@ function Question() {
 
     const selectMenu = (path) => {
         setSelectedPath(path);
-        console.log(path);
+        // console.log(path);
     }
+
+    const onCheckedElement = useCallback(
+        (checked, id) => {
+        if (checked) {
+            setClickArray([...ClickArray, checked]);
+        } else {
+            setClickArray(ClickArray.filter((el) => el !== id));
+        }
+    },[ClickArray]);
+    // console.log(ClickArray);
+
+    const arraydeleteidx = (data, idx) => {
+        setClickArray(ClickArray.filter((el) => el !== data));
+    }
+    
 
     return (
         <div className='Wrapper'>
@@ -31,34 +49,33 @@ function Question() {
             </div>
 
             <div>
-                <div className='Main-body'>
-                    <div Class="grid-container-box">
-                        <div Class="grid-container">
-                            <div Class="grid-item"><img className="video-thumbnail-second-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>
-                            <div Class="grid-item"><img className="video-thumbnail-first-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>
-                            <div Class="grid-item"><img className="video-thumbnail-third-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>
-                            <div Class="grid-item">2</div>
-                            <div Class="grid-item">1</div>
-                            <div Class="grid-item">3</div>
-                        </div>
-                    </div>
-                    <div Class="grid-container-box">
-                        <div Class="grid-container">
-                            <div Class="grid-item"><img className="video-thumbnail-second-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>
-                            <div Class="grid-item"><img className="video-thumbnail-first-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>
-                            <div Class="grid-item"><img className="video-thumbnail-third-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>
-                            <div Class="grid-item">2</div>
-                            <div Class="grid-item">1</div>
-                            <div Class="grid-item">3</div>
-                        </div>
-                    </div>
-                    {
+                <div Class="Main-body">
+                    <div Class="feedback-table">
+                        {
                         QuestionArray?.map((value, idx) =>
-                            <div>
-                                {idx + 1}
-                                {value.name}
+                        <div>
+                                {idx + 1}. {value.name} <button onClick={(e) => {onCheckedElement(e.target.checked, idx)}}  checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
                             </div>
                         )
+                        }
+                    </div>
+                    {
+                        QuestionArray.length === 0
+                        && <img src={require("../images/main-image.png")} className="anything_woosik" alt={"studying man Question"} />
+                    }
+                    {
+                        QuestionArray.length !== 0
+                        && <div className="feedback-table">
+                                <ul>
+                                    {
+                                        ClickArray?.map((click, idx) => 
+                                            <div>
+                                                {click}
+                                                <button onClick={() => {SetDeleteIdx(idx); arraydeleteidx(click, idx) }} >Delete </button>
+                                            </div>)
+                                    }
+                                </ul>
+                          </div>
                     }
                 </div>
             </div>

@@ -11,8 +11,8 @@
 }
 
 .Main-body {
-    margin-top: 55px;
-    background-color: brown;
+    display: flex;
+    flex-basis: 60%;
     width: 75%;
     float: right;
 }
