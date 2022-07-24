@@ -82,9 +82,20 @@ function FeedbackDetail() {
             })
     }
 
-    const replyUpdate = async (idx, id) => {
+    const replyUpdateClick = async (idx, text) => {
         SetModify(true)
         SetIdx(idx)
+        SetUpdateText(text)
+    }
+
+    const replyUpdate = async (id) => {
+        await api.put('/api/feedback/replyUpdate', {
+            reply_id : id,
+            comment : UpdateText
+        })
+            .then(res => {
+                window.location.reload(true)
+            })
     }
 
     return (
@@ -139,21 +150,28 @@ function FeedbackDetail() {
                         </tr>
                     </thead>
                     <tbody>
-                        {ReplyList.map((value, idx) => {
-                            return (
-                                <tr>
-                                    <td> {value.user_name} </td>
-                                    {Modify && Idx == idx + 1 ?
-                                        <td> <input onChange={onUpdate} value={value.reply_comment} /> </td> :
-                                        <td>{value.reply_comment}</td>}
-                                    <td> {YMDFormat(value.createdAt)} </td>
-                                    {value.replyCheck ?
-                                        <td><button style={{ color: 'white', backgroundColor: 'black' }} onClick={() => { replyDelete(value.id) }}>삭제</button>
-                                            <button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { replyUpdate(idx + 1, value.id) }}>수정</button></td>
-                                        : ""}
-                                </tr>
-                            );
-                        })}
+                        { ReplyList.map((value, idx) => {
+                                return(
+                                    <tr>
+                                        <td> { value.user_name } </td>
+                                        { Modify &&  Idx == idx+1 ? 
+                                        <td> <input onChange={ onUpdate } value={UpdateText}/> </td> :
+                                        <td>{value.reply_comment}{value.updateCheck ? "": "(수정됨)"}</td>} 
+                                        
+                                        <td> { YMDFormat(value.createdAt) } </td>
+                                        { !value.replyCheck  ? "" : Modify &&  Idx == idx+1 ? 
+                                            <td>
+                                                <button style={{ color: 'white', backgroundColor: 'black'}} onClick={() => { replyUpdate(value.id) }}>수정</button>
+                                                <button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { window.location.reload(true) }}>취소</button>
+                                            </td> :
+                                            <td>
+                                                <button style={{ color: 'white', backgroundColor: 'black'}} onClick={() => { replyDelete(value.id) }}>삭제</button>
+                                                <button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
+                                            </td>
+                                        }
+                                    </tr>
+                                );
+                            })}
                     </tbody>
                 </table>
             </div>
