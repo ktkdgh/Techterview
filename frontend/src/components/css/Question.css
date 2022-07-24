@@ -9,7 +9,8 @@
 }
 
 .Main-body {
-    background-color: brown;
+    display: flex;
+    flex-basis: 60%;
     width: 75%;
     float: right;
 }

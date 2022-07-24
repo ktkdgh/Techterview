@@ -87,6 +87,7 @@ li {
   margin: 45px;
   justify-content: center;
   font-family: Montserrat, sans-serif;
+  flex: 1;
 }
 
 table {
@@ -224,9 +225,16 @@ td {
 }
 
 .others-lobby-header2 {
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
-  height: 200px;
+  height: 200px;  미정이 css*/   
+
+  /* 뷰트캠프 css */
+  min-width: 272px;
+  height: 100vh;
+  position: fixed;
+  background-color: white;
+  z-index: 9;
 }
 
 /* .others-lobby-header2 {
@@ -278,4 +286,14 @@ td {
 
 .section {
   margin: 15px;
+}
+
+.big_wrapper {
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: rgb(245, 245, 251);
+}
+
+.anything_woosik{
+  margin-right: 45%;
 }
