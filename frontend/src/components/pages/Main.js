@@ -2,14 +2,14 @@ import React, { Component, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CreateRoomAlone from '../modal/CreateRoomAlone';
 import LoginCheckModal from '../modal/LoginCheckModal';
-
+import '../css/Main.css'
 function Mainbody() {
     const [openModal, setOpenModal] = useState(false);
     const Authorization = sessionStorage.getItem('Authorization');
 
 
     return (
-        <div className="main-page-body">
+        <div className="Wrapper">
             <div className="main-page-body">
                 <div className="body-phrase1"> 기술면접 준비 놓치지 마세요 </div>
                 <div className="body-phrase2">TECHTERVIEW에서 실제 면접을 보는 듯한 긴장감을 느끼세요! </div>

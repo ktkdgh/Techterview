@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import QuestionMenuNavBar from '../includes/QuestionListMenubar';
 import api from "../shared/api";
 

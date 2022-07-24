@@ -34,23 +34,28 @@ button {
 }
 
 .main-page-body {
-  margin: 100px;
+  position: relative;
+  margin: 20px;
   font-family: Montserrat, sans-serif;
 }
 
 .body-phrase1 {
-  font-size: 80px;
+  font-size: 3em;
   text-align: center;
 }
 
 .body-phrase2 {
-  font-size: 24px;
+  font-size: 1em;
   text-align: center;
   margin: 30px;
 }
 
 .main-photo1 {
   text-align: center;
+}
+
+.main-photo {
+  width: 300px;
 }
 
 .main-page-enter-btn {
