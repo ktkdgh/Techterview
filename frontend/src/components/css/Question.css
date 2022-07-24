@@ -1,12 +1,13 @@
 .Wrapper {
-    margin-top: 50px;
+    margin-top: 70px;
     margin: 30px;
 }
 
 .left-menu {
+    margin-top: 55px;
     width: 280px;
     float: left;
-    background-color: yellow;
+    background-color: pink;
 }
 
 .Main-body {

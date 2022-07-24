@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CreateRoomAlone from '../modal/CreateRoomAlone';
 import LoginCheckModal from '../modal/LoginCheckModal';
-import '../css/Main.css'
+
 function Mainbody() {
     const [openModal, setOpenModal] = useState(false);
     const Authorization = sessionStorage.getItem('Authorization');

@@ -12,8 +12,9 @@ function OthersLobby() {
 
 
     return (
-        <div>
-            <div className='others-lobby-header2'>
+        <div className='Wrapper'>
+            {/* <div className='others-lobby-header2'> */}
+            <div className='left-menu'>
                 <QuestionMenuNavBar />
                 <div>
                     {/* <Link to=
@@ -24,22 +25,12 @@ function OthersLobby() {
                         <button className='others-lobby-enter-room-btn'>연결하기</button></Link> */}
 
 
-                    <button className='others-lobby-enter-room-btn' onClick={() => { setOpenModal(true); }}  >방 만들기</button>
-                    {openModal && <CreateRoomWith closeModal={setOpenModal} />}
+
                 </div>
             </div>
-
-            <div>
-                <div Class="grid-container-box">
-                    <div Class="grid-container">
-                        <div Class="grid-item"><img className="video-thumbnail-second-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>
-                        <div Class="grid-item-first-place"><img className="video-thumbnail-first-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>
-                        <div Class="grid-item"><img className="video-thumbnail-third-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>
-                        <div Class="grid-item">2</div>
-                        <div Class="grid-item">1</div>
-                        <div Class="grid-item">3</div>
-                    </div>
-                </div>
+            <button className='others-lobby-enter-room-btn' onClick={() => { setOpenModal(true); }}  >방 만들기</button>
+            {openModal && <CreateRoomWith closeModal={setOpenModal} />}
+            <div className='Main-body'>
                 <div Class="grid-container-box">
                     <div Class="grid-container">
                         <div Class="grid-item"><img className="video-thumbnail-second-place" src={require("../images/video_thumbnail.png")} alt={"video thumbnail"} />   </div>

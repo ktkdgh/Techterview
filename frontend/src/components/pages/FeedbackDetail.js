@@ -90,8 +90,8 @@ function FeedbackDetail() {
 
     const replyUpdate = async (id) => {
         await api.put('/api/feedback/replyUpdate', {
-            reply_id : id,
-            comment : UpdateText
+            reply_id: id,
+            comment: UpdateText
         })
             .then(res => {
                 window.location.reload(true)
@@ -100,8 +100,9 @@ function FeedbackDetail() {
 
     return (
         <div>
-            <FeedbackMenu />
-
+            <div className='left-menu'>
+                <FeedbackMenu />
+            </div>
             <div>
                 <div className="feedbackdetail-title">
                     <span className="feedbackdetail-title-left"> {DetailFeedback.title}</span>
@@ -150,28 +151,28 @@ function FeedbackDetail() {
                         </tr>
                     </thead>
                     <tbody>
-                        { ReplyList.map((value, idx) => {
-                                return(
-                                    <tr>
-                                        <td> { value.user_name } </td>
-                                        { Modify &&  Idx == idx+1 ? 
-                                        <td> <input onChange={ onUpdate } value={UpdateText}/> </td> :
-                                        <td>{value.reply_comment}{value.updateCheck ? "": "(수정됨)"}</td>} 
-                                        
-                                        <td> { YMDFormat(value.createdAt) } </td>
-                                        { !value.replyCheck  ? "" : Modify &&  Idx == idx+1 ? 
-                                            <td>
-                                                <button style={{ color: 'white', backgroundColor: 'black'}} onClick={() => { replyUpdate(value.id) }}>수정</button>
-                                                <button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { window.location.reload(true) }}>취소</button>
-                                            </td> :
-                                            <td>
-                                                <button style={{ color: 'white', backgroundColor: 'black'}} onClick={() => { replyDelete(value.id) }}>삭제</button>
-                                                <button style={{ color: 'yellow', backgroundColor: 'black'}} onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
-                                            </td>
-                                        }
-                                    </tr>
-                                );
-                            })}
+                        {ReplyList.map((value, idx) => {
+                            return (
+                                <tr>
+                                    <td> {value.user_name} </td>
+                                    {Modify && Idx == idx + 1 ?
+                                        <td> <input onChange={onUpdate} value={UpdateText} /> </td> :
+                                        <td>{value.reply_comment}{value.updateCheck ? "" : "(수정됨)"}</td>}
+
+                                    <td> {YMDFormat(value.createdAt)} </td>
+                                    {!value.replyCheck ? "" : Modify && Idx == idx + 1 ?
+                                        <td>
+                                            <button style={{ color: 'white', backgroundColor: 'black' }} onClick={() => { replyUpdate(value.id) }}>수정</button>
+                                            <button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { window.location.reload(true) }}>취소</button>
+                                        </td> :
+                                        <td>
+                                            <button style={{ color: 'white', backgroundColor: 'black' }} onClick={() => { replyDelete(value.id) }}>삭제</button>
+                                            <button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
+                                        </td>
+                                    }
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

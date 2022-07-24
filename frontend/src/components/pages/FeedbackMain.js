@@ -42,40 +42,44 @@ function Feedback() {
 
     return (
         <div className='Wrapper'>
-            <div className="others-lobby-header2" >
-                <FeedbackMenu  selectFeedMenu={(id) => selectFeedMenu(id)}/>
+            {/* <div className="others-lobby-header2" > */}
+            <div className='left-menu'>
+                <FeedbackMenu selectFeedMenu={(id) => selectFeedMenu(id)} />
             </div>
-            {MainLengthCheck ?
-            <div className="Main-body">
-                <div className='feedback-table'>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>순위</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>좋아요 수</th>
-                                <th>댓글 수</th>
-                                <th>등록일</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {FeedArray.map((value, idx) => {
-                                return (
+
+            {
+                MainLengthCheck ?
+                    <div className="Main-body">
+                        <div className='feedback-table'>
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td> {idx + 1} </td>
-                                        <a href={`/feedback/detail/${value.id}`}><td> {value.feedback_title} </td></a>
-                                        <td> {value.user_name} </td>
-                                        <td> {value.like_cnt} </td>
-                                        <td> {value.reply_cnt} </td>
-                                        <td> {YMDFormat(value.createdAt)} </td>
+                                        <th>순위</th>
+                                        <th>제목</th>
+                                        <th>작성자</th>
+                                        <th>좋아요 수</th>
+                                        <th>댓글 수</th>
+                                        <th>등록일</th>
                                     </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-            </div>:"아무것도 없어염 ~><"}
+                                </thead>
+                                <tbody>
+                                    {FeedArray.map((value, idx) => {
+                                        return (
+                                            <tr>
+                                                <td> {idx + 1} </td>
+                                                <a href={`/feedback/detail/${value.id}`}><td> {value.feedback_title} </td></a>
+                                                <td> {value.user_name} </td>
+                                                <td> {value.like_cnt} </td>
+                                                <td> {value.reply_cnt} </td>
+                                                <td> {YMDFormat(value.createdAt)} </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> : "아무것도 없어염 ~><"
+            }
         </div >
     )
 }
