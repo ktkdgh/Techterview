@@ -37,8 +37,8 @@ function Mainbody() {
 
                 </div>
                 }
-        </div>       
-     </div>
+                    </div>       
+                </div>
     )
             }
 
