@@ -24,15 +24,25 @@ const SocketRoutes = require("./socketRoutes");
 const app = express();
 const SocketIO = require("socket.io");
 const server = http.createServer(app);
-const io = require("socket.io")(8001, { cors:{ origin: ['https://techterview.vercel.app:3000']} });
+// const io = require("socket.io")(8000, { cors:{ origin: ['https://techterview.vercel.app:3000']} });
 
-// const io = SocketIO(server, {
-//   cors: {
-//     origin: "*",
-//     method: ["GET", "POST"],
-//   },
-// });
-// PORTNUM = 8000;
+const io = SocketIO(server, {
+  cors: {
+    origin: "*",
+    method: ["GET", "POST"],
+  },
+});
+
+PORTNUM = 8000;
+
+server.listen(PORTNUM, () => {
+  console.log(`Server is running... port: ${PORTNUM}`);
+});
+app.use(cors());
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(express.json());
+app.use("/", require("./routes/"));
+
 
 io.on("connection", (socket) => {
   socket.onAny(e => {
@@ -48,7 +58,6 @@ io.on("connection", (socket) => {
 
 ////////////
 
-app.use(cors());
 
 const { sequelize } = require('./models/index');
 sequelize.sync({ force: false })
