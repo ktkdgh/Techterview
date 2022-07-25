@@ -24,7 +24,7 @@ const SocketRoutes = require("./socketRoutes");
 const app = express();
 const SocketIO = require("socket.io");
 const server = http.createServer(app);
-const io = require("socket.io")(8001, { cors:{ origin: ['http://localhost:3000']} });
+const io = require("socket.io")(8001, { cors:{ origin: ['https://techterview.vercel.app:3000']} });
 
 // const io = SocketIO(server, {
 //   cors: {
