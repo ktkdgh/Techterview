@@ -28,20 +28,19 @@ function OthersLobby() {
 
         <div className='Wrapper'>
         {/* <div className='others-lobby-header2'> */}
+        {/* <div><img > </img></div> */}
+        <div class="techterview-banner-container"><img className="techterview-banner-image" src={require("../images/techterviewbanner.png")} alt={"next button"} />   </div>
+
         <div className='left-menu'>
             <QuestionMenuNavBar />
         </div>
+
         <div>
-            <div>
-                <div>
-                    <div></div>
-                <button ></button>
-             <button className='others-lobby-enter-room-btn' onClick={() => { setOpenModal(true)  }}  >방 만들기</button>
+            
+            <div className='others-lobby-enter-room-btn-container'> <button className='others-lobby-enter-room-btn' onClick={() => { setOpenModal(true)  }}  >방 만들기</button></div>
                 {openModal && <CreateRoomWith closeModal={setOpenModal}  />} 
                 {/* {!openModal&& <CreateRoomWith closeModal={setOpenModal} handleNewRoom = {handleNewRoom}/> */}
-                </div>
 
-            </div>
                 {!openModal &&
             <div id="interview-room-body" className="interview-room-body">
                 <div className="interview-room-container-box">
