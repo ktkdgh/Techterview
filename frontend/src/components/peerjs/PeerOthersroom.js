@@ -1,6 +1,5 @@
 import Peer from 'peerjs';
 import React, { useEffect, useState, useRef } from 'react';
-import { io, Socket } from 'socket.io-client';
 import "../css/TrainingAloneStartModal.css"
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 import api from '../shared/api';
+import {socket} from '../../lib/socket'
 import { uploadFile } from 'react-s3';
 
 //함께하기에서는 버퍼 문제가 없는듯
@@ -18,10 +18,9 @@ import { uploadFile } from 'react-s3';
 
 function PeerOthersroom() {
 
-  const socket = io.connect('http://localhost:8001')
   const url = window.location.pathname.split('/');
-  const ROOM_ID = url[5]
-  // console.log(ROOM_ID);
+  const ROOM_ID = url[-1]
+  console.log(ROOM_ID);
   const remoteVideoRef = useRef(null);
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
@@ -32,12 +31,16 @@ function PeerOthersroom() {
     const peer = new Peer();
 
     peer.on("open", (id) => {
-      socket.emit("join-room", ROOM_ID, id);
-      // console.log(ROOM_ID, peer);
+      const sockId = socket.id
+      socket.emit("joinRoom", ROOM_ID, id, sockId);
+      console.log(ROOM_ID, peer, socket);
+
     });
 
     socket.on("user-connected", (userId) => {
+      console.log("remotePEer", userId)
       setRemotePeerIdValue(userId);
+      
     });
 
     peer.on('call', (call) => {
@@ -219,53 +222,52 @@ function PeerOthersroom() {
 
 
   return (
-    <div class="training-others-main-body">
-
-      <div class="training-others-inner-box" >
-        <div class="training-others-main-controls-share-button" >
-          <div class="main-controls-button-share-icon" id="leave-meeting">
-            <FontAwesomeIcon icon={faShareFromSquare} onClick={() => { copyToClipboard(); }} />
-          </div>
+  <div className="training-others-main-body">
+    
+      <div className="training-others-inner-box" >
+        <div className="training-others-main-controls-share-button" >
+            <div className="main-controls-button-share-icon" id="leave-meeting">
+              <FontAwesomeIcon icon={faShareFromSquare}  onClick={() => { copyToClipboard(); }} />
+            </div> 
         </div>
         <div id="video-grid">
           <video muted ref={currentUserVideoRef} />
           <video muted ref={remoteVideoRef} />
         </div>
       </div>
-
-      <div class="training-others-main-controls">
-        <div class="main-controls-block">
-          {/* <div
-            class="training-others-main-controls-button"
+    
+      <div className="training-others-main-controls">
+        <div className="main-controls-block">
+          <div
+            className="training-others-main-controls-button"
             id="playPauseVideo"
-            onClick="playStop()">
-            <i class="fa fa-video-camera" size="lg" ></i>
+            onclick="playStop()">
+          <i className="fa fa-video-camera" size="lg" ></i>
             <span onClick={() => { start(); }}>Record</span>
           </div>
-          <div class="training-others-main-controls-button">
-            <i class="fa fa-pause"></i>
+          <div className="training-others-main-controls-button">
+          <i className="fa fa-pause"></i>
             <span onClick={() => { finish(); }}>Pause Record</span>
-          </div> */}
-          <button onClick={() => { start(); }}>start</button>
-          <button onClick={() => { finish(); }}>finish</button>
-
-          <div class="training-others-main-controls-button">
-            <FontAwesomeIcon icon={faCloudArrowDown} />
           </div>
-          <div class="training-others-main-controls-button" onClick={() => {
-            audio.play()
-            SetQuestionsIndex(QuestionsIndex + 1)
-            SetAudioIndex(AudioIndex + 1)
-          }}>
+          <div className="training-others-main-controls-button">
+          <FontAwesomeIcon icon={faCloudArrowDown} />
+            <span >Download</span>
+            {/* <span onClick={() => { download(); }}>Download</span> 다운로드 함수 못찾아서 우선 주석처리*/}
+
+          </div>
+          <div className="training-others-main-controls-button" onClick={() => {
+                  audio.play()
+                  SetQuestionsIndex(QuestionsIndex + 1)
+                  SetAudioIndex(AudioIndex + 1)
+              }}>
             <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
             Next
           </div>
 
-        </div>
-        <div class="training-others-main-controls-block">
-          <div class="main-controls-button-leave-meeting" id="leave-meeting">
-
-            <button class="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+    </div>
+        <div className="main-controls-button-leave-meeting" id="leave-meeting">
+  
+            <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
             {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
 
           </div >
@@ -273,7 +275,6 @@ function PeerOthersroom() {
 
       </div >
 
-    </div >
   );
 }
 

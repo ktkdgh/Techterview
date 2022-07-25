@@ -83,9 +83,7 @@ function CreateRoomAlone({ closeModal }) {
     function handleClick() {
         window.location.replace("../page/training/Alone/" + SendNum)
     }
-
-
-    return (
+    return ( 
         <div className="Create-delete-modal">
             <div className="Create-delete-modal-content">
                 <div className="Create-delete-modal-body">
@@ -178,10 +176,10 @@ function CreateRoomAlone({ closeModal }) {
                             </Tab>
                         </Tabs>
                     </div>
-                    <div> </div>
-
-                    <div className="Create-delete-modal-footer" style={{ marginTop: 200, backgroundColor: "yellow" }}>
-                        <button className="btn-start" onClick={() => { handleClick(); }}>연습시작</button>
+                    <div> 
+                    </div>
+                    <div className="Create-delete-modal-footer"style={{ marginTop: 200, backgroundColor: "yellow" }}>
+                        <button className="btn-start" onClick={handleClick}>연습시작</button>
                         <button className="btn-close" onClick={() => closeModal(false)}>취소</button>
                     </div>
                 </div >

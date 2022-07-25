@@ -1,13 +1,14 @@
 .Wrapper {
-    margin-top: 70px;
-    margin: 30px;
+    margin: 1%;
 }
 
 .left-menu {
-    margin-top: 55px;
-    width: 280px;
+    font-family: "Montserrat";
+    font-size: 130%;
+    margin-top: 2%;
+    width: 15%;
     float: left;
-    background-color: pink;
+    background-color: rgb(253, 253, 253);
 }
 
 .Main-body {

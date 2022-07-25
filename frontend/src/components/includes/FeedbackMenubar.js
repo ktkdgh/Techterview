@@ -53,7 +53,7 @@ function FeedbackMenu({ selectFeedMenu }) {
                         ]
                     },
                     {
-                        title: '기본질문 및 개발상식',
+                        title: "기본질문 및 개발상식",
                         itemId: '2',
                         subNav: [
                             {

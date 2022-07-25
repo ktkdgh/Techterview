@@ -11,30 +11,32 @@ function Mainbody() {
     return (
         <div className="Wrapper">
             <div className="main-page-body">
-                <div className="body-phrase1"> 기술면접 준비 놓치지 마세요 </div>
+                <div className="body-phrase1"> ㅌㅋㅌㅂ </div>
                 <div className="body-phrase2">TECHTERVIEW에서 실제 면접을 보는 듯한 긴장감을 느끼세요! </div>
             </div>
             <div className='main-page-enter-btn'>
-                {Authorization ?
-                    <div>
-                        <button className='main-page-enter-btn ' onClick={() => { setOpenModal(true); }}  >혼자 연습하기</button>
 
-                        <Link to="/training/others/lobby"><button className='main-page-enter-btn'>함께 연습하기</button></Link>
-                        {openModal && <CreateRoomAlone closeModal={setOpenModal} />}
-                    </div>
+            {Authorization ?
+                <div className='main-image-button-container'>
+                <img className="alone-btn-img" onClick={() => { setOpenModal(true); }}src={require("../images/alonebutton.png")} alt={"혼자하기"} />
+                <img className="main-photo" src={require("../images/main-image.png")} alt={"studying man"} />
+                <Link to="/training/others/lobby">
+                    <img className="together-btn-img" onClick={() => { setOpenModal(true); }}  src={require("../images/togetherbutton.png")} alt={"함꼐하기"} />
+                </Link>
+                {openModal && <CreateRoomAlone closeModal={setOpenModal} />}
+                </div>
                     :
-                    <div>
-                        <button className='main-page-enter-btn ' onClick={() => { setOpenModal(true); }}  >혼자 연습하기</button>
-                        <button className='main-page-enter-btn ' onClick={() => { setOpenModal(true); }}  >함께 연습하기</button>
-                        {openModal && <LoginCheckModal closeModal={setOpenModal} />}
-                    </div>
-                }
+                    <div className='main-image-button-container'>
+                    <img className="alone-btn-img" onClick={() => { setOpenModal(true); }}src={require("../images/alonebutton.png")} alt={"혼자하기"} />
+                    <img className="main-photo" src={require("../images/main-image.png")} alt={"studying man"} />
+                    <img className="together-btn-img" onClick={() => { setOpenModal(true); }}  src={require("../images/togetherbutton.png")} alt={"함꼐하기"} />
+                    {openModal && <LoginCheckModal closeModal={setOpenModal} />}
 
-            </div>
-            <div className="main-photo1" ><img className="main-photo" src={require("../images/main-image.png")} alt={"studying man"} />
-            </div>
-        </div>
+                </div>
+                }
+        </div>       
+     </div>
     )
-}
+            }
 
 export default Mainbody
