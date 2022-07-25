@@ -18,6 +18,13 @@ function Navbar() {
         } 
         test();
     },[])
+    
+
+    function handleClick() {
+        window.location.replace(`/`)
+    }
+
+
 
     const onLogout = () => {
         sessionStorage.removeItem('userName')
@@ -30,7 +37,8 @@ function Navbar() {
             <div>
                 <div>
                     <div className="navigation-bar"> 
-                        <Link to="/" style={{textDecoration: 'none'}}><div className="navigation-bar-logo"> TECHTERVIEW </div></Link> 
+                        <div className="navigation-bar-logo" onClick={()=> {handleClick()}}> TECHTERVIEW </div>
+                            
                         <div className="navigation-bar-right">
                             { isLoggedIn ? 
                             <div>
