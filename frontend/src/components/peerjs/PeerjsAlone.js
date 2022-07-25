@@ -24,10 +24,9 @@ function PeerjsAlone() {
   const [Questions, SetQuestions] = useState([]);
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
   const [AudioIndex, SetAudioIndex] = useState(0);
+
   const [isFinish, setIsFinish] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
-  // const [recordedMediaURL, setRecordedMediaURLr] = useState(null);
-  // const [recordedChunks, setRecordedChunks] = useState([]);
 
   useEffect(() => {
     async function getQuestions() {
@@ -63,7 +62,9 @@ function PeerjsAlone() {
   // let mediaStream = null;
   // let mediaRecorder = null;
   let recordedMediaURL = null;
-  let recordedChunks = [];
+  const [copy, setCopy] = useState();
+  // let recordedChunks = [];
+  const [recordedChunks, setRecordedChunks] = useState([]);
 
   const mediaStream = navigator.mediaDevices.getUserMedia({
     audio: true,
@@ -93,22 +94,27 @@ function PeerjsAlone() {
     // let recordedChunks = [];
 
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
-    let mediaRecorder2 = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+    // let mediaRecorder2 = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+    //   mimeType: 'video/webm; codecs=vp8'
+    // });
+    let mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
       mimeType: 'video/webm; codecs=vp8'
     });
-    console.log("mediaRecore23", mediaRecorder2);
-    mediaRecorder2.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
+    mediaRecorder.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
     console.log("녹화 중일까!!!?");
 
     // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
-    mediaRecorder2.ondataavailable = function (e) {
+    mediaRecorder.ondataavailable = function (e) {
       console.log("e.data:", e.data);
       recordedChunks.push(e.data);
-      console.log("성공인가?");
-      setIsFinish(true);
+      // setCopy(recordedChunks);
+
+      // // setIsFinish(true);
+      // setCopy(recordedChunks);
+      // console.log("set copy", copy);
     };
 
-    setMediaRecoder(mediaRecorder2);
+    setMediaRecoder(mediaRecorder);
   }
 
 
@@ -117,17 +123,19 @@ function PeerjsAlone() {
     mediaRecorder.onstop = function () {
       // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
       // 그렇지 않으면 메모리 누수 문제가 발생합니다.
-      console.log('mediaRecorder.onstop:', mediaRecorder);
       if (recordedMediaURL) {
         URL.revokeObjectURL(recordedMediaURL);
       }
 
+      console.log("finish copy!!!!:", copy);
+      console.log("recordedchunks", recordedChunks);
+      // recordedChunks = copy
       const blob = new Blob(recordedChunks, { type: 'video/mp4;' });
       const fileName = uuid();
-      // const recordFile = new File([blob], fileName + ".mp4", {
       const recordFile = new File([blob], fileName + ".mp4", {
-        type: blob.type,
+        type: blob.type
       })
+      console.log("finish blob", blob);
       recordedMediaURL = window.URL.createObjectURL(recordFile);
       // aws s3 upload 설정 
       const config = {
@@ -137,16 +145,14 @@ function PeerjsAlone() {
         accessKeyId: process.env.REACT_APP_ACCESS_KEY,
         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
       };
+      console.log("recordedchunks22", recordedChunks);
 
-      // uploadFile(recordFile, config)
-      //   .then(recordFile => console.log(recordFile))
-      //   .catch(err => console.error(err))
       uploadFile(recordFile, config)
         .then(recordFile => {
           api.post('/api/training/alone/recordingCreate', {
             id: userInfo.id,
             title: (Questions[QuestionsIndex])[0],
-            recording_url: recordFile.location,
+            recording_url: recordFile.location
           })
             .then(res => {
               console.log(res.data);
@@ -154,9 +160,12 @@ function PeerjsAlone() {
           console.log(recordFile);
         })
         .catch(err => console.error(err))
+
+      recordedChunks.pop()
     };
     mediaRecorder.stop();
-    // start();
+
+
   }
 
   let audio = new Audio(getQuestionAudio());
@@ -175,7 +184,7 @@ function PeerjsAlone() {
               call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
               setTimeout(() => {
                 start();
-              }, 1500);
+              }, 500);
             }} > 시작하기</button>
           </div >
         </div >
@@ -196,20 +205,6 @@ function PeerjsAlone() {
         </div>
         <div class="training-alone-main-controls">
           <div class="main-controls-block">
-            {/* <div
-              class="training-alone-main-controls-button"
-              id="playPauseVideo">
-              <i class="fa fa-video-camera" size="lg" ></i>
-              <span onClick={() => { start(); }}>Record</span>
-            </div>
-            <div class="training-alone-main-controls-button">
-              <i class="fa fa-pause"></i>
-              <span onClick={() => { finish(); }}>Pause Record</span>
-            </div>
-            <div class="training-alone-main-controls-button">
-              <FontAwesomeIcon icon={faCloudArrowDown} />
-              <span onClick={() => { download(); }}>Download</span>
-            </div> */}
             <>
               <button onClick={() => { start(); }}>start</button>
               {/* <button onClick={() => { download(); }}>download</button> */}
@@ -219,6 +214,9 @@ function PeerjsAlone() {
               SetQuestionsIndex(QuestionsIndex + 1)
               SetAudioIndex(AudioIndex + 1)
               finish();
+              setTimeout(() => {
+                start();
+              }, 500);
             }}>
               <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
               Next
@@ -247,11 +245,6 @@ function getHide() {
 function getShow() {
   document.getElementById("interviewer").style.display = ""
   document.getElementById("alone-questions").style.display = ""
-
-
 }
-
-
-
 
 export default PeerjsAlone;
