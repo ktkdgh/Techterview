@@ -3,4 +3,7 @@ import { io } from 'socket.io-client';
 // export let socket = io(process.env.REACT_APP_BASE_URL, {
 //   rejectUnauthorized: false // WARN: please do not do this in production
 // });
-export let socket = io.connect('https://techterview.vercel.app',{ perMessageDeflate: false })
+// export let socket = io.connect('http://localhost:8000',{ perMessageDeflate: false })
+
+
+export let socket = io.connect('https://techterview.vercel.app/8000',{ perMessageDeflate: false })
