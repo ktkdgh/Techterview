@@ -29,22 +29,22 @@ function Question() {
 
     const onCheckedElement = useCallback(
         (checked, id) => {
-        if (checked) {
-            setClickArray([...ClickArray, checked]);
-        } else {
-            setClickArray(ClickArray.filter((el) => el !== id));
-        }
-    },[ClickArray]);
+            if (checked) {
+                setClickArray([...ClickArray, checked]);
+            } else {
+                setClickArray(ClickArray.filter((el) => el !== id));
+            }
+        }, [ClickArray]);
     // console.log(ClickArray);
 
     const arraydeleteidx = (data, idx) => {
         setClickArray(ClickArray.filter((el) => el !== data));
     }
-    
+
 
     return (
         <div className='Wrapper'>
-            <div className='left-menu'>
+            <div className='left-menu' style={{ borderStyle: "" }}>
                 <QuestionMenuNavBar selectMenu={(id) => selectMenu(id)} />
             </div>
 
@@ -52,11 +52,11 @@ function Question() {
                 <div Class="Main-body">
                     <div Class="feedback-table">
                         {
-                        QuestionArray?.map((value, idx) =>
-                        <div>
-                                {idx + 1}. {value.name} <button onClick={(e) => {onCheckedElement(e.target.checked, idx)}}  checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
-                            </div>
-                        )
+                            QuestionArray?.map((value, idx) =>
+                                <div>
+                                    {idx + 1}. {value.name} <button onClick={(e) => { onCheckedElement(e.target.checked, idx) }} checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
+                                </div>
+                            )
                         }
                     </div>
                     {
@@ -66,16 +66,16 @@ function Question() {
                     {
                         QuestionArray.length !== 0
                         && <div className="feedback-table">
-                                <ul>
-                                    {
-                                        ClickArray?.map((click, idx) => 
-                                            <div>
-                                                {click}
-                                                <button onClick={() => {SetDeleteIdx(idx); arraydeleteidx(click, idx) }} >Delete </button>
-                                            </div>)
-                                    }
-                                </ul>
-                          </div>
+                            <ul>
+                                {
+                                    ClickArray?.map((click, idx) =>
+                                        <div>
+                                            {click}
+                                            <button onClick={() => { SetDeleteIdx(idx); arraydeleteidx(click, idx) }} >Delete </button>
+                                        </div>)
+                                }
+                            </ul>
+                        </div>
                     }
                 </div>
             </div>

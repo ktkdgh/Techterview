@@ -24,6 +24,10 @@ function PeerjsAlone() {
   const [Questions, SetQuestions] = useState([]);
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
   const [AudioIndex, SetAudioIndex] = useState(0);
+  const [isFinish, setIsFinish] = useState(false);
+  const [mediaRecorder, setMediaRecoder] = useState(null);
+  // const [recordedMediaURL, setRecordedMediaURLr] = useState(null);
+  // const [recordedChunks, setRecordedChunks] = useState([]);
 
   useEffect(() => {
     async function getQuestions() {
@@ -57,7 +61,7 @@ function PeerjsAlone() {
     }
   };
   // let mediaStream = null;
-  let mediaRecorder = null;
+  // let mediaRecorder = null;
   let recordedMediaURL = null;
   let recordedChunks = [];
 
@@ -75,6 +79,13 @@ function PeerjsAlone() {
     })
   }
 
+  // useEffect(() => {
+  //   if (isFinish) {
+  //     console.log('끝ㅌㅌㅌㅌ');
+  //     start();
+  //     setIsFinish(false);
+  //   }
+  // }, [isFinish]);
 
   /*녹화, 질문 버튼 관련 함수 */
   const start = () => {
@@ -82,20 +93,27 @@ function PeerjsAlone() {
     // let recordedChunks = [];
 
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
-    mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+    let mediaRecorder2 = new MediaRecorder(currentUserVideoRef.current.srcObject, {
       mimeType: 'video/webm; codecs=vp8'
     });
-    mediaRecorder.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
+    console.log("mediaRecore23", mediaRecorder2);
+    mediaRecorder2.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
+    console.log("녹화 중일까!!!?");
 
     // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
-    mediaRecorder.ondataavailable = function (e) {
+    mediaRecorder2.ondataavailable = function (e) {
       console.log("e.data:", e.data);
       recordedChunks.push(e.data);
+      console.log("성공인가?");
+      setIsFinish(true);
     };
+
+    setMediaRecoder(mediaRecorder2);
   }
 
 
   function finish() {
+
     mediaRecorder.onstop = function () {
       // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
       // 그렇지 않으면 메모리 누수 문제가 발생합니다.
@@ -125,19 +143,20 @@ function PeerjsAlone() {
       //   .catch(err => console.error(err))
       uploadFile(recordFile, config)
         .then(recordFile => {
-            api.post('/api/training/alone/recordingCreate', {
-              id : userInfo.id,
-              title : (Questions[QuestionsIndex])[0],
-              recording_url : recordFile.location,
+          api.post('/api/training/alone/recordingCreate', {
+            id: userInfo.id,
+            title: (Questions[QuestionsIndex])[0],
+            recording_url: recordFile.location,
+          })
+            .then(res => {
+              console.log(res.data);
             })
-              .then(res => {
-                console.log(res.data);
-              })
           console.log(recordFile);
         })
         .catch(err => console.error(err))
     };
     mediaRecorder.stop();
+    // start();
   }
 
   let audio = new Audio(getQuestionAudio());
@@ -152,7 +171,12 @@ function PeerjsAlone() {
             면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
           </div>
           <div className='training-alone-start-modal-footer'>
-            <button className='btn-yes' onClick={() => { call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play(); }} > 시작하기</button>
+            <button className='btn-yes' onClick={() => {
+              call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
+              setTimeout(() => {
+                start();
+              }, 1500);
+            }} > 시작하기</button>
           </div >
         </div >
       </div >

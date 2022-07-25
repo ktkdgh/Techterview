@@ -59,12 +59,12 @@ function MyVideo() {
 
     const onCheckedElement = useCallback(
         (checked, id) => {
-        if (checked) {
-            setCheckedLists([...checkedList, id]);
-        } else {
-            setCheckedLists(checkedList.filter((el) => el !== id));
-        }
-    },[checkedList]);
+            if (checked) {
+                setCheckedLists([...checkedList, id]);
+            } else {
+                setCheckedLists(checkedList.filter((el) => el !== id));
+            }
+        }, [checkedList]);
 
 
     return (
@@ -82,7 +82,7 @@ function MyVideo() {
                             <button className="video-delete-btn" onClick={() => { SetopenFeedbackCreateModal(true) }} >피드백 등록</button>
                             {openVideoFaceVoiceEditModal && <VideoFaceVoiceEditModal closeModal={setOpenVideoFaceVoiceEditModal} />}
                             {openModal && <VideoDeleteModal closeModal={setOpenModal} checkedList={checkedList} />}
-                            {openFeedbackCreateModal && <FeedbackCreateModal closeModal={SetopenFeedbackCreateModal} checkedList={checkedList}/>}
+                            {openFeedbackCreateModal && <FeedbackCreateModal closeModal={SetopenFeedbackCreateModal} checkedList={checkedList} />}
                         </div>
                     </div>
                 }
@@ -125,10 +125,10 @@ function MyVideo() {
                                                     type="checkbox"
                                                     onChange={(e) => onCheckedElement(e.target.checked, value.id)}
                                                     checked={checkedList.includes(value.id) ? true : false}
-                                                    /></td>
+                                                /></td>
                                                 <td> {idx + 1} </td>
-                                                <td> <button onClick={()=> {SetopenMyVideoPreviewModal(true); SetpriviewUrl(value.recordingUrl)}}>{value.title}</button> </td>
-                                                {openMyVideoPreviewModal && <MyVideoPreviewModal closeModal={SetopenMyVideoPreviewModal} videoUrl={priviewUrl}/>}
+                                                <td> <button onClick={() => { SetopenMyVideoPreviewModal(true); SetpriviewUrl(value.recordingUrl) }}>{value.title}</button> </td>
+                                                {openMyVideoPreviewModal && <MyVideoPreviewModal closeModal={SetopenMyVideoPreviewModal} videoUrl={priviewUrl} />}
                                                 <td> {value.name} </td>
                                                 <td> {YMDFormat(value.createdAt)} </td>
                                             </tr>

@@ -1,12 +1,19 @@
 .Wrapper {
     /* margin-top: 50px; */
-    background-color: rgba(64, 218, 199, 1);
+    /* background-color: rgba(64, 218, 199, 1); */
 }
 
+/* 
 .left-navbar {
     width: 280px;
     float: left;
     background-color: aquamarine;
+} */
+
+.left-menu {
+    width: 200px;
+    float: left;
+    background-color: yellow;
 }
 
 /* .Main-body {

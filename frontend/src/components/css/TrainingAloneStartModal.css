@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: center;
     font-family: Montserrat, sans-serif;
+    z-index: 3;
 }
 
 
@@ -39,7 +40,7 @@
 .training-alone-start-modal-body {
     padding: 10px;
     border-bottom: 1px solid #eee;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 
@@ -186,4 +187,3 @@ span.training-alone-main-controls-button {
 video {
     margin-bottom: 40px;
 }
-
