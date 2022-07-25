@@ -15,7 +15,7 @@ router.get('/questions/:subcategory', async (req, res) => {
         })
 
         // res.send(shuffle(questions))
-        res.send((questions))
+        res.send(questions)
     } catch (err) {
         console.error(err);
         done(err);

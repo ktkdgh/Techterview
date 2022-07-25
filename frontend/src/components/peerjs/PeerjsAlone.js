@@ -15,6 +15,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function PeerjsAlone() {
   const Token = sessionStorage.getItem('Authorization')
+  const QuestionList = sessionStorage.getItem('QuestionList')
   const userInfo = jwt(Token)
 
   const currentUserVideoRef = useRef(null); //recordRef
@@ -27,10 +28,25 @@ function PeerjsAlone() {
 
   useEffect(() => {
     async function getQuestions() {
-      const data = await api.get(`/api/training/alone/questions/${key}`)
-        .then(res => {
-          SetQuestions(res.data);
-        });
+      if (key == 15) {
+        const QuestionArray = QuestionList.split(',')
+        let AloneQuestion = []
+        let QuestionName = "";
+        for (let i = 0; i < QuestionArray.length; i++) {
+          if (!(i % 2)){
+            QuestionName = QuestionArray[i]
+          } else if( QuestionName ) {
+            AloneQuestion.push([QuestionName, QuestionArray[i]])
+            QuestionName = ""
+          }
+        }
+        SetQuestions(AloneQuestion)
+      } else {
+        await api.get(`/api/training/alone/questions/${key}`)
+          .then(res => {
+            SetQuestions(res.data);
+          });
+      }
     }
     getQuestions();
   }, []);
@@ -105,6 +121,7 @@ function PeerjsAlone() {
       }
 
       const blob = new Blob(recordedChunks, { type: 'video/mp4;' });
+      console.log("recordedChunks : ", recordedChunks);
       const fileName = uuid();
       // const recordFile = new File([blob], fileName + ".mp4", {
       const recordFile = new File([blob], fileName + ".mp4", {
@@ -223,11 +240,6 @@ function getHide() {
 function getShow() {
   document.getElementById("interviewer").style.display = ""
   document.getElementById("alone-questions").style.display = ""
-
-
 }
-
-
-
 
 export default PeerjsAlone;

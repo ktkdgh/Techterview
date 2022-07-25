@@ -81,6 +81,7 @@ function CreateRoomAlone({ closeModal }) {
     const [radioValue, setRadioValue] = useState('1');
 
     function handleClick() {
+        sessionStorage.removeItem('QuestionList')
         window.location.replace("../page/training/Alone/" + SendNum)
     }
     return ( 

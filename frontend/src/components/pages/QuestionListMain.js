@@ -1,5 +1,7 @@
+
 import React, { Component, useCallback, useEffect, useState } from 'react';
 import QuestionMenuNavBar from '../includes/QuestionListMenubar';
+import QuestionListAloneModal from '../modal/QuestionListAloneModal'
 import api from "../shared/api";
 import '../css/Question.css'
 
@@ -7,6 +9,7 @@ import '../css/Question.css'
 
 
 function Question() {
+    const [openQuestionListModal, SetopenQuestionListModal ] = useState(false);
     const [QuestionArray, SetQuestionArray] = useState([]);
     const [ClickArray, setClickArray] = useState([]);
     const [DeleteIdx, SetDeleteIdx] = useState(0);
@@ -47,7 +50,6 @@ function Question() {
             <div className='left-menu'>
                 <QuestionMenuNavBar selectMenu={(id) => selectMenu(id)} />
             </div>
-
             <div>
                 <div Class="Main-body">
                     <div Class="feedback-table">
@@ -56,13 +58,14 @@ function Question() {
                         <div>
                                 {idx + 1}. {value.name} <button onClick={(e) => {onCheckedElement(e.target.checked, idx)}}  checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
                             </div>
-                        )
-                        }
+                        )}
                     </div>
                     {
                         QuestionArray.length === 0
                         && <img src={require("../images/main-image.png")} className="anything_woosik" alt={"studying man Question"} />
                     }
+                    <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { SetopenQuestionListModal(true); }}>완료</button>
+                    {openQuestionListModal && <QuestionListAloneModal closeModal={SetopenQuestionListModal} questionlist={ClickArray}/>}
                     {
                         QuestionArray.length !== 0
                         && <div className="feedback-table">
@@ -70,12 +73,12 @@ function Question() {
                                     {
                                         ClickArray?.map((click, idx) => 
                                             <div>
-                                                {click}
-                                                <button onClick={() => {SetDeleteIdx(idx); arraydeleteidx(click, idx) }} >Delete </button>
+                                                {idx + 1}. {click}
+                                                <button onClick={() => {SetDeleteIdx(idx); arraydeleteidx(click, DeleteIdx) }} >Delete </button>
                                             </div>)
                                     }
                                 </ul>
-                          </div>
+                        </div>
                     }
                 </div>
             </div>
@@ -86,3 +89,4 @@ function Question() {
 
 
 export default Question
+
