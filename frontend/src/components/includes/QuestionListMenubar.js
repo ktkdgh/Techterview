@@ -49,7 +49,7 @@ function QuestionMenuNavBar({ selectMenu }) {
                         ]
                     },
                     {
-                        title: '기본질문 및 개발상식',
+                        title: 'Basic',
                         itemId: '/basic',
                         subNav: [
                             {
@@ -63,7 +63,7 @@ function QuestionMenuNavBar({ selectMenu }) {
                         ]
                     },
                     {
-                        title: '언어',
+                        title: 'Language',
                         itemId: '/language',
                         subNav: [
                             {
@@ -81,7 +81,7 @@ function QuestionMenuNavBar({ selectMenu }) {
                         ]
                     },
                     {
-                        title: '직무별',
+                        title: 'Position',
                         itemId: '/duty',
                         subNav: [
                             {

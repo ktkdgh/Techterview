@@ -7,6 +7,8 @@ import MyVideoMenubar from "../includes/MyVideoMenubar"
 import '../css/FeedBack.css'
 import api from '../shared/api';
 import jwt from 'jwt-decode';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 function MyVideo() {
     const [openModal, setOpenModal] = useState(false);
@@ -68,11 +70,11 @@ function MyVideo() {
 
 
     return (
-        <div className='Wrapper'>
+        <div className='feedback-wrapper'>
             <div className='left-menu' >
                 <MyVideoMenubar selectMyVideoMenu={(id) => selectMyVideoMenu(id)} />
             </div>
-            <div>
+            <div className="feedback-my-video-body">
                 <div className="my-video-title">My 영상</div>
                 {StatusCheck ? "" :
                     <div class="grid-container-box">
@@ -127,7 +129,7 @@ function MyVideo() {
                                                     checked={checkedList.includes(value.id) ? true : false}
                                                 /></td>
                                                 <td> {idx + 1} </td>
-                                                <td> <button onClick={() => { SetopenMyVideoPreviewModal(true); SetpriviewUrl(value.recordingUrl) }}>{value.title}</button> </td>
+                                                <td> <div className="feedback-my-video-title" onClick={() => { SetopenMyVideoPreviewModal(true); SetpriviewUrl(value.recordingUrl) }}>{value.title}</div> </td>
                                                 {openMyVideoPreviewModal && <MyVideoPreviewModal closeModal={SetopenMyVideoPreviewModal} videoUrl={priviewUrl} />}
                                                 <td> {value.name} </td>
                                                 <td> {YMDFormat(value.createdAt)} </td>
@@ -137,7 +139,16 @@ function MyVideo() {
                                 </tbody>
                             }
                         </table>
-                    </div> : "아무것도 없어용"}
+                    </div> : 
+                    <div className="feedback-no-video-wrapper">
+                    <div className="exclamation-circle"> <FontAwesomeIcon icon={faExclamationCircle} /></div>
+                   <div className="feedback-no-video"> 저장된 영상이 없습니다.</div>
+                </div>}
+
+
+
+
+
             </div>
         </div>
     )

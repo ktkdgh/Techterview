@@ -46,13 +46,13 @@ function Question() {
 
 
     return (
-        <div className='Wrapper'>
-            <div className='left-menu' style={{ borderStyle: "" }}>
+        <div className='feedback-wrapper'>
+            <div className='left-menu'>
                 <QuestionMenuNavBar selectMenu={(id) => selectMenu(id)} />
             </div>
             <div>
-                <div Class="Main-body">
-                    <div Class="feedback-table">
+                <div className="question-main-body">
+                    <div className="feedback-table">
                         {
                             QuestionArray?.map((value, idx) =>
                                 <div>
@@ -60,12 +60,12 @@ function Question() {
                                 </div>
                             )
                         }
+
                     </div>
                     {
                         QuestionArray.length === 0
                         && <img src={require("../images/main-image.png")} className="anything_woosik" alt={"studying man Question"} />
                     }
-                    <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { SetopenQuestionListModal(true); }}>완료</button>
                     {openQuestionListModal && <QuestionListAloneModal closeModal={SetopenQuestionListModal} questionlist={ClickArray}/>}
                     {
                         QuestionArray.length !== 0
@@ -79,7 +79,10 @@ function Question() {
                                             </div>)
                                     }
                                 </ul>
+                                <div className="question-finish-btn-container" ><button className="question-finish-btn"  onClick={() => { SetopenQuestionListModal(true); }}>완료</button></div>
+
                         </div>
+                        
                     }
                 </div>
             </div>
