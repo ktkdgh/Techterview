@@ -6,12 +6,18 @@ import "../../index.css"
 
 
 class Login extends Component {
+
     render() {
+
+        function goToHome() {
+            window.location.replace(`/`)
+        }
+
         return (
-            <div className="Wrapper-login">
+            <div className="wrapper-login">
 
                 <div className="main-page-body">
-                    <div className="navigation-bar-logo"> TECHTERVIEW </div>
+                    <div className="login-navigation-bar-logo" onClick={()=> {goToHome()}} > TECHTERVIEW </div>
 
  
                 </div>
@@ -20,7 +26,7 @@ class Login extends Component {
 
                 <div className='login-phrase-image-container'>
                     <div className="login-phrase-container">
-                        <div className="login-phrase1"> 반가워요, 개발자의 성장을 돕는  <br />
+                        <div className="login-phrase1"> 반가워요, <br/>개발자의 성장을 돕는<br />
                         <span className="login-phrase2"> 테크터뷰</span>입니다. </div>
                     </div>
                     <div className="kakaoImage">

@@ -11,6 +11,8 @@
     align-items: center;
     justify-content: center;
     font-family: Montserrat, sans-serif;
+    font-size: 110%;
+    z-index: 3;
 }
 
 
@@ -29,24 +31,35 @@
 }
 
 .training-alone-start-modal-footer {
-    padding: 10px;
+    margin-top: 5%;
 }
 
 .modal-title {
     margin: 0;
 }
 
-.training-alone-start-modal-body {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    font-size: 20px;
+#alone-questions {
+    width: 70vw;
+    color: black;
+    font-size: 2vw;
+    text-align: center;
+    align-self: center;
 }
 
-.alone-video-controls-button-container{
+.training-alone-start-modal-body {
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 100%;
+    z-index: 10;
+}
+
+.alone-video-controls-button-container {
     width: 95vw;
     border: 10px solid black;
-    box-shadow:20px 20px black;
+    box-shadow: 20px 20px black;
 }
+
 .button.btn-start {
     background-color: white;
     color: black;
@@ -55,11 +68,13 @@
     border-radius: 10px;
     margin: 10px;
 }
-#alone-video-container{
+
+#alone-video-container {
     display: flex;
     flex-direction: row;
-    margin:1%;
+    margin: 1%;
 }
+
 #alone-wrapper {
     display: flex;
     flex-direction: row;
@@ -74,17 +89,17 @@
 }
 
 
-.main-controls-button-leave-meeting{
+.main-controls-button-leave-meeting {
     display: flex;
     align-items: center;
 }
 
-.main-controls-block{
+.main-controls-block {
     display: flex;
     color: lightgrey;
     font-size: x-large;
     margin: 0 770px;
-    
+
 
 }
 
@@ -100,13 +115,14 @@
 .training-others-main-controls-share-button {
 
     display: flex;
-    align-items: center;    
+    align-items: center;
     border-top: 10px solid black;
 
 }
-.svg-inline--fa.fa-share-from-square  {
+
+.svg-inline--fa.fa-share-from-square {
     font-size: 3vh;
-    color:black;
+    color: black;
 
 }
 
@@ -128,34 +144,30 @@
     height: 50px;
 }
 
-.video-next-question-btn {
-    display: flex;
-    color: lightgrey;
-    font-size: x-large;
-    margin: -88px 1370px;
-
-}
 
 .video-controls-button-container {
     width: 95vw;
     border: 10px solid black;
-    box-shadow:20px 20px black;
+    box-shadow: 20px 20px black;
 }
 
-#video-container{
+#video-container {
     display: flex;
     flex-direction: row;
-    margin:1%;
+    margin: 1%;
 
 }
-#currentUserVideo, #remoteUserVideo{
+
+#currentUserVideo,
+#remoteUserVideo {
     height: 100%;
     width: 100%;
     object-fit: fill;
 }
+
 .video-user1 {
     width: 45vw;
-    height: 65vh;   
+    height: 65vh;
     border-radius: 20px;
 }
 
@@ -163,9 +175,10 @@
 .video-user2 {
     width: 45vw;
     height: 65vh;
-    
+
 
 }
+
 .training-others-inner-box {
     display: flex;
     flex-direction: row;
@@ -176,9 +189,10 @@
 /*Training Alone*/
 /*모달관련 오류 - 비디오가 모달을 가리는것 같음*/
 
-#interviewer , #aloneCurrentUserVideoRef{
-    height: 100%; 
-     width: 100%;
+#interviewer,
+#aloneCurrentUserVideoRef {
+    height: 100%;
+    width: 100%;
     object-fit: fill;
 
 }
@@ -190,7 +204,8 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-  margin: 30px 30px;
+    margin: 1.5%;
+    font-size: 1.5rem;
 }
 
 .main-controls-block,
@@ -222,10 +237,6 @@
 
 }
 
-span.training-alone-main-controls-button {
-    display: flex;
-    flex-direction: column;
-}
 
 video {
     margin-bottom: 40px;
@@ -243,9 +254,15 @@ i {
 .svg-inline--fa.fa-circle-right {
     color: black;
 }
-.fa.fa-video-camera{
+.fa.fa-video-camera {
     color: black;
 }
+
 .fa.fa-pause {
     color: black;
+}
+
+#faArrowAltIcon {
+    width: 100px;
+    cursor: pointer;
 }
