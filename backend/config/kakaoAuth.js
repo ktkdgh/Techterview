@@ -8,7 +8,6 @@ const isExistSnsId = async(provider, sns_id) => {
                 provider
             }
         });
-        
         if(result['dataValues'].id){
             return result['dataValues'];
         }else{
