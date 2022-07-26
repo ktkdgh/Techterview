@@ -224,16 +224,16 @@ function PeerjsAlone() {
         <div id="alone-wrapper">
           <div className="alone-video-controls-button-container ">
                   <div id="alone-video-container" >
-                    <div className="video-user1" id="video-user1"style={{ display: "none" }}>
-                      {/* <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video> */}
+                    <div className="video-user1" id="video-user1"style={{ display: "none", zIndex: "-1" }}>
+                      <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video>
                     </div>
-                      <div className="video-user2"><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef}></video></div>
+                      <div className="video-user2" style={{zIndex: "-1"}}><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
                   </div>
                   <div class="training-alone-main-controls">
                     <div class="main-controls-block">
                       <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
 
-                      <div id="training-alone-main-controls-button"class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
+                      <div id="training-alone-main-controls-button"class="training-alone-main-controls-button" style={{ display: "none"}} onClick={() => {
                         audio.play()
                         SetQuestionsIndex(QuestionsIndex + 1)
                         SetAudioIndex(AudioIndex + 1)
