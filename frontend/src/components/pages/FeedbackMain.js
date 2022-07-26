@@ -3,6 +3,8 @@ import FeedbackMenu from "../includes/FeedbackMenubar"
 // import { Link } from 'react-router-dom';
 import api from "../shared/api";
 import '../css/FeedBack.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 function Feedback() {
     const [MainLengthCheck, SetMainLengthCheck] = useState("");
@@ -46,7 +48,7 @@ function Feedback() {
                 <FeedbackMenu selectFeedMenu={(id) => selectFeedMenu(id)} />
             </div>
             {MainLengthCheck ?
-                <div className="Main-body">
+                <div className="feedback-main-body">
                     <div className='feedback-table'>
                         <table>
                             <thead>
@@ -77,7 +79,10 @@ function Feedback() {
                             </tbody>
                         </table>
                     </div>
-                </div> : <div className="Main-body"> 검색된 것이 없어요 알아서 하세요</div>}
+                </div> : <div className="feedback-main-body">
+                    <div className="exclamation-circle"> <FontAwesomeIcon icon={faExclamationCircle} /></div>
+                   <div className="feedback-body-content"> 관련된 영상이 없습니다.</div>
+                </div>}
         </div >
     )
 }

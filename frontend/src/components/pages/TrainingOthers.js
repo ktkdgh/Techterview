@@ -22,7 +22,6 @@ function TrainingOthers() {
     const [QuestionsIndex, SetQuestionsIndex] = useState(0);
 
 
-
     useEffect(() => {
         async function getQuestions() {
             const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
@@ -46,11 +45,16 @@ function TrainingOthers() {
         }
     };
     console.log(Questions);
+
+    function goToHome() {
+        window.location.replace(`/`)
+    }
+    
     // console.log("roomId", location)
     return (
         <div className="training-container">
-            <Helmet><style>{'body { background-color: black; }'}</style></Helmet>
-            <Link to="/" style={{ textDecoration: 'none' }}><div className="training-navigation-bar-logo"> TECHTERVIEW </div></Link>
+
+
             <div style={{ color: 'white', fontSize: '32px', textAlign: "center" }}>{getQuestion()}</div>
             <PeerOthersroom />
 

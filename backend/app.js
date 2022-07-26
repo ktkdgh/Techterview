@@ -1,12 +1,10 @@
 var createError = require('http-errors');
-var express = require('express');
 var path = require('path');
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var dotenv = require('dotenv');
-var cors = require('cors');
 dotenv.config();
 
 var indexRouter = require('./routes/index');
@@ -20,19 +18,29 @@ var othersRouter = require('./routes/training/others');
 //socket//
 
 const http = require("http");
+var express = require('express');
+var cors = require('cors');
 const SocketRoutes = require("./socketRoutes");
+
 const app = express();
 const SocketIO = require("socket.io");
 const server = http.createServer(app);
-const io = require("socket.io")(8001, { cors:{ origin: ['http://localhost:3000']} });
+// const io = require("socket.io")(8000, { cors:{ origin: ['https://techterview.vercel.app:3000']} });
 
-// const io = SocketIO(server, {
-//   cors: {
-//     origin: "*",
-//     method: ["GET", "POST"],
-//   },
-// });
-// PORTNUM = 8000;
+const io = SocketIO(server, {
+  cors: {
+    origin: "*",
+    method: ["GET", "POST"],
+  },
+});
+
+PORTNUM = 8000;
+
+app.use(cors());
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(express.json());
+app.use("/", require("./routes/"));
+
 
 io.on("connection", (socket) => {
   socket.onAny(e => {
@@ -46,9 +54,11 @@ io.on("connection", (socket) => {
   })
 });
 
+server.listen(PORTNUM, () => {
+  console.log(`Server is running... port: ${PORTNUM}`);
+});
 ////////////
 
-app.use(cors());
 
 const { sequelize } = require('./models/index');
 sequelize.sync({ force: false })
@@ -65,7 +75,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.json());
-app.use(cors());
 
 app.use(session({ secret: 'MySecret', resave: false, saveUninitialized: true }));
 
@@ -73,9 +82,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(logger('dev'));
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

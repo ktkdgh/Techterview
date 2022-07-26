@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 .Wrapper {
     /* margin-top: 50px; */
     /* background-color: rgba(64, 218, 199, 1); */
 }
+=======
+/* .Wrapper {
+    background-color: rgba(64, 218, 199, 1);
+} */
+>>>>>>> ef5174ed08fb8722d32e30fb3c55c0928d727158
 
 /* 
 .left-navbar {
@@ -15,7 +21,21 @@
     float: left;
     background-color: yellow;
 }
+.feedback-main-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 85%;
+        height: 80vh;
+    }
+.feedback-body-content {
+    margin-top: 5%;
+}
 
-/* .Main-body {
-    background-color: blueviolet;
-} */
+    /*icon style*/
+    .svg-inline--fa.fa-circle-exclamation {
+        height: 300%;
+        color: lightgrey;
+        margin-bottom: 3%;
+    }

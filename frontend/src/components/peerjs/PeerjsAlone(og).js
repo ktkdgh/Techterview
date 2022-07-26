@@ -115,12 +115,12 @@ function PeerjsAlone() {
     };
   }
 
-
   function finish() {
     mediaRecorder.onstop = function () {
       // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
       // 그렇지 않으면 메모리 누수 문제가 발생합니다.
       console.log('mediaRecorder.onstop:', mediaRecorder);
+
       if (recordedMediaURL) {
         URL.revokeObjectURL(recordedMediaURL);
       }
@@ -199,24 +199,6 @@ function PeerjsAlone() {
         </div>
         <div class="training-alone-main-controls">
           <div class="main-controls-block">
-            {/* <div
-              class="training-alone-main-controls-button"
-              id="playPauseVideo">
-              <i class="fa fa-video-camera" size="lg" ></i>
-              <span onClick={() => { start(); }}>Record</span>
-            </div>
-            <div class="training-alone-main-controls-button">
-              <i class="fa fa-pause"></i>
-              <span onClick={() => { finish(); }}>Pause Record</span>
-            </div>
-            <div class="training-alone-main-controls-button">
-              <FontAwesomeIcon icon={faCloudArrowDown} />
-              <span onClick={() => { download(); }}>Download</span>
-            </div> */}
-            <>
-              <button onClick={() => { start(); }}>start</button>
-              {/* <button onClick={() => { download(); }}>download</button> */}
-            </>
             <div class="training-alone-main-controls-button" onClick={() => {
               audio.play()
               SetQuestionsIndex(QuestionsIndex + 1)
