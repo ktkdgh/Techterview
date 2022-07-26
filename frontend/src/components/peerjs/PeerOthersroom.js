@@ -242,8 +242,8 @@ function PeerOthersroom() {
   <div className="training-others-inner-box" >
     <div className="video-controls-button-container"> 
       <div id="video-container">
-          <div className="video-user1"><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
-          <div className="video-user2"><video id="remoteUserVideo"muted ref={remoteVideoRef} /></div>
+          <div className="video-user1" style={{zIndex: "-1"}}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
+          <div className="video-user2" style={{zIndex: "-1"}}><video id="remoteUserVideo"muted ref={remoteVideoRef} /></div>
         </div>
         <div className="training-others-main-controls-share-button" >  
       </div>

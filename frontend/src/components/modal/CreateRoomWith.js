@@ -85,8 +85,8 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     const [tag2, setTag2] = useState('');
     
     const onChangeInput0  = (e) => {
-    setRoomName(e.target.value);
-      };
+        setRoomName(e.target.value);
+    };
     const onChangeInput1  = (e) => {
         setTag0(e.target.value);
     };
@@ -105,6 +105,16 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
 // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [clicked]);
         
+
+    const checkOnlyOne = (checkThis) => {
+        const checkboxes = document.getElementsByName('test')
+        console.log("checkboxes : ", checkboxes);
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] !== checkThis) {
+                checkboxes[i].checked = false
+            }
+        }
+    }
 
     return (
         <div className="Create-delete-modal">
@@ -150,8 +160,13 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                                     {Options3.map((element) => <Dropdown.Item onClick={() => setSendNum(element.key)} href=""> {element.value}</Dropdown.Item>)}
 
                                 </DropdownButton>
+                                <div>
+                                <input type="checkbox" name="test" value="1" onChange={(e) => checkOnlyOne(e.target)} /> 면접자
+                                </div>
+                                <div>
+                                <input type="checkbox" name="test" value="2" onChange={(e) => checkOnlyOne(e.target)} /> 면접관
+                                </div>
                             </div>
-
 
 
                         </div>
