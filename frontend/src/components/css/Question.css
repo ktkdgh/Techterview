@@ -11,7 +11,7 @@
     background-color: rgb(253, 253, 253);
 }
 
-.Main-body {
+.main-body {
     display: flex;
     flex-basis: 60%;
     width: 75%;

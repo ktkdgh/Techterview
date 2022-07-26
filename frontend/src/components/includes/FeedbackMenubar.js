@@ -11,7 +11,9 @@ function FeedbackMenu({ selectFeedMenu }) {
                 // activeItemId={location.pathname}
                 onSelect={({ itemId }) => {
                     selectFeedMenu(itemId)
-                }}
+                    
+                }} 
+                style={{'border-left-color': 'red'}} 
                 items={[
                     {
                         itemId: '0',

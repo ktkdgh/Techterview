@@ -1,6 +1,6 @@
 import api from "../shared/api";
 
-function FeedbackDeleteModal({ closeModal, feedbackId }) {
+function FeedbackDeleteModal({SetClickMinus, closeModal, feedbackId }) {
     var referrer = document.referrer
     const deleteFeedbackPage = async () => {
         await api.delete(`/api/feedback/deletePage/${feedbackId}`)
@@ -8,6 +8,17 @@ function FeedbackDeleteModal({ closeModal, feedbackId }) {
                 window.location.href = referrer
             })
     };
+
+function onclickclick () {
+    SetClickMinus(1);
+    closeModal(false)
+}
+
+function onclickDel () {
+    SetClickMinus(1);
+    deleteFeedbackPage(feedbackId)
+}
+
 
     return (
 
@@ -17,8 +28,8 @@ function FeedbackDeleteModal({ closeModal, feedbackId }) {
                     등록한 피드백을 삭제하시겠습니까까까깍?
                 </div>
                 <div className="video-delete-modal-footer">
-                    <button className="btn-yes" onClick={() => closeModal(false)}>취소</button>
-                    <button className="btn-cancel" onClick={() => deleteFeedbackPage(feedbackId)}>삭제</button>
+                    <button className="btn-yes" onClick={onclickclick}>취소</button>
+                    <button className="btn-cancel" onClick={onclickDel}>삭제</button>
                 </div>
             </div>
         </div>

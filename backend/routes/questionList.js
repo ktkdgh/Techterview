@@ -2,13 +2,8 @@ var express  = require('express');
 var router   = express.Router();
 const { Questions } = require('../models');
 
-
-
-
 router.get('/getQuestionList/:category/:number', async(req, res) => {
     try {
-        console.log(req.params.category);
-        console.log(req.params.number);
         const question = await Questions.findAll({where: {SubCategoryId: req.params.number}})
 
         Questions_array = []
@@ -19,7 +14,6 @@ router.get('/getQuestionList/:category/:number', async(req, res) => {
             })
         })
 
-        console.log(Questions_array);
         res.json(Questions_array)
     } catch (err) {
         console.error(err);
@@ -27,5 +21,18 @@ router.get('/getQuestionList/:category/:number', async(req, res) => {
     }
 })
 
+router.post('/randomQuestion', async(req, res) => {
+    try {
+        const questionList = []
+        for (let value of req.body.list) {
+            const question = await Questions.findOne({where: {questions_name : value}})
+            questionList.push([value, question.questions_url])
+        }
+        res.json(questionList)
+    } catch (err) {
+        console.error(err);
+        done(err);
+    }
+})
 
 module.exports = router;

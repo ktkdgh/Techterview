@@ -47,7 +47,7 @@ function Navbar() {
                             </div>
                             :
                             <div>
-                                <button className='interview-feedback-page-btn' onClick={() => { setOpenModal(true); }}  >피드백</button>
+                                <button className='interview-feedback-page-btn' onClick={() => { setOpenModal(true); }}  >답변 둘러보기</button>
                                 <button className='interview-question-page-btn' onClick={() => { setOpenModal(true); }}  >질문 리스트</button>
                                 {openModal && <LoginCheckModal closeModal={setOpenModal} />}
                             </div>

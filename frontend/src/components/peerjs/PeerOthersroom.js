@@ -220,23 +220,35 @@ function PeerOthersroom() {
 
   let audio = new Audio(getQuestionAudio());
 
-
+  function goToHome() {
+    window.location.replace(`/`)
+}
   return (
   <div className="training-others-main-body">
-    
-      <div className="training-others-inner-box" >
-        <div className="training-others-main-controls-share-button" >
-            <div className="main-controls-button-share-icon" id="leave-meeting">
-              <FontAwesomeIcon icon={faShareFromSquare}  onClick={() => { copyToClipboard(); }} />
-            </div> 
+    <div className="training-navigation-bar" >
+      <div className="navigation-bar-logo" onClick={()=> {goToHome()}}> TECHTERVIEW </div>
+
+      <div className="training-navigation-right">
+        <div className="main-controls-button-share-icon" id="copy-link">
+          <FontAwesomeIcon icon={faShareFromSquare}  onClick={() => { copyToClipboard(); }} />
+        </div> 
+
+        <div className="main-controls-button-leave-meeting" id="leave-meeting">
+          <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+          {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
+        </div >
+      </div>
+  </div>
+  <div className="training-others-inner-box" >
+    <div className="video-controls-button-container"> 
+      <div id="video-container">
+          <div className="video-user1"><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
+          <div className="video-user2"><video id="remoteUserVideo"muted ref={remoteVideoRef} /></div>
         </div>
-        <div id="video-grid">
-          <video muted ref={currentUserVideoRef} />
-          <video muted ref={remoteVideoRef} />
-        </div>
+        <div className="training-others-main-controls-share-button" >  
       </div>
     
-      <div className="training-others-main-controls">
+    <div className="training-others-main-controls">
         <div className="main-controls-block">
           <div
             className="training-others-main-controls-button"
@@ -263,18 +275,13 @@ function PeerOthersroom() {
             <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
             Next
           </div>
-
-    </div>
-        <div className="main-controls-button-leave-meeting" id="leave-meeting">
-  
-            <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
-            {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
-
-          </div >
-        </div >
+        </div>
 
       </div >
 
+      </div >
+    </div>   
+    </div>
   );
 }
 
