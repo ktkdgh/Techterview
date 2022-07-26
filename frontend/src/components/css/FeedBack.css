@@ -1,11 +1,18 @@
-/* .Wrapper {
-    background-color: rgba(64, 218, 199, 1);
-} */
+.Wrapper {
+    margin-top: 50px;
+}
 
+/* 
 .left-navbar {
     width: 280px;
     float: left;
     background-color: aquamarine;
+} */
+
+.left-menu {
+    width: 200px;
+    float: left;
+    background-color: yellow;
 }
 .feedback-main-body {
         display: flex;
@@ -19,9 +26,9 @@
     margin-top: 5%;
 }
 
-    /*icon style*/
-    .svg-inline--fa.fa-circle-exclamation {
-        height: 300%;
-        color: lightgrey;
-        margin-bottom: 3%;
-    }
+/*icon style*/
+.svg-inline--fa.fa-circle-exclamation {
+    height: 300%;
+    color: lightgrey;
+    margin-bottom: 3%;
+}

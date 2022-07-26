@@ -111,7 +111,7 @@ function PeerjsAlone() {
 
     setMediaRecoder(mediaRecorder);
   }
-
+  
   function finish() {
 
     mediaRecorder.onstop = function () {
@@ -177,8 +177,8 @@ function PeerjsAlone() {
       <div className='training-alone-start-modal' id='training-alone-start-modal' >
         <div className='training-alone-start-modal-content'>
           <div className='training-alone-start-modal-body'>
-            시작 버튼을 클릭하시면 면접이 시작됩니다.<br />
-            답변을 완료하신 후 다음 버튼을 클릭하시면 그 다음 문제로 넘어가집니다.
+            시작 버튼을 클릭하시면 면접이 시작됩니다.<br></br>
+            답변을 완료하신 후 다음 버튼을 클릭하시면 그 다음 문제로 넘어가집니다.<br></br>
             면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
           </div>
           <div className='training-alone-start-modal-footer'>
@@ -205,7 +205,6 @@ function PeerjsAlone() {
   </div>
 
 
-      <div id='alone-questions' style={{ color: 'black', fontSize: '32px', textAlign: "center", display: "none" }}>{getQuestion()}</div>
         <div id="alone-wrapper">
           <div className="alone-video-controls-button-container ">
                   <div id="alone-video-container" >
@@ -216,21 +215,19 @@ function PeerjsAlone() {
                   </div>
                   <div class="training-alone-main-controls">
                     <div class="main-controls-block">
-                      <>
-                        {/* <button onClick={() => { start(); }}>start</button> */}
-                        {/* <button onClick={() => { download(); }}>download</button> */}
-                      </>
-                    <div class="training-alone-main-controls-button" onClick={() => {
-                      audio.play()
-                      SetQuestionsIndex(QuestionsIndex + 1)
-                      SetAudioIndex(AudioIndex + 1)
-                      finish();
-                      setTimeout(() => {
-                        start();
-                      }, 500);
-                    }}>
-                    <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                    Next
+                      <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
+
+                      <div id="training-alone-main-controls-button"class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
+                        audio.play()
+                        SetQuestionsIndex(QuestionsIndex + 1)
+                        SetAudioIndex(AudioIndex + 1)
+                        finish();
+                        setTimeout(() => {
+                          start();
+                        }, 500);
+                      }}>
+                      <FontAwesomeIcon  id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+                      Next
                     </div>
                   </div>
                   </div>
@@ -247,6 +244,8 @@ function getHide() {
 function getShow() {
   document.getElementById("video-user1").style.display = ""
   document.getElementById("alone-questions").style.display = ""
+  document.getElementById("training-alone-main-controls-button").style.display = ""
+
 }
 
 export default PeerjsAlone;
