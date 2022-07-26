@@ -63,10 +63,11 @@ button {
 }
 
 .body-phrase2 {
+  position: relative;
   font-size: 2.3em;
   text-align: center;
   margin: 3%;
-  z-index: 2;
+  z-index: 0;
 
 }
 

@@ -186,7 +186,7 @@ function PeerjsAlone() {
               call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
               setTimeout(() => {
                 start();
-              }, 500);
+              }, 1200);
             }} > 시작하기</button>
           </div >
         </div >
