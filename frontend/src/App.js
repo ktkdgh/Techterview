@@ -29,7 +29,6 @@ class App extends Component {
           <Routes>
             <Route element={<Navbar />}>
               <Route path="/" element={<Mainbody />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/auth/kakao/callback" element={<KakaoAuthHandle />} />
               <Route path="/feedback/myvideo" element={<MyVideo />} />
               <Route path="/questionlist/main" element={<QuestionList />} />
@@ -40,7 +39,7 @@ class App extends Component {
               <Route path="/training/others/lobby" element={<OthersLobby />} />
               <Route path= "training/others/modal" element = {<CreateRoomWith />}/>
             </Route>
-
+            <Route path="/login" element={<Login />} />
             <Route path="/page/training/alone/:key" element={<TrainingAlone />} />
             <Route path="/training/with/:key/:id" element={<TrainingOthers />} />
 

@@ -32,7 +32,7 @@ function Mainbody() {
                     <div className='main-image-button-container'>
                     <img className="alone-btn-img" onClick={() => { setOpenModal(true); }}src={require("../images/alonebutton.png")} alt={"혼자하기"} />
                     <img className="main-photo" src={require("../images/main-image.png")} alt={"studying man"} />
-                    <img className="together-btn-img" onClick={() => {  }}  src={require("../images/togetherbutton.png")} alt={"함꼐하기"} />
+                    <img className="together-btn-img" onClick={() => { setOpenModal(true);  }}  src={require("../images/togetherbutton.png")} alt={"함꼐하기"} />
                     {openModal && <LoginCheckModal closeModal={setOpenModal} />}
 
                 </div>

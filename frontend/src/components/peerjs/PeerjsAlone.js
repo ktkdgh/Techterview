@@ -26,6 +26,10 @@ function PeerjsAlone() {
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
   const [AudioIndex, SetAudioIndex] = useState(0);
 
+  const [isFinish, setIsFinish] = useState(false);
+  const [mediaRecorder, setMediaRecoder] = useState(null);
+
+
   useEffect(() => {
     async function getQuestions() {
       if (key == 15) {
@@ -73,9 +77,11 @@ function PeerjsAlone() {
     }
   };
   // let mediaStream = null;
-  let mediaRecorder = null;
+  // let mediaRecorder = null;
   let recordedMediaURL = null;
-  let recordedChunks = [];
+  const [copy, setCopy] = useState();
+  // let recordedChunks = [];
+  const [recordedChunks, setRecordedChunks] = useState([]);
 
   const mediaStream = navigator.mediaDevices.getUserMedia({
     audio: true,
@@ -98,35 +104,48 @@ function PeerjsAlone() {
     // let recordedChunks = [];
 
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
-    mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+    // let mediaRecorder2 = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+    //   mimeType: 'video/webm; codecs=vp8'
+    // });
+    let mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
       mimeType: 'video/webm; codecs=vp8'
     });
     mediaRecorder.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
+    console.log("녹화 중일까!!!?");
 
     // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
     mediaRecorder.ondataavailable = function (e) {
       console.log("e.data:", e.data);
       recordedChunks.push(e.data);
+      // setCopy(recordedChunks);
+
+      // // setIsFinish(true);
+      // setCopy(recordedChunks);
+      // console.log("set copy", copy);
     };
+
+    setMediaRecoder(mediaRecorder);
   }
-
-
+  
   function finish() {
+
     mediaRecorder.onstop = function () {
       // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
       // 그렇지 않으면 메모리 누수 문제가 발생합니다.
-      console.log('mediaRecorder.onstop:', mediaRecorder);
       if (recordedMediaURL) {
         URL.revokeObjectURL(recordedMediaURL);
       }
 
+      console.log("finish copy!!!!:", copy);
+      console.log("recordedchunks", recordedChunks);
+      // recordedChunks = copy
       const blob = new Blob(recordedChunks, { type: 'video/mp4;' });
       console.log("recordedChunks : ", recordedChunks);
       const fileName = uuid();
-      // const recordFile = new File([blob], fileName + ".mp4", {
       const recordFile = new File([blob], fileName + ".mp4", {
-        type: blob.type,
+        type: blob.type
       })
+      console.log("finish blob", blob);
       recordedMediaURL = window.URL.createObjectURL(recordFile);
       // aws s3 upload 설정 
       const config = {
@@ -136,32 +155,42 @@ function PeerjsAlone() {
         accessKeyId: process.env.REACT_APP_ACCESS_KEY,
         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
       };
-
+      console.log("recordedchunks22", recordedChunks);
       // uploadFile(recordFile, config)
       //   .then(recordFile => console.log(recordFile))
       //   .catch(err => console.error(err))
+
       uploadFile(recordFile, config)
         .then(recordFile => {
-            api.post('/api/training/alone/recordingCreate', {
-              id : userInfo.id,
-              title : (Questions[QuestionsIndex])[0],
-              recording_url : recordFile.location,
+          api.post('/api/training/alone/recordingCreate', {
+            id: userInfo.id,
+            title: (Questions[QuestionsIndex])[0],
+            recording_url: recordFile.location
+          })
+            .then(res => {
+              console.log(res.data);
             })
-              .then(res => {
-                console.log(res.data);
-              })
           console.log(recordFile);
         })
         .catch(err => console.error(err))
+
+      recordedChunks.pop()
     };
     mediaRecorder.stop();
+
+
   }
 
   let audio = new Audio(getQuestionAudio());
 
+
+  function goToHome() {
+    window.location.replace(`/`)
+}
+
   return (
     <div>
-      <div className='training-alone-start-modal' id='training-alone-start-modal'>
+      <div className='training-alone-start-modal' id='training-alone-start-modal' >
         <div className='training-alone-start-modal-content'>
           <div className='training-alone-start-modal-body'>
             시작 버튼을 클릭하시면 면접이 시작됩니다.<br />
@@ -169,67 +198,61 @@ function PeerjsAlone() {
             면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
           </div>
           <div className='training-alone-start-modal-footer'>
-            <button className='btn-yes' onClick={() => { call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play(); }} > 시작하기</button>
+            <button className='btn-yes' onClick={() => {
+                call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
+                setTimeout(() => {
+                  start();
+                }, 500);
+              }} > 시작하기</button>          
           </div >
         </div >
       </div >
 
+ 
+      <div className="training-navigation-bar" >
+      <div className="navigation-bar-logo" onClick={()=> {goToHome()}}> TECHTERVIEW </div>
 
-      <div id='alone-questions' style={{ color: 'white', fontSize: '32px', textAlign: "center", display: "none" }}>{getQuestion()}</div>
-      <div class="training-alone-main-body">
-        <div class="traing-inner-box">
-          <div class='video-container'>
-            <div>
-              <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='VideoBox' style={{ width: '100%', height: '480px', display: 'none' }} ></video>
-            </div>
-            <div>
-              <video muted ref={currentUserVideoRef}></video>
-            </div>
-          </div>
-        </div>
-        <div class="training-alone-main-controls">
-          <div class="main-controls-block">
-            {/* <div
-              class="training-alone-main-controls-button"
-              id="playPauseVideo">
-              <i class="fa fa-video-camera" size="lg" ></i>
-              <span onClick={() => { start(); }}>Record</span>
-            </div>
-            <div class="training-alone-main-controls-button">
-              <i class="fa fa-pause"></i>
-              <span onClick={() => { finish(); }}>Pause Record</span>
-            </div>
-            <div class="training-alone-main-controls-button">
-              <FontAwesomeIcon icon={faCloudArrowDown} />
-              <span onClick={() => { download(); }}>Download</span>
-            </div> */}
-            <>
-              <button onClick={() => { start(); }}>start</button>
-              {/* <button onClick={() => { download(); }}>download</button> */}
-            </>
-            <div class="training-alone-main-controls-button" onClick={() => {
-              audio.play()
-              SetQuestionsIndex(QuestionsIndex + 1)
-              SetAudioIndex(AudioIndex + 1)
-              finish();
-            }}>
-              <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-              Next
-            </div>
-
-          </div>
-          <div class="training-alone-main-controls-block">
-            <div class="main-controls-button-leave-meeting" id="leave-meeting">
-
-              <button class="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
-              {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
-
-            </div>
-          </div>
-
-        </div>
+      <div className="training-navigation-right">
+        <div className="main-controls-button-leave-meeting" id="leave-meeting">
+          <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+          {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
+        </div >
       </div>
-    </div>
+  </div>
+
+
+      <div id='alone-questions' style={{ color: 'black', fontSize: '32px', textAlign: "center", display: "none" }}>{getQuestion()}</div>
+        <div id="alone-wrapper">
+          <div className="alone-video-controls-button-container ">
+                  <div id="alone-video-container" >
+                    <div className="video-user1" id="video-user1"style={{ display: "none" }}>
+                      <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video>
+                    </div>
+                      <div className="video-user2"><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef}></video></div>
+                  </div>
+                  <div class="training-alone-main-controls">
+                    <div class="main-controls-block">
+                      <>
+                        <button onClick={() => { start(); }}>start</button>
+                        {/* <button onClick={() => { download(); }}>download</button> */}
+                      </>
+                    <div class="training-alone-main-controls-button" onClick={() => {
+                      audio.play()
+                      SetQuestionsIndex(QuestionsIndex + 1)
+                      SetAudioIndex(AudioIndex + 1)
+                      finish();
+                      setTimeout(() => {
+                        start();
+                      }, 500);
+                    }}>
+                    <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+                    Next
+                    </div>
+                  </div>
+                  </div>
+              </div> 
+            </div>
+            </div>
   );
 }
 
@@ -238,7 +261,7 @@ function getHide() {
 
 }
 function getShow() {
-  document.getElementById("interviewer").style.display = ""
+  document.getElementById("video-user1").style.display = ""
   document.getElementById("alone-questions").style.display = ""
 }
 

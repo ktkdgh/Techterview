@@ -42,7 +42,11 @@
     font-size: 20px;
 }
 
-
+.alone-video-controls-button-container{
+    width: 95vw;
+    border: 10px solid black;
+    box-shadow:20px 20px black;
+}
 .button.btn-start {
     background-color: white;
     color: black;
@@ -51,16 +55,17 @@
     border-radius: 10px;
     margin: 10px;
 }
-
-
-.video-container {
+#alone-video-container{
+    display: flex;
+    flex-direction: row;
+    margin:1%;
+}
+#alone-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    /* align-items: center; */
-    padding-top: 100px;
-
 }
+
 
 /* Training Others */
 .training-others-main-body {
@@ -68,18 +73,18 @@
     flex-direction: column;
 }
 
-.training-others-main-controls-button {
+
+.main-controls-button-leave-meeting{
     display: flex;
-    flex-direction: column;
     align-items: center;
 }
 
-.main-controls-block,
-.main-controls-button.leaveMeeting {
+.main-controls-block{
     display: flex;
     color: lightgrey;
     font-size: x-large;
     margin: 0 770px;
+    
 
 }
 
@@ -87,34 +92,40 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
-}
-
-.training-others-main-controls-button {
-    margin: 30px 30px;
-    cursor: pointer;
+    width: 100%;
+    color: white;
+    background-color: rgba(64, 218, 199, 1);
 }
 
 .training-others-main-controls-share-button {
 
-    font-size: x-large;
     display: flex;
-    width: 100%;
+    align-items: center;    
+    border-top: 10px solid black;
+
+}
+.svg-inline--fa.fa-share-from-square  {
+    font-size: 3vh;
+    color:black;
+
+}
+
+.training-navigation-right {
     display: flex;
-    justify-content: flex-end;
-    /* margin: 20px;
-    height: 100%;
-    width: 30%; */
+    flex-direction: row;
+
 }
 
 .main-controls-button-share-icon {
     cursor: pointer;
-    margin-top: 5px;
+
+    /* margin-top: 5px; */
     color: lightgrey;
     font-size: x-large;
     display: flex;
-    align-items: flex-end;
-    margin: 30px;
+    align-items: center;
+    margin-right: 5vh;
+    height: 50px;
 }
 
 .video-next-question-btn {
@@ -125,36 +136,68 @@
 
 }
 
-.video-grid {
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+.video-controls-button-container {
+    width: 95vw;
+    border: 10px solid black;
+    box-shadow:20px 20px black;
 }
 
+#video-container{
+    display: flex;
+    flex-direction: row;
+    margin:1%;
+
+}
+#currentUserVideo, #remoteUserVideo{
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+}
+.video-user1 {
+    width: 45vw;
+    height: 65vh;   
+    border-radius: 20px;
+}
+
+
+.video-user2 {
+    width: 45vw;
+    height: 65vh;
+    
+
+}
 .training-others-inner-box {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    background-color: grey;
 }
 
 /*Training Alone*/
+/*모달관련 오류 - 비디오가 모달을 가리는것 같음*/
+
+#interviewer , #aloneCurrentUserVideoRef{
+    height: 100%; 
+     width: 100%;
+    object-fit: fill;
+
+}
+
+
+
 .training-alone-main-controls-button {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-
+  margin: 30px 30px;
 }
 
 .main-controls-block,
 .main-controls-button.leaveMeeting {
     display: flex;
-    color: lightgrey;
-    font-size: x-large;
+    color: black;
+    font-size: 2.5vh;
     margin: 0 770px;
 
 }
@@ -163,11 +206,11 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    width: 100%;
+    color: white;
+    background-color: rgba(64, 218, 199, 1);
+    border-top: 10px solid black;
 
-}
-
-.training-alone-main-controls-button {
-    margin: 30px 30px;
 }
 
 
@@ -176,6 +219,7 @@
     color: white;
     padding: 5px 40px;
     border-radius: 10px;
+
 }
 
 span.training-alone-main-controls-button {
@@ -187,3 +231,21 @@ video {
     margin-bottom: 40px;
 }
 
+i {
+    color: black;
+}
+
+/* icon style */
+.svg-inline--fa.fa-cloud-arrow-down {
+    color: black;
+}
+
+.svg-inline--fa.fa-circle-right {
+    color: black;
+}
+.fa.fa-video-camera{
+    color: black;
+}
+.fa.fa-pause {
+    color: black;
+}

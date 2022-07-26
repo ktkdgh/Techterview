@@ -1,14 +1,27 @@
-.Wrapper {
-    /* margin-top: 50px; */
+/* .Wrapper {
     background-color: rgba(64, 218, 199, 1);
-}
+} */
 
 .left-navbar {
     width: 280px;
     float: left;
     background-color: aquamarine;
 }
+.feedback-main-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 85%;
+        height: 80vh;
+    }
+.feedback-body-content {
+    margin-top: 5%;
+}
 
-/* .Main-body {
-    background-color: blueviolet;
-} */
+    /*icon style*/
+    .svg-inline--fa.fa-circle-exclamation {
+        height: 300%;
+        color: lightgrey;
+        margin-bottom: 3%;
+    }

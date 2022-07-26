@@ -8,13 +8,13 @@ import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 
 
 
-function TrainingAlone() {
 
+
+function TrainingAlone() {
+    
     return (
 
         <div className="training-container">
-            <Helmet><style>{'body { background-color: black; }'}</style></Helmet>
-            <Link to="/" style={{ textDecoration: 'none' }}><div className="training-navigation-bar-logo"> TECHTERVIEW </div></Link>
             <div className='training-inner-box'>
                 <PeerjsAlone /></div>
             <div className='training-footer'>
