@@ -186,7 +186,7 @@ function PeerjsAlone() {
 
   function goToHome() {
     window.location.replace(`/`)
-}
+  }
 
   return (
     <div>
@@ -202,7 +202,7 @@ function PeerjsAlone() {
                 call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
                 setTimeout(() => {
                   start();
-                }, 500);
+                }, 1500);
               }} > 시작하기</button>          
           </div >
         </div >
@@ -214,8 +214,8 @@ function PeerjsAlone() {
 
       <div className="training-navigation-right">
         <div className="main-controls-button-leave-meeting" id="leave-meeting">
-          <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
-          {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
+          <button className="video-end-btn" onClick={() => { setOpenModal(true) }}>End</button>
+          {openModal && <VideoQuestionModal />}
         </div >
       </div>
   </div>
@@ -226,14 +226,14 @@ function PeerjsAlone() {
           <div className="alone-video-controls-button-container ">
                   <div id="alone-video-container" >
                     <div className="video-user1" id="video-user1"style={{ display: "none" }}>
-                      <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video>
+                      {/* <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video> */}
                     </div>
                       <div className="video-user2"><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef}></video></div>
                   </div>
                   <div class="training-alone-main-controls">
                     <div class="main-controls-block">
                       <>
-                        <button onClick={() => { start(); }}>start</button>
+                        {/* <button onClick={() => { start(); }}>start</button> */}
                         {/* <button onClick={() => { download(); }}>download</button> */}
                       </>
                     <div class="training-alone-main-controls-button" onClick={() => {

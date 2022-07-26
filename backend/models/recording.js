@@ -15,6 +15,10 @@ module.exports = class Recording extends Sequelize.Model{
                 recording_url: {
                     type: Sequelize.STRING(100)
                 },
+                recording_check: {
+                    type: Sequelize.ENUM('0', '1'),
+                    defaultValue: '0'
+                },
                 registered: {
                     type: Sequelize.ENUM('0', '1'),
                     defaultValue: '0'
