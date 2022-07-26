@@ -34,6 +34,7 @@ function PeerjsAlone() {
     async function getQuestions() {
       const data = await api.get(`/api/training/alone/questions/${key}`)
         .then(res => {
+          console.log("res", res);
           SetQuestions(res.data);
         });
     }
@@ -50,6 +51,8 @@ function PeerjsAlone() {
       }
     }
   };
+
+
 
   const getQuestionAudio = () => {
     if (Questions && Questions.length !== 0) {
@@ -211,6 +214,7 @@ function PeerjsAlone() {
 
 
       <div id='alone-questions' style={{ color: 'black', fontSize: '32px', textAlign: "center", display: "none" }}>{getQuestion()}</div>
+      <div>남은 문제 수  : { }</div>
       <div id="alone-wrapper">
         <div className="alone-video-controls-button-container ">
           <div id="alone-video-container" >

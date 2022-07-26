@@ -25,11 +25,11 @@ router.get('/questions/:subcategory', async (req, res) => {
 router.post('/recordingCreate', async (req, res) => {
     try {
         await Recording.create({
-            recording_title : req.body.title,
+            recording_title: req.body.title,
             recording_url: req.body.recording_url,
             MemberId: req.body.id
         })
-        res.json({success : true})
+        res.json({ success: true })
     } catch (err) {
         console.error(err);
         done(err);
