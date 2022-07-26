@@ -17,6 +17,7 @@ function FeedbackDetail() {
     const [Idx, SetIdx] = useState(0);
     const [UpdateText, SetUpdateText] = useState("");
     const [ReplyId, SetReplyId] = useState(0);
+    const [ClickMinus, SetClickMinus] = useState(1)
 
     let feedbackId = new URL(window.location.href).pathname.split('/')[3]
     const Token = sessionStorage.getItem('Authorization')
@@ -88,23 +89,29 @@ function FeedbackDetail() {
         return firstNum + " " + secondNum
     }
 
+    const onClick = ()=>{
+        SetopenFeedbackDeleteModal(true)
+        SetClickMinus(-1);
+        console.log(ClickMinus);
+    }
+
     return (
         <div>
             <div>
-                <div className="feedbackdetail-title">
+                <div className="feedbackdetail-title" >
                     <span className="feedbackdetail-title-left"> {DetailFeedback.title}</span>
                     <span className='feedbackdetail-title-right'>{DetailFeedback.name}</span>
                     {DetailFeedback.deletebotton ?
-                        <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { SetopenFeedbackDeleteModal(true) }}>삭제</button>
+                        <button style={{ color: 'red', backgroundColor: 'black' }} onClick={onClick}>삭제</button>
                     : ""}
-                        {openFeedbackDeleteModal && <FeedbackDeleteModal closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
+                        {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
                         {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
                     {LikeStatus ? "누른상태" : "안누른상태"}
                     <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { upLikeCnt() }}>좋아요  </button> ^_^ {FeedLikeCnt}
                 </div>
                 <div class="feedbackdetail-video-grid-container-box">
                     <div class="feedbackdetail-video-grid-box">
-                        <div class="grid-item" style={{zIndex: "-1"}}>
+                        <div className="grid-item" style={{zIndex: ClickMinus}}>
                             <ReactPlayer  controls url={DetailFeedback.recordingUrl} />
                         </div>
                     </div>
@@ -170,4 +177,5 @@ function FeedbackDetail() {
         </div>
     )
 }
+
 export default FeedbackDetail

@@ -22,7 +22,10 @@
 }
 
 .Create-delete-modal-footer {
-    padding: 10px;
+    position: fixed;
+    bottom: 13vw;
+    justify-content: center;
+    text-align: center;
 }
 
 .modal-title {
@@ -193,7 +196,7 @@ button.btn-close {
 
 .Create-delete-modal-body {
     display: flex;
-    margin: 30px;
+    /* margin: 0px 0px 20px 0px; */
     align-items: center;
     justify-content: center;
 }
