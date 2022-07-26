@@ -105,53 +105,6 @@ li {
   margin: 20px;
 }
 
-/* feedback-table */
-.feedback-table {
-  margin: 45px;
-  justify-content: center;
-  font-family: Montserrat, sans-serif;
-  flex: 1;
-}
-
-table {
-  margin: auto;
-}
-
-td {
-  padding: 25px 30px;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.grid-container-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.feedbackdetail-video-grid-container-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.feedbackdetail-video-grid-box {
-  display: grid;
-  grid-template-columns: 1fr;
-  text-align: center;
-}
-
-.feedbackdetail-title {
-  text-align: center;
-}
-
-.feedbackdetail-title-right {
-  margin-left: 30px;
-  margin-bottom: 20px;
-}
 
 /* login */
 .auth-loader {

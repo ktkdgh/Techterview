@@ -42,7 +42,7 @@ function Feedback() {
     }
 
     return (
-        <div className='Wrapper'>
+        <div className='feedback-wrapper'>
             {/* <div className="others-lobby-header2" > */}
             <div className='left-menu'>
                 <FeedbackMenu selectFeedMenu={(id) => selectFeedMenu(id)} />
@@ -65,7 +65,7 @@ function Feedback() {
 
                                 {FeedArray.map((value, idx) => {
                                     return (
-                                        <tr>
+                                        <tr className='feedback-tr'>
                                             <td> {idx + 1} </td>
                                             <a href={`/feedback/detail/${value.id}`}><td> {value.feedback_title} </td></a>
                                             <td> {value.user_name} </td>
