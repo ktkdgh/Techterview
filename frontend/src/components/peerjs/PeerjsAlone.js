@@ -111,7 +111,7 @@ function PeerjsAlone() {
 
     setMediaRecoder(mediaRecorder);
   }
-  
+
   function finish() {
 
     mediaRecorder.onstop = function () {
@@ -217,7 +217,7 @@ function PeerjsAlone() {
                   <div class="training-alone-main-controls">
                     <div class="main-controls-block">
                       <>
-                        <button onClick={() => { start(); }}>start</button>
+                        {/* <button onClick={() => { start(); }}>start</button> */}
                         {/* <button onClick={() => { download(); }}>download</button> */}
                       </>
                     <div class="training-alone-main-controls-button" onClick={() => {

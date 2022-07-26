@@ -20,7 +20,7 @@ const KakaoAuthHandle = () => {
 
     function BasicExample() {
         return (
-            <Spinner animation="border" role="status" style={{ width: "23rem", height: "23rem" }} className="justify-content-center align-items-center">
+            <Spinner animation="border" role="status" style={{ width: "10rem", height: "10rem" }} className="loading-spinner">
 
             </Spinner>
 
@@ -29,10 +29,11 @@ const KakaoAuthHandle = () => {
 
 
     return (
-        <div>
-            <div><BasicExample ></BasicExample></div>
-            <div className="display-3">로딩중 ..........</div>
-
+        <div className="auth-loader-wrapper">
+            <div className="auth-loader">
+                <div><BasicExample ></BasicExample></div>
+                <div className="display-3">로딩중 ..........</div>
+            </div>
         </div>
     );
 };

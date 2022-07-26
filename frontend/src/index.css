@@ -43,6 +43,7 @@ button {
 }
 
 .main-page-body {
+
   position: relative;  
   font-family: Montserrat, sans-serif;
   display: flex;
@@ -63,10 +64,12 @@ button {
 }
 
 .body-phrase2 {
+  position: relative;
   font-size: 2.3em;
   text-align: center;
   font-weight:bold;
   margin: 3%;
+  z-index: 0;
 }
 
 .main-photo1 {
@@ -150,29 +153,59 @@ td {
 }
 
 /* login */
+.auth-loader {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+  align-items: center;
 
-.Wrapper-login {
-  margin: 50px;
-  margin-top: 50px;
+}
+.display-3 {
+  margin-top: 2%;
+}
+.auth-loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+}
+.loading-spinner {
+
 }
 
+
+.wrapper-login {
+  padding-top:5%;
+  /* margin: 50px;
+  margin-top: 50px; */
+  display: flex;
+  flex-direction: column;
+  background-color:white;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.login-navigation-bar-logo{
+  font-size: 500%;
+  font-family: Montserrat, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: rgba(64, 218, 199, 1);
+  word-wrap: break-word;
+  cursor: pointer;
+  margin-left: 1%;
+
+}
 .login-body {
   display: flex;
   justify-content: center;
-  margin-top: 80px;
 }
 .login-phrase-image-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 }
-.login-phrase-container {
-  display: flex;
-  align-content: center;
-  justify-content: flex-start;
-  text-align: center;
-}
+
 .login-box {
   position: relative;
   height: 100%;
@@ -188,34 +221,41 @@ td {
 
 .login-box2 {
   width: 100%;
-  /* border: 1px solid #d7d7d7; */
-  /* margin-top: 6.75rem; */
-  background: #ffffff;
-  /* border-radius: 0.9375rem; */
-  /* margin-top: 1.875rem; */
+  border: 1px solid #d7d7d7; 
+  margin-top: 6.75rem;
+  background: #ffffff; 
+  border-radius: 0.9375rem; 
+  margin-top: 1.875rem;
 }
 
-.login-photo {
+img.login-photo {
   text-align: center;
   /* display: block; */
+  width: 30vw;
+  /* margin-top: 10%; */
+  margin-right: 10%;
 }
 
 .kakaoImage {
   text-align: center;
+  margin-left: 10%;
+  margin-top: 15%;
 }
 
 .login-phrase1 {
   color: black;
   font-size: 2.5rem;
-  font-weight: 700;
-  /* margin-left: 250px; */
-  margin-top: 50px;
+  font-weight: 900;
+  text-align: left;
+  margin-left: 10%;
+  width: 100%;
 }
 
 .login-phrase2 {
   color: rgba(64, 218, 199, 1);
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 900;
+
 }
 
 /* training */

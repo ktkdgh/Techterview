@@ -37,9 +37,11 @@
 }
 
 .training-alone-start-modal-body {
+    position: relative;
     padding: 10px;
     border-bottom: 1px solid #eee;
     font-size: 20px;
+    z-index: 10;
 }
 
 .alone-video-controls-button-container{
