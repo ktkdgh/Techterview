@@ -95,10 +95,10 @@ function MyVideo() {
                         <table>
                             <thead>
                                 {StatusCheck ?
-                                    <tr>
+                                    <tr className="my-video-row">
                                         <th>번호</th><th>제목</th><th>작성자</th><th>좋아요 수</th><th>댓글 수</th><th>등록일</th>
                                     </tr> :
-                                    <tr>
+                                    <tr className="my-video-row">
                                         <th></th><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th>
                                     </tr>
                                 }
@@ -107,7 +107,7 @@ function MyVideo() {
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
                                         return (
-                                            <tr>
+                                            <tr className="my-video-row">
                                                 <td> {idx + 1} </td>
                                                 <a href={`/feedback/detail/${value.id}`}><td> {value.feedback_title} </td></a>
                                                 <td> {value.user_name} </td>
@@ -121,7 +121,7 @@ function MyVideo() {
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
                                         return (
-                                            <tr>
+                                            <tr className="my-video-row">
                                                 <td> <input
                                                     key={value.id}
                                                     type="checkbox"
