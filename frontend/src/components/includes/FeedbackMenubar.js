@@ -13,7 +13,6 @@ function FeedbackMenu({ selectFeedMenu }) {
                     selectFeedMenu(itemId)
                     
                 }} 
-                style={{'border-left-color': 'red'}} 
                 items={[
                     {
                         itemId: '0',
