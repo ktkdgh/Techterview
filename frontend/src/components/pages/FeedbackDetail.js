@@ -104,13 +104,36 @@ function FeedbackDetail() {
                 </div>
                 <div class="feedbackdetail-video-grid-container-box">
                     <div class="feedbackdetail-video-grid-box">
-                        <div class="grid-item">
+                        <div class="grid-item" style={{zIndex: "-1"}}>
                             <ReactPlayer  controls url={DetailFeedback.recordingUrl} />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className='feedback-table'>
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {/* <div className='feedback-table'>
                 {DetailFeedback.replys}의 댓글
                 <input onChange={onChange} value={text} /><button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { replyCreate() }}>등록</button>
                 <table>
@@ -134,7 +157,6 @@ function FeedbackDetail() {
                                             <button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { window.location.reload(true) }}>취소</button>
                                         </td> :
                                         <td>
-                                            {/*  onClick={() => { replyDelete(value.id) }} */}
                                             <button style={{ color: 'white', backgroundColor: 'black' }} onClick={() => { SetopenReplyDeleteModal(true); SetReplyId(value.id) }} >삭제</button>
                                             <button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
                                         </td>
@@ -144,7 +166,7 @@ function FeedbackDetail() {
                         })}
                     </tbody>
                 </table>
-            </div>
+            </div> */}
         </div>
     )
 }
