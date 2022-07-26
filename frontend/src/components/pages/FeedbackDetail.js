@@ -155,4 +155,5 @@ function FeedbackDetail() {
         </div>
     )
 }
+
 export default FeedbackDetail
