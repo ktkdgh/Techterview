@@ -88,20 +88,19 @@ function CreateRoomAlone({ closeModal }) {
         <div className="Create-delete-modal">
             <div className="Create-delete-modal-content">
                 <div className="Create-delete-modal-body">
-                    <h2>어떤 면접을 준비해 볼까요?</h2><br/>
+                    <h2>어떤 면접을 준비해 볼까요?</h2>
                 </div>
-                    <h6 style={{margin: 20}}>아래 4가지의 카테고리 중 하나를 선택해보세요!</h6>
                 <div className="CreateRoomAlone-Check" style={{}}>
                     <div>
-                        <Tabs  style={{ width: 520  }}
+                        <Tabs variant="secondary" style={{ width: 500 }}
                             defaultActiveKey="profile"
                             id="fill-tab-example"
                             className="mb-3"
                             fill
                         >
                             <Tab eventKey="CS" title="CS">
-                            <br/><br/>
-                                <ButtonGroup>
+
+                                <ButtonGroup className="mb-2">
                                     {Options.map((radio, idx) => (
                                         <ToggleButton
                                             key={idx}
@@ -113,70 +112,77 @@ function CreateRoomAlone({ closeModal }) {
                                             checked={radioValue === radio.value}
                                             onChange={(e) => setRadioValue(e.currentTarget.value)}
                                             onClick={() => setSendNum(radio.key)}
-                                        > {radio.value} </ToggleButton>
+                                        >
+                                            {radio.value}
+                                        </ToggleButton>
                                     ))}
                                 </ButtonGroup>
                             </Tab>
-                            <Tab eventKey="Language" title="Language">
-                            <br/><br/>
-                                <ButtonGroup>
-                                    {Options1.map((radio, idx) => (
+                            <Tab eventKey="Language" title="언어">
+                                <ButtonGroup className="mb-2">
+                                    {Options1.map((element, idx) => (
                                         <ToggleButton
                                             key={idx}
                                             id={`radio1-${idx}`}
                                             type="radio"
                                             variant="outline-dark"
                                             name="radio"
-                                            value={radio.value}
-                                            checked={radioValue === radio.value}
+                                            value={element.value}
+                                            checked={radioValue === element.value}
                                             onChange={(e) => setRadioValue(e.currentTarget.value)}
-                                            onClick={() => setSendNum(radio.key)}
-                                        > {radio.value} </ToggleButton>
+                                            onClick={() => setSendNum(element.key)}
+                                        >
+                                            {element.value}
+                                        </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+
                             </Tab>
-                            <Tab eventKey="Basic" title="Basic">
-                            <br/><br/>
-                                <ButtonGroup>
-                                    {Options2.map((radio, idx) => (
+                            <Tab eventKey="base" title="기본질문 및 개발상식" >
+                                <ButtonGroup className="mb-2">
+                                    {Options2.map((element, idx) => (
                                         <ToggleButton
                                             key={idx}
                                             id={`radio2-${idx}`}
                                             type="radio"
                                             variant="outline-dark"
                                             name="radio"
-                                            value={radio.value}
-                                            checked={radioValue === radio.value}
+                                            value={Options.value}
+                                            checked={radioValue === element.value}
                                             onChange={(e) => setRadioValue(e.currentTarget.value)}
-                                            onClick={() => setSendNum(radio.key)}
-                                        > {radio.value} </ToggleButton>
+                                            onClick={() => setSendNum(element.key)}
+                                        >
+                                            {element.value}
+                                        </ToggleButton>
                                     ))}
                                 </ButtonGroup>
                             </Tab>
-                            <Tab eventKey="Position" title="Position" >
-                            <br/><br/>
-                                <ButtonGroup>
-                                    {Options3.map((radio, idx) => (
+                            <Tab eventKey="position" title="직무별" >
+                                <ButtonGroup className="mb-2">
+                                    {Options3.map((element, idx) => (
                                         <ToggleButton
                                             key={idx}
-                                            id={`radio3-${idx}`}
+                                            id={`radio-${idx}`}
                                             type="radio"
-                                            variant="outline-dark"
+                                            variant="outline-primary"
                                             name="radio"
-                                            value={radio.value}
-                                            checked={radioValue === radio.value}
+                                            value={Options.value}
+                                            checked={radioValue === element.value}
                                             onChange={(e) => setRadioValue(e.currentTarget.value)}
-                                            onClick={() => setSendNum(radio.key)}
-                                        > {radio.value} </ToggleButton>
+                                            onClick={() => setSendNum(element.key)}
+                                        >
+                                            {element.value}
+                                        </ToggleButton>
                                     ))}
                                 </ButtonGroup>
                             </Tab>
                         </Tabs>
-                        
                     </div>
-                    <div className="Create-delete-modal-footer">
-                        <button className="btn-start1251251245" onClick={handleClick}>면접하러가기</button>
-                        <button className="btn-close1223" onClick={() => closeModal(false)}>다음에할래요</button>
+                    <div>
+                    </div>
+                    <div className="Create-delete-modal-footer" style={{ marginTop: 20, backgroundColor: "yellow" }}>
+                        <button className="btn-start" onClick={handleClick}>연습시작</button>
+                        <button className="btn-close1223" onClick={() => closeModal(false)}>취소</button>
                     </div>
                 </div >
             </div >
