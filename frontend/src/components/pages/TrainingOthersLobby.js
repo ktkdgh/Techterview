@@ -27,13 +27,12 @@ function OthersLobby() {
     return (
 
         <div className='Wrapper'>
-        {/* <div className='others-lobby-header2'> */}
-        {/* <div><img > </img></div> */}
+ 
         <div class="techterview-banner-container"><img className="techterview-banner-image" src={require("../images/techterviewbanner.png")} alt={"next button"} />   </div>
-
+{/* 
         <div className='left-menu'>
             <QuestionMenuNavBar />
-        </div>
+        </div> */}
 
         <div>
             

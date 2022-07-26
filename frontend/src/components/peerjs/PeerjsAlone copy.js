@@ -39,23 +39,31 @@ function PeerjsAlone() {
 
   /*녹화, 질문 버튼 관련 함수 */
   const start = () => {
+    console.log("녹화 시작합니다 ~~~");
     // let recordedChunks = [];
 
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
-    mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+    // let mediaRecorder2 = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+    //   mimeType: 'video/webm; codecs=vp8'
+    // });
+    let mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
       mimeType: 'video/webm; codecs=vp8'
     });
     mediaRecorder.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
-
-    console.log("start check");
-    console.log("mediaRecorder start:", mediaRecorder); // 첫 start 여기까지 출력
+    console.log("녹화 중일까!!!?");
 
     // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
     mediaRecorder.ondataavailable = function (e) {
-      console.log('ondataavailable');
       console.log("e.data:", e.data);
       recordedChunks.push(e.data);
+      // setCopy(recordedChunks);
+
+      // // setIsFinish(true);
+      // setCopy(recordedChunks);
+      // console.log("set copy", copy);
     };
+
+    setMediaRecoder(mediaRecorder);
   }
 
 
