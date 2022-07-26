@@ -183,11 +183,16 @@ function PeerjsAlone() {
           </div>
           <div className='training-alone-start-modal-footer'>
             <button className='btn-yes' onClick={() => {
-              call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
+              call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1);
+              setTimeout(() => {
+                audio.play();
+              }, 1500);
+
               setTimeout(() => {
                 start();
-              }, 1200);
-            }} > 시작하기</button>
+              }, 1500);
+            }} >
+              시작하기</button>
           </div >
         </div >
       </div >
