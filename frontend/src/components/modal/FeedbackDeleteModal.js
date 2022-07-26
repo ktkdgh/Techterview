@@ -19,6 +19,7 @@ function onclickDel () {
     deleteFeedbackPage(feedbackId)
 }
 
+
     return (
 
         <div className="video-delete-modal">

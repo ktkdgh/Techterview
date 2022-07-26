@@ -2,7 +2,6 @@
 import ReactPlayer from 'react-player'
 
 function MyVideoPreviewModal({ closeModal, videoUrl }) {
-
     return (
         <div className="video-delete-modal">
             <div className="my-video-prev-modal">
