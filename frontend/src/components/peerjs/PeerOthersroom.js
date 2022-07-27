@@ -187,10 +187,10 @@ function PeerOthersroom() {
 
   useEffect(() => {
     async function getQuestions() {
-      const data = await api.get(`/training/alone/api/questions/${key}`).then(res => {
-        console.log(res)
-        SetQuestions(res.data);
-      });
+      const data = await api.get(`/api/training/alone/questions/${key}`)
+        .then(res => {
+          SetQuestions(res.data);
+        });
 
     }
     getQuestions();
@@ -242,8 +242,8 @@ function PeerOthersroom() {
   <div className="training-others-inner-box" >
     <div className="video-controls-button-container"> 
       <div id="video-container">
-          <div className="video-user1"><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
-          <div className="video-user2"><video id="remoteUserVideo"muted ref={remoteVideoRef} /></div>
+          <div className="video-user1" style={{zIndex: "-1"}}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
+          <div className="video-user2" style={{zIndex: "-1"}}><video id="remoteUserVideo"muted ref={remoteVideoRef} /></div>
         </div>
         <div className="training-others-main-controls-share-button" >  
       </div>

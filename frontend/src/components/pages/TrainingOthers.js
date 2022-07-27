@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useLocation } from "react-router-dom";
 
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import api from '../shared/api';
 
 
 function TrainingOthers() {
@@ -24,7 +24,7 @@ function TrainingOthers() {
 
     useEffect(() => {
         async function getQuestions() {
-            const data = await axios.get(`http://localhost:8000/training/alone/api/questions/${key}`).then(res => {
+            const data = await api.get(`/api/training/alone/questions/${key}`).then(res => {
                 // console.log(res) 
                 SetQuestions(res.data);
             });

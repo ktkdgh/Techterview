@@ -1,10 +1,6 @@
 import React, { useState, useRef } from "react";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-// import Selection from "../includes/Selection";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
@@ -174,9 +170,9 @@ function CreateRoomAlone({ closeModal }) {
                         </Tabs>
                         
                     </div>
-                    <div className="Create-delete-modal-footer">
-                        <button className="btn-start1251251245" onClick={handleClick}>면접하러가기</button>
-                        <button className="btn-close1223" onClick={() => closeModal(false)}>다음에할래요</button>
+                    <div className="create-delete-modal-footer">
+                        <button className="go-interview-btn" onClick={handleClick}>면접하러 가기</button>
+                        <button className="next-time-interview-btn" onClick={() => closeModal(false)}>다음에 할래요</button>
                     </div>
                 </div >
             </div >

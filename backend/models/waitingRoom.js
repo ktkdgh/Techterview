@@ -18,7 +18,7 @@ function addUser(idx, socketId, roomId, userId ) {
     room[idx]={socketId,roomId,userId};
 }
 
-function addRoomInfo(socketId, roomId,sendNum,roomName,tag0,tag1,tag2) {
+function addRoomInfo(socketId, roomId,sendNum,roomName,checkedTitle,checkedValue,checkedInterview) {
     count = 0
     for (var i = 0; i < roomInfo.length; i++) {
         if (roomInfo[i].socketId == socketId)
@@ -34,9 +34,9 @@ if (count == 0){
         roomId : roomId,
         sendNum : sendNum,
         roomName : roomName,
-        tag0  : tag0,
-        tag1  : tag1,
-        tag2  : tag2,
+        checkedTitle  : checkedTitle,
+        checkedValue  : checkedValue,
+        checkedInterview  : checkedInterview,
 })
 }
   }
