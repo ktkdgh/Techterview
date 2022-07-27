@@ -90,7 +90,6 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     
     useEffect(() => {
         if(clicked===true) {
-            console.log("123123123 : ", roomName,checkedTitle,checkedValue, checkedInterview);
             socket.emit("createRoom", socket.id, roomId, sendNum,roomName,checkedTitle,checkedValue, checkedInterview);
             handleClick()
         }

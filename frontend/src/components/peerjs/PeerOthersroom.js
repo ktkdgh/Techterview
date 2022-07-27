@@ -12,6 +12,7 @@ import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 import api from '../shared/api';
 import {socket} from '../../lib/socket'
 import { uploadFile } from 'react-s3';
+import jwt from 'jwt-decode'
 
 //함께하기에서는 버퍼 문제가 없는듯
 // window.Buffer = window.Buffer || require("buffer").Buffer; 
@@ -24,6 +25,7 @@ function PeerOthersroom() {
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
   const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
+  const [interview, Setinterview] = useState(0);
 
 
   useEffect(() => {
@@ -32,7 +34,6 @@ function PeerOthersroom() {
     peer.on("open", (id) => {
       const sockId = socket.id
       socket.emit("joinRoom", ROOM_ID, id, sockId);
-
     });
 
     socket.on("user-connected", (userId) => {
@@ -40,6 +41,13 @@ function PeerOthersroom() {
       setRemotePeerIdValue(userId);
       
     });
+    
+    socket.on("getRoominfo", (roomInfo) => {
+      Setinterview(roomInfo.checkedInterview)
+      console.log("roomInfo : ", roomInfo);
+      console.log(userInfo);
+    })
+
 
     peer.on('call', (call) => {
       var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -59,9 +67,9 @@ function PeerOthersroom() {
     peerInstance.current = peer;
   }, [])
 
-  socket.on("getRoominfo", (roomInfo) => {
-    console.log("roomInfo : ", roomInfo);
-  })
+  const Token = sessionStorage.getItem('Authorization')
+  const userInfo = jwt(Token)
+
 
   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -224,6 +232,7 @@ function PeerOthersroom() {
     window.location.replace(`/`)
 }
   return (
+
   <div className="training-others-main-body">
     <div className="training-navigation-bar" >
       <div className="navigation-bar-logo" onClick={()=> {goToHome()}}> TECHTERVIEW </div>
@@ -250,6 +259,7 @@ function PeerOthersroom() {
     
     <div className="training-others-main-controls">
         <div className="main-controls-block">
+    {interview == 2 ? "asdfasdfasdfasdfasdfasdfasdfasdfasdf" : ""}
           <div
             className="training-others-main-controls-button"
             id="playPauseVideo"
@@ -267,6 +277,7 @@ function PeerOthersroom() {
             {/* <span onClick={() => { download(); }}>Download</span> 다운로드 함수 못찾아서 우선 주석처리*/}
 
           </div>
+         
           <div className="training-others-main-controls-button" onClick={() => {
                   audio.play()
                   SetQuestionsIndex(QuestionsIndex + 1)
@@ -274,14 +285,14 @@ function PeerOthersroom() {
               }}>
             <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
             Next
-          </div>
+          </div> 
         </div>
 
       </div >
 
       </div >
     </div>   
-    </div>
+    </div> 
   );
 }
 
