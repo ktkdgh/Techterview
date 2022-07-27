@@ -210,4 +210,11 @@ button#dropdown-basic-button {
     margin: 20px;
 }
 
+.interview-checkbox {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 2%;
+    margin-top: 3%;
 
+}

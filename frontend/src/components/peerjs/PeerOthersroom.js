@@ -11,6 +11,7 @@ import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 import api from '../shared/api';
 import {socket} from '../../lib/socket'
+import {peer} from '../../lib/peer'
 import { uploadFile } from 'react-s3';
 import jwt from 'jwt-decode'
 
@@ -29,23 +30,22 @@ function PeerOthersroom() {
 
 
   useEffect(() => {
-    const peer = new Peer();
 
     peer.on("open", (id) => {
       const sockId = socket.id
+      console.log(peer, socket)
       socket.emit("joinRoom", ROOM_ID, id, sockId);
     });
 
     socket.on("user-connected", (userId) => {
       console.log("remotePEer", userId)
+
       setRemotePeerIdValue(userId);
       
     });
     
     socket.on("getRoominfo", (roomInfo) => {
       Setinterview(roomInfo.checkedInterview)
-      console.log("roomInfo : ", roomInfo);
-      console.log(userInfo);
     })
 
 
@@ -258,34 +258,38 @@ function PeerOthersroom() {
       </div>
     
     <div className="training-others-main-controls">
+
         <div className="main-controls-block">
+      {/* TrainingOthers에 있었던 질문 이사시킴 */}
+      <div id='alone-questions' >{getQuestion()}</div>
+
     {interview == 2 ? "asdfasdfasdfasdfasdfasdfasdfasdfasdf" : ""}
           <div
-            className="training-others-main-controls-button"
-            id="playPauseVideo"
-            onclick="playStop()">
+            className="training-alone-main-controls-button"
+            id="startRecord"
+             onClick={() => {getHide();  }}>
           <i className="fa fa-video-camera" size="lg" ></i>
             <span onClick={() => { start(); }}>Record</span>
           </div>
-          <div className="training-others-main-controls-button">
+          {/* <div className="training-others-main-controls-button">
           <i className="fa fa-pause"></i>
             <span onClick={() => { finish(); }}>Pause Record</span>
-          </div>
-          <div className="training-others-main-controls-button">
+          </div> */}
+          {/* <div className="training-others-main-controls-button">
           <FontAwesomeIcon icon={faCloudArrowDown} />
-            <span >Download</span>
+            <span >Download</span> */}
             {/* <span onClick={() => { download(); }}>Download</span> 다운로드 함수 못찾아서 우선 주석처리*/}
 
-          </div>
-         
-          <div className="training-others-main-controls-button" onClick={() => {
+          {/* </div>
+          */}
+          <div className="training-alone-main-controls-button" onClick={() => {
                   audio.play()
                   SetQuestionsIndex(QuestionsIndex + 1)
                   SetAudioIndex(AudioIndex + 1)
               }}>
-            <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+            <FontAwesomeIcon  id="faArrowAltIcon" icon={faArrowAltCircleRight} />
             Next
-          </div> 
+          </div>
         </div>
 
       </div >
@@ -294,6 +298,12 @@ function PeerOthersroom() {
     </div>   
     </div> 
   );
+
+  function getHide() {
+    document.getElementById("startRecord").style.display = "none"
+  
+  }
+
 }
 
 export default PeerOthersroom;

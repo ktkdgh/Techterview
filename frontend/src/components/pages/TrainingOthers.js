@@ -14,38 +14,6 @@ import api from '../shared/api';
 function TrainingOthers() {
 
     const location = useLocation();
-
-
-    const { key } = useParams();
-
-    const [Questions, SetQuestions] = useState([]);
-    const [QuestionsIndex, SetQuestionsIndex] = useState(0);
-
-
-    useEffect(() => {
-        async function getQuestions() {
-            const data = await api.get(`/api/training/alone/questions/${key}`).then(res => {
-                // console.log(res) 
-                SetQuestions(res.data);
-            });
-
-        }
-        getQuestions();
-
-    }, []);
-
-    const getQuestion = () => {
-        if (Questions && Questions.length !== 0) {
-            if (QuestionsIndex !== -1) {
-                const q = Questions[QuestionsIndex];
-                if (q && q.length !== 0) {
-                    return q[0];
-                }
-            }
-        }
-    };
-    console.log(Questions);
-
     function goToHome() {
         window.location.replace(`/`)
     }
@@ -55,7 +23,6 @@ function TrainingOthers() {
         <div className="training-container">
 
 
-            <div style={{ color: 'white', fontSize: '32px', textAlign: "center" }}>{getQuestion()}</div>
             <PeerOthersroom />
 
             <div className='training-footer'>

@@ -5,7 +5,7 @@ import QuestionListAloneModal from '../modal/QuestionListAloneModal'
 import api from "../shared/api";
 import '../css/Question.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faScaleUnbalancedFlip } from '@fortawesome/free-solid-svg-icons'
 
 // import * as Icon from 'react-bootstrap-icons';
 
@@ -58,7 +58,7 @@ function Question() {
                         {
                             QuestionArray?.map((value, idx) =>
                                 <div className="question-add-to-cart">
-                                    {idx + 1}. {value.name} <button className="question-add-button" onClick={(e) => { onCheckedElement(e.target.checked, idx) }} checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
+                                    {idx + 1}. {value.name} <button className="question-add-button" onClick={(e) => { onCheckedElement(e.target.checked, idx); }} checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
                                 </div>
                             )
                         }
@@ -71,7 +71,11 @@ function Question() {
                     {openQuestionListModal && <QuestionListAloneModal closeModal={SetopenQuestionListModal} questionlist={ClickArray}/>}
                     {
                         QuestionArray.length !== 0
-                        && <div className="feedback-table">
+                        && <div className="feedback-table-cart">
+                                <div className="question-finish-btn-container" >
+                                <button className="question-finish-btn"  onClick={() => { SetopenQuestionListModal(true); }}>완료  <FontAwesomeIcon id="faUser" icon={faCartPlus} /></button>
+                                </div>
+                                
                                 <ul>
                                     {
                                         ClickArray?.map((click, idx) => 
@@ -84,9 +88,7 @@ function Question() {
                                 </ul>
                                 
 
-                                <div className="question-finish-btn-container" >
-                                <FontAwesomeIcon id="faUser" icon={faCartPlus} />
-                                    <button className="question-finish-btn"  onClick={() => { SetopenQuestionListModal(true); }}>완료</button></div>
+                     
 
                         </div>
                         
@@ -94,7 +96,9 @@ function Question() {
                 </div>
             </div>
         </div>
-    )
+  
+  
+  )
 }
 
 

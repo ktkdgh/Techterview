@@ -18,9 +18,10 @@
 
 .question-add-to-cart {
     padding: 5%;
-    margin: 1%;
+    margin: 5%;
     background-color: rgb(249, 249, 250);
     border-radius: 15px;
+    font-family: Montserrat, sans-serif;
 
 }
 
@@ -40,7 +41,7 @@
     font-family: Montserrat, sans-serif;
 }
 .question-list-modal-content {
-    width: 25vw;
+    width: 27vw;
     background-color: white;
     padding: 50px;
     text-align: center;
@@ -73,7 +74,9 @@
 }
 .question-finish-btn-container {
     display: flex;
-    justify-content: center;
+    justify-content: end;
+    align-items: center; 
+    gap: 1%;
 }
 
 .question-add-button {
@@ -86,8 +89,16 @@
 .question-delete-button {
     background-color: rgb(249, 249, 250);
     border-radius: 3px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
 }
 
 .question-delete-button:hover {
     background-color: red;
+}
+.svg-inline--fa.fa-cart-plus {
+    color:  rgba(64, 218, 199, 1);
+}
+.svg-inline--fa.fa-cart-plus:hover {
+    color: black;
 }

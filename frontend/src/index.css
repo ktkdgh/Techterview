@@ -331,32 +331,43 @@ img.login-photo {
   /* float: right; */
   font-size: xx-large;
   padding: 10px 60px;
-  background-color: rgb(182, 243, 222);
+  background-color: rgba(64, 218, 199, 1);
   /* border: 3px solid #074f51; */
   border-radius: 10px;
   font-family: Montserrat;
+  color:
 
 }
 
 .add-face-filter-voice-btn {
-  border: 2px solid lightgrey;
+  border: 2px solid rgba(64, 218, 199, 1);
   color: black;
   padding: 14px 28px;
   font-size: 16px;
   cursor: pointer;
   margin: 10px;
   border-radius: 10px;
+}
+.add-face-filter-voice-btn:hover {
+  background-color:  rgba(64, 218, 199, 1);
+  color: black;
+
 }
 
 .video-delete-btn {
-  border: 2px solid lightgrey;
+  border: 2px solid rgba(64, 218, 199, 1);
   color: black;
   padding: 14px 28px;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
-  margin: 10px;
+  margin: 11px;
   border-radius: 10px;
 }
+
+.video-delete-btn:hover {
+  background-color: rgba(64, 218, 199, 1);
+}
+
 
 .webcamalone {
   margin-right: 800px;

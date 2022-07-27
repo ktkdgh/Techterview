@@ -16,7 +16,7 @@ function QuestionListAloneModal({ closeModal, questionlist }) {
         <div className="question-list-modal">
             <div className="question-list-modal-content">
                 <div className="question-list-modal-body">
-                    <div> 선택한 질문들</div>
+                    <div> 선택한 질문들</div> <br></br>
                     { questionlist.map((value, idx) => {
                         return(
                             <div>

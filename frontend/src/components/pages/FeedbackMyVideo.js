@@ -75,10 +75,8 @@ function MyVideo() {
                 <MyVideoMenubar selectMyVideoMenu={(id) => selectMyVideoMenu(id)} />
             </div>
             <div className="feedback-my-video-body">
-                <div className="my-video-title">My 영상</div>
-                {StatusCheck ? "" :
-                    <div class="grid-container-box">
-                        <div class="video-edit-btn">
+
+            <div class="video-edit-btn">
                             <button className="add-face-filter-voice-btn" onClick={() => { setOpenVideoFaceVoiceEditModal(true); }} >영상 필터 및 목소리 변조</button>
                             <button className="video-delete-btn" onClick={() => { setOpenModal(true) }} >영상 삭제</button>
                             <button className="video-delete-btn" onClick={() => { SetopenFeedbackCreateModal(true) }} >피드백 등록</button>
@@ -86,6 +84,12 @@ function MyVideo() {
                             {openModal && <VideoDeleteModal closeModal={setOpenModal} checkedList={checkedList} />}
                             {openFeedbackCreateModal && <FeedbackCreateModal closeModal={SetopenFeedbackCreateModal} checkedList={checkedList} />}
                         </div>
+
+
+                <div className="my-video-title"></div>
+                {StatusCheck ? "" :
+                    <div class="grid-container-box">
+                        
                     </div>
                 }
 
