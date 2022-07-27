@@ -28,8 +28,8 @@ function onclickDel () {
                     등록한 영상을 삭제하시겠습니까?
                 </div>
                 <div className="video-delete-modal-footer">
-                    <button className="btn-yes" onClick={onclickclick}>취소</button>
-                    <button className="btn-cancel" onClick={onclickDel}>삭제</button>
+                    <button className="btn-yes" onClick={() => onclickclick}>취소</button>
+                    <button className="btn-cancel" onClick={() => onclickDel}>삭제</button>
                 </div>
             </div>
         </div>
