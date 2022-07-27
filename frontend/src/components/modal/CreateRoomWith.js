@@ -75,12 +75,20 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     ];
     const roomId = uuidv4();
     const [clicked, checkclicked] = useState(false);
-    const [sendNum, setSendNum] = useState([])
+    const [SendNum, setSendNum] = useState(0)
+    const [Mandatoryselect, setMandatoryselect] = useState("");
 
-    function handleClick(e) {
-        window.location.replace("/training/with/" + sendNum + "/" + roomId)
+    function handleClick() {
+        if (!SendNum) {
+            setMandatoryselect("카테고리는 필수선택 사항입니다!!")
+            console.log("asdfasdf"); 
+        } else {
+            sessionStorage.removeItem('QuestionList')
+            // window.location.replace("../page/training/Alone/" + SendNum)
+            window.location.replace("/training/with/" + SendNum + "/" + roomId)
+        }
     }
-
+    
     const [roomName, setRoomName] = useState('');
 
     const onChangeInput0  = (e) => {
@@ -90,7 +98,9 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     
     useEffect(() => {
         if(clicked===true) {
-            socket.emit("createRoom", socket.id, roomId, sendNum,roomName,checkedTitle,checkedValue, checkedInterview);
+            // socket.emit("createRoom", socket.id, roomId, sendNum,roomName,checkedTitle,checkedValue, checkedInterview);
+            console.log("123123123 : ", roomName,checkedTitle,checkedValue, checkedInterview);
+            socket.emit("createRoom", socket.id, roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview);
             handleClick()
         }
 // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -208,6 +218,7 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                     <div>
                         {/* <input type="checkbox" onClick={()=> setSecret(1)} /> 비밀방 */}
                     </div>
+                    {Mandatoryselect ? Mandatoryselect: ""}
                     <div className="create-delete-modal-footer">
                         <button className="go-interview-btn" onClick={()=> { checkclicked(true)}}>면접하러 가기</button>
                         <button className="next-time-interview-btn" onClick={() => closeModal(false)}>다음에 할래요</button>
