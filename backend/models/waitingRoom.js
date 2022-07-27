@@ -1,21 +1,21 @@
 
 let idx = 0;
-// const room = {}
-// let roomInfo =  []
+const room = {}
+let roomInfo =  []
 
 //테스트용
-const room = [
-    {socketId: 123,roomId: 33, userId:'abc3'},
-    {socketId:523 ,roomId: 33, userId: 'bc2'},
-    {socketId:113 ,roomId: 30, userId: 'bc2'}
-]
-let roomInfo =  new Set()
-roomInfo = [
-{socketId: 111, roomId:"734bf8d7-f58b-479c-90b2-f58f865146ea" , sendNum:3,roomName:'방제목1',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:0},
-{socketId: 23, roomId:"734bf8d7-f58b-479c-90b2-f58f865146ea", sendNum:3,roomName:'방제목2',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:0},
-{socketId: 2, roomId:1213, sendNum:3,roomName:'방제목3',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:1},
-{socketId: 14411, roomId:1215, sendNum:3,roomName:'방제목4',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:0}
-]
+// const room = [
+//     {socketId: 123,roomId: 33, userId:'abc3'},
+//     {socketId:523 ,roomId: 33, userId: 'bc2'},
+//     {socketId:113 ,roomId: 30, userId: 'bc2'}
+// ]
+// let roomInfo =  new Set()
+// roomInfo = [
+// {socketId: 111, roomId:"734bf8d7-f58b-479c-90b2-f58f865146ea" , sendNum:3,roomName:'방제목1',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:0},
+// {socketId: 23, roomId:"734bf8d7-f58b-479c-90b2-f58f865146ea", sendNum:3,roomName:'방제목2',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:0},
+// {socketId: 2, roomId:1213, sendNum:3,roomName:'방제목3',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:1},
+// {socketId: 14411, roomId:1215, sendNum:3,roomName:'방제목4',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:0}
+// ]
 
 
 function getIdx() {

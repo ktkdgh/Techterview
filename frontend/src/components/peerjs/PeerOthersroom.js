@@ -19,6 +19,9 @@ import jwt from 'jwt-decode'
 // window.Buffer = window.Buffer || require("buffer").Buffer; 
 
 function PeerOthersroom() {
+  
+  // const Token = sessionStorage.getItem('Authorization')
+  // const userInfo = jwt(Token)
 
   const url = new URL(window.location.href).pathname.split('/')
   const ROOM_ID = url.slice(-1).pop()
@@ -27,7 +30,6 @@ function PeerOthersroom() {
   const peerInstance = useRef(null);
   const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
   const [interview, Setinterview] = useState(0);
-
 
   useEffect(() => {
 
@@ -43,7 +45,7 @@ function PeerOthersroom() {
       setRemotePeerIdValue(userId);
       
     });
-    
+
     socket.on("getRoominfo", (roomInfo) => {
       Setinterview(roomInfo.checkedInterview)
     })
@@ -67,8 +69,6 @@ function PeerOthersroom() {
     peerInstance.current = peer;
   }, [])
 
-  const Token = sessionStorage.getItem('Authorization')
-  const userInfo = jwt(Token)
 
 
   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -199,10 +199,8 @@ function PeerOthersroom() {
         .then(res => {
           SetQuestions(res.data);
         });
-
     }
     getQuestions();
-
   }, []);
 
   const getQuestion = () => {
@@ -263,7 +261,7 @@ function PeerOthersroom() {
       {/* TrainingOthers에 있었던 질문 이사시킴 */}
       <div id='alone-questions' >{getQuestion()}</div>
 
-    {interview == 2 ? "asdfasdfasdfasdfasdfasdfasdfasdfasdf" : ""}
+    {interview == 0 ? "면접자" : "면접관"}
           <div
             className="training-alone-main-controls-button"
             id="startRecord"

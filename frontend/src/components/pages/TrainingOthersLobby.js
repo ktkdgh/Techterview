@@ -19,6 +19,12 @@ function OthersLobby() {
             socket.off('roomInfo')
         }
     },[])
+
+    socket.on('roomsUpdated', info =>{
+        setRoomInfo(info)
+    })
+
+
     // room.sendNum,room.roomId,room
     function handleClick(a,b,c) {
         socket.emit('checkUserNum',socket.id,b,c)
