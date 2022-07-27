@@ -202,8 +202,8 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                         </Tabs>
                     </div>
                     <div>
-                        <input type="checkbox" name="test" value="1" onChange={(e) => checkOnlyOne(e.target)} /> 면접자
-                        <input type="checkbox" name="test" value="2" onChange={(e) => checkOnlyOne(e.target)} /> 면접관
+                        <input type="checkbox" name="test" value="0" onChange={(e) => checkOnlyOne(e.target)} /> 면접자
+                        <input type="checkbox" name="test" value="1" onChange={(e) => checkOnlyOne(e.target)} /> 면접관
                     </div>
                     <div>
                         {/* <input type="checkbox" onClick={()=> setSecret(1)} /> 비밀방 */}

@@ -18,6 +18,9 @@ import jwt from 'jwt-decode'
 // window.Buffer = window.Buffer || require("buffer").Buffer; 
 
 function PeerOthersroom() {
+  
+  const Token = sessionStorage.getItem('Authorization')
+  const userInfo = jwt(Token)
 
   const url = new URL(window.location.href).pathname.split('/')
   const ROOM_ID = url.slice(-1).pop()
@@ -26,7 +29,6 @@ function PeerOthersroom() {
   const peerInstance = useRef(null);
   const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
   const [interview, Setinterview] = useState(0);
-
 
   useEffect(() => {
     const peer = new Peer();
@@ -41,7 +43,7 @@ function PeerOthersroom() {
       setRemotePeerIdValue(userId);
       
     });
-    
+
     socket.on("getRoominfo", (roomInfo) => {
       Setinterview(roomInfo.checkedInterview)
       console.log("roomInfo : ", roomInfo);
@@ -67,8 +69,6 @@ function PeerOthersroom() {
     peerInstance.current = peer;
   }, [])
 
-  const Token = sessionStorage.getItem('Authorization')
-  const userInfo = jwt(Token)
 
 
   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -199,10 +199,8 @@ function PeerOthersroom() {
         .then(res => {
           SetQuestions(res.data);
         });
-
     }
     getQuestions();
-
   }, []);
 
   const getQuestion = () => {
@@ -259,7 +257,7 @@ function PeerOthersroom() {
     
     <div className="training-others-main-controls">
         <div className="main-controls-block">
-    {interview == 2 ? "asdfasdfasdfasdfasdfasdfasdfasdfasdf" : ""}
+    {interview == 0 ? "면접자" : "면접관"}
           <div
             className="training-others-main-controls-button"
             id="playPauseVideo"

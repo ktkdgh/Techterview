@@ -15,9 +15,7 @@ module.exports= (socket, event) => {
         const idx = WaitingRoom.getIdx()
         WaitingRoom.addUser(idx,roomId,userId, socketId)
     });
-
 }
-
 
 
 
