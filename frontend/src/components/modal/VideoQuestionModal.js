@@ -1,6 +1,8 @@
 import React, { Component, useCallback, useEffect, useState } from 'react';
 import api from '../shared/api';
 import jwt from 'jwt-decode';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 function VideoQuestionModal() {
     const Token = sessionStorage.getItem('Authorization')
@@ -68,14 +70,15 @@ function VideoQuestionModal() {
                                 </tr>
                             )
                         })}
-                        </table>
-                         : "녹화된 영상이 아무것도 없어요ㅜㅜㅜㅜㅜㅜㅜ"  }
+                        </table> 
+                         : <div style={{fontSize:"130%", marginTop: '20%'}}>녹화된 영상이 없습니다.</div> }
                     </div>
                 </div>
                 { RecordingCheck ? 
                 <div className="video-edit-modal-footer">
                     <button className="btn-cancel" onClick={() => getRecordingSave()}>저장</button>
-                </div> : <div className="video-edit-modal-footer">
+                </div> : 
+                <div className="video-edit-modal-footer">
                     <button className="btn-cancel" onClick={() => window.location.href = '/'}>나가기 </button>
                 </div>  }
             </div>

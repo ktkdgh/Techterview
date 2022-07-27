@@ -72,14 +72,20 @@ function CreateRoomAlone({ closeModal }) {
         }
     ];
 
-    const [SendNum, setSendNum] = useState()
-    const [checked, setChecked] = useState(false);
+    const [SendNum, setSendNum] = useState(0)
+    const [Mandatoryselect, setMandatoryselect] = useState("");
     const [radioValue, setRadioValue] = useState('1');
 
     function handleClick() {
-        sessionStorage.removeItem('QuestionList')
-        window.location.replace("../page/training/Alone/" + SendNum)
+        if (!SendNum) {
+            setMandatoryselect("카테고리는 필수선택 사항입니다!!")
+            console.log("asdfasdf"); 
+        } else {
+            sessionStorage.removeItem('QuestionList')
+            window.location.replace("../page/training/Alone/" + SendNum)
+        }
     }
+
     return (
         <div className="Create-delete-modal">
             <div className="Create-delete-modal-content">
@@ -170,6 +176,7 @@ function CreateRoomAlone({ closeModal }) {
                         </Tabs>
                         
                     </div>
+                    {Mandatoryselect ? Mandatoryselect: ""}
                     <div className="create-delete-modal-footer">
                         <button className="go-interview-btn" onClick={handleClick}>면접하러 가기</button>
                         <button className="next-time-interview-btn" onClick={() => closeModal(false)}>다음에 할래요</button>

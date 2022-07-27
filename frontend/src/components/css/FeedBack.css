@@ -52,7 +52,7 @@ tr:hover { background-color:rgba(64, 218, 199, 1); }
 
 /* feedback-table */
 .feedback-table {
-    margin: 45px;
+    margin: 3%;
     width: 100%;
     justify-content: center;
     font-family: Montserrat, sans-serif;
@@ -310,15 +310,26 @@ height: 30% !important;
   width: 5vw;
 }
 
-#faUser {
+/* #faUser {
   color:rgba(64, 218, 199, 1);
   height: 20vh;
-}
-.question-finish-btn-container {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  justify-content: center;
-  margin: auto;
+} */
 
+
+
+.feedback-table-cart {
+  border:5px solid rgba(64, 218, 199, 1);
+  padding: 3%;
+  width: 35vw;
+  height: 80vh;
+  /* width:350px; 
+  height:200px; */
+  overflow: auto;
+  
+}
+
+
+.video-edit-btn {
+  display: flex;
+  justify-content: flex-end;
 }

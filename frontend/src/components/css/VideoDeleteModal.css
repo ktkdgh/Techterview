@@ -96,6 +96,8 @@ button.btn-cancel {
     align-items: center;
     justify-content: center;
     font-family: Montserrat, sans-serif;
+
+
 }
 
 .video-edit-thumbnail {
@@ -110,11 +112,12 @@ button.btn-cancel {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+
 }
 
 .video-edit-modal-content {
-    width: 800px;
-    height: 500px;
+    width: 35%;
+    height: 55%;
     background-color: white;
     padding: 50px;
     text-align: center;
