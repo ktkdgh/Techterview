@@ -175,8 +175,10 @@ function CreateRoomAlone({ closeModal }) {
                         
                     </div>
                     <div className="Create-delete-modal-footer">
-                        <button className="btn-start1251251245" onClick={handleClick}>면접하러가기</button>
-                        <button className="btn-close1223" onClick={() => closeModal(false)}>다음에할래요</button>
+                        <Button variant="outline-secondary" onClick={handleClick}>면접하러가기</Button>{' '}
+                        <Button variant="outline-danger" onClick={() => closeModal(false)}>다음에할래요</Button>
+                        {/* <button className="btn-start1251251245" ></button>
+                        <button className="btn-close1223" onClick={() => closeModal(false)}></button> */}
                     </div>
                 </div >
             </div >

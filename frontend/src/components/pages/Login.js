@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import { KAKAO_AUTH_URL } from '../shared/kakaoApi'
-import "../../index.css"
+// import "../../index.css"
 
 
 

@@ -23,9 +23,10 @@
 
 .Create-delete-modal-footer {
     position: fixed;
-    bottom: 13vw;
-    justify-content: center;
-    text-align: center;
+    margin-left: 6vmax;
+    bottom: 12vw;
+    /* justify-content: center; */
+    /* text-align: center; */
 }
 
 .modal-title {
