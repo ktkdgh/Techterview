@@ -4,6 +4,8 @@ import QuestionMenuNavBar from '../includes/QuestionListMenubar';
 import QuestionListAloneModal from '../modal/QuestionListAloneModal'
 import api from "../shared/api";
 import '../css/Question.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 
 // import * as Icon from 'react-bootstrap-icons';
 
@@ -46,26 +48,26 @@ function Question() {
 
 
     return (
-        <div className='Wrapper'>
-            <div className='left-menu' style={{ borderStyle: "" }}>
+        <div className='feedback-wrapper'>
+            <div className='left-menu'>
                 <QuestionMenuNavBar selectMenu={(id) => selectMenu(id)} />
             </div>
             <div>
-                <div Class="Main-body">
-                    <div Class="feedback-table">
+                <div className="question-main-body">
+                    <div className="feedback-table">
                         {
                             QuestionArray?.map((value, idx) =>
-                                <div>
-                                    {idx + 1}. {value.name} <button onClick={(e) => { onCheckedElement(e.target.checked, idx) }} checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
+                                <div className="question-add-to-cart">
+                                    {idx + 1}. {value.name} <button className="question-add-button" onClick={(e) => { onCheckedElement(e.target.checked, idx) }} checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
                                 </div>
                             )
                         }
+
                     </div>
                     {
                         QuestionArray.length === 0
                         && <img src={require("../images/main-image.png")} className="anything_woosik" alt={"studying man Question"} />
                     }
-                    <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { SetopenQuestionListModal(true); }}>완료</button>
                     {openQuestionListModal && <QuestionListAloneModal closeModal={SetopenQuestionListModal} questionlist={ClickArray}/>}
                     {
                         QuestionArray.length !== 0
@@ -73,13 +75,21 @@ function Question() {
                                 <ul>
                                     {
                                         ClickArray?.map((click, idx) => 
-                                            <div>
+                                            <div className="question-add-to-cart" >
                                                 {idx + 1}. {click}
-                                                <button onClick={() => {SetDeleteIdx(idx); arraydeleteidx(click, DeleteIdx) }} >Delete </button>
+                                                <button className="question-delete-button" onClick={() => {SetDeleteIdx(idx); arraydeleteidx(click, DeleteIdx) }} >Delete </button>
                                             </div>)
                                     }
+
                                 </ul>
+                                
+
+                                <div className="question-finish-btn-container" >
+                                <FontAwesomeIcon id="faUser" icon={faCartPlus} />
+                                    <button className="question-finish-btn"  onClick={() => { SetopenQuestionListModal(true); }}>완료</button></div>
+
                         </div>
+                        
                     }
                 </div>
             </div>

@@ -25,7 +25,7 @@ function onclickDel () {
         <div className="video-delete-modal">
             <div className="video-delete-modal-content">
                 <div className="video-delete-modal-body">
-                    등록한 피드백을 삭제하시겠습니까까까깍?
+                    등록한 영상을 삭제하시겠습니까?
                 </div>
                 <div className="video-delete-modal-footer">
                     <button className="btn-yes" onClick={onclickclick}>취소</button>
