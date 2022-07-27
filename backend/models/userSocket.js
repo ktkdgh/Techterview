@@ -8,32 +8,32 @@ function getSocketId (gitId) {
     }
   }
   
-  function deleteSocketId (gitId) {
-    try {
-      delete usersSocketId[gitId]
-    } catch {
-      console.log("UserSocket deleteSocketId :::::::: ", gitId);
-    }
+function deleteSocketId (gitId) {
+  try {
+    delete usersSocketId[gitId]
+  } catch {
+    console.log("UserSocket deleteSocketId :::::::: ", gitId);
   }
-  
-  function isExist (gitId) {
-    if (gitId in usersSocketId) {
-      return true;
-    }
-    return false;
+}
+
+function isExist (gitId) {
+  if (gitId in usersSocketId) {
+    return true;
   }
-  
-  function getSocketArray () {
-    return usersSocketId;
-  }
-  
-  module.exports = {
-    usersSocketId,
-    setSocketId,
-    getSocketId,
-    deleteSocketId,
-    isExist,
-    getSocketArray
-  }
+  return false;
+}
+
+function getSocketArray () {
+  return usersSocketId;
+}
+
+module.exports = {
+  usersSocketId,
+  setSocketId,
+  getSocketId,
+  deleteSocketId,
+  isExist,
+  getSocketArray
+}
   
   

@@ -75,7 +75,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.json());
-
 app.use(session({ secret: 'MySecret', resave: false, saveUninitialized: true }));
 
 app.use(bodyParser.json());
@@ -107,6 +106,5 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 module.exports = app;
