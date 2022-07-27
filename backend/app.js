@@ -51,6 +51,8 @@ io.on("connection", (socket) => {
   SocketRoutes.video.joinRoom(socket, SocketRoutes.video.event.joinRoom);  
   SocketRoutes.video.createRoom(socket, SocketRoutes.video.event.createRoom);
   SocketRoutes.video.enterWaitRoom(socket, SocketRoutes.video.event.enterWaitRoom);
+  SocketRoutes.video.checkUserNum(socket, SocketRoutes.video.event.checkUserNum);
+
   })
 });
 

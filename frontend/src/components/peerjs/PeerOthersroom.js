@@ -12,19 +12,20 @@ import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 import api from '../shared/api';
 import {socket} from '../../lib/socket'
 import { uploadFile } from 'react-s3';
+import jwt from 'jwt-decode'
 
 //함께하기에서는 버퍼 문제가 없는듯
 // window.Buffer = window.Buffer || require("buffer").Buffer; 
 
 function PeerOthersroom() {
 
-  const url = window.location.pathname.split('/');
-  const ROOM_ID = url[-1]
-  console.log(ROOM_ID);
+  const url = new URL(window.location.href).pathname.split('/')
+  const ROOM_ID = url.slice(-1).pop()
   const remoteVideoRef = useRef(null);
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
   const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
+  const [interview, Setinterview] = useState(0);
 
 
   useEffect(() => {
@@ -33,8 +34,6 @@ function PeerOthersroom() {
     peer.on("open", (id) => {
       const sockId = socket.id
       socket.emit("joinRoom", ROOM_ID, id, sockId);
-      console.log(ROOM_ID, peer, socket);
-
     });
 
     socket.on("user-connected", (userId) => {
@@ -42,6 +41,13 @@ function PeerOthersroom() {
       setRemotePeerIdValue(userId);
       
     });
+    
+    socket.on("getRoominfo", (roomInfo) => {
+      Setinterview(roomInfo.checkedInterview)
+      console.log("roomInfo : ", roomInfo);
+      console.log(userInfo);
+    })
+
 
     peer.on('call', (call) => {
       var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -60,6 +66,9 @@ function PeerOthersroom() {
 
     peerInstance.current = peer;
   }, [])
+
+  const Token = sessionStorage.getItem('Authorization')
+  const userInfo = jwt(Token)
 
 
   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -154,7 +163,6 @@ function PeerOthersroom() {
       // aws s3 upload 설정 
       const config = {
         bucketName: process.env.REACT_APP_S3_BUCKET,
-        dirName: process.env.REACT_APP_DIR_NAME,
         region: process.env.REACT_APP_REGION,
         accessKeyId: process.env.REACT_APP_ACCESS_KEY,
         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
@@ -224,6 +232,7 @@ function PeerOthersroom() {
     window.location.replace(`/`)
 }
   return (
+
   <div className="training-others-main-body">
     <div className="training-navigation-bar" >
       <div className="navigation-bar-logo" onClick={()=> {goToHome()}}> TECHTERVIEW </div>
@@ -243,13 +252,14 @@ function PeerOthersroom() {
     <div className="video-controls-button-container"> 
       <div id="video-container">
           <div className="video-user1" style={{zIndex: "-1"}}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
-          <div className="video-user2" style={{zIndex: "-1"}}><video id="remoteUserVideo"muted ref={remoteVideoRef} /></div>
+          <div className="video-user2" style={{zIndex: "-1"}}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
         </div>
         <div className="training-others-main-controls-share-button" >  
       </div>
     
     <div className="training-others-main-controls">
         <div className="main-controls-block">
+    {interview == 2 ? "asdfasdfasdfasdfasdfasdfasdfasdfasdf" : ""}
           <div
             className="training-others-main-controls-button"
             id="playPauseVideo"
@@ -267,6 +277,7 @@ function PeerOthersroom() {
             {/* <span onClick={() => { download(); }}>Download</span> 다운로드 함수 못찾아서 우선 주석처리*/}
 
           </div>
+         
           <div className="training-others-main-controls-button" onClick={() => {
                   audio.play()
                   SetQuestionsIndex(QuestionsIndex + 1)
@@ -274,14 +285,14 @@ function PeerOthersroom() {
               }}>
             <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
             Next
-          </div>
+          </div> 
         </div>
 
       </div >
 
       </div >
     </div>   
-    </div>
+    </div> 
   );
 }
 
