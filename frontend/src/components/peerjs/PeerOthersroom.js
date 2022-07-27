@@ -18,9 +18,8 @@ import { uploadFile } from 'react-s3';
 
 function PeerOthersroom() {
 
-  const url = window.location.pathname.split('/');
-  const ROOM_ID = url[-1]
-  console.log(ROOM_ID);
+  const url = new URL(window.location.href).pathname.split('/')
+  const ROOM_ID = url.slice(-1).pop()
   const remoteVideoRef = useRef(null);
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
@@ -33,7 +32,6 @@ function PeerOthersroom() {
     peer.on("open", (id) => {
       const sockId = socket.id
       socket.emit("joinRoom", ROOM_ID, id, sockId);
-      console.log(ROOM_ID, peer, socket);
 
     });
 
@@ -61,6 +59,9 @@ function PeerOthersroom() {
     peerInstance.current = peer;
   }, [])
 
+  socket.on("getRoominfo", (roomInfo) => {
+    console.log("roomInfo : ", roomInfo);
+  })
 
   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -154,7 +155,6 @@ function PeerOthersroom() {
       // aws s3 upload 설정 
       const config = {
         bucketName: process.env.REACT_APP_S3_BUCKET,
-        dirName: process.env.REACT_APP_DIR_NAME,
         region: process.env.REACT_APP_REGION,
         accessKeyId: process.env.REACT_APP_ACCESS_KEY,
         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
@@ -243,7 +243,7 @@ function PeerOthersroom() {
     <div className="video-controls-button-container"> 
       <div id="video-container">
           <div className="video-user1" style={{zIndex: "-1"}}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
-          <div className="video-user2" style={{zIndex: "-1"}}><video id="remoteUserVideo"muted ref={remoteVideoRef} /></div>
+          <div className="video-user2" style={{zIndex: "-1"}}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
         </div>
         <div className="training-others-main-controls-share-button" >  
       </div>
