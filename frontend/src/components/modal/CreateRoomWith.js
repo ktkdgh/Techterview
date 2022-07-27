@@ -99,7 +99,7 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     useEffect(() => {
         if(clicked===true) {
             console.log("123123123 : ", roomName,checkedTitle,checkedValue, checkedInterview);
-            socket.emit("createRoom",socket.id, roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview);
+            socket.emit("createRoom", socket.id, roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview);
             handleClick()
         }
 // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -219,7 +219,7 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                     </div>
                     {Mandatoryselect ? Mandatoryselect: ""}
                     <div className="create-delete-modal-footer">
-                        <button className="go-interview-btn" onClick={()=> { handleClick(); checkclicked(true)}}>면접하러 가기</button>
+                        <button className="go-interview-btn" onClick={()=> { checkclicked(true)}}>면접하러 가기</button>
                         <button className="next-time-interview-btn" onClick={() => closeModal(false)}>다음에 할래요</button>
                     </div>
             </div >

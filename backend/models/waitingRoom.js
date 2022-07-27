@@ -2,17 +2,11 @@ const e = require("express");
 
 let idx = 0;
 const room = {}
-let roomInfo =  new Set()
-roomInfo = [
-{ roomName: '방제목 1입니다', tag0: 'CS' , tag1: "프론트엔드", tag2: "네트워크"}, 
-{ roomName: '방제목 2입니다', tag0: '네트워크', tag1: "프론트엔드", tag2: "네트워크"}, 
-{ roomName: '방제목 3입니다', tag0: '프론트엔드',tag1: "프론트엔드", tag2: "네트워크" }
-]
+let roomInfo =  []
 
-  
-  function getIdx() {
+function getIdx() {
     return idx;
-  }
+}
 
 function addUser(idx, socketId, roomId, userId ) {
     room[idx]={socketId,roomId,userId};
@@ -27,19 +21,18 @@ function addRoomInfo(socketId, roomId,sendNum,roomName,checkedTitle,checkedValue
         }
     }
 
-if (count == 0){
-    roomInfo.push({
-
-        socketId : socketId,
-        roomId : roomId,
-        sendNum : sendNum,
-        roomName : roomName,
-        checkedTitle  : checkedTitle,
-        checkedValue  : checkedValue,
-        checkedInterview  : checkedInterview,
-})
+    if (count == 0){
+        roomInfo.push({
+            socketId : socketId,
+            roomId : roomId,
+            sendNum : sendNum,
+            roomName : roomName,
+            checkedTitle  : checkedTitle,
+            checkedValue  : checkedValue,
+            checkedInterview  : checkedInterview,
+        })
+    }
 }
-  }
 
 function joinRoom(userInfo) {
     try {
@@ -50,13 +43,10 @@ function joinRoom(userInfo) {
     }
 }
 
-
-
 module.exports = {
     roomInfo,
     joinRoom,
     getIdx,
     addUser,
     addRoomInfo,
-  };
-
+};
