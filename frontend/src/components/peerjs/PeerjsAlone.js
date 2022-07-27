@@ -32,11 +32,25 @@ function PeerjsAlone() {
 
   useEffect(() => {
     async function getQuestions() {
-      const data = await api.get(`/api/training/alone/questions/${key}`)
-        .then(res => {
-          console.log("res", res);
-          SetQuestions(res.data);
-        });
+      if (key == 15) {
+        const QuestionArray = QuestionList.split(',')
+        let AloneQuestion = []
+        let QuestionName = "";
+        for (let i = 0; i < QuestionArray.length; i++) {
+          if (!(i % 2)) {
+            QuestionName = QuestionArray[i]
+          } else if (QuestionName) {
+            AloneQuestion.push([QuestionName, QuestionArray[i]])
+            QuestionName = ""
+          }
+        }
+        SetQuestions(AloneQuestion)
+      } else {
+        await api.get(`/api/training/alone/questions/${key}`)
+          .then(res => {
+            SetQuestions(res.data);
+          });
+      }
     }
     getQuestions();
   }, []);
@@ -128,6 +142,7 @@ function PeerjsAlone() {
       console.log("recordedchunks", recordedChunks);
       // recordedChunks = copy
       const blob = new Blob(recordedChunks, { type: 'video/mp4;' });
+      console.log("recordedChunks : ", recordedChunks);
       const fileName = uuid();
       const recordFile = new File([blob], fileName + ".mp4", {
         type: blob.type
@@ -180,22 +195,17 @@ function PeerjsAlone() {
       <div className='training-alone-start-modal' id='training-alone-start-modal' >
         <div className='training-alone-start-modal-content'>
           <div className='training-alone-start-modal-body'>
-            시작 버튼을 클릭하시면 면접이 시작됩니다.<br />
-            답변을 완료하신 후 다음 버튼을 클릭하시면 그 다음 문제로 넘어가집니다.
+            시작 버튼을 클릭하시면 면접이 시작됩니다.<br></br>
+            답변을 완료하신 후 다음 버튼을 클릭하시면 그 다음 문제로 넘어가집니다.<br></br>
             면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
           </div>
           <div className='training-alone-start-modal-footer'>
             <button className='btn-yes' onClick={() => {
-              call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1);
-              setTimeout(() => {
-                audio.play();
-              }, 1500);
-
+              call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
               setTimeout(() => {
                 start();
               }, 1500);
-            }} >
-              시작하기</button>
+            }} > 시작하기</button>
           </div >
         </div >
       </div >
@@ -206,30 +216,26 @@ function PeerjsAlone() {
 
         <div className="training-navigation-right">
           <div className="main-controls-button-leave-meeting" id="leave-meeting">
-            <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
-            {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
+            <button className="video-end-btn" onClick={() => { setOpenModal(true) }}>End</button>
+            {openModal && <VideoQuestionModal />}
           </div >
         </div>
       </div>
 
 
-      <div id='alone-questions' style={{ color: 'black', fontSize: '32px', textAlign: "center", display: "none" }}>{getQuestion()}</div>
-      <div>남은 문제 수  : { }</div>
       <div id="alone-wrapper">
         <div className="alone-video-controls-button-container ">
           <div id="alone-video-container" >
-            <div className="video-user1" id="video-user1" style={{ display: "none" }}>
+            <div className="video-user1" id="video-user1" style={{ display: "none", zIndex: "-1" }}>
               <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video>
             </div>
-            <div className="video-user2"><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef}></video></div>
+            <div className="video-user2" style={{ zIndex: "-1" }}><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
           </div>
           <div class="training-alone-main-controls">
             <div class="main-controls-block">
-              <>
-                <button onClick={() => { start(); }}>start</button>
-                {/* <button onClick={() => { download(); }}>download</button> */}
-              </>
-              <div class="training-alone-main-controls-button" onClick={() => {
+              <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
+
+              <div id="training-alone-main-controls-button" class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
                 audio.play()
                 SetQuestionsIndex(QuestionsIndex + 1)
                 SetAudioIndex(AudioIndex + 1)
@@ -256,6 +262,8 @@ function getHide() {
 function getShow() {
   document.getElementById("video-user1").style.display = ""
   document.getElementById("alone-questions").style.display = ""
+  document.getElementById("training-alone-main-controls-button").style.display = ""
+
 }
 
 export default PeerjsAlone;

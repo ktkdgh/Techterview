@@ -199,9 +199,6 @@ button.btn-cancel {
     color: black;
 }
 
-
-
-
 .video-question-list {
     background-color: white;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -222,4 +219,14 @@ button.btn-cancel {
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
+.my-video-prev-modal{
+    width: 765px;
+    height: 550px;
+    background-color: white;
+    padding: 50px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

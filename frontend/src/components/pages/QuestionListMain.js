@@ -1,5 +1,7 @@
+
 import React, { Component, useCallback, useEffect, useState } from 'react';
 import QuestionMenuNavBar from '../includes/QuestionListMenubar';
+import QuestionListAloneModal from '../modal/QuestionListAloneModal'
 import api from "../shared/api";
 import '../css/Question.css'
 
@@ -7,6 +9,7 @@ import '../css/Question.css'
 
 
 function Question() {
+    const [openQuestionListModal, SetopenQuestionListModal ] = useState(false);
     const [QuestionArray, SetQuestionArray] = useState([]);
     const [ClickArray, setClickArray] = useState([]);
     const [DeleteIdx, SetDeleteIdx] = useState(0);
@@ -47,7 +50,6 @@ function Question() {
             <div className='left-menu' style={{ borderStyle: "" }}>
                 <QuestionMenuNavBar selectMenu={(id) => selectMenu(id)} />
             </div>
-
             <div>
                 <div Class="Main-body">
                     <div Class="feedback-table">
@@ -63,18 +65,20 @@ function Question() {
                         QuestionArray.length === 0
                         && <img src={require("../images/main-image.png")} className="anything_woosik" alt={"studying man Question"} />
                     }
+                    <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { SetopenQuestionListModal(true); }}>완료</button>
+                    {openQuestionListModal && <QuestionListAloneModal closeModal={SetopenQuestionListModal} questionlist={ClickArray}/>}
                     {
                         QuestionArray.length !== 0
                         && <div className="feedback-table">
-                            <ul>
-                                {
-                                    ClickArray?.map((click, idx) =>
-                                        <div>
-                                            {click}
-                                            <button onClick={() => { SetDeleteIdx(idx); arraydeleteidx(click, idx) }} >Delete </button>
-                                        </div>)
-                                }
-                            </ul>
+                                <ul>
+                                    {
+                                        ClickArray?.map((click, idx) => 
+                                            <div>
+                                                {idx + 1}. {click}
+                                                <button onClick={() => {SetDeleteIdx(idx); arraydeleteidx(click, DeleteIdx) }} >Delete </button>
+                                            </div>)
+                                    }
+                                </ul>
                         </div>
                     }
                 </div>
@@ -86,3 +90,4 @@ function Question() {
 
 
 export default Question
+

@@ -44,7 +44,8 @@ button {
 }
 
 .main-page-body {
-  position: relative;
+
+  position: relative;  
   font-family: Montserrat, sans-serif;
   display: flex;
   flex-direction: column;
@@ -54,6 +55,7 @@ button {
 
 .body-phrase1 {
   margin-top: 1.7%;
+  font-weight: 800;
   font-size: 4.5em;
   width: 45%;
   background-color: white;
@@ -66,9 +68,9 @@ button {
   position: relative;
   font-size: 2.3em;
   text-align: center;
+  font-weight:bold;
   margin: 3%;
   z-index: 0;
-
 }
 
 .main-photo1 {
@@ -103,65 +105,60 @@ li {
   margin: 20px;
 }
 
-/* feedback-table */
-.feedback-table {
-  margin: 45px;
-  justify-content: center;
-  font-family: Montserrat, sans-serif;
-  flex: 1;
-}
-
-table {
-  margin: auto;
-}
-
-td {
-  padding: 25px 30px;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.grid-container-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.feedbackdetail-video-grid-container-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.feedbackdetail-video-grid-box {
-  display: grid;
-  grid-template-columns: 1fr;
-  text-align: center;
-}
-
-.feedbackdetail-title {
-  text-align: center;
-}
-
-.feedbackdetail-title-right {
-  margin-left: 30px;
-  margin-bottom: 20px;
-}
 
 /* login */
+.auth-loader {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+  align-items: center;
 
-.Wrapper-login {
-  margin: 50px;
-  margin-top: 50px;
+}
+.display-3 {
+  margin-top: 2%;
+}
+.auth-loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
 }
 
+/* .loading-spinner {
+
+} */
+
+
+.wrapper-login {
+  padding-top:5%;
+  /* margin: 50px;
+  margin-top: 50px; */
+  display: flex;
+  flex-direction: column;
+  background-color:white;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.login-navigation-bar-logo{
+  font-size: 500%;
+  font-family: Montserrat, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: rgba(64, 218, 199, 1);
+  word-wrap: break-word;
+  cursor: pointer;
+  margin-left: 1%;
+
+}
 .login-body {
-  /* display: flex; */
-  justify-content: space-evenly;
-  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+}
+.login-phrase-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .login-box {
@@ -179,35 +176,41 @@ td {
 
 .login-box2 {
   width: 100%;
-  /* border: 1px solid #d7d7d7; */
-  /* margin-top: 6.75rem; */
-  background: #ffffff;
-  /* border-radius: 0.9375rem; */
-  /* margin-top: 1.875rem; */
+  border: 1px solid #d7d7d7; 
+  margin-top: 6.75rem;
+  background: #ffffff; 
+  border-radius: 0.9375rem; 
+  margin-top: 1.875rem;
 }
 
-.login-photo {
+img.login-photo {
   text-align: center;
   /* display: block; */
+  width: 30vw;
+  /* margin-top: 10%; */
+  margin-right: 10%;
 }
 
 .kakaoImage {
   text-align: center;
-  margin-bottom: 90px;
+  margin-left: 10%;
+  margin-top: 15%;
 }
 
 .login-phrase1 {
-  color: rgba(24, 119, 242, 1);
+  color: black;
   font-size: 2.5rem;
   font-weight: 700;
-  margin-left: 250px;
-  margin-top: 50px;
+  text-align: left;
+  margin-left: 10%;
+  width: 100%;
 }
 
 .login-phrase2 {
   color: rgba(64, 218, 199, 1);
   font-size: 2.5rem;
   font-weight: 700;
+
 }
 
 /* training */
@@ -448,3 +451,5 @@ td {
   transform: scale(1.3);
   cursor: pointer;
 }
+
+

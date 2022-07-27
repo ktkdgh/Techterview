@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: center;
     font-family: Montserrat, sans-serif;
+    font-size: 110%;
     z-index: 3;
 }
 
@@ -30,18 +31,26 @@
 }
 
 .training-alone-start-modal-footer {
-    padding: 10px;
+    margin-top: 5%;
 }
 
 .modal-title {
     margin: 0;
 }
 
+#alone-questions {
+    width: 70vw;
+    color: black;
+    font-size: 2vw;
+    text-align: center;
+    align-self: center;
+}
+
 .training-alone-start-modal-body {
     position: relative;
     padding: 10px;
     border-bottom: 1px solid #eee;
-    font-size: 30px;
+    font-size: 100%;
     z-index: 10;
 }
 
@@ -135,13 +144,6 @@
     height: 50px;
 }
 
-.video-next-question-btn {
-    display: flex;
-    color: lightgrey;
-    font-size: x-large;
-    margin: -88px 1370px;
-
-}
 
 .video-controls-button-container {
     width: 95vw;
@@ -202,7 +204,8 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    margin: 30px 30px;
+    margin: 1.5%;
+    font-size: 1.5rem;
 }
 
 .main-controls-block,
@@ -234,10 +237,6 @@
 
 }
 
-span.training-alone-main-controls-button {
-    display: flex;
-    flex-direction: column;
-}
 
 video {
     margin-bottom: 40px;
@@ -255,11 +254,15 @@ i {
 .svg-inline--fa.fa-circle-right {
     color: black;
 }
-
 .fa.fa-video-camera {
     color: black;
 }
 
 .fa.fa-pause {
     color: black;
+}
+
+#faArrowAltIcon {
+    width: 100px;
+    cursor: pointer;
 }
