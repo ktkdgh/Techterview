@@ -28,7 +28,7 @@ function OthersLobby() {
 
         <div className='Wrapper'>
  
-        <div class="techterview-banner-container"><img className="techterview-banner-image" src={require("../images/techterviewbanner.png")} alt={"next button"} />   </div>
+        <div className="techterview-banner-container"><img className="techterview-banner-image" src={require("../images/techterviewbanner.png")} alt={"next button"} />   </div>
 {/* 
         <div className='left-menu'>
             <QuestionMenuNavBar />
