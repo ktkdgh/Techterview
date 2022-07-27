@@ -13,7 +13,6 @@ function FeedbackMenu({ selectFeedMenu }) {
                     selectFeedMenu(itemId)
                     
                 }} 
-                style={{'border-left-color': 'red'}} 
                 items={[
                     {
                         itemId: '0',
@@ -55,7 +54,7 @@ function FeedbackMenu({ selectFeedMenu }) {
                         ]
                     },
                     {
-                        title: "기본질문 및 개발상식",
+                        title: "Basic",
                         itemId: '2',
                         subNav: [
                             {
@@ -69,7 +68,7 @@ function FeedbackMenu({ selectFeedMenu }) {
                         ]
                     },
                     {
-                        title: '언어',
+                        title: 'Language',
                         itemId: '3',
                         subNav: [
                             {
@@ -87,7 +86,7 @@ function FeedbackMenu({ selectFeedMenu }) {
                         ]
                     },
                     {
-                        title: '직무별',
+                        title: 'Position',
                         itemId: '4',
                         subNav: [
                             {

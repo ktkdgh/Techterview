@@ -79,29 +79,10 @@ function Feedback() {
                                 })}
 
                             </div>
-
-
-
-                            {/* <tbody>
-
-                                {FeedArray.map((value, idx) => {
-                                    return (
-                                        <tr className='feedback-tr'>
-                                            <td> {idx + 1} </td>
-                                            <a href={`/feedback/detail/${value.id}`}><td> {value.feedback_title} </td></a>
-                                            <td> {value.user_name} </td>
-                                            <td> {value.like_cnt} </td>
-                                            <td> {value.reply_cnt} </td>
-                                            <td> {YMDFormat(value.createdAt)} </td>
-                                        </tr>
-                                    )
-                                })}
-
-                            </tbody> */}
                   </div>
-                </div> : <div className="feedback-main-body">
+                </div> : <div className="feedback-no-video-wrapper">
                     <div className="exclamation-circle"> <FontAwesomeIcon icon={faExclamationCircle} /></div>
-                   <div className="feedback-body-content"> 관련된 영상이 없습니다.</div>
+                   <div className="feedback-no-video"> 관련된 영상이 없습니다.</div>
                 </div>}
         </div >
     )

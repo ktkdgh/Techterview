@@ -97,83 +97,80 @@ function FeedbackDetail() {
 
     return (
         <div>
-            <div>
-                <div className="feedbackdetail-title" >
-                    <span className="feedbackdetail-title-left"> {DetailFeedback.title}</span>
-                    <span className='feedbackdetail-title-right'>{DetailFeedback.name}</span>
-                    {DetailFeedback.deletebotton ?
-                        <button style={{ color: 'red', backgroundColor: 'black' }} onClick={onClick}>삭제</button>
-                    : ""}
-                        {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
-                        {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
-                    {LikeStatus ? "누른상태" : "안누른상태"}
-                    <button style={{ color: 'red', backgroundColor: 'black' }} onClick={() => { upLikeCnt() }}>좋아요  </button> ^_^ {FeedLikeCnt}
-                </div>
-                <div class="feedbackdetail-video-grid-container-box">
-                    <div class="feedbackdetail-video-grid-box">
-                        <div className="grid-item" style={{zIndex: ClickMinus}}>
-                            <ReactPlayer  controls url={DetailFeedback.recordingUrl} />
+        
+                <div className="feedbackdetail-container">
+                            
+                   <div className="feedbackdetail-left"> 
+
+                                    <div class="feedbackdetail-video-grid-box" style={{zIndex: ClickMinus}}>
+                                        
+                                         <ReactPlayer  controls url={DetailFeedback.recordingUrl}  id= 'feedback-detail-video'/>
+
+                                         <div className="feedbackdetail-title" >
+                                            <span className="feedbackdetail-title-left">질문: {DetailFeedback.title} </span>
+                                            <span className='feedbackdetail-title-right'> 작성자:{DetailFeedback.name}</span> 
+                                                                  
+                                        </div>
+                                    </div>
+   
+                                    
+                                    
+
+
+                                    <div className="feedbackdetail-video-delete-btn-container">
+
+                                        <div className="feedbackdetail-video-btn">
+                
+                                            {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
+                                            {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
+                                            {LikeStatus ? "누른상태" : "안누른상태"}
+                                            <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}>좋아요  </button> ^_^ {FeedLikeCnt}
+                                            {DetailFeedback.deletebotton ?
+                                            <button className="feedbackdetail-video-delete-btn"  onClick={onClick}>삭제</button>: ""}
+                                        </div>
+
+                                    </div>
+                     </div>
+                    <div className='feedbackdetail-right'>
+                        <div>
+                            {DetailFeedback.replys}의 댓글
+                            <input className="add-comment-input" onChange={onChange} value={text} />
+                            <button className="feedbackdetail-video-like-btn"  onClick={() => { replyCreate() }}>등록</button>
                         </div>
-                    </div>
-                </div>
-            </div>
-                        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <div className='feedback-table'>
-                {DetailFeedback.replys}의 댓글
-                <input onChange={onChange} value={text} /><button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { replyCreate() }}>등록</button>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>작성자</th><th>내용</th><th>등록일</th><th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {ReplyList.map((value, idx) => {
-                            return (
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td> {value.user_name} </td>
-                                    {Modify && Idx == idx + 1 ?
-                                        <td> <input onChange={onUpdate} value={UpdateText} /> </td> :
-                                        <td>{value.reply_comment}{value.updateCheck ? "" : "(수정됨)"}</td>}
-                                    <td> {YMDFormat(value.createdAt)} </td>
-                                    {!value.replyCheck ? "" : Modify && Idx == idx + 1 ?
-                                        <td>
-                                            <button style={{ color: 'white', backgroundColor: 'black' }} onClick={() => { replyUpdate(value.id) }}>수정</button>
-                                            <button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { window.location.reload(true) }}>취소</button>
-                                        </td> :
-                                        <td>
-                                            <button style={{ color: 'white', backgroundColor: 'black' }} onClick={() => { SetopenReplyDeleteModal(true); SetReplyId(value.id) }} >삭제</button>
-                                            <button style={{ color: 'yellow', backgroundColor: 'black' }} onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
-                                        </td>
-                                    }
+                                    <th>작성자</th><th>내용</th><th>등록일</th><th></th>
                                 </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div> */}
+                            </thead>
+                            <tbody>
+                                {ReplyList.map((value, idx) => {
+                                    return (
+                                        <tr>
+                                            <td> {value.user_name} </td>
+                                            {Modify && Idx == idx + 1 ?
+                                                <td> <input onChange={onUpdate} value={UpdateText} /> </td> :
+                                                <td>{value.reply_comment}{value.updateCheck ? "" : "(수정됨)"}</td>}
+                                            <td> {YMDFormat(value.createdAt)} </td>
+                                            {!value.replyCheck ? "" : Modify && Idx == idx + 1 ?
+                                                <td>
+                                                    <button  className="feedbackdetail-video-like-btn" onClick={() => { replyUpdate(value.id) }}>수정</button>
+                                                    <button className="feedbackdetail-video-delete-btn"  onClick={() => { window.location.reload(true) }}>취소</button>
+                                                </td> :
+                                                <td>
+                                                    <button className="feedbackdetail-video-delete-btn"  onClick={() => { SetopenReplyDeleteModal(true); SetReplyId(value.id) }} >삭제</button>
+                                                    <button className="feedbackdetail-video-like-btn"  onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
+                                                </td>
+                                            }
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+
+            </div>
+                    
         </div>
     )
 }

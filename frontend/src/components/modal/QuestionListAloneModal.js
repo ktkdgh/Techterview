@@ -13,10 +13,10 @@ function QuestionListAloneModal({ closeModal, questionlist }) {
     };
 
     return (
-        <div className="video-delete-modal">
-            <div className="video-delete-modal-content">
-                <div className="video-delete-modal-body">
-                    <div>선택한 질문들</div>
+        <div className="question-list-modal">
+            <div className="question-list-modal-content">
+                <div className="question-list-modal-body">
+                    <div> 선택한 질문들</div>
                     { questionlist.map((value, idx) => {
                         return(
                             <div>
@@ -25,7 +25,7 @@ function QuestionListAloneModal({ closeModal, questionlist }) {
                         )
                     })}
                 </div>
-                <div className="video-delete-modal-footer">
+                <div className="question-list-modal-footer">
                     <button className="btn-yes" onClick={() => closeModal(false)}>취소</button>
                     <button className="btn-cancel" onClick={() => getQeustions()}>나혼자 연습하러가기</button>
                 </div>

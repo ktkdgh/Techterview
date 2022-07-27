@@ -21,12 +21,10 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.Create-delete-modal-footer {
-    position: fixed;
-    margin-left: 6vmax;
-    bottom: 12vw;
-    /* justify-content: center; */
-    /* text-align: center; */
+.create-delete-modal-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 8%;
 }
 
 .modal-title {

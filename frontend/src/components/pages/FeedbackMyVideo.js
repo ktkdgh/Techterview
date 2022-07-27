@@ -7,6 +7,8 @@ import MyVideoMenubar from "../includes/MyVideoMenubar"
 import '../css/FeedBack.css'
 import api from '../shared/api';
 import jwt from 'jwt-decode';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 function MyVideo() {
     const [openModal, setOpenModal] = useState(false);
@@ -68,11 +70,11 @@ function MyVideo() {
 
 
     return (
-        <div className='Wrapper'>
+        <div className='feedback-wrapper'>
             <div className='left-menu' >
                 <MyVideoMenubar selectMyVideoMenu={(id) => selectMyVideoMenu(id)} />
             </div>
-            <div>
+            <div className="feedback-my-video-body">
                 <div className="my-video-title">My 영상</div>
                 {StatusCheck ? "" :
                     <div class="grid-container-box">
@@ -93,10 +95,10 @@ function MyVideo() {
                         <table>
                             <thead>
                                 {StatusCheck ?
-                                    <tr>
+                                    <tr className="my-video-row">
                                         <th>번호</th><th>제목</th><th>작성자</th><th>좋아요 수</th><th>댓글 수</th><th>등록일</th>
                                     </tr> :
-                                    <tr>
+                                    <tr className="my-video-row">
                                         <th></th><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th>
                                     </tr>
                                 }
@@ -105,7 +107,7 @@ function MyVideo() {
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
                                         return (
-                                            <tr>
+                                            <tr className="my-video-row">
                                                 <td> {idx + 1} </td>
                                                 <a href={`/feedback/detail/${value.id}`}><td> {value.feedback_title} </td></a>
                                                 <td> {value.user_name} </td>
@@ -119,7 +121,7 @@ function MyVideo() {
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
                                         return (
-                                            <tr>
+                                            <tr className="my-video-row">
                                                 <td> <input
                                                     key={value.id}
                                                     type="checkbox"
@@ -127,7 +129,7 @@ function MyVideo() {
                                                     checked={checkedList.includes(value.id) ? true : false}
                                                 /></td>
                                                 <td> {idx + 1} </td>
-                                                <td> <button onClick={() => { SetopenMyVideoPreviewModal(true); SetpriviewUrl(value.recordingUrl) }}>{value.title}</button> </td>
+                                                <td> <div className="feedback-my-video-title" onClick={() => { SetopenMyVideoPreviewModal(true); SetpriviewUrl(value.recordingUrl) }}>{value.title}</div> </td>
                                                 {openMyVideoPreviewModal && <MyVideoPreviewModal closeModal={SetopenMyVideoPreviewModal} videoUrl={priviewUrl} />}
                                                 <td> {value.name} </td>
                                                 <td> {YMDFormat(value.createdAt)} </td>
@@ -137,7 +139,16 @@ function MyVideo() {
                                 </tbody>
                             }
                         </table>
-                    </div> : "아무것도 없어용"}
+                    </div> : 
+                    <div className="feedback-no-video-wrapper">
+                    <div className="exclamation-circle"> <FontAwesomeIcon icon={faExclamationCircle} /></div>
+                   <div className="feedback-no-video"> 저장된 영상이 없습니다.</div>
+                </div>}
+
+
+
+
+
             </div>
         </div>
     )

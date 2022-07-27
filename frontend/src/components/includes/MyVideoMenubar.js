@@ -13,11 +13,11 @@ function FeedbackMenu({ selectMyVideoMenu }) {
                 }}
                 items={[
                     {
-                        title: 'My 영상 목록',
+                        title: 'My 최근 목록',
                         itemId: '/recording/15',
                     },
                     {
-                        title: 'My 피드백 목록',
+                        title: 'My 업로드 목록',
                         itemId: '/recording/16',
                     },
                 ]}
