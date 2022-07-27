@@ -101,35 +101,30 @@ function FeedbackDetail() {
                 <div className="feedbackdetail-container">
                             
                    <div className="feedbackdetail-left"> 
-
-                                    <div class="feedbackdetail-video-grid-box" style={{zIndex: ClickMinus}}>
                                         
-                                         <ReactPlayer  controls url={DetailFeedback.recordingUrl}  id= 'feedback-detail-video'/>
+                                         <ReactPlayer  controls url={DetailFeedback.recordingUrl}    style={{zIndex: ClickMinus}} id= 'feedback-detail-video'/>
 
                                          <div className="feedbackdetail-title" >
-                                            <span className="feedbackdetail-title-left">질문: {DetailFeedback.title} </span>
-                                            <span className='feedbackdetail-title-right'> 작성자:{DetailFeedback.name}</span> 
-                                                                  
-                                        </div>
-                                    </div>
-   
-                                    
-                                    
-
-
+                                            <span className="feedbackdetail-title-left"> {DetailFeedback.title} </span>
+                                            <span className='feedbackdetail-title-right'> {DetailFeedback.name}</span> 
+                                                  
                                     <div className="feedbackdetail-video-delete-btn-container">
 
-                                        <div className="feedbackdetail-video-btn">
-                
-                                            {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
-                                            {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
-                                            {LikeStatus ? "누른상태" : "안누른상태"}
-                                            <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}>좋아요  </button> ^_^ {FeedLikeCnt}
-                                            {DetailFeedback.deletebotton ?
-                                            <button className="feedbackdetail-video-delete-btn"  onClick={onClick}>삭제</button>: ""}
-                                        </div>
+                                    <div className="feedbackdetail-video-btn">
 
+                                        {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
+                                        {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
+                                        {LikeStatus ? "누른상태" : "안누른상태"}
+                                        <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}>좋아요  </button> ^_^ {FeedLikeCnt}
+                                        {DetailFeedback.deletebotton ?
+                                        <button className="feedbackdetail-video-delete-btn"  onClick={onClick}>삭제</button>: ""}
                                     </div>
+
+                                        </div>                
+                                    </div>
+    
+                                    
+
                      </div>
                     <div className='feedbackdetail-right'>
                         <div>
@@ -139,7 +134,7 @@ function FeedbackDetail() {
                         </div>
                         <table>
                             <thead>
-                                <tr>
+                                <tr className="feedback-grid-header">
                                     <th>작성자</th><th>내용</th><th>등록일</th><th></th>
                                 </tr>
                             </thead>

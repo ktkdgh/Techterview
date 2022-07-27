@@ -9,7 +9,7 @@
     /* background-color: rgb(235, 255, 248); */
     height: 100vh;
     display: flex;
-    flex-wrap: wrap-reverse;
+    flex-wrap: wrap;
 
 }
 .interview-room{
@@ -37,7 +37,7 @@ box-shadow: 1px 1px 1px 1px rgb(236, 244, 241);
 }
 .category-people-count-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     margin-right: 2%;
 
