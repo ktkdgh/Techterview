@@ -21,11 +21,10 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.Create-delete-modal-footer {
-    position: fixed;
-    bottom: 13vw;
+.create-delete-modal-footer {
+    display: flex;
     justify-content: center;
-    text-align: center;
+    margin-top: 8%;
 }
 
 .modal-title {
