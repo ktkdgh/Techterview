@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 import api from '../shared/api';
-import {socket} from '../../lib/socket'
+import { socket } from '../../lib/socket'
 import { uploadFile } from 'react-s3';
 
 //함께하기에서는 버퍼 문제가 없는듯
@@ -40,7 +40,7 @@ function PeerOthersroom() {
     socket.on("user-connected", (userId) => {
       console.log("remotePEer", userId)
       setRemotePeerIdValue(userId);
-      
+
     });
 
     peer.on('call', (call) => {
@@ -222,65 +222,65 @@ function PeerOthersroom() {
 
   function goToHome() {
     window.location.replace(`/`)
-}
+  }
   return (
-  <div className="training-others-main-body">
-    <div className="training-navigation-bar" >
-      <div className="navigation-bar-logo" onClick={()=> {goToHome()}}> TECHTERVIEW </div>
+    <div className="training-others-main-body">
+      <div className="training-navigation-bar" >
+        <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
 
-      <div className="training-navigation-right">
-        <div className="main-controls-button-share-icon" id="copy-link">
-          <FontAwesomeIcon icon={faShareFromSquare}  onClick={() => { copyToClipboard(); }} />
-        </div> 
+        <div className="training-navigation-right">
+          <div className="main-controls-button-share-icon" id="copy-link">
+            <FontAwesomeIcon icon={faShareFromSquare} onClick={() => { copyToClipboard(); }} />
+          </div>
 
-        <div className="main-controls-button-leave-meeting" id="leave-meeting">
-          <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
-          {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
+          <div className="main-controls-button-leave-meeting" id="leave-meeting">
+            <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+            {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
+          </div >
+        </div>
+      </div>
+      <div className="training-others-inner-box" >
+        <div className="video-controls-button-container">
+          <div id="video-container">
+            <div className="video-user1" style={{ zIndex: "-1" }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
+            <div className="video-user2" style={{ zIndex: "-1" }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
+          </div>
+          <div className="training-others-main-controls-share-button" >
+          </div>
+
+          <div className="training-others-main-controls">
+            <div className="main-controls-block">
+              <div
+                className="training-others-main-controls-button"
+                id="playPauseVideo"
+                onclick="playStop()">
+                <i className="fa fa-video-camera" size="lg" ></i>
+                <span onClick={() => { start(); }}>Record</span>
+              </div>
+              <div className="training-others-main-controls-button">
+                <i className="fa fa-pause"></i>
+                <span onClick={() => { finish(); }}>Pause Record</span>
+              </div>
+              <div className="training-others-main-controls-button">
+                <FontAwesomeIcon icon={faCloudArrowDown} />
+                <span >Download</span>
+                {/* <span onClick={() => { download(); }}>Download</span> 다운로드 함수 못찾아서 우선 주석처리*/}
+
+              </div>
+              <div className="training-others-main-controls-button" onClick={() => {
+                audio.play()
+                SetQuestionsIndex(QuestionsIndex + 1)
+                SetAudioIndex(AudioIndex + 1)
+              }}>
+                <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+                Next
+              </div>
+            </div>
+
+          </div >
+
         </div >
       </div>
-  </div>
-  <div className="training-others-inner-box" >
-    <div className="video-controls-button-container"> 
-      <div id="video-container">
-          <div className="video-user1" style={{zIndex: "-1"}}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
-          <div className="video-user2" style={{zIndex: "-1"}}><video id="remoteUserVideo"muted ref={remoteVideoRef} /></div>
-        </div>
-        <div className="training-others-main-controls-share-button" >  
-      </div>
-    
-    <div className="training-others-main-controls">
-        <div className="main-controls-block">
-          <div
-            className="training-others-main-controls-button"
-            id="playPauseVideo"
-            onclick="playStop()">
-          <i className="fa fa-video-camera" size="lg" ></i>
-            <span onClick={() => { start(); }}>Record</span>
-          </div>
-          <div className="training-others-main-controls-button">
-          <i className="fa fa-pause"></i>
-            <span onClick={() => { finish(); }}>Pause Record</span>
-          </div>
-          <div className="training-others-main-controls-button">
-          <FontAwesomeIcon icon={faCloudArrowDown} />
-            <span >Download</span>
-            {/* <span onClick={() => { download(); }}>Download</span> 다운로드 함수 못찾아서 우선 주석처리*/}
-
-          </div>
-          <div className="training-others-main-controls-button" onClick={() => {
-                  audio.play()
-                  SetQuestionsIndex(QuestionsIndex + 1)
-                  SetAudioIndex(AudioIndex + 1)
-              }}>
-            <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-            Next
-          </div>
-        </div>
-
-      </div >
-
-      </div >
-    </div>   
     </div>
   );
 }
