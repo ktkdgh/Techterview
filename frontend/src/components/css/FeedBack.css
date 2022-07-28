@@ -46,7 +46,7 @@
 }
 
 
-tr:hover { background-color:rgba(64, 218, 199, 1); }
+/* tr:hover { background-color:rgba(64, 218, 199, 1); } */
 
 
 
@@ -71,30 +71,29 @@ tr:hover { background-color:rgba(64, 218, 199, 1); }
     align-content: center;
     margin-left: 2%;
     margin-right: 5%;
-    border-radius: 10px;
+    border-radius: 15px;
+    background-color:rgb(249, 249, 250);
+    padding: 2%;
+    box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px;
+
 
   }
  
 .feedbackdetail-left {
-    width: 70vw;
+    /* width: vw; */
     height: 100%;
   }  
 
 
   .feedbackdetail-right {
-    /* flex: 1; */
-    /* background-color: rgb(249, 249, 250); */
-    /* display: flex;
-    flex-direction: column; */
-    /* padding-right:15%;
-    width: 100%; */
-    /* padding: 5%; */
+    flex: 1;
+    margin-left: 3%;
 
   }
 
   #feedback-detail-video {
     height: 75vh !important;
-    width: 62vw !important;
+    width: 55vw !important;
   }
 
 
@@ -126,7 +125,14 @@ tr:hover { background-color:rgba(64, 218, 199, 1); }
     background-color: blue;
     height: 65vh;
   }
-
+.feedbackdetail-comment-table {
+  /* background-color: antiquewhite; */
+  margin-left: 5%;
+}
+.feedbackdtail-input-wrapper {
+  margin-left: 5%;
+  margin-top: 7%;
+}
 
   .grid-container {
     display: grid;
@@ -149,6 +155,9 @@ tr:hover { background-color:rgba(64, 218, 199, 1); }
   .feedbackdetail-title {
     text-align: center;
     margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
   
 
@@ -235,7 +244,7 @@ tr:hover { background-color:rgba(64, 218, 199, 1); }
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 5% ;
-
+  /* justify-content: space-between; */
   
 }
 
@@ -244,6 +253,7 @@ tr:hover { background-color:rgba(64, 218, 199, 1); }
 .feedbackdetail-video-btn{
   display: flex;
   justify-content: center;
+  margin-right: -20rem; 
   /* margin: 4%; */
 }
 .feedbackdetail-video-delete-btn-container{
@@ -268,27 +278,26 @@ tr:hover { background-color:rgba(64, 218, 199, 1); }
   /* Green */
   color: white;
 }
-
-
+.feedbackdetail-video-delete {
+  background-color: rgb(249, 249, 250);
+}
 .feedbackdetail-video-delete-btn {
 background-color: white;
 color: red;
 border: 3px solid red;
-padding: 1px 20px;
+padding: 0 20px;
 border-radius: 10px;
+/* margin-left: 2%; */
 }
 
 .feedbackdetail-video-delete-btn:hover {
   background-color: red;
-  /* Green */
   color: black;
 }
 
 
 
 .feedbackdetail-video-grid-box {
-  /* border: 6px solid black; */
-  /* box-shadow: 12px 12px black; */
   width: 40%;
   margin-top: 2% ;
   margin-left: 3%; 
@@ -304,10 +313,8 @@ border-radius: 10px;
 .add-comment-input {
   width: 60%;
   margin: 2%;
-  /* width: 17vw;
-  margin-top: 20%;
-  margin-left: 2%;
-  height: 130%; */
+  height: 6vh;
+  border: 3px solid rgb(249, 249, 250);
 
 }
 .add-comment-btn {
@@ -315,20 +322,13 @@ border-radius: 10px;
   width: 5vw;
 }
 
-/* #faUser {
-  color:rgba(64, 218, 199, 1);
-  height: 20vh;
-} */
-
-
 
 .feedback-table-cart {
   border:5px solid rgba(64, 218, 199, 1);
   padding: 3%;
   width: 35vw;
   height: 80vh;
-  /* width:350px; 
-  height:200px; */
+
   overflow: auto;
   
 }
@@ -347,4 +347,7 @@ border-radius: 10px;
 
 .feedback-grid-header {
   height: 500%;
+}
+.feedbackdetail-title-right {
+  margin-left: 1%;
 }
