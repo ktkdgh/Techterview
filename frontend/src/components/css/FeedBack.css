@@ -8,6 +8,7 @@
     box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px;
     border-radius: 10px;
     flex-wrap: wrap;
+    overflow: scroll;
 }
 
 
@@ -350,4 +351,43 @@ border-radius: 10px;
 }
 .feedbackdetail-title-right {
   margin-left: 1%;
+}
+
+.my-video-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+  width: 90%;
+  vertical-align: center;
+  text-align: center;
+  margin: 1% 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 2.5%;
+  display: grid;
+  border-style: solid none none none;
+  background-color: rgb(249, 249, 250);
+  border-radius: 30px;
+}
+.my-video-row:hover{
+  background-color:rgba(64, 218, 199, 1) ;
+}
+
+.my-video-recent {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr 4fr 1fr 2fr;
+  width: 93%;
+  vertical-align: center;
+  text-align: center;
+  margin: 1% 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 2.5%;
+  display: grid;
+  border-style: solid none none none;
+  background-color: rgb(249, 249, 250);
+  border-radius: 30px;
+}
+
+.my-video-recent:hover {
+  background-color:rgba(64, 218, 199, 1) ;
 }

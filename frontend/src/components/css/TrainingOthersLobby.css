@@ -76,3 +76,28 @@ box-shadow: 1px 1px 1px 1px rgb(236, 244, 241);
     height: 25vh;
     /* height: 100%; */
 }
+
+
+.ballon {
+    position: absolute;
+    width: 260px;
+    height: 130px;
+    right: 200px;
+    bottom: 190px;
+    background: rgb(181, 181, 251);
+    color: black;
+    border-radius: 5px;
+    padding: 12px 12.8px;
+    font-size: 100%;
+}
+
+.ballon:after {
+    border-top: 50px solid rgb(181, 181, 251);;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 0px solid transparent;
+    content: "";
+    position: absolute;
+    top: 100px;
+    left: 230px;
+}
