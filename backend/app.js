@@ -91,7 +91,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/feedback', feedbackRouter);
 app.use('/api/questionList', questionListRouter);
 app.use('/api/training/alone', aloneRouter);
-// app.use('/api/training/others', othersRouter);
+app.use('/api/training/others', othersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

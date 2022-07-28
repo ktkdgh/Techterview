@@ -13,7 +13,7 @@ function ReplyDeleteModal({ closeModal, replyId }) {
         <div className="video-delete-modal">
             <div className="video-delete-modal-content">
                 <div className="video-delete-modal-body">
-                    댓글을 삭제하시겠습니까까까까까까까까까까까깎?
+                    댓글을 삭제하시겠습니까?
                 </div>
                 <div className="video-delete-modal-footer">
                     <button className="btn-yes" onClick={() => closeModal(false)}>취소</button>

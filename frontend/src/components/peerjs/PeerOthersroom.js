@@ -1,10 +1,11 @@
 import Peer from 'peerjs';
 import React, { useEffect, useState, useRef } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
 import "../css/TrainingAloneStartModal.css"
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
-import VideoQuestionModal from "../modal/VideoQuestionModal"
+import InterviewerEndModal from "../modal/InterviewerEndModal"
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
 import uuid from 'react-uuid';
@@ -14,6 +15,7 @@ import {socket} from '../../lib/socket'
 import {peer} from '../../lib/peer'
 import { uploadFile } from 'react-s3';
 import jwt from 'jwt-decode'
+import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 
 //함께하기에서는 버퍼 문제가 없는듯
 // window.Buffer = window.Buffer || require("buffer").Buffer; 
@@ -30,7 +32,7 @@ function PeerOthersroom() {
   const peerInstance = useRef(null);
   const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
   const [interview, Setinterview] = useState(0);
-
+  let checked;
   useEffect(() => {
 
     peer.on("open", (id) => {
@@ -47,7 +49,18 @@ function PeerOthersroom() {
     });
 
     socket.on("getRoominfo", (roomInfo) => {
-      Setinterview(roomInfo.checkedInterview)
+      
+      if (interview === 0){
+        // checked = roomInfo.checkedInterview
+        Setinterview(roomInfo.checkedInterview)  
+      }
+      //  else {
+      //   if (roomInfo.checkedInterview === '1') {
+      //     checked = '2'
+      //   } else {
+      //     checked = '1'
+      //   }
+      // }
     })
 
 
@@ -191,7 +204,9 @@ function PeerOthersroom() {
   let data = [];
   const [Questions, SetQuestions] = useState([]);
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
-  const [AudioIndex, SetAudioIndex] = useState(0);
+  const [Actions, SetActions] = useState([]);
+  const [ActionsIndex, SetActionsIndex] = useState(0);
+
 
   useEffect(() => {
     async function getQuestions() {
@@ -199,8 +214,14 @@ function PeerOthersroom() {
         .then(res => {
           SetQuestions(res.data);
         });
-    }
-    getQuestions();
+    } getQuestions();
+
+    async function getActions() {
+      await api.get('/api/training/others/getAction')
+        .then(res => {
+          SetActions(res.data)
+        })
+    } getActions();
   }, []);
 
   const getQuestion = () => {
@@ -213,22 +234,39 @@ function PeerOthersroom() {
       }
     }
   };
-  const getQuestionAudio = () => {
-    if (Questions && Questions.length !== 0) {
-      if (QuestionsIndex !== -1) {
-        const q = Questions[AudioIndex];
+
+  const getAction = () => {
+    if (Actions && Actions.length !== 0) {
+      if (ActionsIndex !== -1) {
+        const q = Actions[ActionsIndex];
         if (q && q.length !== 0) {
-          return q[1];
+          return q;
         }
       }
     }
-  };
-
-  let audio = new Audio(getQuestionAudio());
+  }
 
   function goToHome() {
     window.location.replace(`/`)
-}
+  }
+
+  function BasicExample() {
+    return (
+        <Spinner animation="border" role="status" style={{ width: "10rem", height: "10rem" }} className="loading-spinner"></Spinner>
+    );
+  }
+
+  if(interview === 0){
+    return (
+      <div className="auth-loader-wrapper">
+          <div className="auth-loader">
+              <div><BasicExample ></BasicExample></div>
+              <div className="display-3">로딩중 ..........</div>
+          </div>
+      </div>
+    );
+  }
+
   return (
 
   <div className="training-others-main-body">
@@ -242,7 +280,7 @@ function PeerOthersroom() {
 
         <div className="main-controls-button-leave-meeting" id="leave-meeting">
           <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
-          {openModal && <VideoQuestionModal closeModal={setOpenModal} />}
+          {openModal && <InterviewerEndModal closeModal={setOpenModal} />}
         </div >
       </div>
   </div>
@@ -256,12 +294,12 @@ function PeerOthersroom() {
       </div>
     
     <div className="training-others-main-controls">
-
+    
         <div className="main-controls-block">
       {/* TrainingOthers에 있었던 질문 이사시킴 */}
       <div id='alone-questions' >{getQuestion()}</div>
+      {/* { interview === checked  ? "면접자" : "면접관"} */}
 
-    {interview == 0 ? "면접자" : "면접관"}
           <div
             className="training-alone-main-controls-button"
             id="startRecord"
@@ -281,13 +319,21 @@ function PeerOthersroom() {
           {/* </div>
           */}
           <div className="training-alone-main-controls-button" onClick={() => {
-                  audio.play()
                   SetQuestionsIndex(QuestionsIndex + 1)
-                  SetAudioIndex(AudioIndex + 1)
+                  SetActionsIndex(ActionsIndex + 1)
               }}>
             <FontAwesomeIcon  id="faArrowAltIcon" icon={faArrowAltCircleRight} />
             Next
           </div>
+          <div className="training-alone-main-controls-button"> 
+      <FontAwesomeIcon   id="faCommentDots" icon={faCommentDots} onClick={()=> {getShow()}} />
+      Instruction
+
+      </div>
+          <div className="ballon" id="ballon" style={{display: "none"}}> {getAction()} 
+          
+          </div>
+
         </div>
 
       </div >
@@ -300,6 +346,9 @@ function PeerOthersroom() {
   function getHide() {
     document.getElementById("startRecord").style.display = "none"
   
+  }
+  function getShow() {
+    document.getElementById("ballon").style.display = ""
   }
 
 }
