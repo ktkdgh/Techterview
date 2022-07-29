@@ -47,7 +47,6 @@ function PeerOthersroom() {
 
     socket.on("user-connected", (userId) => {
         setRemotePeerIdValue(userId);
-      
     });
 
     socket.on("getRoominfo", (roomInfo) => {

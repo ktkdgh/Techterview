@@ -37,9 +37,9 @@ function PeerjsAlone() {
         let AloneQuestion = []
         let QuestionName = "";
         for (let i = 0; i < QuestionArray.length; i++) {
-          if (!(i % 2)){
+          if (!(i % 2)) {
             QuestionName = QuestionArray[i]
-          } else if( QuestionName ) {
+          } else if (QuestionName) {
             AloneQuestion.push([QuestionName, QuestionArray[i]])
             QuestionName = ""
           }
@@ -65,6 +65,8 @@ function PeerjsAlone() {
       }
     }
   };
+
+
 
   const getQuestionAudio = () => {
     if (Questions && Questions.length !== 0) {
@@ -126,7 +128,7 @@ function PeerjsAlone() {
 
     setMediaRecoder(mediaRecorder);
   }
-  
+
   function finish() {
 
     mediaRecorder.onstop = function () {
@@ -177,8 +179,6 @@ function PeerjsAlone() {
       recordedChunks.pop()
     };
     mediaRecorder.stop();
-
-
   }
 
   let audio = new Audio(getQuestionAudio());
@@ -199,57 +199,57 @@ function PeerjsAlone() {
           </div>
           <div className='training-alone-start-modal-footer'>
             <button className='btn-yes' onClick={() => {
-                call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
-                setTimeout(() => {
-                  start();
-                }, 1500);
-              }} > 시작하기</button>          
+              call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
+              setTimeout(() => {
+                start();
+              }, 1500);
+            }} > 시작하기</button>
           </div >
         </div >
       </div >
 
- 
+
       <div className="training-navigation-bar" >
-      <div className="navigation-bar-logo" onClick={()=> {goToHome()}}> TECHTERVIEW </div>
+        <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
 
-      <div className="training-navigation-right">
-        <div className="main-controls-button-leave-meeting" id="leave-meeting">
-          <button className="video-end-btn" onClick={() => { setOpenModal(true) }}>End</button>
-          {openModal && <VideoQuestionModal />}
-        </div >
+        <div className="training-navigation-right">
+          <div className="main-controls-button-leave-meeting" id="leave-meeting">
+            <button className="video-end-btn" onClick={() => { setOpenModal(true) }}>End</button>
+            {openModal && <VideoQuestionModal />}
+          </div >
+        </div>
       </div>
-  </div>
 
 
-        <div id="alone-wrapper">
-          <div className="alone-video-controls-button-container ">
-                  <div id="alone-video-container" >
-                    <div className="video-user1" id="video-user1"style={{ display: "none", zIndex: "-1" }}>
-                      <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video>
-                    </div>
-                      <div className="video-user2" style={{zIndex: "-1"}}><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
-                  </div>
-                  <div class="training-alone-main-controls">
-                    <div class="main-controls-block">
-                      <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
-
-                      <div id="training-alone-main-controls-button"class="training-alone-main-controls-button" style={{ display: "none"}} onClick={() => {
-                        audio.play()
-                        SetQuestionsIndex(QuestionsIndex + 1)
-                        SetAudioIndex(AudioIndex + 1)
-                        finish();
-                        setTimeout(() => {
-                          start();
-                        }, 500);
-                      }}>
-                      <FontAwesomeIcon  id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                      Next
-                    </div>
-                  </div>
-                  </div>
-              </div> 
+      <div id="alone-wrapper">
+        <div className="alone-video-controls-button-container ">
+          <div id="alone-video-container" >
+            <div className="video-user1" id="video-user1" style={{ display: "none", zIndex: "-1" }}>
+              <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video>
             </div>
+            <div className="video-user2" style={{ zIndex: "-1" }}><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
+          </div>
+          <div class="training-alone-main-controls">
+            <div class="main-controls-block">
+              <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
+
+              <div id="training-alone-main-controls-button" class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
+                audio.play()
+                SetQuestionsIndex(QuestionsIndex + 1)
+                SetAudioIndex(AudioIndex + 1)
+                finish();
+                setTimeout(() => {
+                  start();
+                }, 500);
+              }}>
+                <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+                Next
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
