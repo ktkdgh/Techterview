@@ -11,8 +11,8 @@ import { useParams, Navigate } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 import api from '../shared/api';
-import {socket} from '../../lib/socket'
-import {peer} from '../../lib/peer'
+import { socket } from '../../lib/socket'
+import { peer } from '../../lib/peer'
 import { uploadFile } from 'react-s3';
 import jwt from 'jwt-decode'
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
@@ -21,14 +21,14 @@ import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 // window.Buffer = window.Buffer || require("buffer").Buffer; 
 
 function PeerOthersroom() {
-  if ( !(!!sessionStorage.getItem('Authorization'))) {
+  if (!(!!sessionStorage.getItem('Authorization'))) {
     sessionStorage.setItem('url', window.location.href)
     window.location.href = '/login'
   }
 
   const Token = sessionStorage.getItem('Authorization')
   const userInfo = jwt(Token)
-  
+
   const url = new URL(window.location.href).pathname.split('/')
   const ROOM_ID = url.slice(-1).pop()
   const remoteVideoRef = useRef(null);
@@ -46,21 +46,21 @@ function PeerOthersroom() {
     });
 
     socket.on("user-connected", (userId) => {
-        setRemotePeerIdValue(userId);
+      setRemotePeerIdValue(userId);
     });
 
     socket.on("getRoominfo", (roomInfo) => {
       console.log(roomInfo);
-      if(roomInfo.checkedInterview === "1"){
-        SetCheckInterview(roomInfo.memberId === userInfo.id) 
-      }else{
-        SetCheckInterview(roomInfo.memberId === userInfo.id) 
+      if (roomInfo.checkedInterview === "1") {
+        SetCheckInterview(roomInfo.memberId === userInfo.id)
+      } else {
+        SetCheckInterview(roomInfo.memberId === userInfo.id)
       }
 
-      if (interview === 0){
-        Setinterview(roomInfo.checkedInterview)  
+      if (interview === 0) {
+        Setinterview(roomInfo.checkedInterview)
       }
-  })
+    })
 
 
     peer.on('call', (call) => {
@@ -252,107 +252,107 @@ function PeerOthersroom() {
 
   function BasicExample() {
     return (
-        <Spinner animation="border" role="status" style={{ width: "10rem", height: "10rem" }} className="loading-spinner"></Spinner>
+      <Spinner animation="border" role="status" style={{ width: "10rem", height: "10rem" }} className="loading-spinner"></Spinner>
     );
   }
 
-  if(interview === 0){
+  if (interview === 0) {
     return (
       <div className="auth-loader-wrapper">
-          <div className="auth-loader">
-              <div><BasicExample ></BasicExample></div>
-              <div className="display-3">로딩중 ..........</div>
-          </div>
+        <div className="auth-loader">
+          <div><BasicExample ></BasicExample></div>
+          <div className="display-3">로딩중 ..........</div>
+        </div>
       </div>
     );
   }
 
   return (
 
-  <div className="training-others-main-body">
-    <div className="training-navigation-bar" >
-      <div className="navigation-bar-logo" onClick={()=> {goToHome()}}> TECHTERVIEW </div>
+    <div className="training-others-main-body">
+      <div className="training-navigation-bar" >
+        <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
 
-      <div className="training-navigation-right">
-        
-        <div className="main-controls-button-share-icon" id="copy-link">
-          <FontAwesomeIcon icon={faShareFromSquare}  onClick={() => { copyToClipboard(); }} />
-        </div> 
+        <div className="training-navigation-right">
 
-        <div className="main-controls-button-leave-meeting" id="leave-meeting">
-          <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
-          {openModal && <InterviewerEndModal closeModal={setOpenModal} />}
-        </div >
+          <div className="main-controls-button-share-icon" id="copy-link">
+            <FontAwesomeIcon icon={faShareFromSquare} onClick={() => { copyToClipboard(); }} />
+          </div>
+
+          <div className="main-controls-button-leave-meeting" id="leave-meeting">
+            <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+            {openModal && <InterviewerEndModal closeModal={setOpenModal} />}
+          </div >
+        </div>
       </div>
-  </div>
-  <div className="training-others-inner-box" >
-    <div className="video-controls-button-container"> 
-      <div id="video-container">
-          <div className="video-user1" style={{zIndex: "-1"}}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
-          <div className="video-user2" style={{zIndex: "-1"}}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
-        </div>
-        <div className="training-others-main-controls-share-button" >  
-      </div>
-    
-    <div className="training-others-main-controls">
-    
-      { interview === '1' && CheckInterview ? <div className="main-controls-block"><br/><br/><br/><br/></div> :  
-        interview === '2' && CheckInterview ? 
-        <div className="main-controls-block">
-          <div id='alone-questions' >{getQuestion()}</div>
-          <div
-            className="training-alone-main-controls-button"
-            id="startRecord"
-            onClick={() => {getHide();  }}>
-              <i className="fa fa-video-camera" size="lg" ></i>
-              <span onClick={() => { start(); }}>Record</span>
+      <div className="training-others-inner-box" >
+        <div className="video-controls-button-container">
+          <div id="video-container">
+            <div className="video-user1" style={{ zIndex: "-1" }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
+            <div className="video-user2" style={{ zIndex: "-1" }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
           </div>
-          <div className="training-alone-main-controls-button" onClick={() => {
-              SetQuestionsIndex(QuestionsIndex + 1)
-              SetActionsIndex(ActionsIndex + 1)
-            }}>
-            <FontAwesomeIcon  id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-            Next
+          <div className="training-others-main-controls-share-button" >
           </div>
-          <div className="training-alone-main-controls-button"> 
-            <FontAwesomeIcon   id="faCommentDots" icon={faCommentDots} onClick={()=> {getShow()}} />
-            Instruction
-          </div>
-          <div className="ballon" id="ballon" style={{display: "none"}}> {getAction()} </div>
-        </div> :
-        interview === '1' ?
-        <div className="main-controls-block">
-        <div id='alone-questions' >{getQuestion()}</div>
-        <div
-          className="training-alone-main-controls-button"
-          id="startRecord"
-          onClick={() => {getHide();  }}>
-            <i className="fa fa-video-camera" size="lg" ></i>
-            <span onClick={() => { start(); }}>Record</span>
-        </div>
-        <div className="training-alone-main-controls-button" onClick={() => {
-            SetQuestionsIndex(QuestionsIndex + 1)
-            SetActionsIndex(ActionsIndex + 1)
-          }}>
-          <FontAwesomeIcon  id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-          Next
-        </div>
-        <div className="training-alone-main-controls-button"> 
-          <FontAwesomeIcon   id="faCommentDots" icon={faCommentDots} onClick={()=> {getShow()}} />
-          Instruction
-        </div>
-        <div className="ballon" id="ballon" style={{display: "none"}}> {getAction()} </div>
-      </div> : <div className="main-controls-block"><br/><br/><br/><br/></div> } 
+
+          <div className="training-others-main-controls">
+
+            {interview === '1' && CheckInterview ? <div className="main-controls-block"><br /><br /><br /><br /></div> :
+              interview === '2' && CheckInterview ?
+                <div className="main-controls-block">
+                  <div id='alone-questions' >{getQuestion()}</div>
+                  <div
+                    className="training-alone-main-controls-button"
+                    id="startRecord"
+                    onClick={() => { getHide(); }}>
+                    <i className="fa fa-video-camera" size="lg" ></i>
+                    <span onClick={() => { start(); }}>Record</span>
+                  </div>
+                  <div className="training-alone-main-controls-button" onClick={() => {
+                    SetQuestionsIndex(QuestionsIndex + 1)
+                    SetActionsIndex(ActionsIndex + 1)
+                  }}>
+                    <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+                    Next
+                  </div>
+                  <div className="training-alone-main-controls-button">
+                    <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
+                    Instruction
+                  </div>
+                  <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
+                </div> :
+                interview === '1' ?
+                  <div className="main-controls-block">
+                    <div id='alone-questions' >{getQuestion()}</div>
+                    <div
+                      className="training-alone-main-controls-button"
+                      id="startRecord"
+                      onClick={() => { getHide(); }}>
+                      <i className="fa fa-video-camera" size="lg" ></i>
+                      <span onClick={() => { start(); }}>Record</span>
+                    </div>
+                    <div className="training-alone-main-controls-button" onClick={() => {
+                      SetQuestionsIndex(QuestionsIndex + 1)
+                      SetActionsIndex(ActionsIndex + 1)
+                    }}>
+                      <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+                      Next
+                    </div>
+                    <div className="training-alone-main-controls-button">
+                      <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
+                      Instruction
+                    </div>
+                    <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
+                  </div> : <div className="main-controls-block"><br /><br /><br /><br /></div>}
 
           </div >
         </div >
-      </div>   
-    </div> 
+      </div>
+    </div>
   );
 
   function getHide() {
     document.getElementById("startRecord").style.display = "none"
-  
+
   }
   function getShow() {
     document.getElementById("ballon").style.display = ""
