@@ -100,7 +100,7 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
         if(clicked===true) {
             // socket.emit("createRoom", socket.id, roomId, sendNum,roomName,checkedTitle,checkedValue, checkedInterview);
             console.log("123123123 : ", roomName,checkedTitle,checkedValue, checkedInterview);
-            socket.emit("createRoom", socket.id, roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview);
+            socket.emit("createRoom", roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview);
             handleClick()
         }
 // eslint-disable-next-line react-hooks/exhaustive-deps

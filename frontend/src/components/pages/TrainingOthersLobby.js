@@ -24,10 +24,18 @@ function OthersLobby() {
         setRoomInfo(info)
     })
 
+    useEffect(() => {
+        socket.on('RoomIsFull', () => {
+            alert('방 인원이 초과되었습니다. 다른 방을 이용해주시기 바랍니다.');
+        }) 
+        return () => {
+            socket.off("RoomIsFull")
+        }
+    },[])
 
-    // room.sendNum,room.roomId,room
+    // room.sendNum,room.roomId
     function handleClick(a,b,c) {
-        socket.emit('checkUserNum',socket.id,b,c)
+        socket.emit('checkUserNum',socket.id,b)
             // console.log('room is full')
             socket.on('allowEnter', () => {
                 window.location.replace(`/training/with/${a}/${b}`)
@@ -52,17 +60,17 @@ function OthersLobby() {
                         <div id="interview-room-body" className="interview-room-body">
                             {roomInfo.length != 0  ? 
                             <div className="interview-room-container-box">
-                                { roomInfo.map((room) => {
+                                { roomInfo.map((room) => {if (room ){
                                     return(
                                         <div className="interview-room" onClick={()=> handleClick(room.sendNum, room.roomId)} >
                                             <div className="interview-room-name" >{room.roomName}</div>
                                             <div className="category-people-count-container">
                                                 <div className="interview-room-category-container">
                                                     <div className='interview-room-category'>
-                                                        <div className="interview-room-category0">{room.checkedTitle} </div>
+                                                        <div className="interview-room-category0">{room?.checkedTitle} </div>
                                                     </div>
                                                     <div className='interview-room-category'>
-                                                        <div className="interview-room-category1">{room.checkedValue}</div>
+                                                        <div className="interview-room-category1">{room?.checkedValue}</div>
                                                     </div>
                                                         <div className='interview-room-category'>
                                                             <div className="interview-room-category2">{room.checkedInterview == 1 ? "면접관 필요!": "면접자 필요!"}</div>
@@ -74,7 +82,7 @@ function OthersLobby() {
                                                 </div>
                                             </div>    
                                         </div>
-                                    );
+                                    );}
                                 })}
                             </div> : "없어요"}
                         </div> 
