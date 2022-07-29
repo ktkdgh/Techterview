@@ -319,8 +319,7 @@ function PeerOthersroom() {
                   <div
                       className="training-alone-main-controls-button"
                       id="startRecord"
-                      // getHide();
-                      onClick={() => {  start(); }}>
+                      onClick={() => {  start(); getHide(); }}>
                       <i className="fa fa-video-camera" size="lg" ></i>
                       <span>Record</span>
                     </div>
@@ -344,8 +343,7 @@ function PeerOthersroom() {
                     <div
                       className="training-alone-main-controls-button"
                       id="startRecord"
-                      //  getHide(); 
-                      onClick={() => {start(); }}>
+                      onClick={() => {start(); getHide(); }}>
                       <i className="fa fa-video-camera" size="lg" ></i>
                       <span>Record</span>
                     </div>
