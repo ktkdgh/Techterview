@@ -289,7 +289,6 @@ function PeerOthersroom() {
           </div>
           <div className="training-others-main-controls-share-button" >
           </div>
-
           <div className="training-others-main-controls">
 
             {interview === '1' && CheckInterview ? <div className="main-controls-block"><br /><br /><br /><br /></div> :
@@ -301,12 +300,15 @@ function PeerOthersroom() {
                     id="startRecord"
                   >
                     <i className="fa fa-video-camera" size="lg" ></i>
-                    <span onClick={() => { start(); }}>Record</span>
+                    <span onClick={() => { getHide(); start(); }}>Record</span>
                   </div>
                   <div className="training-alone-main-controls-button" onClick={() => {
                     SetQuestionsIndex(QuestionsIndex + 1)
                     SetActionsIndex(ActionsIndex + 1)
                     finish();
+                    setTimeout(() => {
+                      start();
+                    }, 500);
                   }}>
                     <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
                     Next
@@ -323,8 +325,7 @@ function PeerOthersroom() {
                     <div
                       className="training-alone-main-controls-button"
                       id="startRecord"
-                    // onClick={() => { getHide(); }}>
-                    >
+                      onClick={() => { getHide(); }}>
                       <i className="fa fa-video-camera" size="lg" ></i>
                       <span onClick={() => { start(); }}>Record</span>
                     </div>
@@ -342,7 +343,6 @@ function PeerOthersroom() {
                     </div>
                     <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
                   </div> : <div className="main-controls-block"><br /><br /><br /><br /></div>}
-
           </div >
         </div >
       </div>
