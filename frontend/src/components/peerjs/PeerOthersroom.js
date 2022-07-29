@@ -276,7 +276,7 @@ function PeerOthersroom() {
           </div>
 
           <div className="main-controls-button-leave-meeting" id="leave-meeting">
-            <button className="video-end-btn" recordedChunks={() => { setOpenModal(true); }}>End</button>
+            <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
             {openModal && <InterviewerEndModal closeModal={setOpenModal} />}
           </div >
         </div>
@@ -346,7 +346,7 @@ function PeerOthersroom() {
           </div >
         </div >
       </div>
-    </div>
+    </div >
   );
 
   function getHide() {
