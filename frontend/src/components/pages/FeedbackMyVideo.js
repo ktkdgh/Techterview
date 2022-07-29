@@ -99,11 +99,11 @@ function MyVideo() {
                         <table>
                             <thead>
                                 {StatusCheck ?
-                                    <tr className="my-video-row">
-                                        <th>번호</th><th>제목</th><th>작성자</th><th>좋아요 수</th><th>댓글 수</th><th>등록일</th>
+                                    <tr className="my-video-row" >
+                                        <th >번호</th><th>제목</th><th>작성자</th><th>좋아요 수</th><th>댓글 수</th><th>등록일</th>
                                     </tr> :
-                                    <tr className="my-video-row">
-                                        <th></th><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th>
+                                    <tr className="my-video-recent">
+                                        <th></th><th >번호</th><th>제목</th><th>작성자</th><th>등록일</th>
                                     </tr>
                                 }
                             </thead>
@@ -125,7 +125,7 @@ function MyVideo() {
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
                                         return (
-                                            <tr className="my-video-row">
+                                            <tr className="my-video-recent" >
                                                 <td> <input
                                                     key={value.id}
                                                     type="checkbox"
@@ -133,7 +133,7 @@ function MyVideo() {
                                                     checked={checkedList.includes(value.id) ? true : false}
                                                 /></td>
                                                 <td> {idx + 1} </td>
-                                                <td> <div className="feedback-my-video-title" onClick={() => { SetopenMyVideoPreviewModal(true); SetpriviewUrl(value.recordingUrl) }}>{value.title}</div> </td>
+                                                <td > <div className="feedback-my-video-title" onClick={() => { SetopenMyVideoPreviewModal(true); SetpriviewUrl(value.recordingUrl) }}>{value.title}</div> </td>
                                                 {openMyVideoPreviewModal && <MyVideoPreviewModal closeModal={SetopenMyVideoPreviewModal} videoUrl={priviewUrl} />}
                                                 <td> {value.name} </td>
                                                 <td> {YMDFormat(value.createdAt)} </td>

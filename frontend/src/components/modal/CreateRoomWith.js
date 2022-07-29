@@ -11,19 +11,19 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     const Options = [
         {
             key: 1,
-            value: "컴퓨터구조",
+            value: "네트워크",
         },
         {
             key: 2,
-            value: "자료구조",
-        },
-        {
-            key: 3,
             value: "데이터베이스",
         },
         {
+            key: 3,
+            value: "디자인패턴",
+        },
+        {
             key: 4,
-            value: "네트워크",
+            value: "알고리즘",
         },
         {
             key: 5,
@@ -31,11 +31,11 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
         },
         {
             key: 6,
-            value: "알고리즘",
+            value: "자료구조",
         },
         {
             key: 7,
-            value: "디자인패턴"
+            value: "컴퓨터구조"
         }];
 
     const Options1 = [

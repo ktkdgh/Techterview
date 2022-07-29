@@ -4,6 +4,13 @@ import ReplyDeleteModal from '../modal/ReplyDeleteModal';
 import ReactPlayer from 'react-player'
 import jwt from "jwt-decode";
 import api from "../shared/api"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faHeartBroken } from '@fortawesome/free-solid-svg-icons'
+import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons'
+
+<img className="video-edit-thumbnail" src={require("../images/like.png")} alt={"video thumbnail"} />
+
 
 function FeedbackDetail() {
     const [openFeedbackDeleteModal, SetopenFeedbackDeleteModal] = useState(false);
@@ -98,36 +105,43 @@ function FeedbackDetail() {
     return (
         <div>
         
-            <div className="feedbackdetail-container">
-                <div className="feedbackdetail-left"> 
-                    <div class="feedbackdetail-video-grid-box" style={{zIndex: ClickMinus}}>
-                            <ReactPlayer  controls url={DetailFeedback.recordingUrl}  id= 'feedback-detail-video'/>
-                            <div className="feedbackdetail-title" >
-                                <span className="feedbackdetail-title-left">질문: {DetailFeedback.title} </span>
-                                <span className='feedbackdetail-title-right'> 작성자:{DetailFeedback.name}</span> 
-                            </div>
-                    </div>
+                <div className="feedbackdetail-container" >
+                            
+                   <div className="feedbackdetail-left" > 
+                                        
+                                         <ReactPlayer  controls url={DetailFeedback.recordingUrl}    style={{zIndex: ClickMinus}} id= 'feedback-detail-video'/>
 
-                    <div className="feedbackdetail-video-delete-btn-container">
-                        <div className="feedbackdetail-video-btn">
-                            {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
-                            {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
-                            {LikeStatus ? "누른상태" : "안누른상태"}
-                            <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}>좋아요  </button> ^_^ {FeedLikeCnt}
-                            {DetailFeedback.deletebotton ?
-                            <button className="feedbackdetail-video-delete-btn"  onClick={onClick}>삭제</button>: ""}
-                        </div>
-                    </div>
-                </div>
+                                         <div className="feedbackdetail-title" >
+                                            <div className="feedbackdetail-title-left"> {DetailFeedback.title} </div> 
+                                            <div className='feedbackdetail-title-right'>  {DetailFeedback.name}</div> 
+                                                  
+                                    <div className="feedbackdetail-video-delete-btn-container">
+
+                                    <div className="feedbackdetail-video-btn">
+
+                                        {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
+                                        {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
+                                        {LikeStatus ? <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faHeartCircleCheck}  />     {FeedLikeCnt} </button> :  <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faHeartBroken} />     {FeedLikeCnt} </button>}
+                                      
+                                        {DetailFeedback.deletebotton ?
+                                        <button className="feedbackdetail-video-delete-btn"  onClick={onClick}>  <FontAwesomeIcon icon={faTrashCan}  /></button>: ""}
+                                    </div>
+
+                                        </div>                
+                                    </div>
+    
+                                    
+
+                     </div>
                     <div className='feedbackdetail-right'>
-                        <div>
+                        <div className="feedbackdtail-input-wrapper">
                             {DetailFeedback.replys}의 댓글
                             <input className="add-comment-input" onChange={onChange} value={text} />
                             <button className="feedbackdetail-video-like-btn"  onClick={() => { replyCreate() }}>등록</button>
                         </div>
-                        <table>
+                        <table className="feedbackdetail-comment-table">
                             <thead>
-                                <tr>
+                                <tr className="feedback-grid-header">
                                     <th>작성자</th><th>내용</th><th>등록일</th><th></th>
                                 </tr>
                             </thead>
@@ -146,8 +160,9 @@ function FeedbackDetail() {
                                                     <button className="feedbackdetail-video-delete-btn"  onClick={() => { window.location.reload(true) }}>취소</button>
                                                 </td> :
                                                 <td>
-                                                    <button className="feedbackdetail-video-delete-btn"  onClick={() => { SetopenReplyDeleteModal(true); SetReplyId(value.id) }} >삭제</button>
                                                     <button className="feedbackdetail-video-like-btn"  onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
+                                                    <button className="feedbackdetail-video-delete"  onClick={() => { SetopenReplyDeleteModal(true); SetReplyId(value.id) }} >
+                                                    <FontAwesomeIcon icon={faTrashCan}  /></button>
                                                 </td>
                                             }
                                         </tr>
