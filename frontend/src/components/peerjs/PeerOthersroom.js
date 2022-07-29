@@ -37,6 +37,7 @@ function PeerOthersroom() {
   const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
   const [interview, Setinterview] = useState(0);
   const [CheckInterview, SetCheckInterview] = useState(false);
+  const [mediaRecorder, setMediaRecoder] = useState(null);
 
   useEffect(() => {
     peer.on("open", (id) => {
@@ -114,9 +115,9 @@ function PeerOthersroom() {
   const [flag, setFlag] = useState(false)
   const [openModal, setOpenModal] = useState(false);
   // let mediaStream = null;
-  let mediaRecorder = null;
+  // let mediaRecorder = null;
   let recordedMediaURL = null;
-  let recordedChunks = [];
+  const [recordedChunks, setRecordedChunks] = useState([]);
 
   const mediaStream = navigator.mediaDevices.getUserMedia({
     audio: true,
@@ -138,7 +139,7 @@ function PeerOthersroom() {
     // let recordedChunks = [];
 
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
-    mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
+    let mediaRecorder = new MediaRecorder(remoteVideoRef.current.srcObject, {
       mimeType: 'video/webm; codecs=vp8'
     });
     mediaRecorder.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
@@ -152,6 +153,7 @@ function PeerOthersroom() {
       console.log("e.data:", e.data);
       recordedChunks.push(e.data);
     };
+    setMediaRecoder(mediaRecorder);
   }
 
 
@@ -187,13 +189,7 @@ function PeerOthersroom() {
       uploadFile(recordFile, config)
         .then(recordFile => console.log(recordFile))
         .catch(err => console.error(err))
-
-      //로컬 다운로드 기능
-      // const link = document.createElement('a');
-      // document.body.appendChild(link);
-      // link.href = recordedMediaURL;
-      // link.download = 'video.mp4';
-      // link.click();
+      recordedChunks.pop()
 
     };
     mediaRecorder.stop();
@@ -280,7 +276,7 @@ function PeerOthersroom() {
           </div>
 
           <div className="main-controls-button-leave-meeting" id="leave-meeting">
-            <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+            <button className="video-end-btn" recordedChunks={() => { setOpenModal(true); }}>End</button>
             {openModal && <InterviewerEndModal closeModal={setOpenModal} />}
           </div >
         </div>
@@ -303,13 +299,14 @@ function PeerOthersroom() {
                   <div
                     className="training-alone-main-controls-button"
                     id="startRecord"
-                    onClick={() => { getHide(); }}>
+                  >
                     <i className="fa fa-video-camera" size="lg" ></i>
                     <span onClick={() => { start(); }}>Record</span>
                   </div>
                   <div className="training-alone-main-controls-button" onClick={() => {
                     SetQuestionsIndex(QuestionsIndex + 1)
                     SetActionsIndex(ActionsIndex + 1)
+                    finish();
                   }}>
                     <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
                     Next
@@ -326,13 +323,15 @@ function PeerOthersroom() {
                     <div
                       className="training-alone-main-controls-button"
                       id="startRecord"
-                      onClick={() => { getHide(); }}>
+                    // onClick={() => { getHide(); }}>
+                    >
                       <i className="fa fa-video-camera" size="lg" ></i>
                       <span onClick={() => { start(); }}>Record</span>
                     </div>
                     <div className="training-alone-main-controls-button" onClick={() => {
                       SetQuestionsIndex(QuestionsIndex + 1)
                       SetActionsIndex(ActionsIndex + 1)
+                      finish();
                     }}>
                       <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
                       Next
