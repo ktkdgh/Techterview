@@ -179,8 +179,6 @@ function PeerjsAlone() {
       recordedChunks.pop()
     };
     mediaRecorder.stop();
-
-
   }
 
   let audio = new Audio(getQuestionAudio());
