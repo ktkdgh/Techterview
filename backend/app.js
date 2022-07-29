@@ -14,7 +14,6 @@ var questionListRouter = require('./routes/questionList');
 var aloneRouter = require('./routes/training/alone');
 var othersRouter = require('./routes/training/others');
 
-
 //socket//
 
 const http = require("http");
@@ -52,6 +51,7 @@ io.on("connection", (socket) => {
   SocketRoutes.video.createRoom(socket, SocketRoutes.video.event.createRoom);
   SocketRoutes.video.enterWaitRoom(socket, SocketRoutes.video.event.enterWaitRoom);
   SocketRoutes.video.checkUserNum(socket, SocketRoutes.video.event.checkUserNum);
+  SocketRoutes.video.recordingMemberId(socket, SocketRoutes.video.event.recordingMemberId);
 
   })
 });
@@ -63,6 +63,7 @@ server.listen(PORTNUM, () => {
 
 
 const { sequelize } = require('./models/index');
+const { Socket } = require('dgram');
 sequelize.sync({ force: false })
   .then(() => {
     console.log('Database connected OK!');

@@ -6,3 +6,4 @@ module.exports= (socket, event) => {
         socket.broadcast.emit("roomsUpdated", WaitingRoom.roomInfo)
     });
 }
+

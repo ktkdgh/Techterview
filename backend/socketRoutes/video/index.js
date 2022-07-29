@@ -3,4 +3,5 @@ exports.enterWaitRoom = require('./enterWaitRoom');
 exports.joinRoom = require('./joinRoom');
 exports.createRoom = require('./createRoom');
 exports.checkUserNum = require('./checkUserNum');
+exports.recordingMemberId = require('./recordingMemberId')
 

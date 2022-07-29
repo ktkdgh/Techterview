@@ -16,6 +16,7 @@ import { peer } from '../../lib/peer'
 import { uploadFile } from 'react-s3';
 import jwt from 'jwt-decode'
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
+import VideoQuestionModal from '../modal/VideoQuestionModal';
 
 //함께하기에서는 버퍼 문제가 없는듯
 // window.Buffer = window.Buffer || require("buffer").Buffer; 
@@ -38,31 +39,37 @@ function PeerOthersroom() {
   const [interview, Setinterview] = useState(0);
   const [CheckInterview, SetCheckInterview] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
+  const [recordingMemberId, SetrecordingMemberId] = useState(null);
 
   useEffect(() => {
     peer.on("open", (id) => {
       const sockId = socket.id
-      socket.emit("joinRoom", ROOM_ID, id, sockId);
-      console.log(id);
+      socket.emit("joinRoom", ROOM_ID, id, sockId, userInfo);
     });
 
-    socket.on("user-connected", (userId) => {
+    socket.on("user-connected", (userId, user2Info, roomInfo) => {
+      if (roomInfo.checkedInterview === "1") {
+        socket.emit("recordingMemberId", roomInfo.memberId, ROOM_ID)
+      } else {
+        SetrecordingMemberId(user2Info.id)
+      }
       setRemotePeerIdValue(userId);
     });
 
     socket.on("getRoominfo", (roomInfo) => {
-      console.log(roomInfo);
+      if (interview === 0) {
+        Setinterview(roomInfo.checkedInterview)
+      }
       if (roomInfo.checkedInterview === "1") {
         SetCheckInterview(roomInfo.memberId === userInfo.id)
       } else {
         SetCheckInterview(roomInfo.memberId === userInfo.id)
       }
-
-      if (interview === 0) {
-        Setinterview(roomInfo.checkedInterview)
-      }
     })
 
+    socket.on("recordingId", (recordingId) => {
+      SetrecordingMemberId(recordingId)
+    })
 
     peer.on('call', (call) => {
       var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -81,8 +88,6 @@ function PeerOthersroom() {
 
     peerInstance.current = peer;
   }, [])
-
-
 
   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -136,8 +141,6 @@ function PeerOthersroom() {
 
   /*녹화, 질문 버튼 관련 함수 */
   const start = () => {
-    // let recordedChunks = [];
-
     // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
     let mediaRecorder = new MediaRecorder(remoteVideoRef.current.srcObject, {
       mimeType: 'video/webm; codecs=vp8'
@@ -158,6 +161,7 @@ function PeerOthersroom() {
 
 
   function finish() {
+
     mediaRecorder.onstop = function () {
       // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
       // 그렇지 않으면 메모리 누수 문제가 발생합니다.
@@ -186,9 +190,23 @@ function PeerOthersroom() {
       console.log("data:", data);
       console.log("recordFile:", recordFile);
 
+      console.log("recordingMemberId : ", recordingMemberId);
+
+      console.log("Questions[QuestionsIndex] : ", Questions[QuestionsIndex]);
+      
       uploadFile(recordFile, config)
-        .then(recordFile => console.log(recordFile))
+        .then(recordFile => {
+          api.post('/api/training/alone/recordingCreate', {
+            id: recordingMemberId,
+            title: (Questions[QuestionsIndex])[0],
+            recording_url: recordFile.location
+          })
+            .then(res => {
+              console.log(res.data);
+            })
+        })
         .catch(err => console.error(err))
+      console.log("recordFile.location", recordFile.location);
       recordedChunks.pop()
 
     };
@@ -277,7 +295,9 @@ function PeerOthersroom() {
 
           <div className="main-controls-button-leave-meeting" id="leave-meeting">
             <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
-            {openModal && <InterviewerEndModal closeModal={setOpenModal} />}
+            {interview === '1' && CheckInterview ? <div> {openModal && <VideoQuestionModal />} </div> : 
+            interview === '2' && CheckInterview ? <div> {openModal && <InterviewerEndModal closeModal={setOpenModal}  />}  </div>: 
+            interview === '1' ?  <div> {openModal && <InterviewerEndModal closeModal={setOpenModal}  />}  </div> : <div> {openModal && <VideoQuestionModal />} </div>}
           </div >
         </div>
       </div>
@@ -297,12 +317,13 @@ function PeerOthersroom() {
                 <div className="main-controls-block">
                   <div id='alone-questions' >{getQuestion()}</div>
                   <div
-                    className="training-alone-main-controls-button"
-                    id="startRecord"
-                  >
-                    <i className="fa fa-video-camera" size="lg" ></i>
-                    <span onClick={() => { start(); }}>Record</span>
-                  </div>
+                      className="training-alone-main-controls-button"
+                      id="startRecord"
+                      // getHide();
+                      onClick={() => {  start(); }}>
+                      <i className="fa fa-video-camera" size="lg" ></i>
+                      <span>Record</span>
+                    </div>
                   <div className="training-alone-main-controls-button" onClick={() => {
                     SetQuestionsIndex(QuestionsIndex + 1)
                     SetActionsIndex(ActionsIndex + 1)
@@ -323,10 +344,10 @@ function PeerOthersroom() {
                     <div
                       className="training-alone-main-controls-button"
                       id="startRecord"
-                    // onClick={() => { getHide(); }}>
-                    >
+                      //  getHide(); 
+                      onClick={() => {start(); }}>
                       <i className="fa fa-video-camera" size="lg" ></i>
-                      <span onClick={() => { start(); }}>Record</span>
+                      <span>Record</span>
                     </div>
                     <div className="training-alone-main-controls-button" onClick={() => {
                       SetQuestionsIndex(QuestionsIndex + 1)
