@@ -100,7 +100,7 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
         if(clicked===true) {
             const Token = sessionStorage.getItem('Authorization')
             const memberId = jwt(Token).id
-            socket.emit("createRoom", socket.id, roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview, memberId);
+            socket.emit("createRoom", roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview, memberId);
             handleClick()
         }
 // eslint-disable-next-line react-hooks/exhaustive-deps

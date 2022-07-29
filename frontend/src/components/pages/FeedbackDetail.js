@@ -96,10 +96,9 @@ function FeedbackDetail() {
         return firstNum + " " + secondNum
     }
 
-    const onClick = ()=>{
+    const FeedbackDelete = ()=>{
         SetopenFeedbackDeleteModal(true)
         SetClickMinus(-1);
-        console.log(ClickMinus);
     }
 
     return (
@@ -119,12 +118,12 @@ function FeedbackDetail() {
 
                                     <div className="feedbackdetail-video-btn">
 
-                                        {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
                                         {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
                                         {LikeStatus ? <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faHeartCircleCheck}  />     {FeedLikeCnt} </button> :  <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faHeartBroken} />     {FeedLikeCnt} </button>}
                                       
                                         {DetailFeedback.deletebotton ?
-                                        <button className="feedbackdetail-video-delete-btn"  onClick={onClick}>  <FontAwesomeIcon icon={faTrashCan}  /></button>: ""}
+                                        <button className="feedbackdetail-video-delete-btn"  onClick={() => FeedbackDelete()}>  <FontAwesomeIcon icon={faTrashCan} /></button>: ""}
+                                        {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
                                     </div>
 
                                         </div>                
