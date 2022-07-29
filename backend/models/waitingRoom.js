@@ -53,7 +53,7 @@ function addUser(idx, socketId, roomId, userId ) {
     room[idx]={socketId,roomId,userId};
 }
 
-function addRoomInfo(socketId, roomId,sendNum,roomName,checkedTitle,checkedValue,checkedInterview) {
+function addRoomInfo(socketId, roomId,sendNum,roomName,checkedTitle,checkedValue,checkedInterview,memberId) {
     count = 0
     for (var i = 0; i < roomInfo.length; i++) {
         if (roomInfo[i].socketId == socketId)
@@ -64,13 +64,14 @@ function addRoomInfo(socketId, roomId,sendNum,roomName,checkedTitle,checkedValue
 
     if (count == 0){
         roomInfo.push({
-            socketId : socketId,
-            roomId : roomId,
-            sendNum : sendNum,
-            roomName : roomName,
-            checkedTitle  : checkedTitle,
-            checkedValue  : checkedValue,
-            checkedInterview  : checkedInterview,
+            socketId,
+            roomId,
+            sendNum,
+            roomName,
+            checkedTitle,
+            checkedValue,
+            checkedInterview,
+            memberId
         })
     }
 }
