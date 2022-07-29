@@ -98,39 +98,27 @@ function FeedbackDetail() {
     return (
         <div>
         
-                <div className="feedbackdetail-container">
-                            
-                   <div className="feedbackdetail-left"> 
+            <div className="feedbackdetail-container">
+                <div className="feedbackdetail-left"> 
+                    <div class="feedbackdetail-video-grid-box" style={{zIndex: ClickMinus}}>
+                            <ReactPlayer  controls url={DetailFeedback.recordingUrl}  id= 'feedback-detail-video'/>
+                            <div className="feedbackdetail-title" >
+                                <span className="feedbackdetail-title-left">질문: {DetailFeedback.title} </span>
+                                <span className='feedbackdetail-title-right'> 작성자:{DetailFeedback.name}</span> 
+                            </div>
+                    </div>
 
-                                    <div class="feedbackdetail-video-grid-box" style={{zIndex: ClickMinus}}>
-                                        
-                                         <ReactPlayer  controls url={DetailFeedback.recordingUrl}  id= 'feedback-detail-video'/>
-
-                                         <div className="feedbackdetail-title" >
-                                            <span className="feedbackdetail-title-left">질문: {DetailFeedback.title} </span>
-                                            <span className='feedbackdetail-title-right'> 작성자:{DetailFeedback.name}</span> 
-                                                                  
-                                        </div>
-                                    </div>
-   
-                                    
-                                    
-
-
-                                    <div className="feedbackdetail-video-delete-btn-container">
-
-                                        <div className="feedbackdetail-video-btn">
-                
-                                            {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
-                                            {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
-                                            {LikeStatus ? "누른상태" : "안누른상태"}
-                                            <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}>좋아요  </button> ^_^ {FeedLikeCnt}
-                                            {DetailFeedback.deletebotton ?
-                                            <button className="feedbackdetail-video-delete-btn"  onClick={onClick}>삭제</button>: ""}
-                                        </div>
-
-                                    </div>
-                     </div>
+                    <div className="feedbackdetail-video-delete-btn-container">
+                        <div className="feedbackdetail-video-btn">
+                            {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
+                            {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
+                            {LikeStatus ? "누른상태" : "안누른상태"}
+                            <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}>좋아요  </button> ^_^ {FeedLikeCnt}
+                            {DetailFeedback.deletebotton ?
+                            <button className="feedbackdetail-video-delete-btn"  onClick={onClick}>삭제</button>: ""}
+                        </div>
+                    </div>
+                </div>
                     <div className='feedbackdetail-right'>
                         <div>
                             {DetailFeedback.replys}의 댓글
