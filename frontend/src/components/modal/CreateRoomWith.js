@@ -5,6 +5,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import jwt from 'jwt-decode'
 
 function CreateRoomWith({ closeModal , handleNewRoom}) {
 
@@ -84,7 +85,6 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
             console.log("asdfasdf"); 
         } else {
             sessionStorage.removeItem('QuestionList')
-            // window.location.replace("../page/training/Alone/" + SendNum)
             window.location.replace("/training/with/" + SendNum + "/" + roomId)
         }
     }
@@ -98,9 +98,9 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     
     useEffect(() => {
         if(clicked===true) {
-            // socket.emit("createRoom", socket.id, roomId, sendNum,roomName,checkedTitle,checkedValue, checkedInterview);
-            console.log("123123123 : ", roomName,checkedTitle,checkedValue, checkedInterview);
-            socket.emit("createRoom", socket.id, roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview);
+            const Token = sessionStorage.getItem('Authorization')
+            const memberId = jwt(Token).id
+            socket.emit("createRoom", socket.id, roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview, memberId);
             handleClick()
         }
 // eslint-disable-next-line react-hooks/exhaustive-deps

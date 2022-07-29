@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import InterviewerEndModal from "../modal/InterviewerEndModal"
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 import api from '../shared/api';
@@ -21,10 +21,14 @@ import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 // window.Buffer = window.Buffer || require("buffer").Buffer; 
 
 function PeerOthersroom() {
-  
-  // const Token = sessionStorage.getItem('Authorization')
-  // const userInfo = jwt(Token)
+  if ( !(!!sessionStorage.getItem('Authorization'))) {
+    sessionStorage.setItem('url', window.location.href)
+    window.location.href = '/login'
+  }
 
+  const Token = sessionStorage.getItem('Authorization')
+  const userInfo = jwt(Token)
+  
   const url = new URL(window.location.href).pathname.split('/')
   const ROOM_ID = url.slice(-1).pop()
   const remoteVideoRef = useRef(null);
@@ -32,36 +36,32 @@ function PeerOthersroom() {
   const peerInstance = useRef(null);
   const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
   const [interview, Setinterview] = useState(0);
-  let checked;
-  useEffect(() => {
+  const [CheckInterview, SetCheckInterview] = useState(false);
 
+  useEffect(() => {
     peer.on("open", (id) => {
       const sockId = socket.id
-      console.log(peer, socket)
       socket.emit("joinRoom", ROOM_ID, id, sockId);
+      console.log(id);
     });
 
     socket.on("user-connected", (userId) => {
-      console.log("remotePEer", userId)
-
-      setRemotePeerIdValue(userId);
+        setRemotePeerIdValue(userId);
       
     });
 
     socket.on("getRoominfo", (roomInfo) => {
-      
+      console.log(roomInfo);
+      if(roomInfo.checkedInterview === "1"){
+        SetCheckInterview(roomInfo.memberId === userInfo.id) 
+      }else{
+        SetCheckInterview(roomInfo.memberId === userInfo.id) 
+      }
+
       if (interview === 0){
-        // checked = roomInfo.checkedInterview
         Setinterview(roomInfo.checkedInterview)  
       }
-      //  else {
-      //   if (roomInfo.checkedInterview === '1') {
-      //     checked = '2'
-      //   } else {
-      //     checked = '1'
-      //   }
-      // }
-    })
+  })
 
 
     peer.on('call', (call) => {
@@ -99,6 +99,7 @@ function PeerOthersroom() {
 
     })
   })
+
   const copyToClipboard = () => {
     var inputc = document.body.appendChild(document.createElement("input"));
     inputc.value = window.location.href;
@@ -274,6 +275,7 @@ function PeerOthersroom() {
       <div className="navigation-bar-logo" onClick={()=> {goToHome()}}> TECHTERVIEW </div>
 
       <div className="training-navigation-right">
+        
         <div className="main-controls-button-share-icon" id="copy-link">
           <FontAwesomeIcon icon={faShareFromSquare}  onClick={() => { copyToClipboard(); }} />
         </div> 
@@ -295,51 +297,57 @@ function PeerOthersroom() {
     
     <div className="training-others-main-controls">
     
+      { interview === '1' && CheckInterview ? <div className="main-controls-block"><br/><br/><br/><br/></div> :  
+        interview === '2' && CheckInterview ? 
         <div className="main-controls-block">
-      {/* TrainingOthers에 있었던 질문 이사시킴 */}
-      <div id='alone-questions' >{getQuestion()}</div>
-      {/* { interview === checked  ? "면접자" : "면접관"} */}
-
+          <div id='alone-questions' >{getQuestion()}</div>
           <div
             className="training-alone-main-controls-button"
             id="startRecord"
-             onClick={() => {getHide();  }}>
-          <i className="fa fa-video-camera" size="lg" ></i>
-            <span onClick={() => { start(); }}>Record</span>
+            onClick={() => {getHide();  }}>
+              <i className="fa fa-video-camera" size="lg" ></i>
+              <span onClick={() => { start(); }}>Record</span>
           </div>
-          {/* <div className="training-others-main-controls-button">
-          <i className="fa fa-pause"></i>
-            <span onClick={() => { finish(); }}>Pause Record</span>
-          </div> */}
-          {/* <div className="training-others-main-controls-button">
-          <FontAwesomeIcon icon={faCloudArrowDown} />
-            <span >Download</span> */}
-            {/* <span onClick={() => { download(); }}>Download</span> 다운로드 함수 못찾아서 우선 주석처리*/}
-
-          {/* </div>
-          */}
           <div className="training-alone-main-controls-button" onClick={() => {
-                  SetQuestionsIndex(QuestionsIndex + 1)
-                  SetActionsIndex(ActionsIndex + 1)
-              }}>
+              SetQuestionsIndex(QuestionsIndex + 1)
+              SetActionsIndex(ActionsIndex + 1)
+            }}>
             <FontAwesomeIcon  id="faArrowAltIcon" icon={faArrowAltCircleRight} />
             Next
           </div>
           <div className="training-alone-main-controls-button"> 
-      <FontAwesomeIcon   id="faCommentDots" icon={faCommentDots} onClick={()=> {getShow()}} />
-      Instruction
-
-      </div>
-          <div className="ballon" id="ballon" style={{display: "none"}}> {getAction()} 
-          
+            <FontAwesomeIcon   id="faCommentDots" icon={faCommentDots} onClick={()=> {getShow()}} />
+            Instruction
           </div>
-
+          <div className="ballon" id="ballon" style={{display: "none"}}> {getAction()} </div>
+        </div> :
+        interview === '1' ?
+        <div className="main-controls-block">
+        <div id='alone-questions' >{getQuestion()}</div>
+        <div
+          className="training-alone-main-controls-button"
+          id="startRecord"
+          onClick={() => {getHide();  }}>
+            <i className="fa fa-video-camera" size="lg" ></i>
+            <span onClick={() => { start(); }}>Record</span>
         </div>
+        <div className="training-alone-main-controls-button" onClick={() => {
+            SetQuestionsIndex(QuestionsIndex + 1)
+            SetActionsIndex(ActionsIndex + 1)
+          }}>
+          <FontAwesomeIcon  id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+          Next
+        </div>
+        <div className="training-alone-main-controls-button"> 
+          <FontAwesomeIcon   id="faCommentDots" icon={faCommentDots} onClick={()=> {getShow()}} />
+          Instruction
+        </div>
+        <div className="ballon" id="ballon" style={{display: "none"}}> {getAction()} </div>
+      </div> : <div className="main-controls-block"><br/><br/><br/><br/></div> } 
 
-      </div >
-
-      </div >
-    </div>   
+          </div >
+        </div >
+      </div>   
     </div> 
   );
 

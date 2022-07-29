@@ -4,6 +4,7 @@ import api from "../shared/api";
 import Spinner from 'react-bootstrap/Spinner';
 
 const KakaoAuthHandle = () => {
+    const url = sessionStorage.getItem('url')
     let code = new URL(window.location.href).searchParams.get("code");
     useEffect(() => {
         async function getCode() {
@@ -12,7 +13,12 @@ const KakaoAuthHandle = () => {
                     const userInfo = jwt(res.data.accessToken)
                     sessionStorage.setItem("Authorization", res.data.accessToken);
                     sessionStorage.setItem("userName", userInfo.name);
-                    window.location.href = '/';
+                    if (url) {
+                        sessionStorage.removeItem('url')
+                        window.location.href = url;
+                    } else {
+                        window.location.href = '/';
+                    }
                 })
         }
         getCode();
@@ -20,13 +26,9 @@ const KakaoAuthHandle = () => {
 
     function BasicExample() {
         return (
-            <Spinner animation="border" role="status" style={{ width: "10rem", height: "10rem" }} className="loading-spinner">
-
-            </Spinner>
-
+            <Spinner animation="border" role="status" style={{ width: "10rem", height: "10rem" }} className="loading-spinner"></Spinner>
         );
     }
-
 
     return (
         <div className="auth-loader-wrapper">

@@ -6,7 +6,6 @@ import "./components/css/VideoDeleteModal.css"
 import "./components/css/CreateRoom.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 import Navbar from "./components/includes/Navbar"
 import Mainbody from "./components/pages/Main"
 import Feedback from "./components/pages/FeedbackMain"
@@ -19,6 +18,8 @@ import TrainingOthers from "./components/pages/TrainingOthers";
 import OthersLobby from "./components/pages/TrainingOthersLobby";
 import KakaoAuthHandle from "./components/pages/KakaoAuthHandle";
 import CreateRoomWith from "./components/modal/CreateRoomWith"
+
+
 class App extends Component {
   render() {
 
