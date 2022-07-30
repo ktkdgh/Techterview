@@ -10,7 +10,6 @@ recognition.interimResults = true;
 recognition.lang = "ko-KR";
 recognition.maxAlternatives = 10000;
 
-
 class Recognition extends PureComponent {
     state = {
         transcript: "",

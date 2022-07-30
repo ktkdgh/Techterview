@@ -14,6 +14,9 @@ module.exports = class Questions extends Sequelize.Model {
                 },
                 questions_url: {
                     type: Sequelize.STRING(200)
+                },
+                questions_keyword: {
+                    type: Sequelize.STRING(200)
                 }
             }, {
                 sequelize,

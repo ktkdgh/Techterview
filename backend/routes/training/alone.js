@@ -11,11 +11,16 @@ router.get('/questions/:subcategory', async (req, res) => {
 
         var questions = [];
         questionsDB.forEach((value) => {
-            questions.push([value.questions_name, value.questions_url])
+            // questions.push([value.questions_name, value.questions_url])
+            questions.push({
+                questions_name : value.questions_name,
+                questions_url: value.questions_url,
+                questions_keyword: value.questions_keyword
+            })
         })
 
         // res.send(shuffle(questions))
-        res.send(questions)
+        res.json(questions)
     } catch (err) {
         console.error(err);
         done(err);
