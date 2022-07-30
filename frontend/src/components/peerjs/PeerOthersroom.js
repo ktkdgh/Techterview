@@ -48,6 +48,10 @@ function PeerOthersroom() {
       socket.emit("joinRoom", ROOM_ID, id, sockId, userInfo);
     });
 
+    socket.on('sttSoket', (msg) => {
+      console.log('asdasd: ', msg);
+    });
+
     socket.on("user-connected", (userId, user2Info, roomInfo) => {
       if (roomInfo.checkedInterview === "1") {
         socket.emit("recordingMemberId", roomInfo.memberId, ROOM_ID)

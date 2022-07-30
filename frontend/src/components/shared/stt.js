@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { socket } from '../../lib/socket'
 let sound_detect_check = false;
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -33,8 +34,9 @@ class Recognition extends PureComponent {
             //   startTime: this.state.start_time,
             };
             console.log(this.state.transcript)
-            this.state.message.push(this.state.transcript)
-            console.log(this.state.message);
+            socket.emit('sttSoket', this.state.transcript);
+            // this.state.message.push(this.state.transcript)
+            // console.log(this.state.message);
 
             // this.props.parentFunction(sttData);
         }
