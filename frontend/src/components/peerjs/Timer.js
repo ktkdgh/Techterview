@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import "./Timer.css";
+import "../css/Timer";
 
 const renderTime = ({ remainingTime }) => {
   if (remainingTime === 0) {
