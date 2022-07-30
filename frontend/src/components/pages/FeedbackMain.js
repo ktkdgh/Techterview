@@ -34,12 +34,13 @@ function Feedback() {
     }
 
     const getCategoryFeed = async (path) => {
-        await api.get(`/api/feedback/category${path}`)
-            .then(res => {
-                console.log(123123);
-                SetMainLengthCheck((res.data).length)
-                SetFeedArray(res.data)
-            })
+        if (!!path.split('/')[2]) {
+            await api.get(`/api/feedback/category${path}`)
+                .then(res => {
+                    SetMainLengthCheck((res.data).length)
+                    SetFeedArray(res.data)
+                })
+        }
     }
 
     return (

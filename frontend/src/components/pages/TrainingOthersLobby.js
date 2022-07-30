@@ -60,9 +60,9 @@ function OthersLobby() {
                         <div id="interview-room-body" className="interview-room-body">
                             {roomInfo.length !== 0  ? 
                             <div className="interview-room-container-box">
-                                { roomInfo.map((room) => {
+                                { roomInfo.map((room, idx) => {
                                     return(
-                                        <div className="interview-room" onClick={()=> handleClick(room.sendNum, room.roomId)} >
+                                        <div className="interview-room" onClick={()=> handleClick(room.sendNum, room.roomId)} key={idx}>
                                             <div className="interview-room-name" >{room.roomName}</div>
                                             <div className="category-people-count-container">
                                                 <div className="interview-room-category-container">
