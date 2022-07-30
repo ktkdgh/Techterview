@@ -111,9 +111,9 @@ function MyVideo() {
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
                                         return (
-                                            <tr className="my-video-row">
+                                            <tr className="my-video-row" key={idx}>
                                                 <td> {idx + 1} </td>
-                                                <a href={`/feedback/detail/${value.id}`}><td> {value.feedback_title} </td></a>
+                                                <td><a href={`/feedback/detail/${value.id}`}> {value.feedback_title} </a> </td>
                                                 <td> {value.user_name} </td>
                                                 <td> {value.like_cnt} </td>
                                                 <td> {value.reply_cnt} </td>
@@ -125,7 +125,7 @@ function MyVideo() {
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
                                         return (
-                                            <tr className="my-video-recent" >
+                                            <tr className="my-video-recent" key={idx}>
                                                 <td> <input
                                                     key={value.id}
                                                     type="checkbox"

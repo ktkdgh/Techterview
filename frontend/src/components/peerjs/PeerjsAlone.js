@@ -237,11 +237,11 @@ function PeerjsAlone() {
             </div>
             <div className="video-user2" id="video-user2"><video style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
           </div>
-          <div class="training-alone-main-controls">
-            <div class="main-controls-block">
+          <div className="training-alone-main-controls">
+            <div className="main-controls-block">
               <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
 
-              <div id="training-alone-main-controls-button" class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
+              <div id="training-alone-main-controls-button" className="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
                 audio.play()
                 SetQuestionsIndex(QuestionsIndex + 1)
                 SetAudioIndex(AudioIndex + 1)
