@@ -88,21 +88,21 @@ function CreateRoomAlone({ closeModal }) {
 
     return (
         <div className="Create-delete-modal">
-            <div className="Create-delete-modal-content">
+            <div className="Create-delete-modal-content" style={{position:"relative", textAlign:"center"}}>
                 <div className="Create-delete-modal-body">
                     <h2>어떤 면접을 준비해 볼까요?</h2><br/>
                 </div>
                     <h6 style={{margin: 20}}>아래 4가지의 카테고리 중 하나를 선택해보세요!</h6>
-                <div className="CreateRoomAlone-Check" style={{}}>
-                    <div>
-                        <Tabs  style={{ width: 520  }}
+                <div className="CreateRoomAlone-Check" >
+                    <div style={{paddingBottom: "10"}}>
+                        <Tabs  style={{ width: 520, borderBottom:"none"  }}
                             defaultActiveKey="profile"
                             id="fill-tab-example"
                             className="mb-3"
                             fill
                         >
                             <Tab eventKey="CS" title="CS">
-                            <br/><br/>
+                            {/* <br/><br/> */}
                                 <ButtonGroup>
                                     {Options.map((radio, idx) => (
                                         <ToggleButton
@@ -118,9 +118,11 @@ function CreateRoomAlone({ closeModal }) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+                                <div style={{borderBottom: "1px solid #dee2e6" , marginTop:"3rem" }}></div>
+
                             </Tab>
                             <Tab eventKey="Language" title="Language">
-                            <br/><br/>
+                            {/* <br/><br/> */}
                                 <ButtonGroup>
                                     {Options1.map((radio, idx) => (
                                         <ToggleButton
@@ -136,9 +138,10 @@ function CreateRoomAlone({ closeModal }) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+                                <div style={{borderBottom: "1px solid #dee2e6" , marginTop:"3rem" }}></div>
+
                             </Tab>
                             <Tab eventKey="Basic" title="Basic">
-                            <br/><br/>
                                 <ButtonGroup>
                                     {Options2.map((radio, idx) => (
                                         <ToggleButton
@@ -154,9 +157,10 @@ function CreateRoomAlone({ closeModal }) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+                                <div style={{borderBottom: "1px solid #dee2e6" , marginTop:"3rem" }}></div>
+       
                             </Tab>
                             <Tab eventKey="Position" title="Position" >
-                            <br/><br/>
                                 <ButtonGroup>
                                     {Options3.map((radio, idx) => (
                                         <ToggleButton
@@ -172,13 +176,14 @@ function CreateRoomAlone({ closeModal }) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+                                <div style={{borderBottom: "1px solid #dee2e6" , marginTop:"3rem" }}></div>
                             </Tab>
                         </Tabs>
                         
                     </div>
                     {Mandatoryselect ? Mandatoryselect: ""}
-                    <div className="create-delete-modal-footer">
-                        <button className="go-interview-btn" onClick={handleClick}>면접하러 가기</button>
+                    <div className="create-delete-modal-footer" style={{position:"absolute",  top: "69%",left: "25%"}}>
+                        <button className="go-interview-btn" onClick={handleClick}  >면접하러 가기</button>
                         <button className="next-time-interview-btn" onClick={() => closeModal(false)}>다음에 할래요</button>
                     </div>
                 </div >

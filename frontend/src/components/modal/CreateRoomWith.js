@@ -124,21 +124,29 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     
     return (
         <div className="Create-delete-modal">
-            <div className="Create-delete-modal-content">
+            <div className="Create-delete-modal-content"  style={{position:"relative", textAlign:"center"}}>
             <div className="Create-delete-modal-body">
                     <h2>어떤 면접을 준비해 볼까요?</h2><br/>
                 </div>
+                    <div className="create-room-header" style={{display: "flex", justifyContent: "center", verticalAlign:"middle"}}> 
+                        <div style={{paddingTop:"0.5rem"}}><input id="input-room-name" placeholder="방제목을 입력해주세요!!" name="roomname" onChange={onChangeInput0} style={{height: "2rem"}}/></div>
+
+                        <div className="interview-checkbox" style={{width: "12rem",paddingBottom:"1rem"}}>
+                            <div  ><input  type="checkbox" name="test" value="1" onChange={(e) => checkOnlyOne(e.target)} />  면접자 </div>
+                            <div > <input  type="checkbox" name="test" value="2" onChange={(e) => checkOnlyOne(e.target)} /> 면접관 </div>
+                        </div>
+                    </div>
                     <h6 style={{margin: 20}}>아래 4가지의 카테고리 중 하나를 선택해보세요!</h6>
-                    <input id="input-room-name" placeholder="방제목을 입력해주세요!!" name="roomname" onChange={onChangeInput0 }></input>
+                    {Mandatoryselect ? Mandatoryselect: ""}
+
                     <div>
-                        <Tabs  style={{ width: 520  }}
+                        <Tabs   style={{ width: 520, borderBottom:"none"  }}
                             defaultActiveKey="profile"
                             id="fill-tab-example"
                             className="mb-3"
                             fill
                         >
                             <Tab eventKey="CS" title="CS" onClick={()=> setcheckedTitle("CS")}>
-                            <br/><br/>
                                 <ButtonGroup>
                                     {Options.map((radio, idx) => (
                                         <ToggleButton
@@ -154,9 +162,10 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+                                <div style={{borderBottom: "1px solid #dee2e6" , marginTop:"3rem" }}></div>
+
                             </Tab>
                             <Tab eventKey="Language" title="Language" onClick={()=> setcheckedTitle("Language")}>
-                            <br/><br/>
                                 <ButtonGroup>
                                     {Options1.map((radio, idx) => (
                                         <ToggleButton
@@ -172,9 +181,10 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+                                <div style={{borderBottom: "1px solid #dee2e6" , marginTop:"3rem" }}></div>
+
                             </Tab>
                             <Tab eventKey="Basic" title="Basic" onClick={()=> setcheckedTitle("Basic")}>
-                            <br/><br/>
                                 <ButtonGroup>
                                     {Options2.map((radio, idx) => (
                                         <ToggleButton
@@ -190,9 +200,9 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+                                <div style={{borderBottom: "1px solid #dee2e6" , marginTop:"3rem" }}></div>
                             </Tab>
                             <Tab eventKey="Position" title="Position" onClick={()=> setcheckedTitle("Position")}>
-                            <br/><br/>
                                 <ButtonGroup>
                                     {Options3.map((radio, idx) => (
                                         <ToggleButton
@@ -208,18 +218,15 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
+                                <div style={{borderBottom: "1px solid #dee2e6" , marginTop:"3rem" }}></div>
                             </Tab>
                         </Tabs>
                     </div>
-                    <div className="interview-checkbox">
-                        <input type="checkbox" name="test" value="1" onChange={(e) => checkOnlyOne(e.target)} /> 면접자
-                        <input  type="checkbox" name="test" value="2" onChange={(e) => checkOnlyOne(e.target)} /> 면접관
-                    </div>
+
                     <div>
                         {/* <input type="checkbox" onClick={()=> setSecret(1)} /> 비밀방 */}
                     </div>
-                    {Mandatoryselect ? Mandatoryselect: ""}
-                    <div className="create-delete-modal-footer">
+                    <div className="create-delete-modal-footer" style={{position:"absolute",  top: "65%",left: "25%"}}>
                         <button className="go-interview-btn" onClick={()=> { checkclicked(true)}}>면접하러 가기</button>
                         <button className="next-time-interview-btn" onClick={() => closeModal(false)}>다음에 할래요</button>
                     </div>
