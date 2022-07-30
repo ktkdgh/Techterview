@@ -15,7 +15,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function PeerjsAlone() {
   const Token = sessionStorage.getItem('Authorization')
-  const QuestionList = sessionStorage.getItem('QuestionList')
+  const QuestionList = JSON.parse(sessionStorage.getItem('QuestionList'))
   const userInfo = jwt(Token)
 
   const currentUserVideoRef = useRef(null); //recordRef
@@ -33,18 +33,7 @@ function PeerjsAlone() {
   useEffect(() => {
     async function getQuestions() {
       if (key == 15) {
-        const QuestionArray = QuestionList.split(',')
-        let AloneQuestion = []
-        let QuestionName = "";
-        for (let i = 0; i < QuestionArray.length; i++) {
-          if (!(i % 2)) {
-            QuestionName = QuestionArray[i]
-          } else if (QuestionName) {
-            AloneQuestion.push([QuestionName, QuestionArray[i]])
-            QuestionName = ""
-          }
-        }
-        SetQuestions(AloneQuestion)
+        SetQuestions(QuestionList)
       } else {
         await api.get(`/api/training/alone/questions/${key}`)
           .then(res => {
@@ -60,7 +49,7 @@ function PeerjsAlone() {
       if (QuestionsIndex !== -1) {
         const q = Questions[QuestionsIndex];
         if (q && q.length !== 0) {
-          return q[0];
+          return q.questions_name;
         }
       }
     }
@@ -73,7 +62,7 @@ function PeerjsAlone() {
       if (QuestionsIndex !== -1) {
         const q = Questions[AudioIndex];
         if (q && q.length !== 0) {
-          return q[1];
+          return q.questions_url;
         }
       }
     }
@@ -166,7 +155,7 @@ function PeerjsAlone() {
         .then(recordFile => {
           api.post('/api/training/alone/recordingCreate', {
             id: userInfo.id,
-            title: (Questions[QuestionsIndex])[0],
+            title: (Questions[QuestionsIndex]).questions_name,
             recording_url: recordFile.location
           })
             .then(res => {

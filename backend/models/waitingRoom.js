@@ -60,8 +60,7 @@ function deleteUser(socketId) {
     if (userNum ===0) {
         for (var i = 0; i < roomInfo.length+1; i++){
             if (roomInfo[i]?.roomId === roomId){
-                roomInfo[i] = null
-                
+                roomInfo.splice(i, 1);
             }
     
         }

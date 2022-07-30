@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -79,7 +79,6 @@ function CreateRoomAlone({ closeModal }) {
     function handleClick() {
         if (!SendNum) {
             setMandatoryselect("카테고리는 필수선택 사항입니다!!")
-            console.log("asdfasdf"); 
         } else {
             sessionStorage.removeItem('QuestionList')
             window.location.replace("../page/training/Alone/" + SendNum)
@@ -178,7 +177,7 @@ function CreateRoomAlone({ closeModal }) {
                     </div>
                     {Mandatoryselect ? Mandatoryselect: ""}
                     <div className="create-delete-modal-footer">
-                        <button className="go-interview-btn" onClick={handleClick}>면접하러 가기</button>
+                        <button className="go-interview-btn" onClick={()=> handleClick()}>면접하러 가기</button>
                         <button className="next-time-interview-btn" onClick={() => closeModal(false)}>다음에 할래요</button>
                     </div>
                 </div >

@@ -1,10 +1,10 @@
-import React, { Component, useState,useEffect } from 'react';
-import QuestionMenuNavBar from '../includes/QuestionListMenubar';
+import React, { useState, useEffect } from 'react';
 import CreateRoomWith from '../modal/CreateRoomWith';
 import "../css/TrainingOthersLobby.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faWindowClose } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import {socket} from '../../lib/socket'
+
 function OthersLobby() {
     const [openModal, setOpenModal] = useState(false);
     const [roomInfo, setRoomInfo] = useState([]);
@@ -58,9 +58,9 @@ function OthersLobby() {
 
                         {!openModal &&
                         <div id="interview-room-body" className="interview-room-body">
-                            {roomInfo.length != 0  ? 
+                            {roomInfo.length !== 0  ? 
                             <div className="interview-room-container-box">
-                                { roomInfo.map((room) => {if (room ){
+                                { roomInfo.map((room) => {
                                     return(
                                         <div className="interview-room" onClick={()=> handleClick(room.sendNum, room.roomId)} >
                                             <div className="interview-room-name" >{room.roomName}</div>
@@ -73,7 +73,7 @@ function OthersLobby() {
                                                         <div className="interview-room-category1">{room?.checkedValue}</div>
                                                     </div>
                                                         <div className='interview-room-category'>
-                                                            <div className="interview-room-category2">{room.checkedInterview == 1 ? "면접관 필요!": "면접자 필요!"}</div>
+                                                            <div className="interview-room-category2">{room.checkedInterview === '1' ? "면접관 필요!": "면접자 필요!"}</div>
                                                         </div>
                                                 </div>
                                                 <div className='room-people-count'>
@@ -82,7 +82,7 @@ function OthersLobby() {
                                                 </div>
                                             </div>    
                                         </div>
-                                    );}
+                                    );
                                 })}
                             </div> : "없어요"}
                         </div> 

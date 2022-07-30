@@ -199,7 +199,7 @@ function PeerOthersroom() {
         .then(recordFile => {
           api.post('/api/training/alone/recordingCreate', {
             id: recordingMemberId,
-            title: (Questions[QuestionsIndex])[0],
+            title: (Questions[QuestionsIndex]).questions_name,
             recording_url: recordFile.location
           })
             .then(res => {
@@ -244,7 +244,7 @@ function PeerOthersroom() {
       if (QuestionsIndex !== -1) {
         const q = Questions[QuestionsIndex];
         if (q && q.length !== 0) {
-          return q[0];
+          return q.questions_name;
         }
       }
     }
