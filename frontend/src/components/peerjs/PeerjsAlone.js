@@ -10,8 +10,10 @@ import VideoQuestionModal from "../modal/VideoQuestionModal"
 import { useParams } from 'react-router-dom';
 import { uploadFile } from 'react-s3';
 import api from "../shared/api";
-import { Text, View, StyleSheet, Button } from 'react-native';
+// import { Text, View, StyleSheet, Button } from 'react-native';
 import Timer from './Timer'
+import reactCountdownCircleTimer from 'https://cdn.skypack.dev/react-countdown-circle-timer';
+
 // import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -183,6 +185,8 @@ function PeerjsAlone() {
     window.location.replace(`/`)
   }
 
+  
+
   return (
     <div>
       <div className='training-alone-start-modal' id='training-alone-start-modal' style={{ zIndex: "1" }}>
@@ -222,6 +226,14 @@ function PeerjsAlone() {
           <div id="alone-video-container" >
             <div className="video-user1" id="video-user1" style={{ display: "none" }}>
               <Timer></Timer>
+              {/* <reactCountdownCircleTimer
+                isPlaying
+                duration={10}
+                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                colorsTime={[10, 6, 3, 0]}
+              > */}
+                {/* {renderTime} */}
+        {/* </reactCountdownCircleTimer> */}
             </div>
             <div className="video-user2" id="video-user2"><video style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
           </div>
