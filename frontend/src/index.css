@@ -407,6 +407,21 @@ img.login-photo {
   src: url("../assets/fonts/NotoSansKR-Light.otf");
 }
 
+@font-face {
+  font-family: "DohyeonLight";
+  src: url("../assets/fonts/NotoSansKR-Light.otf");
+}
+
+@font-face {
+  font-family: "PretendardMedium";
+  src: url("../assets/fonts/Pretendard-Medium.otf");
+}
+
+@font-face {
+  font-family: "PretendardRegular";
+  src: url("../assets/fonts/Pretendard-Regular.otf");
+}
+
 .big_wrapper {
   min-height: 100vh;
   box-sizing: border-box;
