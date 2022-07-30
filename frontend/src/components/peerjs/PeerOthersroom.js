@@ -327,6 +327,9 @@ function PeerOthersroom() {
                     SetQuestionsIndex(QuestionsIndex + 1)
                     SetActionsIndex(ActionsIndex + 1)
                     finish();
+                    setTimeout(() => {
+                      start();
+                    }, 500);
                   }}>
                     <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
                     Next
@@ -351,6 +354,9 @@ function PeerOthersroom() {
                       SetQuestionsIndex(QuestionsIndex + 1)
                       SetActionsIndex(ActionsIndex + 1)
                       finish();
+                      setTimeout(() => {
+                        start();
+                      }, 500);
                     }}>
                       <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
                       Next
