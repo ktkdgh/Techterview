@@ -35,7 +35,7 @@ class Recognition extends PureComponent {
             //   startTime: this.state.start_time,
             };
             console.log(this.state.transcript)
-            socket.emit('woosik', this.state.transcript);
+            socket.emit('sttSoket', this.state.transcript);
             // this.state.message.push(this.state.transcript)
             // console.log(this.state.message);
 

@@ -46,27 +46,13 @@ io.on("connection", (socket) => {
     console.log(`SOCKET EVENT::::::${e}`);
   });
   // Connection
-
-  socket.on('woosik', (msg) => {
-    let rooms = socket.rooms;
-    let realRoom;
-    for (const room of rooms) {
-      if (room !== socket.id) {
-        realRoom = room;
-      }
-    }
-    socket.to(realRoom).emit("woosik", msg);
-    console.log('woosikroom :::: ', realRoom);
-    console.log('woosik  :::: ', msg);
-  });
-  
   SocketRoutes.video.createRoom(socket, SocketRoutes.video.event.createRoom);
   SocketRoutes.video.enterWaitRoom(socket, SocketRoutes.video.event.enterWaitRoom);
   SocketRoutes.video.checkUserNum(socket, SocketRoutes.video.event.checkUserNum);
   SocketRoutes.video.recordingMemberId(socket, SocketRoutes.video.event.recordingMemberId);
   SocketRoutes.video.disconnecting(socket, SocketRoutes.video.event.disconnecting);
   SocketRoutes.video.joinRoom(socket, SocketRoutes.video.event.joinRoom);
-
+  SocketRoutes.video.sttSoket(socket, SocketRoutes.video.event.sttSoket);
   })
 
 server.listen(PORTNUM, () => {

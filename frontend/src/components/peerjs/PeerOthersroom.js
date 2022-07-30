@@ -48,7 +48,7 @@ function PeerOthersroom() {
       socket.emit("joinRoom", ROOM_ID, id, sockId, userInfo);
     });
 
-    socket.on('woosik', (msg) => {
+    socket.on('sttSoket', (msg) => {
       console.log('asdasd: ', msg);
     });
 
