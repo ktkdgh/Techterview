@@ -17,6 +17,7 @@ import { uploadFile } from 'react-s3';
 import jwt from 'jwt-decode'
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from '../modal/VideoQuestionModal';
+import Recognition from '../shared/stt'
 
 //함께하기에서는 버퍼 문제가 없는듯
 // window.Buffer = window.Buffer || require("buffer").Buffer; 
@@ -312,7 +313,7 @@ function PeerOthersroom() {
 
           <div className="training-others-main-controls">
 
-            {interview === '1' && CheckInterview ? <div className="main-controls-block"><br /><br /><br /><br /></div> :
+            {interview === '1' && CheckInterview ? <div className="main-controls-block"><br /><Recognition/><br /><br /><br /></div> :
               interview === '2' && CheckInterview ?
                 <div className="main-controls-block">
                   <div id='alone-questions' >{getQuestion()}</div>
@@ -366,7 +367,7 @@ function PeerOthersroom() {
                       Instruction
                     </div>
                     <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
-                  </div> : <div className="main-controls-block"><br /><br /><br /><br /></div>}
+                  </div> : <div className="main-controls-block"><br /><Recognition/><br /><br /><br /></div>}
 
           </div >
         </div >
