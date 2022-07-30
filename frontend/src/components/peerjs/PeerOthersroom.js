@@ -50,6 +50,7 @@ function PeerOthersroom() {
 
     socket.on('sttSoket', (msg) => {
       console.log('asdasd: ', msg);
+      console.log("keywords : ", keywords);
     });
 
     socket.on("user-connected", (userId, user2Info, roomInfo) => {
@@ -65,11 +66,7 @@ function PeerOthersroom() {
       if (interview === 0) {
         Setinterview(roomInfo.checkedInterview)
       }
-      if (roomInfo.checkedInterview === "1") {
-        SetCheckInterview(roomInfo.memberId === userInfo.id)
-      } else {
-        SetCheckInterview(roomInfo.memberId === userInfo.id)
-      }
+      SetCheckInterview(roomInfo.memberId === userInfo.id)
     })
 
     socket.on("recordingId", (recordingId) => {
@@ -97,16 +94,12 @@ function PeerOthersroom() {
   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
   getUserMedia({ video: true, audio: true }, (mediaStream) => {
-
     currentUserVideoRef.current.srcObject = mediaStream;
     currentUserVideoRef.current.play();
-
     const call = peerInstance.current.call(remotePeerIdValue, mediaStream)
-
     call.on('stream', (remoteStream) => {
       remoteVideoRef.current.srcObject = remoteStream
       remoteVideoRef.current.play();
-
     })
   })
 
@@ -128,11 +121,6 @@ function PeerOthersroom() {
   // let mediaRecorder = null;
   let recordedMediaURL = null;
   const [recordedChunks, setRecordedChunks] = useState([]);
-
-  const mediaStream = navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true
-  });
 
   /* 화면 노출 */
   const call = () => {
@@ -218,19 +206,23 @@ function PeerOthersroom() {
     mediaRecorder.stop();
   }
 
-
   const { key } = useParams();
   let data = [];
   const [Questions, SetQuestions] = useState([]);
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
   const [Actions, SetActions] = useState([]);
   const [ActionsIndex, SetActionsIndex] = useState(0);
+  const [keywords, SetKeywords] = useState([]);
 
   useEffect(() => {
     async function getQuestions() {
-      const data = await api.get(`/api/training/alone/questions/${key}`)
+      await api.get(`/api/training/alone/questions/${key}`)
         .then(res => {
           SetQuestions(res.data);
+
+          for (let value of res.data) {
+            SetKeywords(keywords => [...keywords, value.questions_keyword])
+          }
         });
     } getQuestions();
 
