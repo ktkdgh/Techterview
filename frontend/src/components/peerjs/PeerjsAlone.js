@@ -10,10 +10,17 @@ import VideoQuestionModal from "../modal/VideoQuestionModal"
 import { useParams } from 'react-router-dom';
 import { uploadFile } from 'react-s3';
 import api from "../shared/api";
-
+import { Text, View, StyleSheet, Button } from 'react-native';
+import Timer from './Timer'
+// import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function PeerjsAlone() {
+
+  const [isPlaying, setIsPlaying] = React.useState(true)
+
+
+
   const Token = sessionStorage.getItem('Authorization')
   const QuestionList = JSON.parse(sessionStorage.getItem('QuestionList'))
   const userInfo = jwt(Token)
@@ -178,7 +185,7 @@ function PeerjsAlone() {
 
   return (
     <div>
-      <div className='training-alone-start-modal' id='training-alone-start-modal' >
+      <div className='training-alone-start-modal' id='training-alone-start-modal' style={{ zIndex: "1" }}>
         <div className='training-alone-start-modal-content'>
           <div className='training-alone-start-modal-body'>
             시작 버튼을 클릭하시면 면접이 시작됩니다.<br></br>
@@ -197,25 +204,26 @@ function PeerjsAlone() {
       </div >
 
 
-      <div className="training-navigation-bar" >
+
+
+      <div id="alone-wrapper" >
+        
+        <div className="alone-video-controls-button-container ">
+        <div className="training-navigation-bar" >
         <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
 
         <div className="training-navigation-right">
           <div className="main-controls-button-leave-meeting" id="leave-meeting">
-            <button className="video-end-btn" onClick={() => { setOpenModal(true) }}>End</button>
+            <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
             {openModal && <VideoQuestionModal />}
           </div >
         </div>
       </div>
-
-
-      <div id="alone-wrapper">
-        <div className="alone-video-controls-button-container ">
           <div id="alone-video-container" >
-            <div className="video-user1" id="video-user1" style={{ display: "none", zIndex: "-1" }}>
-              <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video>
+            <div className="video-user1" id="video-user1" style={{ display: "none" }}>
+              <Timer></Timer>
             </div>
-            <div className="video-user2" style={{ zIndex: "-1" }}><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
+            <div className="video-user2" id="video-user2"><video style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
           </div>
           <div class="training-alone-main-controls">
             <div class="main-controls-block">
@@ -231,7 +239,7 @@ function PeerjsAlone() {
                 }, 500);
               }}>
                 <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                Next
+                {/* Next */}
               </div>
             </div>
           </div>
@@ -245,6 +253,12 @@ function getHide() {
   document.getElementById("training-alone-start-modal").style.display = "none"
 
 }
+function hideVideoTimer(){
+  document.getElementById("video-user1").style.display = "none"
+  document.getElementById("video-user2").style.display = "none"
+
+}
+
 function getShow() {
   document.getElementById("video-user1").style.display = ""
   document.getElementById("alone-questions").style.display = ""

@@ -280,6 +280,8 @@ function PeerOthersroom() {
   return (
 
     <div className="training-others-main-body">
+      
+      <div className="training-others-inner-box" >
       <div className="training-navigation-bar" >
         <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
 
@@ -290,20 +292,19 @@ function PeerOthersroom() {
           </div>
 
           <div className="main-controls-button-leave-meeting" id="leave-meeting">
-            <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+            <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
             {interview === '1' && CheckInterview ? <div> {openModal && <VideoQuestionModal />} </div> : 
             interview === '2' && CheckInterview ? <div> {openModal && <InterviewerEndModal closeModal={setOpenModal}  />}  </div>: 
             interview === '1' ?  <div> {openModal && <InterviewerEndModal closeModal={setOpenModal}  />}  </div> : <div> {openModal && <VideoQuestionModal />} </div>}
           </div >
         </div>
       </div>
-      <div className="training-others-inner-box" >
+
+
         <div className="video-controls-button-container">
           <div id="video-container">
-            <div className="video-user1" style={{ zIndex: "-1" }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
-            <div className="video-user2" style={{ zIndex: "-1" }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
-          </div>
-          <div className="training-others-main-controls-share-button" >
+            <div className="video-user1"  id="video-user1" style={{ zIndex: 0 }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
+            <div className="video-user2" id="video-user2" style={{ zIndex: 0 }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
           </div>
 
           <div className="training-others-main-controls">
@@ -317,7 +318,7 @@ function PeerOthersroom() {
                       id="startRecord"
                       onClick={() => {  start(); getHide(); }}>
                       <i className="fa fa-video-camera" size="lg" ></i>
-                      <span>Record</span>
+                      <span></span>
                     </div>
                   <div className="training-alone-main-controls-button" onClick={() => {
                     SetQuestionsIndex(QuestionsIndex + 1)
@@ -328,23 +329,22 @@ function PeerOthersroom() {
                     }, 500);
                   }}>
                     <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                    Next
+                    
                   </div>
                   <div className="training-alone-main-controls-button">
                     <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
-                    Instruction
                   </div>
                   <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
                 </div> :
                 interview === '1' ?
-                  <div className="main-controls-block">
+                  <div className="main-controls-block" >
                     <div id='alone-questions' >{getQuestion()}</div>
                     <div
                       className="training-alone-main-controls-button"
-                      id="startRecord"
+                      id="startRecord" 
                       onClick={() => {start(); getHide(); }}>
                       <i className="fa fa-video-camera" size="lg" ></i>
-                      <span>Record</span>
+                      <span></span>
                     </div>
                     <div className="training-alone-main-controls-button" onClick={() => {
                       SetQuestionsIndex(QuestionsIndex + 1)
@@ -355,14 +355,13 @@ function PeerOthersroom() {
                       }, 500);
                     }}>
                       <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                      Next
+                      
                     </div>
-                    <div className="training-alone-main-controls-button">
+                    <div className="training-alone-main-controls-button" >
                       <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
-                      Instruction
                     </div>
                     <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
-                  </div> : <div className="main-controls-block"><br /><br /><br /><Recognition/><br /></div>}
+                  </div> : <div className="main-controls-block" id="main-controls-interviewee"><Recognition/></div>}
 
           </div >
         </div >
@@ -378,6 +377,11 @@ function PeerOthersroom() {
     document.getElementById("ballon").style.display = ""
   }
 
+  function hideVideoTimer(){
+    document.getElementById("video-user1").style.display = "none"
+    document.getElementById("video-user2").style.display = "none"
+  
+  }
 }
 
 export default PeerOthersroom;
