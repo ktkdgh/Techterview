@@ -367,7 +367,7 @@ function PeerOthersroom() {
                       Instruction
                     </div>
                     <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
-                  </div> : <div className="main-controls-block"><br /><Recognition/><br /><br /><br /></div>}
+                  </div> : <div className="main-controls-block"><br /><br /><br /><Recognition/><br /></div>}
 
           </div >
         </div >

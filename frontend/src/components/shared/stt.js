@@ -34,8 +34,8 @@ class Recognition extends PureComponent {
             //   startTime: this.state.start_time,
             };
             console.log(this.state.transcript)
-            // this.state.message.push(this.state.transcript)
-            // console.log(this.state.message);
+            this.state.message.push(this.state.transcript)
+            console.log(this.state.message);
 
             // this.props.parentFunction(sttData);
         }

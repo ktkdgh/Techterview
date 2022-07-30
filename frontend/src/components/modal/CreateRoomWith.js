@@ -80,13 +80,8 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     const [Mandatoryselect, setMandatoryselect] = useState("");
 
     function handleClick() {
-        if (!SendNum) {
-            setMandatoryselect("카테고리는 필수선택 사항입니다!!")
-            console.log("asdfasdf"); 
-        } else {
-            sessionStorage.removeItem('QuestionList')
-            window.location.replace("/training/with/" + SendNum + "/" + roomId)
-        }
+        sessionStorage.removeItem('QuestionList')
+        window.location.replace("/training/with/" + SendNum + "/" + roomId)
     }
     
     const [roomName, setRoomName] = useState('');
@@ -98,10 +93,23 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     
     useEffect(() => {
         if(clicked===true) {
+            if (!!!document.getElementById('input-room-name').value) {
+                setMandatoryselect("방제목을 입력해주세요!!")
+                checkclicked(false);
+                return
+            } else if (!SendNum ) {
+                setMandatoryselect("카테고리는 필수선택 사항입니다!!")
+                checkclicked(false);
+                return
+            } else if (!checkedInterview) {
+                setMandatoryselect("면접자, 면접관을 선택해주세요!!")
+                checkclicked(false);
+                return
+            } 
             const Token = sessionStorage.getItem('Authorization')
             const memberId = jwt(Token).id
             socket.emit("createRoom", roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview, memberId);
-            handleClick()
+            handleClick();
         }
 // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [clicked]);
@@ -113,7 +121,11 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
     // const [secret, setSecret] = useState(0);
 
     const checkOnlyOne = (checkThis) => {
-        setCheckedInterview(checkThis.value)
+        if (!checkThis.checked) { 
+            setCheckedInterview(0) 
+        } else {
+            setCheckedInterview(checkThis.value)
+        } 
         const checkboxes = document.getElementsByName('test')
         for (let i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i] !== checkThis) {
@@ -213,7 +225,7 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                     </div>
                     <div className="interview-checkbox">
                         <input type="checkbox" name="test" value="1" onChange={(e) => checkOnlyOne(e.target)} /> 면접자
-                        <input  type="checkbox" name="test" value="2" onChange={(e) => checkOnlyOne(e.target)} /> 면접관
+                        <input type="checkbox" name="test" value="2" onChange={(e) => checkOnlyOne(e.target)} /> 면접관
                     </div>
                     <div>
                         {/* <input type="checkbox" onClick={()=> setSecret(1)} /> 비밀방 */}
