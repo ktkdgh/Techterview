@@ -226,7 +226,6 @@ function PeerOthersroom() {
   const [Actions, SetActions] = useState([]);
   const [ActionsIndex, SetActionsIndex] = useState(0);
 
-
   useEffect(() => {
     async function getQuestions() {
       const data = await api.get(`/api/training/alone/questions/${key}`)

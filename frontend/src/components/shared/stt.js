@@ -3,7 +3,6 @@ import { socket } from '../../lib/socket'
 let sound_detect_check = false;
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
 const recognition = new SpeechRecognition();
 recognition.continuous = false;
 recognition.interimResults = true;
