@@ -12,6 +12,7 @@
     justify-content: center;
     font-family: Montserrat, sans-serif;
     font-size: 110%;
+    z-index: 9999999;
 }
 
 
@@ -38,6 +39,10 @@
     margin: 0;
 }
 
+.btn-yes {
+    font-size: 1rem;
+}
+
 #alone-questions {
     width: 80vw;
     color: black;
@@ -52,7 +57,9 @@
     position: relative;
     padding: 10px;
     border-bottom: 1px solid #eee;
-    font-size: 100%;
+    /* font-size: 100%; */
+    font-size: 1rem;
+    z-index: 2;
 }
 
 .alone-video-controls-button-container {
