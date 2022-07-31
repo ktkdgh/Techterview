@@ -37,6 +37,7 @@ function PeerjsAlone() {
 
   const [isFinish, setIsFinish] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
+  const [QuestionString, SetQuestionString] = useState("");
 
 
   useEffect(() => {
