@@ -7,7 +7,7 @@ function LoginCheckModal() {
         window.location.href = '/login'
     }
     function goToHome(){
-        window.location.href = '/'
+        window.location.reload(true)
     }
 
     return (
