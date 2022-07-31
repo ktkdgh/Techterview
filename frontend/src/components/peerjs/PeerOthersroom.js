@@ -1,13 +1,11 @@
-import Peer from 'peerjs';
 import React, { useEffect, useState, useRef } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import "../css/TrainingAloneStartModal.css"
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import InterviewerEndModal from "../modal/InterviewerEndModal"
-import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
-import { useParams, Navigate } from 'react-router-dom';
+import { faArrowAltCircleRight, faChampagneGlasses } from '@fortawesome/free-solid-svg-icons'
+import { useParams } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 import api from '../shared/api';
@@ -19,9 +17,8 @@ import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from '../modal/VideoQuestionModal';
 import Recognition from '../shared/stt'
 
-//함께하기에서는 버퍼 문제가 없는듯
-// window.Buffer = window.Buffer || require("buffer").Buffer; 
-
+const temp = []
+let tempIndex = 0
 function PeerOthersroom() {
   if (!(!!sessionStorage.getItem('Authorization'))) {
     sessionStorage.setItem('url', window.location.href)
@@ -41,6 +38,51 @@ function PeerOthersroom() {
   const [CheckInterview, SetCheckInterview] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
   const [recordingMemberId, SetrecordingMemberId] = useState(null);
+  
+  const { key } = useParams();
+  const [Questions, SetQuestions] = useState([]);
+  const [QuestionsIndex, SetQuestionsIndex] = useState(0);
+  const [Actions, SetActions] = useState([]);
+  const [QuestionString, SetQuestionString] = useState("");
+
+  useEffect(() => {
+    async function getQuestions() {
+      await api.get(`/api/training/alone/questions/${key}`)
+        .then(res => {
+          SetQuestions(res.data);
+          for (let value of res.data) {
+            SetActions(Actions => [...Actions, value.questions_keyword])
+            temp.push(value.questions_keyword)
+          }
+        });
+    }
+    getQuestions();
+  }, []);
+
+
+
+  const getQuestion = () => {
+    if (Questions && Questions.length !== 0) {
+      if (QuestionsIndex !== -1) {
+        const q = Questions[QuestionsIndex];
+        if (q && q.length !== 0) {
+          return q.questions_name;
+        }
+      }
+    }
+  };
+
+  const getAction = () => {
+    if (Actions && Actions.length !== 0) {
+      if (QuestionsIndex !== -1) {
+        const q = Actions[QuestionsIndex];
+        if (q && q.length !== 0) {
+          return q;
+        }
+      }
+    }
+  }
+
 
   useEffect(() => {
     peer.on("open", (id) => {
@@ -49,8 +91,21 @@ function PeerOthersroom() {
     });
 
     socket.on('sttSoket', (msg) => {
-      console.log('asdasd: ', msg);
-      SetQuestionString(msg)
+      console.log('sttSoket: ', msg);
+      let text = msg.split(' ');
+      let keywordsTemp
+      if (!QuestionString) {
+        for (let value of text) {
+          if (temp[tempIndex].includes(value)){
+            keywordsTemp = value
+            break
+          }
+        }
+      }
+      if (keywordsTemp){
+        SetQuestionString(`답변이 끝나면 ${keywordsTemp}에 장점을 말해달라고 하세요!`);
+        keywordsTemp = "";
+      }
     });
 
     socket.on("user-connected", (userId, user2Info, roomInfo) => {
@@ -113,12 +168,7 @@ function PeerOthersroom() {
     alert("URL Copied.");
   };
 
-
-
-  const [flag, setFlag] = useState(false)
   const [openModal, setOpenModal] = useState(false);
-  // let mediaStream = null;
-  // let mediaRecorder = null;
   let recordedMediaURL = null;
   const [recordedChunks, setRecordedChunks] = useState([]);
 
@@ -198,48 +248,6 @@ function PeerOthersroom() {
     mediaRecorder.stop();
   }
 
-  const { key } = useParams();
-  const [Questions, SetQuestions] = useState([]);
-  const [QuestionsIndex, SetQuestionsIndex] = useState(0);
-  const [Actions, SetActions] = useState([]);
-  const [ActionsIndex, SetActionsIndex] = useState(0);
-  const [QuestionString, SetQuestionString] = useState("");
-
-  useEffect(() => {
-    async function getQuestions() {
-      await api.get(`/api/training/alone/questions/${key}`)
-        .then(res => {
-          SetQuestions(res.data);
-
-          for (let value of res.data) {
-            SetActions(Actions => [...Actions, value.questions_keyword])
-          }
-        });
-    } getQuestions();
-  }, []);
-
-  const getQuestion = () => {
-    if (Questions && Questions.length !== 0) {
-      if (QuestionsIndex !== -1) {
-        const q = Questions[QuestionsIndex];
-        if (q && q.length !== 0) {
-          return q.questions_name;
-        }
-      }
-    }
-  };
-
-  const getAction = () => {
-    if (Actions && Actions.length !== 0) {
-      if (ActionsIndex !== -1) {
-        const q = Actions[ActionsIndex];
-        if (q && q.length !== 0) {
-          return q;
-        }
-      }
-    }
-  }
-
   function goToHome() {
     window.location.replace(`/`)
   }
@@ -306,8 +314,8 @@ function PeerOthersroom() {
                     </div>
                   <div className="training-alone-main-controls-button" onClick={() => {
                     SetQuestionString("")
+                    tempIndex++;
                     SetQuestionsIndex(QuestionsIndex + 1)
-                    SetActionsIndex(ActionsIndex + 1)
                     finish();
                     setTimeout(() => {
                       start();
@@ -332,8 +340,8 @@ function PeerOthersroom() {
                       <span></span>
                     </div>
                     <div className="training-alone-main-controls-button" onClick={() => {
+                      SetQuestionString("")
                       SetQuestionsIndex(QuestionsIndex + 1)
-                      SetActionsIndex(ActionsIndex + 1)
                       finish();
                       setTimeout(() => {
                         start();
@@ -347,7 +355,6 @@ function PeerOthersroom() {
                     </div>
                     <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
                   </div> : <div className="main-controls-block" id="main-controls-interviewee"><Recognition/></div>}
-
           </div >
         </div >
       </div>

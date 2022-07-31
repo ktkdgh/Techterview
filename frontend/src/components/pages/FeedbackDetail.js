@@ -147,7 +147,7 @@ function FeedbackDetail() {
                             <tbody>
                                 {ReplyList.map((value, idx) => {
                                     return (
-                                        <tr>
+                                        <tr key={idx}>
                                             <td> {value.user_name} </td>
                                             {Modify && Idx == idx + 1 ?
                                                 <td> <input onChange={onUpdate} value={UpdateText} /> </td> :

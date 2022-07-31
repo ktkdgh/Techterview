@@ -46,6 +46,7 @@ io.on("connection", (socket) => {
     console.log(`SOCKET EVENT::::::${e}`);
   });
   // Connection
+
   SocketRoutes.video.createRoom(socket, SocketRoutes.video.event.createRoom);
   SocketRoutes.video.enterWaitRoom(socket, SocketRoutes.video.event.enterWaitRoom);
   SocketRoutes.video.checkUserNum(socket, SocketRoutes.video.event.checkUserNum);
