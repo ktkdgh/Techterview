@@ -55,7 +55,6 @@ io.on("connection", (socket) => {
   SocketRoutes.video.joinRoom(socket, SocketRoutes.video.event.joinRoom);
   SocketRoutes.video.sttSoket(socket, SocketRoutes.video.event.sttSoket);
   })
-
   
 server.listen(PORTNUM, () => {
   console.log(`Server is running... port: ${PORTNUM}`);

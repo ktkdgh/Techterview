@@ -26,4 +26,5 @@ function LoginCheckModal() {
         </div >
     );
 }
+
 export default LoginCheckModal;
