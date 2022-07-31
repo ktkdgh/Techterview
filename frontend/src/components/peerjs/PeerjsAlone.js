@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
+
 import { v1 as uuid } from 'uuid';
 import jwt from "jwt-decode";
 
@@ -10,12 +11,9 @@ import VideoQuestionModal from "../modal/VideoQuestionModal"
 import { useParams } from 'react-router-dom';
 import { uploadFile } from 'react-s3';
 import api from "../shared/api";
-// import { Text, View, StyleSheet, Button } from 'react-native';
-import Timer from './Timer'
-import ReadyInterviewModal from '../modal/ReadyInterviewModal';
-import reactCountdownCircleTimer from 'https://cdn.skypack.dev/react-countdown-circle-timer';
-
-// import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+import CountDown from './CountDown';
+import NoCountDown from './NoCountDown';
+import ReadyInterviewModal from "../modal/ReadyInterviewModal";
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function PeerjsAlone() {
@@ -38,7 +36,7 @@ function PeerjsAlone() {
 
   const [isFinish, setIsFinish] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
-
+  const [countDown, setCountDown] = useState(true);
 
   useEffect(() => {
     async function getQuestions() {
@@ -203,7 +201,6 @@ function PeerjsAlone() {
             {/* <button className='btn-yes' onClick={() => {
               call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
               setTimeout(() => {
-                start();
               }, 1500);
             }} > 시작하기</button> */}
           </div >
@@ -228,15 +225,16 @@ function PeerjsAlone() {
           </div>
           <div id="alone-video-container" >
             <div className="video-user1" id="video-user1" style={{ display: "none" }}>
-              <Timer></Timer>
-              {/* <reactCountdownCircleTimer
-                isPlaying
-                duration={10}
-                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                colorsTime={[10, 6, 3, 0]}
-              > */}
-              {/* {renderTime} */}
-              {/* </reactCountdownCircleTimer> */}
+
+              {countDown === true ? <CountDown start={start} setCountDown={setCountDown}></CountDown> : <NoCountDown start={start}></NoCountDown>}
+
+              <div className="button-wrapper">
+                <button onClick={() => { start(); setCountDown(false) }}>
+                  답변 하기
+                </button>
+              </div>
+
+
             </div>
             <div className="video-user2" id="video-user2"><video style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
           </div>
@@ -244,13 +242,13 @@ function PeerjsAlone() {
             <div className="main-controls-block">
               <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
 
-              <div id="training-alone-main-controls-button" className="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
-                audio.play()
-                SetQuestionsIndex(QuestionsIndex + 1)
-                SetAudioIndex(AudioIndex + 1)
+              <div id="training-alone-main-controls-button" class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
+                audio.play();
+                setCountDown(true);
+                SetQuestionsIndex(QuestionsIndex + 1);
+                SetAudioIndex(AudioIndex + 1);
                 finish();
                 setTimeout(() => {
-                  start();
                 }, 500);
               }}>
                 <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
@@ -271,6 +269,10 @@ function getHide() {
 function hideVideoTimer() {
   document.getElementById("video-user1").style.display = "none"
   document.getElementById("video-user2").style.display = "none"
+
+}
+function hideNext() {
+  document.getElementById("training-alone-main-controls-button").style.display = "none"
 
 }
 

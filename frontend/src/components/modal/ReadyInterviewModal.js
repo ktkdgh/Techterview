@@ -84,7 +84,7 @@ function ReadyInterviewModal({ onStart }) {
                     <div>
                         시험 전 카메라와 음성을 최종 확인해주세요
                     </div>
-                    <div className="video-user1" id="video-user1" >
+                    <div className="ready-video-user" id="ready-video-user" >
                         <video muted style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" ref={currentUserVideoRef} ></video>
                     </div>
                     <div className='ready-next' onClick={() => showExampleFourModal(modal)}>
@@ -166,9 +166,6 @@ function ReadyInterviewModal({ onStart }) {
                     <div className='ready-buttons-parent'>
                         <div className='ready-buttons-nav'>
                             <button className='ready-buttons' onClick={() => showHomeModal(showModal)}>step1</button>
-                            {/* <button className='ready-buttons' onClick={() => showExampleTwoModal(showModal)}>step2</button>
-                            <button className='ready-buttons' onClick={() => { showExampleThreeModal(showModal); }}>step3</button>
-                            <button className='ready-buttons' onClick={() => showExampleFourModal(showModal)}>step4</button> */}
                         </div>
                         <ModalRoot /> {/* 본문 내용들이 나오는 곳 */}
                     </div>
