@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
+
 import { v1 as uuid } from 'uuid';
 import jwt from "jwt-decode";
 
@@ -10,11 +11,8 @@ import VideoQuestionModal from "../modal/VideoQuestionModal"
 import { useParams } from 'react-router-dom';
 import { uploadFile } from 'react-s3';
 import api from "../shared/api";
-// import { Text, View, StyleSheet, Button } from 'react-native';
-import Timer from './Timer'
-import reactCountdownCircleTimer from 'https://cdn.skypack.dev/react-countdown-circle-timer';
-
-// import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+import CountDown from './CountDown';
+import NoCountDown from './NoCountDown';
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function PeerjsAlone() {
@@ -37,7 +35,7 @@ function PeerjsAlone() {
 
   const [isFinish, setIsFinish] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
-
+  const [countDown, setCountDown] = useState(true);
 
   useEffect(() => {
     async function getQuestions() {
@@ -196,7 +194,6 @@ function PeerjsAlone() {
     window.location.replace(`/`)
   }
 
-  
 
   return (
     <div>
@@ -207,11 +204,10 @@ function PeerjsAlone() {
             답변을 완료하신 후 다음 버튼을 클릭하시면 그 다음 문제로 넘어가집니다.<br></br>
             면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
           </div>
-          <div className='training-alone-start-modal-footer'>
+          <div className='training-alone-start-modal-footer'> 
             <button className='btn-yes' onClick={() => {
               call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
               setTimeout(() => {
-                start();
               }, 1500);
             }} > 시작하기</button>
           </div >
@@ -236,29 +232,30 @@ function PeerjsAlone() {
       </div>
           <div id="alone-video-container" >
             <div className="video-user1" id="video-user1" style={{ display: "none" }}>
-              <Timer></Timer>
-              {/* <reactCountdownCircleTimer
-                isPlaying
-                duration={10}
-                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                colorsTime={[10, 6, 3, 0]}
-              > */}
-                {/* {renderTime} */}
-        {/* </reactCountdownCircleTimer> */}
+
+            {countDown===true?<CountDown start={start} setCountDown={setCountDown}></CountDown> : <NoCountDown start={start}></NoCountDown>}
+
+                  <div className="button-wrapper">
+                    <button onClick={()=>{start();setCountDown(false)  }}>
+                  답변 하기
+                      </button>
+                    </div>
+
+
             </div>
-            <div className="video-user2" id="video-user2"><video style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
+            <div className="video-user2" id="video-user2"><video style={{ zIndex: "0"}} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
           </div>
           <div class="training-alone-main-controls">
             <div class="main-controls-block">
               <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
 
               <div id="training-alone-main-controls-button" class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
-                audio.play()
-                SetQuestionsIndex(QuestionsIndex + 1)
-                SetAudioIndex(AudioIndex + 1)
-                finish();
+                audio.play();
+                setCountDown(true);
+                SetQuestionsIndex(QuestionsIndex + 1);
+                SetAudioIndex(AudioIndex + 1);
+                finish(); 
                 setTimeout(() => {
-                  start();
                 }, 500);
               }}>
                 <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
@@ -279,6 +276,10 @@ function getHide() {
 function hideVideoTimer(){
   document.getElementById("video-user1").style.display = "none"
   document.getElementById("video-user2").style.display = "none"
+
+}
+function hideNext(){
+  document.getElementById("training-alone-main-controls-button").style.display = "none"
 
 }
 
