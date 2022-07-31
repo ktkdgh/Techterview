@@ -9,8 +9,6 @@ function NoCountDown({ start, clickNext }) {
 
 
   function renderTime({ }) {
-
-
     return (
 
       <div className="timer">

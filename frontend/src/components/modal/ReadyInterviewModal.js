@@ -26,7 +26,7 @@ function ReadyInterviewModal({ onStart }) {
                     <div>
                     </div>
                     <div className='ready-home-body-contents'>
-                        <h2>응시 가이드 및 응시 환경 체크를 시작하겠습니다</h2>
+                        <h2>면접 가이드 및 응시 환경 체크를 시작하겠습니다</h2>
                     </div>
                     <div className='ready-next' onClick={() => showExampleTwoModal(modal)}>
                         <button>
