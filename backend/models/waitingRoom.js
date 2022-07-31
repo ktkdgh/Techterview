@@ -13,6 +13,8 @@ let roomInfo =  [];
 // ]
 // let roomInfo =  new Set()
 // roomInfo = [
+// { roomId:"734bf8d7-f58b-479c-90b2-f58f865146ea" , sendNum:3,roomName:'방제목1',checkedTitle:'CS',checkedValue:"데이터 베이스", checkedInterview:0},
+// { roomId:"734bf8d7-f58b-479c-90b2-f58f865146ea", sendNum:3,roomName:'방제목2',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:0},
 // { roomId:"734bf8d7-f58b-479c-90b2-f58f865146ea" , sendNum:3,roomName:'방제목1',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:0},
 // { roomId:"734bf8d7-f58b-479c-90b2-f58f865146ea", sendNum:3,roomName:'방제목2',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:0},
 // {roomId:1213, sendNum:3,roomName:'방제목3',checkedTitle:'CS',checkedValue:"javascript", checkedInterview:1},

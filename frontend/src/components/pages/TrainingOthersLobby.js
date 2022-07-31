@@ -4,6 +4,7 @@ import CreateRoomWith from '../modal/CreateRoomWith';
 import "../css/TrainingOthersLobby.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faWindowClose } from '@fortawesome/free-solid-svg-icons'
+import { faFaceSadTear } from '@fortawesome/free-solid-svg-icons';
 import {socket} from '../../lib/socket'
 function OthersLobby() {
     const [openModal, setOpenModal] = useState(false);
@@ -78,13 +79,13 @@ function OthersLobby() {
                                                 </div>
                                                 <div className='room-people-count'>
                                                     <FontAwesomeIcon id="faUser" icon={faUser} />
-                                                    <div> 1/2 </div>
+                                                    {/* <div> 1/2 </div> */}
                                                 </div>
                                             </div>    
                                         </div>
                                     );}
                                 })}
-                            </div> : "없어요"}
+                            </div> : <div className="no-room"><div className="no-room-text">현재 접속 가능한 방이 없습니다.</div><FontAwesomeIcon id ="faFaceSadTear"icon={faFaceSadTear}></FontAwesomeIcon></div> }
                         </div> 
                         }  
             </div>
