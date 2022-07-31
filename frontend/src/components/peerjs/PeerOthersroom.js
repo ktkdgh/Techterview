@@ -50,7 +50,7 @@ function PeerOthersroom() {
 
     socket.on('sttSoket', (msg) => {
       console.log('asdasd: ', msg);
-      console.log("keywords : ", keywords);
+      SetQuestionString(msg)
     });
 
     socket.on("user-connected", (userId, user2Info, roomInfo) => {
@@ -180,13 +180,6 @@ function PeerOthersroom() {
         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
       };
 
-      console.log("data:", data);
-      console.log("recordFile:", recordFile);
-
-      console.log("recordingMemberId : ", recordingMemberId);
-
-      console.log("Questions[QuestionsIndex] : ", Questions[QuestionsIndex]);
-      
       uploadFile(recordFile, config)
         .then(recordFile => {
           api.post('/api/training/alone/recordingCreate', {
@@ -199,7 +192,6 @@ function PeerOthersroom() {
             })
         })
         .catch(err => console.error(err))
-      console.log("recordFile.location", recordFile.location);
       recordedChunks.pop()
 
     };
@@ -207,12 +199,11 @@ function PeerOthersroom() {
   }
 
   const { key } = useParams();
-  let data = [];
   const [Questions, SetQuestions] = useState([]);
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
   const [Actions, SetActions] = useState([]);
   const [ActionsIndex, SetActionsIndex] = useState(0);
-  const [keywords, SetKeywords] = useState([]);
+  const [QuestionString, SetQuestionString] = useState("");
 
   useEffect(() => {
     async function getQuestions() {
@@ -221,17 +212,10 @@ function PeerOthersroom() {
           SetQuestions(res.data);
 
           for (let value of res.data) {
-            SetKeywords(keywords => [...keywords, value.questions_keyword])
+            SetActions(Actions => [...Actions, value.questions_keyword])
           }
         });
     } getQuestions();
-
-    async function getActions() {
-      await api.get('/api/training/others/getAction')
-        .then(res => {
-          SetActions(res.data)
-        })
-    } getActions();
   }, []);
 
   const getQuestion = () => {
@@ -312,7 +296,7 @@ function PeerOthersroom() {
             {interview === '1' && CheckInterview ? <div className="main-controls-block"><br /><Recognition/><br /><br /><br /></div> :
               interview === '2' && CheckInterview ?
                 <div className="main-controls-block">
-                  <div id='alone-questions' >{getQuestion()}</div>
+                  <div id='alone-questions' > { QuestionString ? QuestionString : getQuestion() } </div>
                   <div
                       className="training-alone-main-controls-button"
                       id="startRecord"
@@ -321,6 +305,7 @@ function PeerOthersroom() {
                       <span></span>
                     </div>
                   <div className="training-alone-main-controls-button" onClick={() => {
+                    SetQuestionString("")
                     SetQuestionsIndex(QuestionsIndex + 1)
                     SetActionsIndex(ActionsIndex + 1)
                     finish();
@@ -338,7 +323,7 @@ function PeerOthersroom() {
                 </div> :
                 interview === '1' ?
                   <div className="main-controls-block" >
-                    <div id='alone-questions' >{getQuestion()}</div>
+                    <div id='alone-questions' >{ QuestionString ? QuestionString : getQuestion() } </div>
                     <div
                       className="training-alone-main-controls-button"
                       id="startRecord" 
