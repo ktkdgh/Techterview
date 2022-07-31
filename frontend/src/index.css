@@ -70,7 +70,6 @@ button {
   text-align: center;
   font-weight: bold;
   margin: 3%;
-  z-index: 0;
 }
 
 .main-photo1 {
@@ -248,10 +247,6 @@ img.login-photo {
   margin-right: 3%;
 }
 
-
-
-
-
 .training-navigation-bar-logo {
   font-size: 40%;
   font-family: Montserrat, sans-serif;
@@ -310,7 +305,7 @@ img.login-photo {
   height: 100vh;
   position: fixed;
   background-color: white;
-  z-index: 9;
+  /* z-index: 9; */
 }
 
 /* .others-lobby-header2 {
@@ -333,16 +328,16 @@ img.login-photo {
   /* margin: 70px 100px; */
   margin: 1% 3%;
   /* float: right; */
-  font-size: xx-large;
-  padding: 10px 60px;
-  background-color: rgba(64, 218, 199, 1);
+  font-size: x-large;
+  padding: 10px 40px;
+  background-color: rgb(198, 246, 231);
   /* border: 3px solid #074f51; */
   border-radius: 10px;
   font-family: Montserrat;
 }
 
 .add-face-filter-voice-btn {
-  border: 2px solid rgba(64, 218, 199, 1);
+  border: 2px solid #e8f8f6;
   color: black;
   padding: 14px 28px;
   font-size: 16px;
@@ -352,13 +347,13 @@ img.login-photo {
 }
 
 .add-face-filter-voice-btn:hover {
-  background-color: rgba(64, 218, 199, 1);
+  background-color: #e8f8f6;
   color: black;
 
 }
 
 .video-delete-btn {
-  border: 2px solid rgba(64, 218, 199, 1);
+  border: 2px solid #e8f8f6;
   color: black;
   padding: 14px 28px;
   font-size: 1rem;
@@ -368,7 +363,7 @@ img.login-photo {
 }
 
 .video-delete-btn:hover {
-  background-color: rgba(64, 218, 199, 1);
+  background-color: #e8f8f6;
 }
 
 

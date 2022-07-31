@@ -20,8 +20,6 @@ function PeerjsAlone() {
 
   const [isPlaying, setIsPlaying] = React.useState(true)
 
-
-
   const Token = sessionStorage.getItem('Authorization')
   const QuestionList = JSON.parse(sessionStorage.getItem('QuestionList'))
   const userInfo = jwt(Token)
@@ -36,6 +34,7 @@ function PeerjsAlone() {
 
   const [isFinish, setIsFinish] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
+  const [QuestionString, SetQuestionString] = useState("");
   const [countDown, setCountDown] = useState(true);
 
   useEffect(() => {
@@ -225,7 +224,6 @@ function PeerjsAlone() {
           </div>
           <div id="alone-video-container" >
             <div className="video-user1" id="video-user1" style={{ display: "none" }}>
-
               {countDown === true ? <CountDown start={start} setCountDown={setCountDown}></CountDown> : <NoCountDown start={start}></NoCountDown>}
 
               <div className="button-wrapper">

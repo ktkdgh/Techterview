@@ -19,7 +19,7 @@ function QuestionListAloneModal({ closeModal, questionlist }) {
                     <div> 선택한 질문들</div> <br></br>
                     { questionlist.map((value, idx) => {
                         return(
-                            <div>
+                            <div key={idx}>
                                 {idx + 1}. {value}
                             </div>
                         )

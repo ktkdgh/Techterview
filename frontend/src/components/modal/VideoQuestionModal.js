@@ -53,7 +53,7 @@ function VideoQuestionModal() {
                         <table>
                         {getRecordingList.map((value, idx) => {
                             return(
-                                <tr>
+                                <tr key={idx}>
                                     <td> <input
                                         key={value.id}
                                         type="checkbox"

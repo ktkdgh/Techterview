@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
 
-function LoginCheckModal() {
+function LoginCheckModal( {closeModal } ) {
 
     function getLoginURL() {
         window.location.href = '/login'
     }
-    function goToHome() {
-        window.location.href = '/'
+    function goToHome(){
+        window.location.reload(true)
     }
 
     return (
@@ -19,11 +19,12 @@ function LoginCheckModal() {
                     </div>
                     <div className='training-alone-start-modal-footer'>
                         <button className='btn-yes' onClick={() => { getLoginURL() }} > 로그인 하러가기</button>
-                        <button className='btn-yes' onClick={() => { goToHome() }} > 홈으로 돌아가기</button>
+                        <button className='btn-yes' onClick={() => closeModal(false)} > 홈으로 돌아가기</button>
                     </div >
                 </div>
             </div>
         </div >
     );
 }
+
 export default LoginCheckModal;

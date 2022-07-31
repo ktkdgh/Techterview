@@ -46,6 +46,7 @@ io.on("connection", (socket) => {
     console.log(`SOCKET EVENT::::::${e}`);
   });
   // Connection
+
   SocketRoutes.video.createRoom(socket, SocketRoutes.video.event.createRoom);
   SocketRoutes.video.enterWaitRoom(socket, SocketRoutes.video.event.enterWaitRoom);
   SocketRoutes.video.checkUserNum(socket, SocketRoutes.video.event.checkUserNum);
@@ -54,7 +55,6 @@ io.on("connection", (socket) => {
   SocketRoutes.video.joinRoom(socket, SocketRoutes.video.event.joinRoom);
   SocketRoutes.video.sttSoket(socket, SocketRoutes.video.event.sttSoket);
   })
-
   
 server.listen(PORTNUM, () => {
   console.log(`Server is running... port: ${PORTNUM}`);

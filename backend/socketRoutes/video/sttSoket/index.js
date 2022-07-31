@@ -7,7 +7,7 @@ module.exports = (socket, event) => {
                 realRoom = room;
             }
         }
-        socket.to(realRoom).emit("sttSoket", msg);
+        socket.broadcast.to(realRoom).emit("sttSoket", msg);
     })
 }
 
