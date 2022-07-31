@@ -50,6 +50,7 @@ function PeerOthersroom() {
 
     socket.on('sttSoket', (msg) => {
       console.log('asdasd: ', msg);
+      console.log("keywords : ", keywords);
     });
 
     socket.on("user-connected", (userId, user2Info, roomInfo) => {
@@ -65,11 +66,7 @@ function PeerOthersroom() {
       if (interview === 0) {
         Setinterview(roomInfo.checkedInterview)
       }
-      if (roomInfo.checkedInterview === "1") {
-        SetCheckInterview(roomInfo.memberId === userInfo.id)
-      } else {
-        SetCheckInterview(roomInfo.memberId === userInfo.id)
-      }
+      SetCheckInterview(roomInfo.memberId === userInfo.id)
     })
 
     socket.on("recordingId", (recordingId) => {
@@ -97,16 +94,12 @@ function PeerOthersroom() {
   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
   getUserMedia({ video: true, audio: true }, (mediaStream) => {
-
     currentUserVideoRef.current.srcObject = mediaStream;
     currentUserVideoRef.current.play();
-
     const call = peerInstance.current.call(remotePeerIdValue, mediaStream)
-
     call.on('stream', (remoteStream) => {
       remoteVideoRef.current.srcObject = remoteStream
       remoteVideoRef.current.play();
-
     })
   })
 
@@ -128,11 +121,6 @@ function PeerOthersroom() {
   // let mediaRecorder = null;
   let recordedMediaURL = null;
   const [recordedChunks, setRecordedChunks] = useState([]);
-
-  const mediaStream = navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true
-  });
 
   /* 화면 노출 */
   const call = () => {
@@ -218,20 +206,23 @@ function PeerOthersroom() {
     mediaRecorder.stop();
   }
 
-
   const { key } = useParams();
   let data = [];
   const [Questions, SetQuestions] = useState([]);
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
   const [Actions, SetActions] = useState([]);
   const [ActionsIndex, SetActionsIndex] = useState(0);
-
+  const [keywords, SetKeywords] = useState([]);
 
   useEffect(() => {
     async function getQuestions() {
-      const data = await api.get(`/api/training/alone/questions/${key}`)
+      await api.get(`/api/training/alone/questions/${key}`)
         .then(res => {
           SetQuestions(res.data);
+
+          for (let value of res.data) {
+            SetKeywords(keywords => [...keywords, value.questions_keyword])
+          }
         });
     } getQuestions();
 
@@ -289,6 +280,8 @@ function PeerOthersroom() {
   return (
 
     <div className="training-others-main-body">
+      
+      <div className="training-others-inner-box" >
       <div className="training-navigation-bar" >
         <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
 
@@ -299,20 +292,19 @@ function PeerOthersroom() {
           </div>
 
           <div className="main-controls-button-leave-meeting" id="leave-meeting">
-            <button className="video-end-btn" onClick={() => { setOpenModal(true); }}>End</button>
+            <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
             {interview === '1' && CheckInterview ? <div> {openModal && <VideoQuestionModal />} </div> : 
             interview === '2' && CheckInterview ? <div> {openModal && <InterviewerEndModal closeModal={setOpenModal}  />}  </div>: 
             interview === '1' ?  <div> {openModal && <InterviewerEndModal closeModal={setOpenModal}  />}  </div> : <div> {openModal && <VideoQuestionModal />} </div>}
           </div >
         </div>
       </div>
-      <div className="training-others-inner-box" >
+
+
         <div className="video-controls-button-container">
           <div id="video-container">
-            <div className="video-user1" style={{ zIndex: "-1" }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
-            <div className="video-user2" style={{ zIndex: "-1" }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
-          </div>
-          <div className="training-others-main-controls-share-button" >
+            <div className="video-user1"  id="video-user1" style={{ zIndex: 0 }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
+            <div className="video-user2" id="video-user2" style={{ zIndex: 0 }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
           </div>
 
           <div className="training-others-main-controls">
@@ -326,7 +318,7 @@ function PeerOthersroom() {
                       id="startRecord"
                       onClick={() => {  start(); getHide(); }}>
                       <i className="fa fa-video-camera" size="lg" ></i>
-                      <span>Record</span>
+                      <span></span>
                     </div>
                   <div className="training-alone-main-controls-button" onClick={() => {
                     SetQuestionsIndex(QuestionsIndex + 1)
@@ -337,23 +329,22 @@ function PeerOthersroom() {
                     }, 500);
                   }}>
                     <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                    Next
+                    
                   </div>
                   <div className="training-alone-main-controls-button">
                     <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
-                    Instruction
                   </div>
                   <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
                 </div> :
                 interview === '1' ?
-                  <div className="main-controls-block">
+                  <div className="main-controls-block" >
                     <div id='alone-questions' >{getQuestion()}</div>
                     <div
                       className="training-alone-main-controls-button"
-                      id="startRecord"
+                      id="startRecord" 
                       onClick={() => {start(); getHide(); }}>
                       <i className="fa fa-video-camera" size="lg" ></i>
-                      <span>Record</span>
+                      <span></span>
                     </div>
                     <div className="training-alone-main-controls-button" onClick={() => {
                       SetQuestionsIndex(QuestionsIndex + 1)
@@ -364,14 +355,13 @@ function PeerOthersroom() {
                       }, 500);
                     }}>
                       <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                      Next
+                      
                     </div>
-                    <div className="training-alone-main-controls-button">
+                    <div className="training-alone-main-controls-button" >
                       <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
-                      Instruction
                     </div>
                     <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
-                  </div> : <div className="main-controls-block"><br /><br /><br /><Recognition/><br /></div>}
+                  </div> : <div className="main-controls-block" id="main-controls-interviewee"><Recognition/></div>}
 
           </div >
         </div >
@@ -387,6 +377,11 @@ function PeerOthersroom() {
     document.getElementById("ballon").style.display = ""
   }
 
+  function hideVideoTimer(){
+    document.getElementById("video-user1").style.display = "none"
+    document.getElementById("video-user2").style.display = "none"
+  
+  }
 }
 
 export default PeerOthersroom;

@@ -76,7 +76,7 @@ function MyVideo() {
             </div>
             <div className="feedback-my-video-body">
 
-            <div class="video-edit-btn">
+            <div className="video-edit-btn">
                             <button className="add-face-filter-voice-btn" onClick={() => { setOpenVideoFaceVoiceEditModal(true); }} >영상 필터 및 목소리 변조</button>
                             <button className="video-delete-btn" onClick={() => { setOpenModal(true) }} >영상 삭제</button>
                             <button className="video-delete-btn" onClick={() => { SetopenFeedbackCreateModal(true) }} >피드백 등록</button>
@@ -88,7 +88,7 @@ function MyVideo() {
 
                 <div className="my-video-title"></div>
                 {StatusCheck ? "" :
-                    <div class="grid-container-box">
+                    <div className="grid-container-box">
                         
                     </div>
                 }
@@ -111,9 +111,9 @@ function MyVideo() {
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
                                         return (
-                                            <tr className="my-video-row">
+                                            <tr className="my-video-row" key={idx}>
                                                 <td> {idx + 1} </td>
-                                                <a href={`/feedback/detail/${value.id}`}><td> {value.feedback_title} </td></a>
+                                                <td><a href={`/feedback/detail/${value.id}`}> {value.feedback_title} </a> </td>
                                                 <td> {value.user_name} </td>
                                                 <td> {value.like_cnt} </td>
                                                 <td> {value.reply_cnt} </td>
@@ -125,7 +125,7 @@ function MyVideo() {
                                 <tbody>
                                     {RecordingList.map((value, idx) => {
                                         return (
-                                            <tr className="my-video-recent" >
+                                            <tr className="my-video-recent" key={idx}>
                                                 <td> <input
                                                     key={value.id}
                                                     type="checkbox"

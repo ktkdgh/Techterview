@@ -19,16 +19,20 @@ function Question() {
     useEffect(() => {
         // console.log('select url ', `/api/questionList/getQuestionList${selectedPath}`);
         async function getQuestion() {
-            await api.get(`/api/questionList/getQuestionList${selectedPath}`)
-                .then(res => {
-                    SetQuestionArray(res.data)
-                });
+            if (selectedPath){
+                await api.get(`/api/questionList/getQuestionList${selectedPath}`)
+                    .then(res => {
+                        SetQuestionArray(res.data)
+                    });
+            }
         }
         getQuestion();
     }, [selectedPath]);
 
     const selectMenu = (path) => {
-        setSelectedPath(path);
+        if (!!path.split('/')[2]){
+            setSelectedPath(path);
+        }
         // console.log(path);
     }
 
@@ -57,7 +61,7 @@ function Question() {
                     <div className="feedback-table">
                         {
                             QuestionArray?.map((value, idx) =>
-                                <div className="question-add-to-cart">
+                                <div className="question-add-to-cart" key={idx}>
                                     {idx + 1}. {value.name} <button className="question-add-button" onClick={(e) => { onCheckedElement(e.target.checked, idx); }} checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
                                 </div>
                             )

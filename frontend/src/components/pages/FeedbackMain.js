@@ -34,12 +34,13 @@ function Feedback() {
     }
 
     const getCategoryFeed = async (path) => {
-        await api.get(`/api/feedback/category${path}`)
-            .then(res => {
-                console.log(123123);
-                SetMainLengthCheck((res.data).length)
-                SetFeedArray(res.data)
-            })
+        if (!!path.split('/')[2]) {
+            await api.get(`/api/feedback/category${path}`)
+                .then(res => {
+                    SetMainLengthCheck((res.data).length)
+                    SetFeedArray(res.data)
+                })
+        }
     }
 
     return (
@@ -51,7 +52,7 @@ function Feedback() {
             {MainLengthCheck ?
                 <div className="feedback-main-body">
                     <div className='feedback-main-table'>
-                          <thead className='feedback-main-head'>
+                            <div className='feedback-main-head'>
                                 <div className='feedback-main-greed-container'>
                                     <div>순위</div>
                                     <div>제목</div>
@@ -60,14 +61,14 @@ function Feedback() {
                                     <div>댓글 수</div>
                                     <div>등록일</div>
                                 </div>
-                            </thead>
+                            </div>
 
                             <div className='feedback-container'>
 
                                 {FeedArray.map((value, idx) => {
                                     return (
         
-                                            <div className= 'feedback-main-greed-container' id="feedback-main-greed-row" >
+                                            <div className= 'feedback-main-greed-container' id="feedback-main-greed-row" key={idx}>
                                                 <div> {idx + 1} </div>
                                                 <a href={`/feedback/detail/${value.id}`}><div> {value.feedback_title}</div></a>
                                                 <div> {value.user_name} </div>

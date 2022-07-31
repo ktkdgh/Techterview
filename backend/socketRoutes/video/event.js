@@ -5,3 +5,4 @@ exports.checkUserNum = "checkUserNum";
 exports.recordingMemberId = "recordingMemberId";
 exports.disconnecting = "disconnecting";
 exports.sttSoket = "sttSoket";
+
