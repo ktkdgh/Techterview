@@ -7,7 +7,7 @@ function QuestionListAloneModal({ closeModal, questionlist }) {
             list : questionlist
         })
             .then(res => {
-                sessionStorage.setItem('QuestionList', res.data)
+                sessionStorage.setItem('QuestionList', JSON.stringify(res.data))
                 window.location.replace("../page/training/Alone/" + 15)
             })
     };

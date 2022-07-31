@@ -14,7 +14,6 @@ var questionListRouter = require('./routes/questionList');
 var aloneRouter = require('./routes/training/alone');
 var othersRouter = require('./routes/training/others');
 
-
 //socket//
 
 const http = require("http");
@@ -44,18 +43,19 @@ app.use("/", require("./routes/"));
 
 io.on("connection", (socket) => {
   socket.onAny(e => {
-  socket.onAny(e => {
     console.log(`SOCKET EVENT::::::${e}`);
   });
   // Connection
-  SocketRoutes.video.joinRoom(socket, SocketRoutes.video.event.joinRoom);  
   SocketRoutes.video.createRoom(socket, SocketRoutes.video.event.createRoom);
   SocketRoutes.video.enterWaitRoom(socket, SocketRoutes.video.event.enterWaitRoom);
   SocketRoutes.video.checkUserNum(socket, SocketRoutes.video.event.checkUserNum);
-
+  SocketRoutes.video.recordingMemberId(socket, SocketRoutes.video.event.recordingMemberId);
+  SocketRoutes.video.disconnecting(socket, SocketRoutes.video.event.disconnecting);
+  SocketRoutes.video.joinRoom(socket, SocketRoutes.video.event.joinRoom);
+  SocketRoutes.video.sttSoket(socket, SocketRoutes.video.event.sttSoket);
   })
-});
 
+  
 server.listen(PORTNUM, () => {
   console.log(`Server is running... port: ${PORTNUM}`);
 });
@@ -63,6 +63,7 @@ server.listen(PORTNUM, () => {
 
 
 const { sequelize } = require('./models/index');
+const { Socket } = require('dgram');
 sequelize.sync({ force: false })
   .then(() => {
     console.log('Database connected OK!');

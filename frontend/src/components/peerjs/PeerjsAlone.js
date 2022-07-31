@@ -10,12 +10,22 @@ import VideoQuestionModal from "../modal/VideoQuestionModal"
 import { useParams } from 'react-router-dom';
 import { uploadFile } from 'react-s3';
 import api from "../shared/api";
+// import { Text, View, StyleSheet, Button } from 'react-native';
+import Timer from './Timer'
+import ReadyInterviewModal from '../modal/ReadyInterviewModal';
+import reactCountdownCircleTimer from 'https://cdn.skypack.dev/react-countdown-circle-timer';
 
+// import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function PeerjsAlone() {
+
+  const [isPlaying, setIsPlaying] = React.useState(true)
+
+
+
   const Token = sessionStorage.getItem('Authorization')
-  const QuestionList = sessionStorage.getItem('QuestionList')
+  const QuestionList = JSON.parse(sessionStorage.getItem('QuestionList'))
   const userInfo = jwt(Token)
 
   const currentUserVideoRef = useRef(null); //recordRef
@@ -33,18 +43,7 @@ function PeerjsAlone() {
   useEffect(() => {
     async function getQuestions() {
       if (key == 15) {
-        const QuestionArray = QuestionList.split(',')
-        let AloneQuestion = []
-        let QuestionName = "";
-        for (let i = 0; i < QuestionArray.length; i++) {
-          if (!(i % 2)) {
-            QuestionName = QuestionArray[i]
-          } else if (QuestionName) {
-            AloneQuestion.push([QuestionName, QuestionArray[i]])
-            QuestionName = ""
-          }
-        }
-        SetQuestions(AloneQuestion)
+        SetQuestions(QuestionList)
       } else {
         await api.get(`/api/training/alone/questions/${key}`)
           .then(res => {
@@ -60,7 +59,7 @@ function PeerjsAlone() {
       if (QuestionsIndex !== -1) {
         const q = Questions[QuestionsIndex];
         if (q && q.length !== 0) {
-          return q[0];
+          return q.questions_name;
         }
       }
     }
@@ -73,7 +72,7 @@ function PeerjsAlone() {
       if (QuestionsIndex !== -1) {
         const q = Questions[AudioIndex];
         if (q && q.length !== 0) {
-          return q[1];
+          return q.questions_url;
         }
       }
     }
@@ -166,13 +165,12 @@ function PeerjsAlone() {
         .then(recordFile => {
           api.post('/api/training/alone/recordingCreate', {
             id: userInfo.id,
-            title: (Questions[QuestionsIndex])[0],
+            title: (Questions[QuestionsIndex]).questions_name,
             recording_url: recordFile.location
           })
             .then(res => {
               console.log(res.data);
             })
-          console.log(recordFile);
         })
         .catch(err => console.error(err))
 
@@ -188,52 +186,60 @@ function PeerjsAlone() {
     window.location.replace(`/`)
   }
 
+
   return (
     <div>
-      <div className='training-alone-start-modal' id='training-alone-start-modal' >
+      <div className='training-alone-start-modal' id='training-alone-start-modal' style={{ zIndex: "1" }}>
         <div className='training-alone-start-modal-content'>
           <div className='training-alone-start-modal-body'>
-            시작 버튼을 클릭하시면 면접이 시작됩니다.<br></br>
-            답변을 완료하신 후 다음 버튼을 클릭하시면 그 다음 문제로 넘어가집니다.<br></br>
-            면접을 완료한 후 종료 버튼을 클릭해주시기 바랍니다.
+            <ReadyInterviewModal></ReadyInterviewModal>
           </div>
           <div className='training-alone-start-modal-footer'>
-            <button className='btn-yes' onClick={() => {
+            {/* <button className='btn-yes' onClick={() => {
               call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
               setTimeout(() => {
                 start();
               }, 1500);
-            }} > 시작하기</button>
+            }} > 시작하기</button> */}
           </div >
         </div >
       </div >
 
 
-      <div className="training-navigation-bar" >
-        <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
-
-        <div className="training-navigation-right">
-          <div className="main-controls-button-leave-meeting" id="leave-meeting">
-            <button className="video-end-btn" onClick={() => { setOpenModal(true) }}>End</button>
-            {openModal && <VideoQuestionModal />}
-          </div >
-        </div>
-      </div>
 
 
-      <div id="alone-wrapper">
+      <div id="alone-wrapper" >
+
         <div className="alone-video-controls-button-container ">
-          <div id="alone-video-container" >
-            <div className="video-user1" id="video-user1" style={{ display: "none", zIndex: "-1" }}>
-              <video autoPlay muted loop id='interviewer' src='/videos/sample1.mp4' type='video/mp4' className='interviewer'></video>
+          <div className="training-navigation-bar" >
+            <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
+
+            <div className="training-navigation-right">
+              <div className="main-controls-button-leave-meeting" id="leave-meeting">
+                <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
+                {openModal && <VideoQuestionModal />}
+              </div >
             </div>
-            <div className="video-user2" style={{ zIndex: "-1" }}><video id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
           </div>
-          <div class="training-alone-main-controls">
-            <div class="main-controls-block">
+          <div id="alone-video-container" >
+            <div className="video-user1" id="video-user1" style={{ display: "none" }}>
+              <Timer></Timer>
+              {/* <reactCountdownCircleTimer
+                isPlaying
+                duration={10}
+                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                colorsTime={[10, 6, 3, 0]}
+              > */}
+              {/* {renderTime} */}
+              {/* </reactCountdownCircleTimer> */}
+            </div>
+            <div className="video-user2" id="video-user2"><video style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
+          </div>
+          <div className="training-alone-main-controls">
+            <div className="main-controls-block">
               <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
 
-              <div id="training-alone-main-controls-button" class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
+              <div id="training-alone-main-controls-button" className="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
                 audio.play()
                 SetQuestionsIndex(QuestionsIndex + 1)
                 SetAudioIndex(AudioIndex + 1)
@@ -243,7 +249,7 @@ function PeerjsAlone() {
                 }, 500);
               }}>
                 <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                Next
+                {/* Next */}
               </div>
             </div>
           </div>
@@ -257,6 +263,12 @@ function getHide() {
   document.getElementById("training-alone-start-modal").style.display = "none"
 
 }
+function hideVideoTimer() {
+  document.getElementById("video-user1").style.display = "none"
+  document.getElementById("video-user2").style.display = "none"
+
+}
+
 function getShow() {
   document.getElementById("video-user1").style.display = ""
   document.getElementById("alone-questions").style.display = ""
