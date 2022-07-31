@@ -46,16 +46,16 @@ io.on("connection", (socket) => {
     console.log(`SOCKET EVENT::::::${e}`);
   });
   // Connection
-  
+
   SocketRoutes.video.createRoom(socket, SocketRoutes.video.event.createRoom);
   SocketRoutes.video.enterWaitRoom(socket, SocketRoutes.video.event.enterWaitRoom);
   SocketRoutes.video.checkUserNum(socket, SocketRoutes.video.event.checkUserNum);
   SocketRoutes.video.recordingMemberId(socket, SocketRoutes.video.event.recordingMemberId);
   SocketRoutes.video.disconnecting(socket, SocketRoutes.video.event.disconnecting);
   SocketRoutes.video.joinRoom(socket, SocketRoutes.video.event.joinRoom);
-
+  SocketRoutes.video.sttSoket(socket, SocketRoutes.video.event.sttSoket);
   })
-
+  
 server.listen(PORTNUM, () => {
   console.log(`Server is running... port: ${PORTNUM}`);
 });

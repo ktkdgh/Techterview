@@ -194,11 +194,10 @@ router.get('/recording/:number/:userId', async(req, res) => {
             }
             return res.json(recordingList)
         } else {
-            const MyFeedbackAll = await Recording.findAll({where: { registered : '1',  MemberId: req.params.userId}})
+            const MyFeedbackAll = await Recording.findAll({order: [['createdAt', 'DESC']],where: { registered : '1',  MemberId: req.params.userId}})
             let MyFeedbackArray = []
             for (const value of MyFeedbackAll) {
                 const feedbackInfo = await Feedback.findOne({where: {RecordingId : value.id}})
-                console.log(feedbackInfo);
                 MyFeedbackArray.push({
                     id: feedbackInfo.id,
                     feedback_title: feedbackInfo.feedback_title,

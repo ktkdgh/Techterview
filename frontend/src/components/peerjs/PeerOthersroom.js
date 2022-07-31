@@ -1,13 +1,11 @@
-import Peer from 'peerjs';
 import React, { useEffect, useState, useRef } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import "../css/TrainingAloneStartModal.css"
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import InterviewerEndModal from "../modal/InterviewerEndModal"
-import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
-import { useParams, Navigate } from 'react-router-dom';
+import { faArrowAltCircleRight, faChampagneGlasses } from '@fortawesome/free-solid-svg-icons'
+import { useParams } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
 import api from '../shared/api';
@@ -19,9 +17,8 @@ import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from '../modal/VideoQuestionModal';
 import Recognition from '../shared/stt'
 
-//함께하기에서는 버퍼 문제가 없는듯
-// window.Buffer = window.Buffer || require("buffer").Buffer; 
-
+const temp = []
+let tempIndex = 0
 function PeerOthersroom() {
   if (!(!!sessionStorage.getItem('Authorization'))) {
     sessionStorage.setItem('url', window.location.href)
@@ -41,11 +38,74 @@ function PeerOthersroom() {
   const [CheckInterview, SetCheckInterview] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
   const [recordingMemberId, SetrecordingMemberId] = useState(null);
+  
+  const { key } = useParams();
+  const [Questions, SetQuestions] = useState([]);
+  const [QuestionsIndex, SetQuestionsIndex] = useState(0);
+  const [Actions, SetActions] = useState([]);
+  const [QuestionString, SetQuestionString] = useState("");
+
+  useEffect(() => {
+    async function getQuestions() {
+      await api.get(`/api/training/alone/questions/${key}`)
+        .then(res => {
+          SetQuestions(res.data);
+          for (let value of res.data) {
+            SetActions(Actions => [...Actions, value.questions_keyword])
+            temp.push(value.questions_keyword)
+          }
+        });
+    }
+    getQuestions();
+  }, []);
+
+
+
+  const getQuestion = () => {
+    if (Questions && Questions.length !== 0) {
+      if (QuestionsIndex !== -1) {
+        const q = Questions[QuestionsIndex];
+        if (q && q.length !== 0) {
+          return q.questions_name;
+        }
+      }
+    }
+  };
+
+  const getAction = () => {
+    if (Actions && Actions.length !== 0) {
+      if (QuestionsIndex !== -1) {
+        const q = Actions[QuestionsIndex];
+        if (q && q.length !== 0) {
+          return q;
+        }
+      }
+    }
+  }
+
 
   useEffect(() => {
     peer.on("open", (id) => {
       const sockId = socket.id
       socket.emit("joinRoom", ROOM_ID, id, sockId, userInfo);
+    });
+
+    socket.on('sttSoket', (msg) => {
+      console.log('sttSoket: ', msg);
+      let text = msg.split(' ');
+      let keywordsTemp
+      if (!QuestionString) {
+        for (let value of text) {
+          if (temp[tempIndex].includes(value)){
+            keywordsTemp = value
+            break
+          }
+        }
+      }
+      if (keywordsTemp){
+        SetQuestionString(`답변이 끝나면 ${keywordsTemp}에 장점을 말해달라고 하세요!`);
+        keywordsTemp = "";
+      }
     });
 
     socket.on("user-connected", (userId, user2Info, roomInfo) => {
@@ -61,11 +121,7 @@ function PeerOthersroom() {
       if (interview === 0) {
         Setinterview(roomInfo.checkedInterview)
       }
-      if (roomInfo.checkedInterview === "1") {
-        SetCheckInterview(roomInfo.memberId === userInfo.id)
-      } else {
-        SetCheckInterview(roomInfo.memberId === userInfo.id)
-      }
+      SetCheckInterview(roomInfo.memberId === userInfo.id)
     })
 
     socket.on("recordingId", (recordingId) => {
@@ -93,16 +149,12 @@ function PeerOthersroom() {
   var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
   getUserMedia({ video: true, audio: true }, (mediaStream) => {
-
     currentUserVideoRef.current.srcObject = mediaStream;
     currentUserVideoRef.current.play();
-
     const call = peerInstance.current.call(remotePeerIdValue, mediaStream)
-
     call.on('stream', (remoteStream) => {
       remoteVideoRef.current.srcObject = remoteStream
       remoteVideoRef.current.play();
-
     })
   })
 
@@ -116,19 +168,9 @@ function PeerOthersroom() {
     alert("URL Copied.");
   };
 
-
-
-  const [flag, setFlag] = useState(false)
   const [openModal, setOpenModal] = useState(false);
-  // let mediaStream = null;
-  // let mediaRecorder = null;
   let recordedMediaURL = null;
   const [recordedChunks, setRecordedChunks] = useState([]);
-
-  const mediaStream = navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true
-  });
 
   /* 화면 노출 */
   const call = () => {
@@ -188,18 +230,11 @@ function PeerOthersroom() {
         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
       };
 
-      console.log("data:", data);
-      console.log("recordFile:", recordFile);
-
-      console.log("recordingMemberId : ", recordingMemberId);
-
-      console.log("Questions[QuestionsIndex] : ", Questions[QuestionsIndex]);
-      
       uploadFile(recordFile, config)
         .then(recordFile => {
           api.post('/api/training/alone/recordingCreate', {
             id: recordingMemberId,
-            title: (Questions[QuestionsIndex])[0],
+            title: (Questions[QuestionsIndex]).questions_name,
             recording_url: recordFile.location
           })
             .then(res => {
@@ -207,58 +242,10 @@ function PeerOthersroom() {
             })
         })
         .catch(err => console.error(err))
-      console.log("recordFile.location", recordFile.location);
       recordedChunks.pop()
 
     };
     mediaRecorder.stop();
-  }
-
-
-  const { key } = useParams();
-  let data = [];
-  const [Questions, SetQuestions] = useState([]);
-  const [QuestionsIndex, SetQuestionsIndex] = useState(0);
-  const [Actions, SetActions] = useState([]);
-  const [ActionsIndex, SetActionsIndex] = useState(0);
-
-
-  useEffect(() => {
-    async function getQuestions() {
-      const data = await api.get(`/api/training/alone/questions/${key}`)
-        .then(res => {
-          SetQuestions(res.data);
-        });
-    } getQuestions();
-
-    async function getActions() {
-      await api.get('/api/training/others/getAction')
-        .then(res => {
-          SetActions(res.data)
-        })
-    } getActions();
-  }, []);
-
-  const getQuestion = () => {
-    if (Questions && Questions.length !== 0) {
-      if (QuestionsIndex !== -1) {
-        const q = Questions[QuestionsIndex];
-        if (q && q.length !== 0) {
-          return q[0];
-        }
-      }
-    }
-  };
-
-  const getAction = () => {
-    if (Actions && Actions.length !== 0) {
-      if (ActionsIndex !== -1) {
-        const q = Actions[ActionsIndex];
-        if (q && q.length !== 0) {
-          return q;
-        }
-      }
-    }
   }
 
   function goToHome() {
@@ -317,7 +304,7 @@ function PeerOthersroom() {
             {interview === '1' && CheckInterview ? <div className="main-controls-block"><br /><Recognition/><br /><br /><br /></div> :
               interview === '2' && CheckInterview ?
                 <div className="main-controls-block">
-                  <div id='alone-questions' >{getQuestion()}</div>
+                  <div id='alone-questions' > { QuestionString ? QuestionString : getQuestion() } </div>
                   <div
                       className="training-alone-main-controls-button"
                       id="startRecord"
@@ -326,8 +313,9 @@ function PeerOthersroom() {
                       <span></span>
                     </div>
                   <div className="training-alone-main-controls-button" onClick={() => {
+                    SetQuestionString("")
+                    tempIndex++;
                     SetQuestionsIndex(QuestionsIndex + 1)
-                    SetActionsIndex(ActionsIndex + 1)
                     finish();
                     setTimeout(() => {
                       start();
@@ -343,7 +331,7 @@ function PeerOthersroom() {
                 </div> :
                 interview === '1' ?
                   <div className="main-controls-block" >
-                    <div id='alone-questions' >{getQuestion()}</div>
+                    <div id='alone-questions' >{ QuestionString ? QuestionString : getQuestion() } </div>
                     <div
                       className="training-alone-main-controls-button"
                       id="startRecord" 
@@ -352,8 +340,8 @@ function PeerOthersroom() {
                       <span></span>
                     </div>
                     <div className="training-alone-main-controls-button" onClick={() => {
+                      SetQuestionString("")
                       SetQuestionsIndex(QuestionsIndex + 1)
-                      SetActionsIndex(ActionsIndex + 1)
                       finish();
                       setTimeout(() => {
                         start();
@@ -367,7 +355,6 @@ function PeerOthersroom() {
                     </div>
                     <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
                   </div> : <div className="main-controls-block" id="main-controls-interviewee"><Recognition/></div>}
-
           </div >
         </div >
       </div>

@@ -26,7 +26,12 @@ router.post('/randomQuestion', async(req, res) => {
         const questionList = []
         for (let value of req.body.list) {
             const question = await Questions.findOne({where: {questions_name : value}})
-            questionList.push([value, question.questions_url])
+            // questionList.push([value, question.questions_url])
+            questionList.push({
+                questions_name : question.questions_name,
+                questions_url: question.questions_url,
+                questions_keyword: question.questions_keyword
+            })
         }
         res.json(questionList)
     } catch (err) {

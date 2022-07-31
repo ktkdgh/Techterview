@@ -20,7 +20,7 @@ function PeerjsAlone() {
   const [isPlaying, setIsPlaying] = React.useState(true)
 
   const Token = sessionStorage.getItem('Authorization')
-  const QuestionList = sessionStorage.getItem('QuestionList')
+  const QuestionList = JSON.parse(sessionStorage.getItem('QuestionList'))
   const userInfo = jwt(Token)
 
   const currentUserVideoRef = useRef(null); //recordRef
@@ -33,23 +33,13 @@ function PeerjsAlone() {
 
   const [isFinish, setIsFinish] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
+  const [QuestionString, SetQuestionString] = useState("");
   const [countDown, setCountDown] = useState(true);
 
   useEffect(() => {
     async function getQuestions() {
       if (key == 15) {
-        const QuestionArray = QuestionList.split(',')
-        let AloneQuestion = []
-        let QuestionName = "";
-        for (let i = 0; i < QuestionArray.length; i++) {
-          if (!(i % 2)) {
-            QuestionName = QuestionArray[i]
-          } else if (QuestionName) {
-            AloneQuestion.push([QuestionName, QuestionArray[i]])
-            QuestionName = ""
-          }
-        }
-        SetQuestions(AloneQuestion)
+        SetQuestions(QuestionList)
       } else {
         await api.get(`/api/training/alone/questions/${key}`)
           .then(res => {
@@ -65,7 +55,7 @@ function PeerjsAlone() {
       if (QuestionsIndex !== -1) {
         const q = Questions[QuestionsIndex];
         if (q && q.length !== 0) {
-          return q[0];
+          return q.questions_name;
         }
       }
     }
@@ -78,7 +68,7 @@ function PeerjsAlone() {
       if (QuestionsIndex !== -1) {
         const q = Questions[AudioIndex];
         if (q && q.length !== 0) {
-          return q[1];
+          return q.questions_url;
         }
       }
     }
@@ -171,7 +161,7 @@ function PeerjsAlone() {
         .then(recordFile => {
           api.post('/api/training/alone/recordingCreate', {
             id: userInfo.id,
-            title: (Questions[QuestionsIndex])[0],
+            title: (Questions[QuestionsIndex]).questions_name,
             recording_url: recordFile.location
           })
             .then(res => {
@@ -242,8 +232,8 @@ function PeerjsAlone() {
             </div>
             <div className="video-user2" id="video-user2"><video style={{ zIndex: "0"}} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
           </div>
-          <div class="training-alone-main-controls">
-            <div class="main-controls-block">
+          <div className="training-alone-main-controls">
+            <div className="main-controls-block">
               <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
 
               <div id="training-alone-main-controls-button" class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {

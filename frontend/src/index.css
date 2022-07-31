@@ -70,7 +70,6 @@ button {
   text-align: center;
   font-weight:bold;
   margin: 3%;
-  z-index: 0;
 }
 
 .main-photo1 {
@@ -244,10 +243,6 @@ img.login-photo {
   margin-right: 3%;
 }
 
-
-
-
-
 .training-navigation-bar-logo {
   font-size: 40%;
   font-family: Montserrat, sans-serif;
@@ -306,7 +301,7 @@ img.login-photo {
   height: 100vh;
   position: fixed;
   background-color: white;
-  z-index: 9;
+  /* z-index: 9; */
 }
 
 /* .others-lobby-header2 {
