@@ -16,7 +16,7 @@
 
 
 .training-alone-start-modal-content {
-    width: 1000px;
+    width: 1200px;
     height: 600px;
     background-color: white;
     padding: 50px;
@@ -315,4 +315,42 @@ i {
 .btn.btn-outline-dark {
     font-weight: 700;
 
+}
+
+
+.login-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 110%;
+}
+
+.login-modal-content {
+    width: 600px;
+    height: 300px;
+    background-color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+.login-modal-body {
+    position: relative;
+    /* position: absolute; */
+    padding: 10px;
+    border-bottom: px solid #eee;
+    font-size: 100%;
 }

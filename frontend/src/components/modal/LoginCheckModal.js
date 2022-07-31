@@ -6,15 +6,15 @@ function LoginCheckModal() {
     function getLoginURL() {
         window.location.href = '/login'
     }
-    function goToHome(){
+    function goToHome() {
         window.location.href = '/'
     }
 
     return (
         <div>
-            <div className='training-alone-start-modal' id='training-alone-start-modal'>
-                <div className='training-alone-start-modal-content'>
-                    <div className='training-alone-start-modal-body'>
+            <div className='login-modal' id='login-modal'>
+                <div className='login-modal-content'>
+                    <div className='login-modal-body'>
                         로그인 후 서비스를 이용해 주세요🧑🏻‍💻
                     </div>
                     <div className='training-alone-start-modal-footer'>

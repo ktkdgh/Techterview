@@ -192,7 +192,12 @@ function PeerjsAlone() {
       <div className='training-alone-start-modal' id='training-alone-start-modal' style={{ zIndex: "1" }}>
         <div className='training-alone-start-modal-content'>
           <div className='training-alone-start-modal-body'>
-            <ReadyInterviewModal></ReadyInterviewModal>
+            <ReadyInterviewModal onStart={() => {
+              call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
+              setTimeout(() => {
+                start();
+              }, 1500);
+            }} />
           </div>
           <div className='training-alone-start-modal-footer'>
             {/* <button className='btn-yes' onClick={() => {

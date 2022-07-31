@@ -1,31 +1,43 @@
 .ready-home-body {
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ready-home-body-contents {
+    /* justify-content: center;
     text-align: center;
     align-items: center; */
-    display: flex;
-    flex-direction: row;
-    background-color: red;
-
+    /* color: blue; */
+    /* background-color: aquamarine; */
 }
 
 .ready-intro-body {
-    background-color: blue;
+    display: flex;
+    /* width: 100%; */
+    justify-content: space-between;
+    /* background-color: hotpink; */
+    height: 340px;
 
 }
 
 .ready-check-body {
+    height: 340px;
     display: flex;
-    text-align: right;
+    align-items: center;
+    justify-content: space-between;
+
     /* align-items: right; */
-    flex-direction: row;
-    background-color: purple;
+    /* flex-direction: row; */
+    /* background-color: orange; */
 }
 
-.read-start-body {
-    background-color: yellow;
-    margin-top: 5px;
+.ready-start-body {
+    display: flex;
+    height: 340px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 button.btn-yes {
@@ -44,11 +56,16 @@ button.btn-yes {
 }
 
 .video-user1 {
-    width: 31vw;
-    height: 40vh;
+    width: 29vw;
+    height: 35vh;
 }
 
-.read-start-body {}
+.read-start-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .ready-buttons-nav {}
 
@@ -59,12 +76,21 @@ button.btn-yes {
     color: black;
 }
 
-/* .btn {
-    color: white;
-    background: teal;
-    padding: 0.375rem 0.75rem;
-    border: 1px solid teal;
-    border-radius: 0.25rem;
-    font-size: 1rem;
-    line-height: 1.5;
-} */
+.ready-buttons-parent {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+
+.ready-prev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ready-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
