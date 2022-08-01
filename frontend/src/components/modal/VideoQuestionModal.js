@@ -43,9 +43,9 @@ function VideoQuestionModal() {
     };
 
     return (
-        <div className="video-edit-modal" >
-            <div className="video-edit-modal-content">
-                <div className="video-edit-modal-body">
+        <div className="video-save-modal" >
+            <div className="video-save-modal-content">
+                <div className="video-save-modal-body">
                     <div className="video-edit-thumbnail" ></div>
                     
                     <div className="video-edit-voice-filter-btn">
@@ -71,15 +71,15 @@ function VideoQuestionModal() {
                             )
                         })}
                         </table> 
-                         : <div style={{fontSize:"130%", marginTop: '20%'}}>녹화된 영상이 없습니다.</div> }
+                         : <div style={{fontSize:"130%", marginTop: '70%'}}>녹화된 영상이 없습니다.</div> }
                     </div>
                 </div>
                 { RecordingCheck ? 
-                <div className="video-edit-modal-footer">
-                    <button className="btn-cancel" onClick={() => getRecordingSave()}>저장</button>
+                <div className="video-save-modal-footer">
+                    <button className="video-save-btn" onClick={() => getRecordingSave()}>저장</button>
                 </div> : 
-                <div className="video-edit-modal-footer">
-                    <button className="btn-cancel" onClick={() => window.location.href = '/'}>나가기 </button>
+                <div className="video-save-no-video-footer">
+                    <button className="video-save-cancel-btn" onClick={() => window.location.href = '/'}>나가기 </button>
                 </div>  }
             </div>
         </div>
