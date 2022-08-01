@@ -107,28 +107,22 @@ function FeedbackDetail() {
                 <div className="feedbackdetail-container" >
                             
                    <div className="feedbackdetail-left" > 
-                                        
-                                         <ReactPlayer  controls url={DetailFeedback.recordingUrl}    style={{zIndex: ClickMinus}} id= 'feedback-detail-video'/>
+                        {DetailFeedback.deletebotton ?
+                        <button className="feedbackdetail-video-delete-btn"  onClick={() => FeedbackDelete()}> 영상 삭제 <FontAwesomeIcon icon={faTrashCan} /></button>: ""}
+                        {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
+                        <ReactPlayer  controls url={DetailFeedback.recordingUrl}    style={{zIndex: ClickMinus}} id= 'feedback-detail-video'/>
 
-                                         <div className="feedbackdetail-title" >
-                                            <div className="feedbackdetail-title-left"> {DetailFeedback.title} </div> 
-                                            <div className='feedbackdetail-title-right'>  {DetailFeedback.name}</div> 
-                                                  
-                                    <div className="feedbackdetail-video-delete-btn-container">
-
+                            <div className="feedbackdetail-title" >
+                                <div className="feedbackdetail-title-left"> {DetailFeedback.title} </div> 
+                                <div className='feedbackdetail-title-right'>  {DetailFeedback.name}</div>        
+                                <div className="feedbackdetail-video-delete-btn-container">
                                     <div className="feedbackdetail-video-btn">
-
                                         {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
                                         {LikeStatus ? <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faThumbsUp}  />     {FeedLikeCnt} </button> :  <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faThumbsUp} />     {FeedLikeCnt} </button>}
-                                      
-                                        {DetailFeedback.deletebotton ?
-                                        <button className="feedbackdetail-video-delete-btn"  onClick={() => FeedbackDelete()}>  <FontAwesomeIcon icon={faTrashCan} /></button>: ""}
-                                        {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
                                     </div>
+                                </div>                
+                            </div>
 
-                                        </div>                
-                                    </div>
-    
                                     
 
                      </div>
@@ -182,7 +176,7 @@ function FeedbackDetail() {
                                     );
                                 })}
                             </tbody>
-                        </table> : "없어욤" }
+                        </table> : <div className="no-comment">등록된 댓글이 없습니다.</div> }
                     </div>
 
             </div>
