@@ -4,6 +4,14 @@ import '../css/Timer.css';
 
 function CountDown({start, setCountDown}) {
 
+
+//   function timeout(delay) {
+//     return new Promise( res => setTimeout(res, delay) );
+// }
+
+// await timeout(1000); 
+
+
   let [key, setKey] = useState(0);
   const [stopTimer, setStopTimer] = useState(true);
   const [time, setTime]= useState('');

@@ -44,9 +44,6 @@
 }
 
 
-/* tr:hover { background-color:rgba(64, 218, 199, 1); } */
-
-
 
 /* feedback-table */
 .feedback-table {
@@ -55,7 +52,6 @@
     justify-content: center;
     font-family: Montserrat, sans-serif;
     flex: 1;
-    /* border:3px solid rgb(182, 243, 222); */
     border-collapse: collapse;
     border-radius: 10px;
     border-style: hidden;
@@ -65,15 +61,15 @@
 
   .feedbackdetail-container {
    
+    display: flex;
     margin: 2%;
     padding: 1%;
     height: 85vh;
-    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
     align-content: start;
     justify-content:space-around;
-    box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px;
     border-radius: 10px;
-    flex-wrap: wrap;
 
   }
 
@@ -81,20 +77,30 @@
 
 
 .feedbackdetail-left {
-    /* width: vw; */
-    height: 100%;
+    height: 100%;  
+    border-radius: 20px;
+    padding: 3vh 0vw 1vh;
+    backdrop-filter: blur(50px);
+
   }  
 
 
   .feedbackdetail-right {
     flex: 1;
-    margin-left: 3%;
+    height: 80vh;
+    position: relative;
+    border-radius: 20px;
+    padding: 3vh 0vw 1vh;
+    background:rgb(249, 249, 250);
+    backdrop-filter: blur(50px);
+    border: 2px solid rgba(255, 255, 255, 0.93);
+    box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px; 
 
   }
 
   #feedback-detail-video {
-    height: 75vh !important;
-    width: 55vw !important;
+    height: 65vh !important;
+    width: 60vw !important;
   }
 
 
@@ -126,10 +132,7 @@
     background-color: blue;
     height: 65vh;
   }
-.feedbackdetail-comment-table {
-  /* background-color: antiquewhite; */
-  margin-left: 5%;
-}
+
 .feedbackdtail-input-wrapper {
   margin-left: 5%;
   margin-top: 7%;
@@ -146,19 +149,19 @@
     align-items: center;
     margin-bottom: 2%;
   }
-  
-  .feedbackdetail-video-grid-box {
-    /* width: 65% !important; */
-  }
-  
 
-  
+
   .feedbackdetail-title {
+    font-family: Pretendardregular;
     text-align: center;
     margin-top: 2%;
     display: flex;
+    font-size: 1.3rem;
+    font-weight: 700;
     flex-direction: row;
     justify-content: center;
+    align-content: center;
+    position:relative;
   }
   
 
@@ -175,7 +178,7 @@
 
   .side-navigation-panel .side-navigation-panel-select .side-navigation-panel-select-wrap .side-navigation-panel-select-option:hover {
     border-left: none !important;
-    background-color: rgba(64, 218, 199, 1) !important;
+    background-color: #e8f8f6 !important;
   }
 .side-navigation-panel-select-inner-option  {
   background-color: white !important;
@@ -183,8 +186,8 @@
 }
 
 .side-navigation-panel-select-inner-option:hover  {
-  border-right-color:  rgba(64, 218, 199, 1) !important;
-  background-color: rgba(64, 218, 199, 1) !important;
+  border-right-color: #e8f8f6!important;
+  background-color:  #e8f8f6!important;
 
 }
 
@@ -225,7 +228,7 @@
 
 }
 #feedback-main-greed-row:hover{
-  background-color:rgba(64, 218, 199, 1) ;
+  background-color:#e8f8f6;
 }
 .feedback-main-table {
   display: flex;
@@ -240,60 +243,42 @@
 /* Feedback Detail*/
 
 
-.feedbackdetail-title {
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 5% ;
-  /* justify-content: space-between; */
-  
-}
+
 
 
 
 .feedbackdetail-video-btn{
-  display: flex;
+  display: absolute;
   justify-content: center;
-  margin-right: -20rem; 
+  width: 10vw;
   /* margin: 4%; */
 }
 .feedbackdetail-video-delete-btn-container{
-  display: flex;
-  justify-content: flex-end;
+  display: relative;
+  
+}
+.feedbackdetail-video-submit-btn {
+  color: rgba(64, 218, 199, 1);
+  background-color: rgb(249, 249, 250);
 
 }
-
 
 .feedbackdetail-video-like-btn {
-  background-color: white;
   color: rgba(64, 218, 199, 1);
-  border: 3px solid rgba(64, 218, 199, 1);
-  padding: 1px 20px;
-  border-radius: 10px;
-  margin-top: 1%;
-
-}
-
-.feedbackdetail-video-like-btn:hover {
-  background-color: rgba(64, 218, 199, 1);
-  /* Green */
-  color: white;
-}
-.feedbackdetail-video-delete {
   background-color: white;
+  padding:  2%;
+  border-radius: 10px;
 }
+
+.feedbackdetail-video-delete {
+  background-color:rgb(249, 249, 250);
+} 
 .feedbackdetail-video-delete-btn {
 background-color: white;
 color: red;
-border: 3px solid red;
+/* border: 3px solid red; */
 padding: 0 20px;
 border-radius: 10px;
-/* margin-left: 2%; */
-}
-
-.feedbackdetail-video-delete-btn:hover {
-  background-color: red;
-  color: black;
 }
 
 
@@ -312,10 +297,12 @@ border-radius: 10px;
 }
 
 .add-comment-input {
-  width: 60%;
+  width: 80%;
   margin: 2%;
-  height: 6vh;
-  border: 3px solid rgb(236, 236, 240);
+  height: 5vh;
+  border: 3px solid  rgba(64, 218, 199, 1);
+  border-radius: 20px;
+
 
 }
 .add-comment-btn {
@@ -325,7 +312,9 @@ border-radius: 10px;
 
 
 .feedback-table-cart {
-  border:5px solid rgba(64, 218, 199, 1);
+  border:5px solid #e8f8f6;
+  background-color: #e8f8f6;
+  border-radius: 15px;
   padding: 3%;
   width: 35vw;
   height: 80vh;
@@ -351,7 +340,13 @@ border-radius: 10px;
 }
 .feedbackdetail-title-right {
   margin-left: 1%;
+  padding-top: 0.5%;
 }
+.feedbackdetail-title-left {
+  margin-left: 1%;
+  padding-top: 0.5%;
+}
+
 
 .my-video-row {
   display: grid;
@@ -369,7 +364,7 @@ border-radius: 10px;
   border-radius: 30px;
 }
 .my-video-row:hover{
-  background-color:rgba(64, 218, 199, 1) ;
+  background-color:#e8f8f6!important; ;
 }
 
 .my-video-recent {
@@ -389,5 +384,50 @@ border-radius: 10px;
 }
 
 .my-video-recent:hover {
-  background-color:rgba(64, 218, 199, 1) ;
+  background-color: #e8f8f6!important;
+}
+.feedback-table-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  padding: 2%;
+
+}
+.feedbackdetail-comment-table {
+  position: absolute;
+  top: 25%; 
+  font-family: Pretendardregular;
+  /* background-color: #e8f8f6; */
+}
+.feedback-grid-header {
+  display: grid;
+  grid-template-columns: 1fr 3fr ;
+  text-align: center;
+  padding:2%;
+  background-color: #e8f8f6;
+}
+
+.comment-icon-container {
+  display: flex;
+  justify-content: end;
+
+}
+.feedback-tbody {
+  text-align: center;
+}
+.comment-date {
+  color: darkgray;
+  padding-right: 3%;
+}
+
+.feedbackdetail-video-edit-btn{
+  background-color: rgb(249, 249, 250);
+  color: darkgray;
+
+  
+}
+.comment-edit-delete-btn {
+
+}
+.svg-inline--fa.fa-trash-can {
+  color: darkgray !important;
 }
