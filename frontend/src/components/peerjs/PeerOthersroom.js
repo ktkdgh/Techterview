@@ -17,8 +17,12 @@ import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from '../modal/VideoQuestionModal';
 import Recognition from '../shared/stt'
 
+
 const temp = []
 let tempIndex = 0
+let templist = ['계층에 대해 자세히 설명해주세요!', '란 무엇이고 어떻게 동작하나요?' ]
+let i = 0;
+
 function PeerOthersroom() {
   if (!(!!sessionStorage.getItem('Authorization'))) {
     sessionStorage.setItem('url', window.location.href)
@@ -92,18 +96,27 @@ function PeerOthersroom() {
 
     socket.on('sttSoket', (msg) => {
       console.log('sttSoket: ', msg);
-      let text = msg.split(' ');
+      let tempArray = temp[tempIndex].split(',')
       let keywordsTemp
-      if (!QuestionString) {
-        for (let value of text) {
-          if (temp[tempIndex].includes(value)){
-            keywordsTemp = value
-            break
+      for (let value of tempArray) {
+        if (msg.indexOf(value) !== -1) {
+          let msgStart = msg.indexOf(value);
+          let msgEnd = msg.indexOf(value.slice(-1), msgStart);
+          keywordsTemp = msg.slice(msgStart, msgEnd+1);
+          temp[tempIndex] = temp[tempIndex].replace(keywordsTemp, "/")
+          console.log("temp[tempIndex] : ", temp[tempIndex]);
+          if (temp[tempIndex].indexOf(value)){
+            console.log(temp[tempIndex].match(value));
           }
+          break;
         }
       }
       if (keywordsTemp){
-        SetQuestionString(`답변이 끝나면 ${keywordsTemp}에 장점을 말해달라고 하세요!`);
+        if (templist.length < i) {
+          i = templist.length -1
+        }
+        SetQuestionString(`${keywordsTemp}` + templist[i]);
+        i++;
         keywordsTemp = "";
       }
     });
@@ -315,6 +328,7 @@ function PeerOthersroom() {
                   <div className="training-alone-main-controls-button" onClick={() => {
                     SetQuestionString("")
                     tempIndex++;
+                    i = 0;
                     SetQuestionsIndex(QuestionsIndex + 1)
                     finish();
                     setTimeout(() => {
@@ -341,6 +355,8 @@ function PeerOthersroom() {
                     </div>
                     <div className="training-alone-main-controls-button" onClick={() => {
                       SetQuestionString("")
+                      tempIndex++;
+                      i = 0;
                       SetQuestionsIndex(QuestionsIndex + 1)
                       finish();
                       setTimeout(() => {

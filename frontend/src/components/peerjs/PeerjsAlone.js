@@ -239,7 +239,7 @@ function PeerjsAlone() {
             <div className="main-controls-block">
               <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
 
-              <div id="training-alone-main-controls-button" class="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
+              <div id="training-alone-main-controls-button" className="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
                 audio.play();
                 setCountDown(true);
                 SetQuestionsIndex(QuestionsIndex + 1);
