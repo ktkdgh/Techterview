@@ -35,7 +35,7 @@ function PeerjsAlone() {
   const [isFinish, setIsFinish] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
   const [QuestionString, SetQuestionString] = useState("");
-  const [countDown, setCountDown] = useState(true);
+  const [countDown, setCountDown] = useState(false);
 
   useEffect(() => {
     async function getQuestions() {
@@ -190,9 +190,8 @@ function PeerjsAlone() {
         <div className='training-alone-start-modal-content'>
           <div className='training-alone-start-modal-body'>
             <ReadyInterviewModal onStart={() => {
-              call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
+              call(); setCountDown(true); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
               setTimeout(() => {
-                start();
               }, 1500);
             }} />
           </div>

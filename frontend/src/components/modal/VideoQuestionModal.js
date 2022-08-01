@@ -50,24 +50,24 @@ function VideoQuestionModal() {
                     
                     <div className="video-edit-voice-filter-btn">
                     { RecordingCheck ? 
-                        <table>
+                        <table className="video-save-modal-table">
                         {getRecordingList.map((value, idx) => {
                             return(
-                                <tr key={idx}>
-                                    <td> <input
+                                <div className="video-save-modal-row" key={idx}>
+                                    <div> <input
                                         key={value.id}
                                         type="checkbox"
                                         onChange={(e) => onCheckedElement(e.target.checked, value.id)}
                                         checked={recordingCheckedList.includes(value.id) ? true : false}
                                         />
-                                    </td>
-                                    <td>
+                                    </div>
+                                    <div>
                                         {idx + 1} 
-                                    </td>
-                                    <td>
+                                    </div>
+                                    <div>
                                         {value.recording_title}
-                                        </td>
-                                </tr>
+                                        </div>
+                                </div>
                             )
                         })}
                         </table> 

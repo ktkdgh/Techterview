@@ -41,24 +41,26 @@ function Navbar() {
                             
                         <div className="navigation-bar-right">
                             { isLoggedIn ? 
-                            <div>
+                            <div className="navigation-bar-content" >
                                 <Link to="/feedback/main"><button className="interview-feedback-page-btn">답변 둘러보기</button></Link>
                                 <Link to="/questionlist/main"><button className="interview-question-page-btn">질문 담기</button></Link>
                             </div>
                             :
-                            <div>
+                            <div className="navigation-bar-content">
                                 <button className='interview-feedback-page-btn' onClick={() => { setOpenModal(true); }}  >답변 둘러보기</button>
                                 <button className='interview-question-page-btn' onClick={() => { setOpenModal(true); }}  >질문 담기</button>
                                 {openModal && <LoginCheckModal closeModal={setOpenModal} />}
                             </div>
                             }
                             { isLoggedIn ? 
-                                <div>
+                                <div className="navigation-bar-content">
                                     <Link to="/feedback/myvideo"><button className="interview-my-page-btn">{ isName } 님</button></Link>
                                     <a onClick={ onLogout }><button className="interview-login-page-">로그아웃</button></a>
                                 </div>
                                 :
+                                <div className="navigation-bar-content">
                                 <Link to="/login"><button className="interview-login-page-">로그인</button></Link> 
+                                </div>
                             }
                         </div>
                     </div>

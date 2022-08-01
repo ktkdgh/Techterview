@@ -239,3 +239,16 @@ button.btn-cancel {
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
+.video-save-modal-table {
+    font-family: Pretendardregular;
+    color:black;
+    margin: 20% 0;
+    font-size: 20px;
+}
+.video-save-modal-row {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 5fr;
+    text-align: left;
+
+}
