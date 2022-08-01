@@ -79,18 +79,20 @@ button.btn-cancel {
     text-align: center;
     margin: 30px;
 }
+
 .feedback-my-video-body {
     width: 75vw;
 
 
 }
+
 /* Video Face Voice Edit Modal */
 .video-edit-modal {
     position: fixed;
     left: 0;
     top: 0;
     right: 0;
-    bottom: 0; 
+    bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
@@ -120,10 +122,14 @@ button.btn-cancel {
     height: 55%;
     background-color: white;
     padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
 
 .video-edit-modal-footer {
     margin-top: 50px;
@@ -221,14 +227,10 @@ button.btn-cancel {
     color: black;
 }
 
-.video-edit-modal-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
 
-.my-video-prev-modal{
+/*video-save-modal*/
+
+.my-video-prev-modal {
     width: 765px;
     height: 550px;
     background-color: white;
@@ -236,4 +238,112 @@ button.btn-cancel {
     text-align: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.video-save-modal-table {
+    font-family: Pretendardregular;
+    color:black;
+    margin: 20% 0;
+    font-size: 20px;
+}
+.video-save-modal-row {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 5fr;
+    text-align: left;
+
+}
+
+
+
+.video-save-modal-content {
+    width: 35%;
+    height: 55%;
+    background-color: white;
+    padding: 0 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position: relative;
+}
+
+
+
+.video-save-modal-content {
+    background-color: white;
+    color: black;
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    position: absolute;
+    /* bottom: 10%;
+    right:40%; */
+
+
+}
+
+.video-save-modal-body {
+    /* margin-top: 50px; */
+    border-bottom: 1px solid #eee;
+}
+
+/* .btn-cancel:hover {
+    background-color: red;
+    /* Green */
+    /* color: black; */
+/* }  */
+
+
+.video-save-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+
+
+}
+
+.video-save-modal-footer {
+    margin-top: 50px;
+}
+
+.video-save-cancel-btn{
+    background-color: white;
+    color: black;
+    border: 3px solid black;
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+}
+
+.video-save-cancel-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.video-save-no-video-footer {
+    padding: 30px;
+}
+
+.video-save-btn{
+    background-color: white;
+    color: black;
+    border: 3px solid black;
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+}
+
+
+.video-save-btn:hover {
+    background-color: black;
+    color: white;
 }

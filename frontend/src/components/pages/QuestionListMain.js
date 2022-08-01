@@ -83,7 +83,7 @@ function Question() {
                                 <ul>
                                     {
                                         ClickArray?.map((click, idx) => 
-                                            <div className="question-add-to-cart" >
+                                            <div className="question-add-to-cart" key={idx}>
                                                 {idx + 1}. {click}
                                                 <button className="question-delete-button" onClick={() => {SetDeleteIdx(idx); arraydeleteidx(click, DeleteIdx) }} >Delete </button>
                                             </div>)

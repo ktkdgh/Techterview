@@ -42,7 +42,7 @@
 button.btn-yes {
     background-color: white;
     color: black;
-    border:3px solid black;
+    border: 3px solid black;
     padding: 5px 20px;
     border-radius: 10px;
     margin: 10px;
@@ -171,12 +171,12 @@ button.btn-cancel {
 }
 
 .Create-edit-face-btn:hover {
-    border: 3px solid lightseagreen;
+    border: 3px solid #e8f8f6;
     color: black;
 }
 
 .Create-edit-voice-btn:hover {
-    border: 3px solid lightseagreen;
+    border: 3px solid #e8f8f6;
     color: black;
 }
 

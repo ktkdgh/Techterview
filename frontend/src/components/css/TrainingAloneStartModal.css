@@ -12,22 +12,22 @@
     justify-content: center;
     font-family: Montserrat, sans-serif;
     font-size: 110%;
+    z-index: 9999999;
 }
 
-
 .training-alone-start-modal-content {
-    width: 600px;
-    height: 300px;
+    width: 1200px;
+    height: 600px;
     background-color: white;
-    /* padding: 50px; */
-    display: flex;
-    flex-direction: column;
+    padding: 50px;
+    /* display: flex; */
+    /* flex-direction: column; */
     justify-content: center;
     text-align: center;
     align-items: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    
+
 }
 
 .training-alone-start-modal-footer {
@@ -36,6 +36,10 @@
 
 .modal-title {
     margin: 0;
+}
+
+.btn-yes {
+    font-size: 1rem;
 }
 
 #alone-questions {
@@ -50,18 +54,21 @@
 
 .training-alone-start-modal-body {
     position: relative;
+    /* position: absolute; */
     padding: 10px;
     border-bottom: 1px solid #eee;
-    font-size: 100%;
+    /* font-size: 100%; */
+    font-size: 1rem;
+    z-index: 2;
 }
 
 .alone-video-controls-button-container {
     width: 95vw;
-    height:88vh;
+    height: 88vh;
     margin: 3rem;
     background: rgba(255, 255, 255, 0.16);
     border-radius: 15px;
-    box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px; 
+    box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px;
 
 }
 
@@ -102,7 +109,7 @@
     display: flex;
     flex-direction: row;
     margin: 1%;
-    background-color:rgb(198, 246, 231);
+    background-color: #e8f8f6;
     padding: 1.5rem;
     border-radius: 15px;
     height: 75%;
@@ -132,9 +139,9 @@
     display: flex;
     width: 70vw;
     align-content: center;
-    background-color:  rgba(64, 218, 199, 1);
+    background-color: rgba(64, 218, 199, 1);
     font-size: x-large;
-    border-radius:20px ;
+    border-radius: 20px;
     height: 3.5rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px;
 
@@ -145,7 +152,7 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    margin-top:1.1rem;
+    margin-top: 2%;
     /* color: white;
     background-color: rgba(64, 218, 199, 1); */
 }
@@ -192,7 +199,7 @@
     display: flex;
     flex-direction: row;
     margin: 1%;
-    background-color:rgb(198, 246, 231);
+    background-color: #e8f8f6;
     padding: 1.5rem;
     border-radius: 15px;
     height: 75%;
@@ -221,11 +228,11 @@
 
 .training-others-inner-box {
     width: 95vw;
-    height:88vh;
+    height: 88vh;
     margin: 3rem;
     background: rgba(255, 255, 255, 0.16);
     border-radius: 15px;
-    box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px; 
+    box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px;
 
 }
 
@@ -258,14 +265,14 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    margin-top: 1.1rem;
+    margin-top: 2%;
     color: white;
 
 }
 
 
 .video-end-btn {
-    background-color: #dee2e6;
+    background-color: #D9D9D9;
     color: black;
     padding: 5px 40px;
     border-radius: 10px;
@@ -289,6 +296,7 @@ i {
 .svg-inline--fa.fa-circle-right {
     color: black;
 }
+
 .fa.fa-video-camera {
     color: black;
 }
@@ -303,7 +311,7 @@ i {
 }
 
 .nav-link {
-    color:rgba(64, 218, 199, 1);
+    color: rgba(64, 218, 199, 1);
 }
 
 .nav-link:hover {
@@ -312,5 +320,44 @@ i {
 
 .btn.btn-outline-dark {
     font-weight: 700;
-    
+
+}
+
+
+.login-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 110%;
+    z-index:99999999;
+}
+
+.login-modal-content {
+    width: 600px;
+    height: 300px;
+    background-color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+.login-modal-body {
+    position: relative;
+    /* position: absolute; */
+    padding: 10px;
+    border-bottom: px solid #eee;
+    font-size: 1rem;
 }
