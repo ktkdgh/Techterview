@@ -138,6 +138,8 @@ function FeedbackDetail() {
                             <input className="add-comment-input" placeholder="  댓글을 입력해주세요" onChange={onChange} value={text} />
                             <button className="feedbackdetail-video-submit-btn"  onClick={() => { replyCreate() }}>등록</button>
                         </div>
+
+                        { ReplyList.length !== 0 ? 
                         <table className="feedbackdetail-comment-table">
                             <div className="feedback-thead">
                                 <div className="feedback-grid-header">
@@ -180,7 +182,7 @@ function FeedbackDetail() {
                                     );
                                 })}
                             </tbody>
-                        </table>
+                        </table> : "없어욤" }
                     </div>
 
             </div>
