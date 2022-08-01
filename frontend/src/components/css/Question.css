@@ -4,7 +4,7 @@
 
 .left-menu {
     font-family: "Montserrat";
-    font-size: 130%;
+    font-size: 120%;
     margin-top: 2%;
     width: 15%;
     float: left;
@@ -24,6 +24,9 @@
     font-family: Montserrat, sans-serif;
 
 }
+/* .side-navigation-panel-select-option-text{
+    width: 20vw;
+} */
 
 
 /* modal */

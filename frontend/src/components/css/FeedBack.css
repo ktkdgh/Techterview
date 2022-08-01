@@ -213,7 +213,7 @@ width: 100%;
 vertical-align: center;
 text-align: center;
 margin: 1% 0;
-font-size: 1.3rem;
+font-size: 1rem;
 }
 
 #feedback-main-greed-row {
@@ -356,7 +356,23 @@ margin-left: 1%;
 padding-top: 0.5%;
 }
 
+.my-video-row-head {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+  width: 90%;
+  vertical-align: center;
+  text-align: center;
+  margin: 1% 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 2.5%;
+  display: grid;
+  border-style: solid none none none;
+  background-color: rgb(249, 249, 250);
+  border-radius: 30px;
 
+
+}
 .my-video-row {
 display: grid;
 grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
@@ -364,9 +380,9 @@ width: 90%;
 vertical-align: center;
 text-align: center;
 margin: 1% 0;
-font-size: 1.3rem;
+font-size: 1rem;
 font-weight: 700;
-padding: 2.5%;
+padding: 1.5%;
 display: grid;
 border-style: solid none none none;
 background-color: rgb(249, 249, 250);
@@ -376,6 +392,7 @@ border-radius: 30px;
 background-color:#e8f8f6!important; ;
 }
 
+
 .my-video-recent {
 display: grid;
 grid-template-columns: 0.3fr 1fr 4fr 1fr 2fr;
@@ -383,9 +400,9 @@ width: 93%;
 vertical-align: center;
 text-align: center;
 margin: 1% 0;
-font-size: 1.3rem;
+font-size: 1rem;
 font-weight: 700;
-padding: 2.5%;
+padding: 1.5%;
 display: grid;
 border-style: solid none none none;
 background-color: rgb(249, 249, 250);
