@@ -50,11 +50,11 @@ function ReadyInterviewModal({ onStart }) {
                         </div>
 
                         <div>
-                            <img src={alone} alt='alone' style={{ marginTop: 20, width: 300, height: 200 }} />
-                            <div style={{ marginTop: 20 }} >
-                                <h3>각 문제당 30초의 답변 준비 시간이 주어지게 됩니다.<br></br>
+                            <img src={alone} alt='alone' style={{ marginTop: 20, width: 400, height: 200 }} />
+                            <div style={{ marginTop: 40 }} >
+                                <h4>각 문제당 30초의 답변 준비 시간이 주어지게 됩니다.<br></br>
                                     30초 이후에는 자동으로 녹화가 시작됩니다.
-                                </h3>
+                                </h4>
                             </div>
                         </div>
 
@@ -82,7 +82,8 @@ function ReadyInterviewModal({ onStart }) {
                         </button>
                     </div>
                     <div>
-                        시험 전 카메라와 음성을 최종 확인해주세요
+                        <h4>면접 전 카메라와 음성을 <br></br>
+                            확인해주세요</h4>
                     </div>
                     <div className="ready-video-user" id="ready-video-user" >
                         <video muted style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" ref={currentUserVideoRef} ></video>
@@ -165,7 +166,7 @@ function ReadyInterviewModal({ onStart }) {
                 {({ showModal, hideModal }) => (
                     <div className='ready-buttons-parent'>
                         <div className='ready-buttons-nav'>
-                            <button className='ready-buttons' onClick={() => showHomeModal(showModal)}>step1</button>
+                            <button className='ready-buttons' onClick={() => showHomeModal(showModal)}>시험 가이드 보기</button>
                         </div>
                         <ModalRoot /> {/* 본문 내용들이 나오는 곳 */}
                     </div>
