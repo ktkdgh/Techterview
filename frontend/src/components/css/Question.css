@@ -28,7 +28,7 @@
 
 /* modal */
 
-.question-list-modal{
+.question-list-modal {
     position: fixed;
     left: 0;
     top: 0;
@@ -40,6 +40,7 @@
     justify-content: center;
     font-family: Montserrat, sans-serif;
 }
+
 .question-list-modal-content {
     width: 27vw;
     background-color: white;
@@ -48,10 +49,12 @@
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
 .question-list-modal-body {
     padding: 10px;
     border-bottom: 1px solid #eee;
 }
+
 .question-list-modal-footer {
     padding: 10px;
 }
@@ -68,14 +71,15 @@
 
 
 .question-finish-btn:hover {
-    background-color:  rgba(64, 218, 199, 1);
+    background-color: rgba(64, 218, 199, 1);
     /* Green */
     color: black;
 }
+
 .question-finish-btn-container {
     display: flex;
     justify-content: end;
-    align-items: center; 
+    align-items: center;
     gap: 1%;
 }
 
@@ -83,9 +87,11 @@
     background-color: rgb(249, 249, 250);
     border-radius: 3px;
 }
+
 .question-add-button:hover {
     background-color: rgba(64, 218, 199, 1);
 }
+
 .question-delete-button {
     background-color: rgb(249, 249, 250);
     border-radius: 3px;
@@ -96,9 +102,11 @@
 .question-delete-button:hover {
     background-color: red;
 }
+
 .svg-inline--fa.fa-cart-plus {
-    color:  rgba(64, 218, 199, 1);
+    color: rgba(64, 218, 199, 1);
 }
+
 .svg-inline--fa.fa-cart-plus:hover {
     color: black;
 }

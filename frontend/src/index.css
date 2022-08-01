@@ -45,7 +45,7 @@ button {
 
 .main-page-body {
 
-  position: relative;  
+  position: relative;
   font-family: Montserrat, sans-serif;
   display: flex;
   flex-direction: column;
@@ -68,7 +68,7 @@ button {
   position: relative;
   font-size: 2.3em;
   text-align: center;
-  font-weight:bold;
+  font-weight: bold;
   margin: 3%;
 }
 
@@ -113,9 +113,11 @@ li {
   align-items: center;
 
 }
+
 .display-3 {
   margin-top: 2%;
 }
+
 .auth-loader-wrapper {
   display: flex;
   flex-direction: column;
@@ -129,17 +131,17 @@ li {
 
 
 .wrapper-login {
-  padding-top:5%;
+  padding-top: 5%;
   /* margin: 50px;
   margin-top: 50px; */
   display: flex;
   flex-direction: column;
-  background-color:white;
+  background-color: white;
   justify-content: center;
   /* align-items: center; */
 }
 
-.login-navigation-bar-logo{
+.login-navigation-bar-logo {
   font-size: 500%;
   font-family: Montserrat, sans-serif;
   font-weight: 800;
@@ -150,10 +152,12 @@ li {
   margin-left: 1%;
 
 }
+
 .login-body {
   display: flex;
   justify-content: center;
 }
+
 .login-phrase-image-container {
   display: flex;
   flex-direction: column;
@@ -175,10 +179,10 @@ li {
 
 .login-box2 {
   width: 100%;
-  border: 1px solid #d7d7d7; 
+  border: 1px solid #d7d7d7;
   margin-top: 6.75rem;
-  background: #ffffff; 
-  border-radius: 0.9375rem; 
+  background: #ffffff;
+  border-radius: 0.9375rem;
   margin-top: 1.875rem;
 }
 
@@ -341,8 +345,9 @@ img.login-photo {
   margin: 10px;
   border-radius: 10px;
 }
+
 .add-face-filter-voice-btn:hover {
-  background-color:  #e8f8f6;
+  background-color: #e8f8f6;
   color: black;
 
 }
@@ -358,7 +363,7 @@ img.login-photo {
 }
 
 .video-delete-btn:hover {
-  background-color:#e8f8f6;
+  background-color: #e8f8f6;
 }
 
 
@@ -471,5 +476,3 @@ img.login-photo {
   transform: scale(1.3);
   cursor: pointer;
 }
-
-

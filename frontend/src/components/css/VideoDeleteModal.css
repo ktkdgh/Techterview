@@ -79,18 +79,20 @@ button.btn-cancel {
     text-align: center;
     margin: 30px;
 }
+
 .feedback-my-video-body {
     width: 75vw;
 
 
 }
+
 /* Video Face Voice Edit Modal */
 .video-edit-modal {
     position: fixed;
     left: 0;
     top: 0;
     right: 0;
-    bottom: 0; 
+    bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
@@ -228,7 +230,7 @@ button.btn-cancel {
     text-align: center;
 }
 
-.my-video-prev-modal{
+.my-video-prev-modal {
     width: 765px;
     height: 550px;
     background-color: white;

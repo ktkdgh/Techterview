@@ -1,4 +1,3 @@
-
 .interview-room-body {
     display: flex;
     justify-content: center;
@@ -12,21 +11,22 @@
     flex-wrap: wrap;
 
 }
-.interview-room{
-width : 23vw;
-height: 23vh;
-border : 1px soild #2b6dae;
-border-radius : 10px;
-display:flex;
-background-color: #F9F9FA;
-margin: 1vw;
-padding : 2%;
-cursor : pointer;
-display: flex;
-flex-direction: column;
-align-content: center;
-position: relative;
-box-shadow: 1px 1px 1px 1px rgb(236, 244, 241);
+
+.interview-room {
+    width: 23vw;
+    height: 23vh;
+    border: 1px soild #2b6dae;
+    border-radius: 10px;
+    display: flex;
+    background-color: #F9F9FA;
+    margin: 1vw;
+    padding: 2%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    position: relative;
+    box-shadow: 1px 1px 1px 1px rgb(236, 244, 241);
 }
 
 .interview-room-name {
@@ -36,6 +36,7 @@ box-shadow: 1px 1px 1px 1px rgb(236, 244, 241);
     margin-top: 3%;
     margin-bottom: 3%;
 }
+
 .category-people-count-container {
     display: flex;
     width: 85%;
@@ -51,23 +52,25 @@ box-shadow: 1px 1px 1px 1px rgb(236, 244, 241);
     display: flex;
     /* margin-top: 3% */
 }
+
 .interview-room-category {
     font-family: "DohyeonLight";
     font-size: 100%;
     width: 11vmin;
     height: 3.5vmin;
     text-align: center;
-    background-color:rgb(198, 246, 231);
+    background-color: rgb(198, 246, 231);
     /* background-color: rgb(64, 218, 199, 1); */
     margin: 1%;
     color: rgb(10, 46, 37);
-    border-radius:7px;
-    padding:1%;
+    border-radius: 7px;
+    padding: 1%;
 }
 
 .interview-room:hover {
     background-color: rgb(240, 241, 240);
 }
+
 .room-people-count {
     display: flex;
     flex-direction: column;
@@ -95,7 +98,8 @@ box-shadow: 1px 1px 1px 1px rgb(236, 244, 241);
 }
 
 .ballon:after {
-    border-top: 50px solid rgb(181, 181, 251);;
+    border-top: 50px solid rgb(181, 181, 251);
+    ;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 0px solid transparent;

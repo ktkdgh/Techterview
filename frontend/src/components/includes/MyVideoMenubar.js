@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigation } from 'react-minimal-side-navigation';
-import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
+// import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import "../css/FeedBack.css"
 
 function FeedbackMenu({ selectMyVideoMenu }) {
