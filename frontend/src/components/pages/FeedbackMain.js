@@ -34,7 +34,7 @@ function Feedback() {
     }
 
     const getCategoryFeed = async (path) => {
-        if (!!path.split('/')[2]) {
+        if (!!path.split('/')[2] || path.split('/')[1] === 'main') {
             await api.get(`/api/feedback/category${path}`)
                 .then(res => {
                     SetMainLengthCheck((res.data).length)
