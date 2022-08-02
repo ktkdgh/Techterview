@@ -286,93 +286,107 @@ function PeerOthersroom() {
 
     <div className="training-others-main-body">
 
-      <div className="training-others-inner-box" >
-        <div className="training-navigation-bar" >
-          <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
+<div id="training-others-wrapper" >
 
-          <div className="training-navigation-right">
+          <div className="training-others-inner-box" >
+            <div className="training-navigation-bar" >
+              <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
 
-            <div className="main-controls-button-share-icon" id="copy-link">
-              <FontAwesomeIcon icon={faShareFromSquare} onClick={() => { copyToClipboard(); }} />
+            
+              <div className="main-controls-button-share-icon" id="copy-link">
+                    <FontAwesomeIcon icon={faShareFromSquare} onClick={() => { copyToClipboard(); }} />
+                  </div>
+
             </div>
 
-            <div className="main-controls-button-leave-meeting" id="leave-meeting">
-              <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
-              {interview === '1' && CheckInterview ? <div> {openModal && <VideoQuestionModal />} </div> :
-                interview === '2' && CheckInterview ? <div> {openModal && <InterviewerEndModal closeModal={setOpenModal} />}  </div> :
-                  interview === '1' ? <div> {openModal && <InterviewerEndModal closeModal={setOpenModal} />}  </div> : <div> {openModal && <VideoQuestionModal />} </div>}
-            </div >
-          </div>
-        </div>
 
 
-        <div className="video-controls-button-container">
-          <div id="video-container">
-            <div className="video-user1" id="video-user1" style={{ zIndex: 0 }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
-            <div className="video-user2" id="video-user2" style={{ zIndex: 0 }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
-          </div>
-          <div className="training-others-main-controls">
 
-            {interview === '1' && CheckInterview ? <div className="main-controls-block"><br /><Recognition /><br /><br /><br /></div> :
-              interview === '2' && CheckInterview ?
-                <div className="main-controls-block">
-                  <div id='alone-questions' > {QuestionString ? QuestionString : getQuestion()} </div>
-                  <div
-                    className="training-alone-main-controls-button"
-                    id="startRecord"
-                    onClick={() => { start(); getHide(); }}>
-                    <i className="fa fa-video-camera" size="lg" ></i>
-                    <span></span>
-                  </div>
-                  <div className="training-alone-main-controls-button" onClick={() => {
-                    SetQuestionString("")
-                    tempIndex++;
-                    i = 0;
-                    SetQuestionsIndex(QuestionsIndex + 1)
-                    finish();
-                    setTimeout(() => {
-                      start();
-                    }, 500);
-                  }}>
-                    <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
 
-                  </div>
-                  <div className="training-alone-main-controls-button">
-                    <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
-                  </div>
-                  <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
-                </div> :
-                interview === '1' ?
-                  <div className="main-controls-block" >
-                    <div id='alone-questions' >{QuestionString ? QuestionString : getQuestion()} </div>
-                    <div
-                      className="training-alone-main-controls-button"
-                      id="startRecord"
-                      onClick={() => { start(); getHide(); }}>
-                      <i className="fa fa-video-camera" size="lg" ></i>
-                      <span></span>
-                    </div>
-                    <div className="training-alone-main-controls-button" onClick={() => {
-                      SetQuestionString("")
-                      tempIndex++;
-                      i = 0;
-                      SetQuestionsIndex(QuestionsIndex + 1)
-                      finish();
-                      setTimeout(() => {
-                        start();
-                      }, 500);
-                    }}>
-                      <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+              <div className="others-question-video-container">
+                <div className="training-others-main-controls">
 
-                    </div>
-                    <div className="training-alone-main-controls-button" >
-                      <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
-                    </div>
-                    <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
-                  </div> : <div className="main-controls-block" id="main-controls-interviewee"><Recognition /></div>}
+                  {interview === '1' && CheckInterview ? <div className="main-controls-block"><br /><Recognition /><br /><br /><br /></div> :
+                    interview === '2' && CheckInterview ?
+                      <div className="main-controls-block">
+                        <div id='alone-questions' > {QuestionString ? QuestionString : getQuestion()} </div>
+                        <div
+                          className="training-alone-main-controls-button"
+                          id="startRecord"
+                          onClick={() => { start(); getHide(); }}>
+                          <i className="fa fa-video-camera" size="lg" ></i>
+                          <span></span>
+                        </div>
+                        <div className="training-alone-main-controls-button" onClick={() => {
+                          SetQuestionString("")
+                          tempIndex++;
+                          i = 0;
+                          SetQuestionsIndex(QuestionsIndex + 1)
+                          finish();
+                          setTimeout(() => {
+                            start();
+                          }, 500);
+                        }}>
+                          <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+
+                        </div>
+                        <div className="training-alone-main-controls-button">
+                          <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
+                        </div>
+                        <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
+                      </div> :
+                      interview === '1' ?
+                        <div className="main-controls-block" >
+                          <div id='alone-questions' >{QuestionString ? QuestionString : getQuestion()} </div>
+                          <div
+                            className="training-alone-main-controls-button"
+                            id="startRecord"
+                            onClick={() => { start(); getHide(); }}>
+                            <i className="fa fa-video-camera" size="lg" ></i>
+                            <span></span>
+                          </div>
+                          <div className="training-alone-main-controls-button" onClick={() => {
+                            SetQuestionString("")
+                            tempIndex++;
+                            i = 0;
+                            SetQuestionsIndex(QuestionsIndex + 1)
+                            finish();
+                            setTimeout(() => {
+                              start();
+                            }, 500);
+                          }}>
+                            <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+
+                          </div>
+                          <div className="training-alone-main-controls-button" >
+                            <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
+                          </div>
+                          <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
+                        </div> : <div className="main-controls-block" id="main-controls-interviewee"><Recognition /></div>}
+                  </div >
+
+
+
+              <div id="others-video-container">
+                <div className="video-user1" id="video-user1" style={{ zIndex: 0 }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
+                <div className="video-user2" id="video-user2" style={{ zIndex: 0 }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
+              </div>
+
+
+            </div>
+                <div className="training-navigation-right">
+
+                  <div className="main-controls-button-leave-meeting" id="leave-meeting">
+                    <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
+                    {interview === '1' && CheckInterview ? <div> {openModal && <VideoQuestionModal />} </div> :
+                      interview === '2' && CheckInterview ? <div> {openModal && <InterviewerEndModal closeModal={setOpenModal} />}  </div> :
+                        interview === '1' ? <div> {openModal && <InterviewerEndModal closeModal={setOpenModal} />}  </div> : <div> {openModal && <VideoQuestionModal />} </div>}
+                  </div >
+                </div>
+
           </div >
-        </div >
-      </div >
+
+       </div>   
     </div >
   );
 

@@ -33,7 +33,6 @@ function Question() {
         if (!!path.split('/')[2]){
             setSelectedPath(path);
         }
-        // console.log(path);
     }
 
     const onCheckedElement = useCallback(
@@ -44,7 +43,6 @@ function Question() {
                 setClickArray(ClickArray.filter((el) => el !== id));
             }
         }, [ClickArray]);
-    // console.log(ClickArray);
 
     const arraydeleteidx = (data, idx) => {
         setClickArray(ClickArray.filter((el) => el !== data));

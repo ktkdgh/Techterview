@@ -58,21 +58,27 @@ function FeedbackDetail() {
     };
 
     const replyCreate = async () => {
-        const replyData = { text: text, userId: userInfo.id, feedbackId: feedbackId }
-        await api.post("/api/feedback/replyCreate", replyData)
-            .then(res => {
-                window.location.reload(true)
-            })
+        if (text !== "") {
+            const replyData = { text: text, userId: userInfo.id, feedbackId: feedbackId }
+            await api.post("/api/feedback/replyCreate", replyData)
+                .then(res => {
+                    window.location.reload(true)
+                })
+        }
     }
 
-    const replyUpdate = async (id) => {
-        await api.put('/api/feedback/replyUpdate', {
-            reply_id: id,
-            comment: UpdateText
-        })
-            .then(res => {
-                window.location.reload(true)
+    const replyUpdate = async (id, originText) => {
+        if (originText !== UpdateText) {
+            await api.put('/api/feedback/replyUpdate', {
+                reply_id: id,
+                comment: UpdateText
             })
+                .then(res => {
+                    window.location.reload(true)
+                })
+        } else {
+            window.location.reload(true)
+        }
     }
 
     const onChange = (e) => {
@@ -123,8 +129,6 @@ function FeedbackDetail() {
                                 </div>                
                             </div>
 
-                                    
-
                      </div>
                     <div className='feedbackdetail-right'>
                         <div className="feedbackdtail-input-wrapper">
@@ -143,9 +147,7 @@ function FeedbackDetail() {
                             <tbody className="feedback-tbody">
                                 {ReplyList.map((value, idx) => {
                                     return (
-                                        <div >
-                                        <div className="feedback-table-container">
-
+                                        <div className="feedback-table-container" key={idx}>
                                             <div> {value.user_name} </div>
                                             <div >
                                                 {Modify && Idx == idx + 1 ?
@@ -157,7 +159,7 @@ function FeedbackDetail() {
                                                 <div className="comment-edit-delete-btn-wrapper">
                                                     {!value.replyCheck ? "" : Modify && Idx == idx + 1 ?
                                                         <div className="comment-edit-delete-btn">
-                                                            <button  className="feedbackdetail-video-edit-btn" onClick={() => { replyUpdate(value.id) }}>수정</button>
+                                                            <button  className="feedbackdetail-video-edit-btn" onClick={() => { replyUpdate(value.id, value.reply_comment) }}>수정</button>
                                                             <button className="feedbackdetail-video-delete-btn"  onClick={() => { window.location.reload(true) }}>취소</button>
                                                         </div> :
                                                         <div  className="comment-edit-delete-btn">
@@ -170,8 +172,6 @@ function FeedbackDetail() {
                                                 
                                                 </div>  
                                             </div>
-                                            </div>
-                                           
                                         </div>
                                     );
                                 })}
