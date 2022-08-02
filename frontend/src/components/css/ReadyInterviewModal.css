@@ -97,3 +97,18 @@ button.btn-yes {
     justify-content: center;
 
 }
+
+button.btn-yes-start {
+    background-color: white;
+    color: black;
+    border: 3px solid red;
+    padding: 5px 20px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.btn-yes-start:hover {
+    background-color: red;
+    /* Green */
+    color: white;
+}

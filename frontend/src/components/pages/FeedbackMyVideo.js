@@ -1,6 +1,5 @@
 import React, { Component, useCallback, useEffect, useState } from 'react';
 import VideoDeleteModal from '../modal/VideoDeleteModal';
-import VideoFaceVoiceEditModal from '../modal/VideoFaceVoiceEditModal'
 import FeedbackCreateModal from '../modal/FeedbackCreateModal'
 import MyVideoPreviewModal from '../modal/MyVideoPreviewModal'
 import MyVideoMenubar from "../includes/MyVideoMenubar"
@@ -12,7 +11,6 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 function MyVideo() {
     const [openModal, setOpenModal] = useState(false);
-    const [openVideoFaceVoiceEditModal, setOpenVideoFaceVoiceEditModal] = useState(false);
     const [openFeedbackCreateModal, SetopenFeedbackCreateModal] = useState(false);
     const [openMyVideoPreviewModal, SetopenMyVideoPreviewModal] = useState(false);
     const [RecordingLengthCheck, SetRecordingLengthCheck] = useState("");
@@ -38,7 +36,7 @@ function MyVideo() {
 
     const selectMyVideoMenu = (path) => {
         SetStatusCheck(false)
-        if (path.split('/')[2] == 16) {
+        if (path.split('/')[2] === '16') {
             SetStatusCheck(true)
         }
         getMyRecording(path);
@@ -75,24 +73,13 @@ function MyVideo() {
                 <MyVideoMenubar selectMyVideoMenu={(id) => selectMyVideoMenu(id)} />
             </div>
             <div className="feedback-my-video-body">
-
-            <div className="video-edit-btn">
-                            <button className="add-face-filter-voice-btn" onClick={() => { setOpenVideoFaceVoiceEditModal(true); }} >영상 필터 및 목소리 변조</button>
-                            <button className="video-delete-btn" onClick={() => { setOpenModal(true) }} >영상 삭제</button>
-                            <button className="video-delete-btn" onClick={() => { SetopenFeedbackCreateModal(true) }} >피드백 등록</button>
-                            {openVideoFaceVoiceEditModal && <VideoFaceVoiceEditModal closeModal={setOpenVideoFaceVoiceEditModal} />}
-                            {openModal && <VideoDeleteModal closeModal={setOpenModal} checkedList={checkedList} />}
-                            {openFeedbackCreateModal && <FeedbackCreateModal closeModal={SetopenFeedbackCreateModal} checkedList={checkedList} />}
-                        </div>
-
-
-                <div className="my-video-title"></div>
-                {StatusCheck ? "" :
-                    <div className="grid-container-box">
-                        
-                    </div>
-                }
-
+            {StatusCheck ? "" :
+                <div className="video-edit-btn">
+                    <button className="video-delete-btn" onClick={() => { setOpenModal(true) }} >영상 삭제</button>
+                    <button className="video-delete-btn" onClick={() => { SetopenFeedbackCreateModal(true) }} >피드백 등록</button>
+                    {openModal && <VideoDeleteModal closeModal={setOpenModal} checkedList={checkedList} />}
+                    {openFeedbackCreateModal && <FeedbackCreateModal closeModal={SetopenFeedbackCreateModal} checkedList={checkedList} />}
+                </div> }
 
                 {RecordingLengthCheck ?
                     <div className='feedback-table'>

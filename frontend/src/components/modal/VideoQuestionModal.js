@@ -1,8 +1,6 @@
 import React, { Component, useCallback, useEffect, useState } from 'react';
 import api from '../shared/api';
 import jwt from 'jwt-decode';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 function VideoQuestionModal() {
     const Token = sessionStorage.getItem('Authorization')
@@ -71,7 +69,7 @@ function VideoQuestionModal() {
                             )
                         })}
                         </table> 
-                         : <div style={{fontSize:"130%", marginTop: '70%'}}>녹화된 영상이 없습니다.</div> }
+                        : <div style={{fontSize:"130%", marginTop: '70%'}}>녹화된 영상이 없습니다.</div> }
                     </div>
                 </div>
                 { RecordingCheck ? 

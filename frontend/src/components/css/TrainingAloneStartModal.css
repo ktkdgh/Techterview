@@ -64,11 +64,12 @@
 
 .alone-video-controls-button-container {
     width: 95vw;
-    height: 88vh;
-    margin: 3rem;
+    height: 92vh;
+    margin: 2rem;
     background: rgba(255, 255, 255, 0.16);
     border-radius: 15px;
     box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px;
+    position: relative;
 
 }
 
@@ -107,14 +108,19 @@
 
 #alone-video-container {
     display: flex;
-    flex-direction: row;
-    margin: 1%;
+    flex-direction: column;
+    margin: 0 1%;
     background-color: #e8f8f6;
     padding: 1.5rem;
     border-radius: 15px;
-    height: 75%;
+    height: 83%;
+
 }
 
+.video-timer-container {
+    display: flex;
+
+}
 #alone-wrapper {
     display: flex;
     flex-direction: row;
@@ -124,6 +130,24 @@
 
 
 /* Training Others */
+
+
+#others-video-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+.others-question-video-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1%;
+    background-color: #e8f8f6;
+    /* padding: 1.5rem; */
+    border-radius: 15px;
+    height: 83%;
+
+}
 .training-others-main-body {
     display: flex;
     flex-direction: column;
@@ -152,7 +176,7 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    margin-top: 2%;
+    margin: 2%;
     /* color: white;
     background-color: rgba(64, 218, 199, 1); */
 }
@@ -174,20 +198,28 @@
 .training-navigation-right {
     display: flex;
     flex-direction: row;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+
+
 
 }
 
 .main-controls-button-share-icon {
     cursor: pointer;
-
-    /* margin-top: 5px; */
-    color: lightgrey;
     font-size: x-large;
     display: flex;
     align-items: center;
-    margin-right: 5vh;
+    /* margin-right: 5vh; */
     height: 50px;
 }
+
+.svg-inline--fa.fa-share-from-square {
+
+    color:#D9D9D9;
+}
+
 
 
 .video-controls-button-container {
@@ -226,14 +258,21 @@
 
 }
 
+#training-others-wrapper {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
 .training-others-inner-box {
     width: 95vw;
-    height: 88vh;
-    margin: 3rem;
+    height: 92vh;
+    margin: 2rem;
     background: rgba(255, 255, 255, 0.16);
     border-radius: 15px;
     box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px;
-
+    position: relative;
 }
 
 /*Training Alone*/
@@ -265,8 +304,9 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    margin-top: 2%;
+    /* margin-top: 2%; */
     color: white;
+    margin-bottom: 2%;
 
 }
 
