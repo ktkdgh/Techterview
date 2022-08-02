@@ -8,7 +8,7 @@ import { GrPrevious, GrNext } from "react-icons/gr";
 
 
 
-function ReadyInterviewModal({ onStart }) {
+function ReadyInterviewWithModal({ onStart }) {
     const currentUserVideoRef = useRef(null); //recordRef
 
     const call = () => {
@@ -22,23 +22,18 @@ function ReadyInterviewModal({ onStart }) {
     function Home({ isOpen, modal }) {
         return (
             isOpen && (
-                <div>
-                    <div className='ready-home-body' >
-                        <div>
-                        </div>
-                        <div className='ready-home-body-contents'>
-                            <h2>면접 가이드 및 응시 환경 체크를 시작하겠습니다</h2>
-                        </div>
-                        <div className='ready-next' onClick={() => showExampleTwoModal(modal)}>
-                            <button>
-                                <GrNext size="54" />
-                            </button>
-                        </div>
-                    </div >
-                    <div onClick={onStart} style={{}}>
-                        <button className='btn-yes-start'>바로시작</button>
+                <div className='ready-home-body' >
+                    <div>
                     </div>
-                </div>
+                    <div className='ready-home-body-contents'>
+                        <h2>면접 가이드 및 응시 환경 체크를 시작하겠습니다</h2>
+                    </div>
+                    <div className='ready-next' onClick={() => showExampleTwoModal(modal)}>
+                        <button>
+                            <GrNext size="54" />
+                        </button>
+                    </div>
+                </div >
             )
         );
     }
@@ -57,8 +52,8 @@ function ReadyInterviewModal({ onStart }) {
                         <div>
                             <img src={alone} alt='alone' style={{ marginTop: 20, width: 400, height: 200 }} />
                             <div style={{ marginTop: 40 }} >
-                                <h4>각 문제당 30초의 답변 준비 시간이 주어지게 됩니다.<br></br>
-                                    30초 이후에는 자동으로 녹화가 시작됩니다.
+                                <h4>면접자가 질문에 답변을 하게되면<br></br>
+                                    자동으로 꼬리질문이 생성되게 됩니다.
                                 </h4>
                             </div>
                         </div>
@@ -87,7 +82,7 @@ function ReadyInterviewModal({ onStart }) {
                         </button>
                     </div>
                     <div>
-                        <h4>면접 전 카메라와 음성을 <br></br>
+                        <h4>면접시작 전 카메라와 음성을 <br></br>
                             확인해주세요</h4>
                     </div>
                     <div className="ready-video-user" id="ready-video-user" >
@@ -98,7 +93,6 @@ function ReadyInterviewModal({ onStart }) {
                             <GrNext size="54" />
                         </button>
                     </div>
-
                 </div>
             )
         );
@@ -128,7 +122,6 @@ function ReadyInterviewModal({ onStart }) {
     }
 
     function showHomeModal(showModal) {
-        console.log("1231", showModal);
         showModal({
             component: Home,
             modalProps: {
@@ -136,7 +129,6 @@ function ReadyInterviewModal({ onStart }) {
             }
         });
     }
-
 
     function showExampleTwoModal(showModal) {
         showModal({
@@ -163,13 +155,7 @@ function ReadyInterviewModal({ onStart }) {
             }
         });
     }
-    function Test({ showHomeModal, showModal }) {
-        useEffect(() => {
-            showHomeModal(showModal)
-        }, [])
-        return <></>
 
-    }
     // function Button() {
     //     return <button className={styles.btn}>Module</button>;
     // }
@@ -177,12 +163,10 @@ function ReadyInterviewModal({ onStart }) {
     return (
         <ModalProvider>
             <ModalContext.Consumer>
-                {({ showModal }) => (
+                {({ showModal, hideModal }) => (
                     <div className='ready-buttons-parent'>
                         <div className='ready-buttons-nav'>
-                            <button className='ready-buttons' onClick={() => showHomeModal(showModal)}>시험 가이드</button>
-                            <Test showHomeModal={showHomeModal} showModal={showModal} />
-                            {/* <button className='ready-buttons' onClick={showHomeModal(showModal)}>시험 가이드</button> */}
+                            <button className='ready-buttons' onClick={() => showHomeModal(showModal)}>시험 가이드 보기</button>
                         </div>
                         <ModalRoot /> {/* 본문 내용들이 나오는 곳 */}
                     </div>
@@ -192,4 +176,17 @@ function ReadyInterviewModal({ onStart }) {
         </ModalProvider >
     );
 }
-export default ReadyInterviewModal
+
+function getHide() {
+    document.getElementById("training-alone-start-modal").style.display = "none"
+
+}
+
+function getShow() {
+    document.getElementById("video-user1").style.display = ""
+    document.getElementById("alone-questions").style.display = ""
+    document.getElementById("training-alone-main-controls-button").style.display = ""
+
+}
+
+export default ReadyInterviewWithModal

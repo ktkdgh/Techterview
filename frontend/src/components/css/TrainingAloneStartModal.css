@@ -336,12 +336,7 @@ i {
     justify-content: center;
     font-family: Montserrat, sans-serif;
     font-size: 110%;
-<<<<<<< HEAD
-    z-index: 9999999;
-
-=======
     z-index:99999999;
->>>>>>> 2c8d0bf519e550f80c3977efa906a094b0f853ae
 }
 
 .login-modal-content {

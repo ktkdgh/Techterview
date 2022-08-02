@@ -20,7 +20,7 @@ import Recognition from '../shared/stt'
 
 const temp = []
 let tempIndex = 0
-let templist = ['계층에 대해 자세히 설명해주세요!', '란 무엇이고 어떻게 동작하나요?' ]
+let templist = ['계층에 대해 자세히 설명해주세요!', '란 무엇이고 어떻게 동작하나요?']
 let i = 0;
 
 function PeerOthersroom() {
@@ -102,18 +102,18 @@ function PeerOthersroom() {
         if (msg.indexOf(value) !== -1) {
           let msgStart = msg.indexOf(value);
           let msgEnd = msg.indexOf(value.slice(-1), msgStart);
-          keywordsTemp = msg.slice(msgStart, msgEnd+1);
+          keywordsTemp = msg.slice(msgStart, msgEnd + 1);
           temp[tempIndex] = temp[tempIndex].replace(keywordsTemp, "/")
           console.log("temp[tempIndex] : ", temp[tempIndex]);
-          if (temp[tempIndex].indexOf(value)){
+          if (temp[tempIndex].indexOf(value)) {
             console.log(temp[tempIndex].match(value));
           }
           break;
         }
       }
-      if (keywordsTemp){
+      if (keywordsTemp) {
         if (templist.length < i) {
-          i = templist.length -1
+          i = templist.length - 1
         }
         SetQuestionString(`${keywordsTemp}` + templist[i]);
         i++;
