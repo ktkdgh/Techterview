@@ -112,7 +112,7 @@ function PeerOthersroom() {
         }
       }
       if (keywordsTemp) {
-        if (templist.length < i) {
+        if (templist.length === i) {
           i = templist.length - 1
         }
         SetQuestionString(`${keywordsTemp}` + templist[i]);
