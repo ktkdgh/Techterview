@@ -15,10 +15,10 @@ router.get('/questions/:subcategory', async (req, res) => {
             questions.push({
                 questions_name : value.questions_name,
                 questions_url: value.questions_url,
-                questions_keyword: value.questions_keyword
+                questions_keyword: value.questions_keyword,
+                questions_tail: value.questions_tail
             })
         })
-
         // res.send(shuffle(questions))
         res.json(questions)
     } catch (err) {

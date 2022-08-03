@@ -18,10 +18,10 @@ import VideoQuestionModal from '../modal/VideoQuestionModal';
 import Recognition from '../shared/stt'
 
 
-const temp = []
+const keyWordList = []
+const tailList = []
 let tempIndex = 0
-let templist = ['계층에 대해 자세히 설명해주세요!', '란 무엇이고 어떻게 동작하나요?']
-let i = 0;
+let tempCheck = "";
 
 function PeerOthersroom() {
   if (!(!!sessionStorage.getItem('Authorization'))) {
@@ -56,7 +56,8 @@ function PeerOthersroom() {
           SetQuestions(res.data);
           for (let value of res.data) {
             SetActions(Actions => [...Actions, value.questions_keyword])
-            temp.push(value.questions_keyword)
+            keyWordList.push(value.questions_keyword)
+            tailList.push(value.questions_tail)
           }
         });
     }
@@ -95,29 +96,34 @@ function PeerOthersroom() {
     });
 
     socket.on('sttSoket', (msg) => {
-      console.log('sttSoket: ', msg);
-      let tempArray = temp[tempIndex].split(',')
-      let keywordsTemp
-      for (let value of tempArray) {
-        if (msg.indexOf(value) !== -1) {
-          let msgStart = msg.indexOf(value);
-          let msgEnd = msg.indexOf(value.slice(-1), msgStart);
-          keywordsTemp = msg.slice(msgStart, msgEnd + 1);
-          temp[tempIndex] = temp[tempIndex].replace(keywordsTemp, "/")
-          console.log("temp[tempIndex] : ", temp[tempIndex]);
-          if (temp[tempIndex].indexOf(value)) {
-            console.log(temp[tempIndex].match(value));
-          }
+      let keyWordArray = keyWordList[tempIndex].split(',');
+      let tailArray = tailList[tempIndex].split(',');
+      let msgReplace = msg.replace(/ /g, '');
+      let keywordsTemp = "";
+
+      for (let value of keyWordArray) {
+        if (msgReplace.indexOf(value) !== -1) {
+          let msgStart = msgReplace.indexOf(value);
+          let msgEnd = msgReplace.indexOf(value.slice(-1), msgStart);
+          keywordsTemp = msgReplace.slice(msgStart, msgEnd + 1);
+      
+          if (keywordsTemp.length !== value.length || tempCheck === keywordsTemp) {
+            keywordsTemp = "";
+            continue;
+          }  
           break;
         }
       }
+
       if (keywordsTemp) {
-        if (templist.length === i) {
-          i = templist.length - 1
+        for (let value of tailArray) {
+          let valueReplace = value.replace(/ /g, '');
+          if (valueReplace.indexOf(keywordsTemp) !== -1) {
+            SetQuestionString(value);
+            break;
+          }
         }
-        SetQuestionString(`${keywordsTemp}` + templist[i]);
-        i++;
-        keywordsTemp = "";
+        tempCheck = keywordsTemp;
       }
     });
 
@@ -320,7 +326,7 @@ function PeerOthersroom() {
                         <div className="training-alone-main-controls-button" onClick={() => {
                           SetQuestionString("")
                           tempIndex++;
-                          i = 0;
+                          tempCheck = "";
                           SetQuestionsIndex(QuestionsIndex + 1)
                           finish();
                           setTimeout(() => {
@@ -348,7 +354,7 @@ function PeerOthersroom() {
                           <div className="training-alone-main-controls-button" onClick={() => {
                             SetQuestionString("")
                             tempIndex++;
-                            i = 0;
+                            tempCheck = "";
                             SetQuestionsIndex(QuestionsIndex + 1)
                             finish();
                             setTimeout(() => {
