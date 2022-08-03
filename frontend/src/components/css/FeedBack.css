@@ -134,9 +134,19 @@ table {
   height: 65vh;
 }
 
-.feedbackdtail-input-wrapper {
-margin-left: 5%;
+.feedbackdetail-edited {
+  color: darkgray;
+  font-size: 1rem;
+  display: inline-block;
+
+}
+.feedbackdetail-input-wrapper {
+/* margin-left: 5%; */
 margin-top: 7%;
+text-align: center;
+}
+.add-comment-input {
+  padding-left: 3%;
 }
 
 .grid-container {
@@ -428,8 +438,8 @@ padding: 2%;
 
 }
 .feedbackdetail-comment-table {
-position: absolute;
-top: 25%; 
+/* position: absolute;
+top: 25%;  */
 font-family: Pretendardregular;
 /* background-color: #e8f8f6; */
 }
