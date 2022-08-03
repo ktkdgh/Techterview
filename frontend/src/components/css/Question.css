@@ -116,3 +116,43 @@
 .svg-inline--fa.fa-cart-plus:hover {
     color: black;
 }
+
+.type-animation {
+    margin-top: 10%;
+    font-family: "PretendardRegular";
+    width: 60%;
+    height: 40vh;
+    /* font-size: 5px; */
+    /* height: 40%; */
+    /* padding: 5%; */
+    margin-top: 7%;
+    /* background-color:rgb(38, 36, 36); */
+    
+    border-radius: 15px;
+    color: black; 
+    /* color: #03A062; */
+    /* color: rgba(64, 218, 199, 1); */
+    /* color: black;
+    background-color: white; */
+    /* border: 1px solid black; */
+    overflow: hidden;
+    box-shadow: rgba(4, 4, 6, 0.14)1px 1px 15px 5px;
+
+}
+
+.chrome-bar {
+    width: 100%;
+    height: 10%;
+
+}
+.typing {
+    padding: 13% 7%;
+}
+
+
+.anything_woosik {
+
+    width: 40%;
+    margin-top: 30%;
+  /* margin-right: 45%; */
+}
