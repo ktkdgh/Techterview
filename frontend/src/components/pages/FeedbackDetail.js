@@ -129,20 +129,20 @@ function FeedbackDetail() {
 
                      </div>
                     <div className='feedbackdetail-right'>
-                        <div className="feedbackdtail-input-wrapper">
+                        <div className="feedbackdetail-input-wrapper">
                             {/* {DetailFeedback.replys}의 댓글 */}
                             <input className="add-comment-input" placeholder="  댓글을 입력해주세요" onChange={onChange} value={text} />
                             <button className="feedbackdetail-video-submit-btn"  onClick={() => { replyCreate() }}>등록</button>
                         </div>
 
                         { ReplyList.length !== 0 ? 
-                        <table className="feedbackdetail-comment-table">
+                        <div className="feedbackdetail-comment-table">
                             <div className="feedback-thead">
                                 <div className="feedback-grid-header">
                                     <div>작성자</div><div>내용</div>
                                 </div>
                             </div>
-                            <tbody className="feedback-tbody">
+                            <div className="feedback-tbody">
                                 {ReplyList.map((value, idx) => {
                                     return (
                                         <div className="feedback-table-container" key={idx}>
@@ -150,7 +150,7 @@ function FeedbackDetail() {
                                             <div >
                                                 {Modify && Idx == idx + 1 ?
                                                 <div> <input onChange={onUpdate} value={UpdateText} /> </div> :
-                                                <div>{value.reply_comment}{value.updateCheck ? "" : "(수정됨)"}</div>}
+                                                <div>{value.reply_comment}{value.updateCheck ? "" : <div className="feedbackdetail-edited">(수정됨)</div>}</div>}
                                                 <div className="comment-icon-container">
                                                         <div className="comment-date"> {YMDFormat(value.createdAt)} </div>
 
@@ -158,7 +158,7 @@ function FeedbackDetail() {
                                                     {!value.replyCheck ? "" : Modify && Idx == idx + 1 ?
                                                         <div className="comment-edit-delete-btn">
                                                             <button  className="feedbackdetail-video-edit-btn" onClick={() => { replyUpdate(value.id, value.reply_comment) }}>수정</button>
-                                                            <button className="feedbackdetail-video-delete-btn"  onClick={() => { window.location.reload(true) }}>취소</button>
+                                                            <button className="feedbackdetail-video-edit-btn"  onClick={() => { window.location.reload(true) }}>취소</button>
                                                         </div> :
                                                         <div  className="comment-edit-delete-btn">
                                                             <button className="feedbackdetail-video-edit-btn"  onClick={() => { replyUpdateClick(idx + 1, value.reply_comment) }}>수정</button>
@@ -173,8 +173,8 @@ function FeedbackDetail() {
                                         </div>
                                     );
                                 })}
-                            </tbody>
-                        </table> : <div className="no-comment">등록된 댓글이 없습니다.</div> }
+                            </div>
+                        </div> : <div className="no-comment">등록된 댓글이 없습니다.</div> }
                     </div>
 
             </div>

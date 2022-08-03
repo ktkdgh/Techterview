@@ -29,6 +29,7 @@
 .video-delete-modal-body {
     padding: 10px;
     border-bottom: 1px solid #eee;
+
     
 }
 
@@ -223,53 +224,49 @@ button.btn-cancel {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.video-save-modal-table {
-    font-family: Pretendardregular;
-    color:black;
-    margin: 20% 0;
-    font-size: 20px;
-}
 .video-save-modal-row {
     display: grid;
-    grid-template-columns: 0.5fr 1fr 5fr;
+    grid-template-columns: 0.5fr 5fr;
     text-align: left;
+    padding-left: 1%;
 
 }
 
-
+input.video-save-input-checkbox {
+    transform : scale(1.3);
+}
 
 .video-save-modal-content {
     width: 35%;
-    height: 55%;
+    height: 60%;
     background-color: white;
-    padding: 0 50px;
+    /* padding: 0 50px; */
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 4%;
     text-align: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     position: relative;
-}
-
-
-
-.video-save-modal-content {
-    background-color: white;
-    color: black;
-    padding: 5px 20px;
-    border-radius: 10px;
     transition-duration: 0.4s;
-    position: absolute;
-    /* bottom: 10%;
-    right:40%; */
-
+    /* overflow: auto; */
 
 }
 
 .video-save-modal-body {
     /* margin-top: 50px; */
+    width: 100%;
     border-bottom: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    /* position: relative; */
+}
+.video-save-title {
+    /* padding-top: 15%; */
+    /* padding-bottom: 2%; */
 }
 
 /* .btn-cancel:hover {
@@ -287,15 +284,19 @@ button.btn-cancel {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-family: Montserrat, sans-serif;
-
+ 
 
 }
 
 .video-save-modal-footer {
-    margin-top: 50px;
+    /* margin-top: 50px; */
+    position: absolute;
+    bottom: 8%;
+    
 }
 
 .video-save-cancel-btn{
@@ -325,7 +326,34 @@ button.btn-cancel {
     transition-duration: 0.4s;
 }
 
+.video-save-modal-table-wrapper {
+    /* margin-top: 10%; */
+    height: 32vh;
+    width: 80%;
+    margin: 0 12%;
+    /* padding-left: 5%; */
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    position: relative
+    /* justify-content: center; */
+}
 
+
+.video-save-modal-table {
+    font-family: Pretendardregular;
+    color:black;
+    /* margin-top: 2%; */
+    /* height: 30%; */
+    /* overflow: auto; */
+    /* margin: 20% 0; */
+    font-size: 16px;
+    width:90%;
+    padding: 0 10%;
+    position: absolute;
+    top: 12%;
+    left: 12%;
+}
 .video-save-btn:hover {
     background-color: black;
     color: white;

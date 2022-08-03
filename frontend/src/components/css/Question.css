@@ -45,7 +45,7 @@
 }
 
 .question-list-modal-content {
-    width: 27vw;
+    /* width: 30vw; */
     background-color: white;
     padding: 50px;
     text-align: center;
@@ -56,6 +56,9 @@
 .question-list-modal-body {
     padding: 10px;
     border-bottom: 1px solid #eee;
+    height: 30vh;
+    overflow: auto;
+
 }
 
 .question-list-modal-footer {
