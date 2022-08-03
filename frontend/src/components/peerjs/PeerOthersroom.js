@@ -16,7 +16,7 @@ import jwt from 'jwt-decode'
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from '../modal/VideoQuestionModal';
 import Recognition from '../shared/stt'
-
+import { motion } from "framer-motion";
 
 const temp = []
 let tempIndex = 0
@@ -306,7 +306,12 @@ function PeerOthersroom() {
               <div className="others-question-video-container">
                 <div className="training-others-main-controls">
 
-                  {interview === '1' && CheckInterview ? <div className="main-controls-block"><br /><Recognition /><br /><br /><br /></div> :
+                  {interview === '1' && CheckInterview ? <div className="main-controls-block">
+
+                  <div id='alone-questions' >면접관 안내에 따라 면접을 진행해주시기 바랍니다.</div>
+
+
+                 <br /><Recognition /><br /><br /><br /></div> :
                     interview === '2' && CheckInterview ?
                       <div className="main-controls-block">
                         <div id='alone-questions' > {QuestionString ? QuestionString : getQuestion()} </div>
