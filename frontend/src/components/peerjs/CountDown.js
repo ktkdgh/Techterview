@@ -5,11 +5,11 @@ import '../css/Timer.css';
 function CountDown({ start, setCountDown }) {
 
 
-//   function timeout(delay) {
-//     return new Promise( res => setTimeout(res, delay) );
-// }
+  //   function timeout(delay) {
+  //     return new Promise( res => setTimeout(res, delay) );
+  // }
 
-// await timeout(1000); 
+  // await timeout(1000); 
 
 
   let [key, setKey] = useState(0);
