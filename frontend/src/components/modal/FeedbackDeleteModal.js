@@ -1,4 +1,6 @@
 import api from "../shared/api";
+import '../css/ReplyDeleteModal.css';
+
 
 function FeedbackDeleteModal({SetClickMinus, closeModal, feedbackId }) {
     var referrer = document.referrer
@@ -22,14 +24,14 @@ function onclickDel () {
 
     return (
 
-        <div className="video-delete-modal">
-            <div className="video-delete-modal-content">
-                <div className="video-delete-modal-body">
+        <div className="feedback-video-delete-modal">
+            <div className="feedback-video-delete-modal-content">
+                <div className="feedback-video-delete-modal-body">
                     등록한 영상을 삭제하시겠습니까?
                 </div>
-                <div className="video-delete-modal-footer">
-                    <button className="btn-yes" onClick={() => onclickclick()}>취소</button>
-                    <button className="btn-cancel" onClick={() => onclickDel()}>삭제</button>
+                <div className="feedback-video-delete-modal-footer">
+                    <button className="feedback-video-btn-cancel" onClick={() => onclickclick()}>취소</button>
+                    <button className="feedback-video-btn-delete" onClick={() => onclickDel()}>삭제</button>
                 </div>
             </div>
         </div>
