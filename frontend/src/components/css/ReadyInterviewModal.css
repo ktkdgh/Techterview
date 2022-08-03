@@ -16,7 +16,7 @@
 
 .ready-intro-body {
     display: flex;
-    margin-top: 3%;
+    /* margin-top: 3%; */
     /* width: 100%; */
     justify-content: space-between;
     /* background-color: hotpink; */
@@ -98,14 +98,14 @@ button.btn-yes {
 button.btn-yes-start {
     background-color: white;
     color: black;
-    border: 2px solid red;
+    border: 2px solid rgba(64, 218, 199, 1);
     padding: 5px 20px;
     border-radius: 10px;
     margin: 10px;
 }
 
 .btn-yes-start:hover {
-    background-color: red;
+    background-color: rgba(64, 218, 199, 1);
     /* Green */
     color: white;
 }

@@ -1,7 +1,6 @@
 import api from "../shared/api";
 import '../css/ReplyDeleteModal.css';
 
-
 function FeedbackDeleteModal({SetClickMinus, closeModal, feedbackId }) {
     var referrer = document.referrer
     const deleteFeedbackPage = async () => {
