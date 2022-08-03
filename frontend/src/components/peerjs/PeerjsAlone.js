@@ -207,72 +207,61 @@ function PeerjsAlone() {
         </div >
       </div >
 
-
-
-
       <div id="alone-wrapper" >
-
         <div className="alone-video-controls-button-container ">
           <div className="training-navigation-bar" >
             <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
-
-           
           </div>
-
-
           <div id="alone-video-container" >
 
+            <div className="training-alone-main-controls">
+              <div className="main-controls-block">
+                <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
 
-
-          
-          <div className="training-alone-main-controls">
-            <div className="main-controls-block">
-              <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
-
-              <div id="training-alone-main-controls-button" className="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
-                audio.play();
-                setCountDown(true);
-                SetQuestionsIndex(QuestionsIndex + 1);
-                SetAudioIndex(AudioIndex + 1);
-                finish();
-                setTimeout(() => {
-                }, 500);
-              }}>
-                <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-                {/* Next */}
-              </div>
-            </div>
-          </div>
-
-
-          <div className="video-timer-container"> 
-            <div className="video-user1" id="video-user1" style={{ display: "none" }}>
-              {countDown === true ? <CountDown start={start} setCountDown={setCountDown}></CountDown> : <NoCountDown start={start}></NoCountDown>}
-
-              <div className="button-wrapper">
-                <button onClick={() => { start(); setCountDown(false) }}>
-                  답변 하기
-                </button>
+                <div id="training-alone-main-controls-button" className="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
+                  audio.play();
+                  setCountDown(true);
+                  SetQuestionsIndex(QuestionsIndex + 1);
+                  SetAudioIndex(AudioIndex + 1);
+                  finish();
+                  setTimeout(() => {
+                  }, 500);
+                }}>
+                  <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+                  {/* Next */}
+                </div>
               </div>
             </div>
 
 
-            
-            <div className="video-user2" id="video-user2"><video style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
-        
+            <div className="video-timer-container">
+              <div className="video-user1" id="video-user1" style={{ display: "none" }}>
+                {countDown === true ? <CountDown start={start} setCountDown={setCountDown}></CountDown> : <NoCountDown start={start}></NoCountDown>}
 
-            <div className="training-navigation-right">
-              <div className="main-controls-button-leave-meeting" id="leave-meeting">
-                <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
-                {openModal && <VideoQuestionModal />}
-              </div >
+                <div className="button-wrapper">
+                  <button onClick={() => { start(); setCountDown(false) }}>
+                    답변 하기
+                  </button>
+                </div>
+              </div>
+
+
+
+              <div className="video-user2" id="video-user2"><video style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
+
+
+              <div className="training-navigation-right">
+                <div className="main-controls-button-leave-meeting" id="leave-meeting">
+                  <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
+                  {openModal && <VideoQuestionModal />}
+                </div >
+              </div>
+
+
+
+
             </div>
-            
 
-
-          
-            </div>
-          
           </div>
 
 

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { ModalProvider, ModalContext, ModalRoot } from 'react-multi-modal';
-import alone from "../images/alone.png";
+import alone from "../images/alone.jpg";
 import '../css/ReadyInterviewModal.css';
 import { GrPrevious, GrNext } from "react-icons/gr";
 
@@ -47,7 +47,7 @@ function ReadyInterviewModal({ onStart }) {
         return (
             isOpen && (
                 <div>
-                    <div className='ready-intro-body'>
+                    <div className='ready-intro-body' style={{ marginBottom: 400 }}>
                         <div className='ready-prev' onClick={() => showHomeModal(modal)}>
                             <button>
                                 <GrPrevious size="54" />
@@ -55,10 +55,10 @@ function ReadyInterviewModal({ onStart }) {
                         </div>
 
                         <div>
-                            <img src={alone} alt='alone' style={{ marginTop: 20, width: 400, height: 200 }} />
-                            <div style={{ marginTop: 40 }} >
-                                <h4>각 문제당 30초의 답변 준비 시간이 주어지게 됩니다.<br></br>
-                                    30초 이후에는 자동으로 녹화가 시작됩니다.
+                            {/* <img src={alone} alt='alone' style={{ marginTop: 20, width: 500, height: 300 }} /> */}
+                            <img src={alone} alt='alone' style={{ width: 650, height: 450 }} />
+                            <div style={{ marginTop: 5 }} >
+                                <h4>
                                 </h4>
                             </div>
                         </div>
@@ -87,7 +87,7 @@ function ReadyInterviewModal({ onStart }) {
                         </button>
                     </div>
                     <div>
-                        <h4>면접 전 카메라와 음성을 <br></br>
+                        <h4>면접 시작전 카메라와 음성을 <br></br>
                             확인해주세요</h4>
                     </div>
                     <div className="ready-video-user" id="ready-video-user" >
@@ -128,7 +128,7 @@ function ReadyInterviewModal({ onStart }) {
     }
 
     function showHomeModal(showModal) {
-        console.log("1231", showModal);
+        // console.log("1231", showModal);
         showModal({
             component: Home,
             modalProps: {
@@ -180,7 +180,8 @@ function ReadyInterviewModal({ onStart }) {
                 {({ showModal }) => (
                     <div className='ready-buttons-parent'>
                         <div className='ready-buttons-nav'>
-                            <button className='ready-buttons' onClick={() => showHomeModal(showModal)}>시험 가이드</button>
+                            <h2>혼자하기 가이드🧑🏻‍💻</h2>
+                            {/* <button className='ready-buttons' onClick={() => showHomeModal(showModal)}>시험 가이드</button> */}
                             <Test showHomeModal={showHomeModal} showModal={showModal} />
                             {/* <button className='ready-buttons' onClick={showHomeModal(showModal)}>시험 가이드</button> */}
                         </div>
