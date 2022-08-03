@@ -1,0 +1,146 @@
+.reply-delete-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+}
+
+ 
+
+.reply-delete-modal-footer {
+    padding: 10px;
+    gap: 2%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.reply-delete-modal-content {
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20vw;
+    height: 25vh;
+}
+
+.reply-delete-modal-body {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+
+.reply-btn-cancel {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+
+}
+
+.reply-btn-cancel:hover {
+    background-color: black;
+    /* Green */
+    color: white;
+}
+
+.reply-btn-delete {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    /* Green */
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+
+}
+
+.reply-btn-delete:hover {
+    background-color: red;
+    /* Green */
+    color: black;
+}
+
+
+/*FeedbackDetail Video Delete Modal*/
+
+
+
+.feedback-video-delete-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+}
+
+ 
+
+.feedback-video-delete-modal-footer {
+    padding: 10px;
+    display: flex;
+    gap: 2%;
+    justify-content: center;
+}
+
+.feedback-video-delete-modal-content {
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20vw;
+    height: 25vh;
+}
+.feedback-video-delete-modal-body {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+
+.feedback-video-btn-cancel {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+
+}
+
+.feedback-video-btn-cancel:hover {
+    background-color: black;
+    /* Green */
+    color: white;
+}
+
+.feedback-video-btn-delete {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+
+}
+
+.feedback-video-btn-delete:hover {
+    background-color: red;
+    color: black;
+}

@@ -109,13 +109,12 @@ function FeedbackDetail() {
 
     return (
         <div>
-        
+
                 <div className="feedbackdetail-container" >
-                            
+
                    <div className="feedbackdetail-left" > 
                         {DetailFeedback.deletebotton ?
                         <button className="feedbackdetail-video-delete-btn"  onClick={() => FeedbackDelete()}> 영상 삭제 <FontAwesomeIcon icon={faTrashCan} /></button>: ""}
-                        {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
                         <ReactPlayer  controls url={DetailFeedback.recordingUrl}    style={{zIndex: ClickMinus}} id= 'feedback-detail-video'/>
 
                             <div className="feedbackdetail-title" >
@@ -123,8 +122,7 @@ function FeedbackDetail() {
                                 <div className='feedbackdetail-title-right'>  {DetailFeedback.name}</div>        
                                 <div className="feedbackdetail-video-delete-btn-container">
                                     <div className="feedbackdetail-video-btn">
-                                        {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
-                                        {LikeStatus ? <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faThumbsUp}  />     {FeedLikeCnt} </button> :  <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faThumbsUp} />     {FeedLikeCnt} </button>}
+                                        {LikeStatus ? <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faThumbsUp}  />     {FeedLikeCnt} </button> :  <button className="feedbackdetail-video-no-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faThumbsUp} />     {FeedLikeCnt} </button>}
                                     </div>
                                 </div>                
                             </div>
@@ -180,7 +178,9 @@ function FeedbackDetail() {
                     </div>
 
             </div>
-                    
+            {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
+            {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
+
         </div>
     )
 }

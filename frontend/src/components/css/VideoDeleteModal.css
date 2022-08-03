@@ -4,20 +4,18 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: Montserrat, sans-serif;
 }
 
-.video-delete-modal-content {
-    width: 25vw;
+.video-delete-modal-content{
     background-color: white;
-    padding: 50px;
+    border-radius: 15px;
+    padding: 3%;
     text-align: center;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .video-delete-modal-footer {
@@ -31,6 +29,7 @@
 .video-delete-modal-body {
     padding: 10px;
     border-bottom: 1px solid #eee;
+    
 }
 
 
@@ -57,7 +56,6 @@ button.btn-cancel {
     background-color: white;
     color: red;
     border: 2px solid red;
-    /* Green */
     padding: 5px 20px;
     border-radius: 10px;
 }
@@ -68,7 +66,6 @@ button.btn-cancel {
 
 .btn-cancel:hover {
     background-color: red;
-    /* Green */
     color: black;
 }
 
@@ -93,7 +90,7 @@ button.btn-cancel {
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,20 +139,6 @@ button.btn-cancel {
 .video-edit-modal-body {
     margin-top: 50px;
     border-bottom: 1px solid #eee;
-}
-
-button.btn-yes {
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-    /* Green */
-    padding: 5px 20px;
-    border-radius: 10px;
-    margin: 10px;
-}
-
-.btn-yes {
-    transition-duration: 0.4s;
 }
 
 .btn-yes:hover {
@@ -302,7 +285,7 @@ button.btn-cancel {
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
