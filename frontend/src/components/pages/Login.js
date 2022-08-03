@@ -22,7 +22,7 @@ class Login extends Component {
  
                 </div>
             <div className="login-body">
-                <div className="login-photo" ><img className="login-photo" src={require("../images/desk2.png")} alt={"studying man2"} /></div>
+                <div className="login-photo" ><img className="login-photo" src={require("../images/desk1.png")} alt={"studying man1"} /></div>
 
                 <div className='login-phrase-image-container'>
                     <div className="login-phrase-container">
