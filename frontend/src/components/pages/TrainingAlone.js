@@ -17,14 +17,14 @@ function TrainingAlone() {
         <div className="training-container">
             <div className='training-inner-box'>
                 <PeerjsAlone /></div>
-            <div className='training-footer'>
+            {/* <div className='training-footer'> */}
                 <div className="training-container-box">
                     <div>
                     </div>
 
                 </div>
             </div>
-        </div >
+        // </div >
     )
 }
 

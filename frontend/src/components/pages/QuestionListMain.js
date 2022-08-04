@@ -58,7 +58,6 @@ function Question() {
 
 
 
-            <div>
                 <div className="question-main-body">
 
                     <div className="feedback-table">
@@ -129,7 +128,6 @@ function Question() {
                     }
                 </div>
             </div>
-        </div>
   
   
   )

@@ -4,32 +4,30 @@
   height: 85vh;
   display: flex;
   align-content: start;
-  justify-content:space-around;
+  /* justify-content:space-around; */
   box-shadow: rgb(102 96 173 / 14%) 1px 1px 15px 5px;
   border-radius: 10px;
   flex-wrap: wrap;
   overflow: scroll;
+  position: relative;
 }
 
 
 
-.left-menu {
-  float: left;
-  margin-top: 0 !important;
-  display: flex;
 
-}
 .feedback-main-body {
       display: flex;
       flex-direction: column;
-      width: 78vw;
     
   }
 
 .feedback-no-video-wrapper {
-width: 80%;
-margin: auto;
+/* width: 80%;
+margin: auto;*/
+right: 38%;
+top: 30%;
 text-align: center;
+position: absolute;
 }
 
 .feedback-no-video {
@@ -48,7 +46,8 @@ text-align: center;
 /* feedback-table */
 .feedback-table {
   margin: 3%;
-  width: 100%;
+  /* width: 100%; */
+  /* width: 35vw; */
   justify-content: center;
   font-family: Montserrat, sans-serif;
   flex: 1;
@@ -241,9 +240,11 @@ border-radius: 30px;
 #feedback-main-greed-row:hover{
 background-color:#e8f8f6;
 }
+
 .feedback-main-table {
 display: flex;
 flex-direction: column;
+width: calc(85vw - 20%);
 }
 .side-navigation-panel-select-wrap {
 margin-top: 0 !important;
@@ -378,7 +379,7 @@ padding-top: 0.5%;
 .my-video-row-head {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
-  width: 90%;
+  width: calc(85vw - 20%);
   vertical-align: center;
   text-align: center;
   margin: 1% 0;
@@ -395,13 +396,13 @@ padding-top: 0.5%;
 .my-video-row {
 display: grid;
 grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
-width: 90%;
+width: calc(85vw - 20%);
 vertical-align: center;
 text-align: center;
 margin: 1% 0;
 font-size: 1rem;
 font-weight: 700;
-padding: 1.5%;
+padding: 2.5%;
 display: grid;
 border-style: solid none none none;
 background-color: rgb(249, 249, 250);
@@ -415,13 +416,13 @@ background-color:#e8f8f6!important; ;
 .my-video-recent {
 display: grid;
 grid-template-columns: 0.3fr 1fr 4fr 1fr 2fr;
-width: 93%;
+width: calc(85vw - 20%);
 vertical-align: center;
 text-align: center;
 margin: 1% 0;
 font-size: 1rem;
 font-weight: 700;
-padding: 1.5%;
+padding: 2.5%;
 display: grid;
 border-style: solid none none none;
 background-color: rgb(249, 249, 250);
@@ -481,4 +482,8 @@ color: darkgray;
 }
 .svg-inline--fa.fa-trash-can {
 color: darkgray !important;
+}
+
+.feedback-text {
+  text-align: left;
 }

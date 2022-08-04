@@ -355,9 +355,9 @@ img.login-photo {
 }
 
 .video-delete-btn {
-  border: 2px solid #e8f8f6;
-  color: black;
-  padding: 14px 28px;
+  border: 3px solid rgba(64, 218, 199, 1);
+  color: rgba(64, 218, 199, 1);
+  padding: 5px 20px;
   font-size: 1rem;
   cursor: pointer;
   margin: 11px;
@@ -366,7 +366,8 @@ img.login-photo {
 }
 
 .video-delete-btn:hover {
-  background-color: #e8f8f6;
+  background-color: rgba(64, 218, 199, 1);
+  color: white;
 }
 
 

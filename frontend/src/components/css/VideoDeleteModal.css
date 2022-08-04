@@ -33,19 +33,35 @@
     
 }
 
+.btn-save {
+    background-color: white;
+    color: rgba(64, 218, 199, 1);
+    border: 3px solid rgba(64, 218, 199, 1);
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
 
-.button.btn-yes {
+}
+
+
+.btn-save:hover {
+    background-color: rgba(64, 218, 199, 1);
+    /* Green */
+    color: white;
+}
+
+
+.btn-yes {
     background-color: white;
     color: black;
-    border: 2px solid black;
+    border: 3px solid black;
     padding: 5px 20px;
     border-radius: 10px;
     margin: 10px;
+    transition-duration: 0.4s;
+
 }
 
-.btn-yes {
-    transition-duration: 0.4s;
-}
 
 .btn-yes:hover {
     background-color: black;
@@ -56,7 +72,7 @@
 button.btn-cancel {
     background-color: white;
     color: red;
-    border: 2px solid red;
+    border: 3px solid red;
     padding: 5px 20px;
     border-radius: 10px;
 }
@@ -79,9 +95,17 @@ button.btn-cancel {
 }
 
 .feedback-my-video-body {
-    width: 75vw;
+    width: calc(100vw - 30%);
+}
 
 
+.left-menu {
+    font-family: "Montserrat";
+    font-size: 120%;
+    margin-top: 2%;
+    width: 0%;
+    float: left;
+    background-color: rgb(253, 253, 253);
 }
 
 /* Video Face Voice Edit Modal */
@@ -151,7 +175,7 @@ button.btn-cancel {
 button.btn-cancel {
     background-color: white;
     color: red;
-    border: 2px solid red;
+    border: 3px solid red;
     /* Green */
     padding: 5px 20px;
     border-radius: 10px;
@@ -207,7 +231,7 @@ button.btn-cancel {
 }
 
 .video-question-list:hover {
-    border: 2px solid lightseagreen;
+    border: 3px solid lightseagreen;
     color: black;
 }
 
@@ -264,17 +288,6 @@ input.video-save-input-checkbox {
     align-content: center;
     /* position: relative; */
 }
-.video-save-title {
-    /* padding-top: 15%; */
-    /* padding-bottom: 2%; */
-}
-
-/* .btn-cancel:hover {
-    background-color: red;
-    /* Green */
-    /* color: black; */
-/* }  */
-
 
 .video-save-modal {
     position: fixed;
@@ -327,26 +340,19 @@ input.video-save-input-checkbox {
 }
 
 .video-save-modal-table-wrapper {
-    /* margin-top: 10%; */
+    margin-top: 1%;
     height: 32vh;
-    width: 80%;
-    margin: 0 12%;
-    /* padding-left: 5%; */
+    width: 90%;
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
     position: relative
-    /* justify-content: center; */
 }
 
 
 .video-save-modal-table {
     font-family: Pretendardregular;
     color:black;
-    /* margin-top: 2%; */
-    /* height: 30%; */
-    /* overflow: auto; */
-    /* margin: 20% 0; */
     font-size: 16px;
     width:90%;
     padding: 0 10%;

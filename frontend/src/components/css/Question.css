@@ -6,14 +6,30 @@
     font-family: "Montserrat";
     font-size: 120%;
     margin-top: 2%;
-    width: 15%;
+    width: 17vw;
+    text-align: center;
     float: left;
     background-color: rgb(253, 253, 253);
 }
 
+.side-navigation-panel-select-option.side-navigation-panel-select-option-selected{
+    align-self:middle !important;
+}
+.side-navigation-panel {
+    text-align: center;
+}
+/* .left-menu {
+    float: left;
+    margin-top: 0 !important;
+    display: flex;
+  
+  } */
+  
 .question-main-body {
     display: flex;
-    width: 75vw;
+    width: calc(89vw - 15%);
+
+
 }
 
 .question-add-to-cart {
@@ -79,7 +95,7 @@
 .question-finish-btn:hover {
     background-color: rgba(64, 218, 199, 1);
     /* Green */
-    color: black;
+    color: white;
 }
 
 .question-finish-btn-container {
@@ -114,7 +130,7 @@
 }
 
 .svg-inline--fa.fa-cart-plus:hover {
-    color: black;
+    color: white;
 }
 
 .type-animation {

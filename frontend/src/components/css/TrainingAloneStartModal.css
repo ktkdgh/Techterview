@@ -42,6 +42,16 @@
     font-size: 1rem;
 }
 
+#other-questions{
+    width: 80vw;
+    color: black;
+    font-size: 1.7vw;
+    text-align: center;
+    align-self: center;
+    font-family: PretendardRegular;
+}
+
+
 #alone-questions {
     width: 80vw;
     color: black;
@@ -54,12 +64,11 @@
 
 .training-alone-start-modal-body {
     position: relative;
-    /* position: absolute; */
     padding: 10px;
     border-bottom: 1px solid #eee;
-    /* font-size: 100%; */
     font-size: 1rem;
     z-index: 2;
+    height: 100%;
 }
 
 .alone-video-controls-button-container {
@@ -77,7 +86,7 @@
 .go-interview-btn {
     background-color: white;
     color: black;
-    border: 2px solid black;
+    border: 3px solid black;
     padding: 5px 20px;
     border-radius: 10px;
     margin: 10px;
@@ -86,7 +95,7 @@
 .next-time-interview-btn {
     background-color: white;
     color: black;
-    border: 2px solid black;
+    border: 3px solid black;
     padding: 5px 20px;
     border-radius: 10px;
     margin: 10px;
@@ -95,14 +104,14 @@
 .go-interview-btn:hover {
     background-color: black;
     color: white;
-    border: 2px solid black;
+    border: 3px solid black;
 
 }
 
 .next-time-interview-btn:hover {
     background-color: black;
     color: white;
-    border: 2px solid black;
+    border: 3px solid black;
 
 }
 

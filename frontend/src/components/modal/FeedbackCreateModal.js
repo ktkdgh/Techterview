@@ -18,7 +18,7 @@ function FeedbackCreateModal({ closeModal, checkedList }) {
                 {checkedList.length !== 0 ?  
                 <div className="video-delete-modal-footer">
                     <button className="btn-yes" onClick={() => closeModal(false)}>취소</button>
-                    <button className="btn-cancel" onClick={() => createFeedback(checkedList)}>등록</button>
+                    <button className="btn-save" onClick={() => createFeedback(checkedList)}>등록</button>
                 </div>
                 : <div className="video-delete-modal-footer">
                     <button className="btn-yes" onClick={() => closeModal(false)}>닫기</button>
