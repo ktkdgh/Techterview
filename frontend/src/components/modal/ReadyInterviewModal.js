@@ -7,7 +7,6 @@ import { GrPrevious, GrNext } from "react-icons/gr";
 
 
 
-
 function ReadyInterviewModal({ onStart }) {
     const currentUserVideoRef = useRef(null); //recordRef
 
@@ -35,7 +34,7 @@ function ReadyInterviewModal({ onStart }) {
                             </button>
                         </div>
                     </div >
-                    <div onClick={onStart} style={{}}>
+                    <div onClick={()=>{setTimeout(() => {onStart()}, 600);}}>
                         <button className='btn-yes-start'>바로시작</button>
                     </div>
                 </div>
@@ -86,7 +85,7 @@ function ReadyInterviewModal({ onStart }) {
                             <GrPrevious size="54" />
                         </button>
                     </div>
-                    <div>
+                    <div className="ready-check-text">
                         <h4>면접 시작전 카메라와 음성을 <br></br>
                             확인해주세요</h4>
                     </div>
@@ -119,13 +118,15 @@ function ReadyInterviewModal({ onStart }) {
                         </div>
                         <div></div>
                     </div>
-                    <div onClick={onStart}>
+                    <div onClick={()=>{setTimeout(() => {onStart()}, 600);}}>
                         <button className='btn-yes'>시작하기</button>
                     </div>
                 </div>
             )
         );
     }
+
+
 
     function showHomeModal(showModal) {
         // console.log("1231", showModal);
@@ -163,6 +164,7 @@ function ReadyInterviewModal({ onStart }) {
             }
         });
     }
+
     function Test({ showHomeModal, showModal }) {
         useEffect(() => {
             showHomeModal(showModal)
@@ -176,6 +178,7 @@ function ReadyInterviewModal({ onStart }) {
 
     return (
         <ModalProvider>
+
             <ModalContext.Consumer>
                 {({ showModal }) => (
                     <div className='ready-buttons-parent'>
@@ -191,6 +194,7 @@ function ReadyInterviewModal({ onStart }) {
                 }
             </ModalContext.Consumer >
         </ModalProvider >
+
     );
 }
 export default ReadyInterviewModal

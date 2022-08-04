@@ -2,16 +2,9 @@ import React, { useEffect, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import '../css/Timer.css';
 
-function CountDown({ start, setCountDown }) {
+function CountDown({ start, setCountDown,showNext }) {
 
-
-  //   function timeout(delay) {
-  //     return new Promise( res => setTimeout(res, delay) );
-  // }
-
-  // await timeout(1000); 
-
-
+  const [delay, giveDelay] = useState(false);
   let [key, setKey] = useState(0);
   const [stopTimer, setStopTimer] = useState(true);
   const [time, setTime] = useState('');
@@ -20,9 +13,17 @@ function CountDown({ start, setCountDown }) {
     if (time === 0) {
       start()
       setCountDown(false)
+      showNext()
     }
 
   }, [time])
+
+  useEffect(() => {
+    setTimeout(() => {
+      giveDelay(true);
+    }, 3000);
+  }, []);
+
 
   function renderTime({ remainingTime }) {
 
@@ -40,15 +41,16 @@ function CountDown({ start, setCountDown }) {
         <div className="text">남았습니다</div>
       </div>
     );
-  };
 
+}
+if (delay === true){
   return (
+
     <div className="timer-container">
       <div className="timer-header">
       </div>
       <div className="timer-wrapper">
         <CountdownCircleTimer
-          delay={5}
           key={key}
           isPlaying={stopTimer}
           size={300}
@@ -67,6 +69,34 @@ function CountDown({ start, setCountDown }) {
   );
 }
 
+
+return (
+
+  <div className="timer-container">
+    <div className="timer-header">
+    </div>
+    <div className="timer-wrapper">
+      <CountdownCircleTimer
+        key={key}
+        isPlaying={false}
+        size={300}
+        duration={30}
+        colors={['#B0AAE3', '#1187CF', '#B0AAE3', '#F5320B']}
+        colorsTime={[30, 20, 10, 0]}
+        onComplete={() => {
+          return { shouldRepeat: false } // repeat animation in 1.5 seconds
+        }}
+      >
+        {renderTime}
+      </CountdownCircleTimer>
+    </div>
+
+  </div>
+);
+
+
+
+}
 export default CountDown
 
 

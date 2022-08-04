@@ -1,6 +1,5 @@
 .ready-home-body {
     height: 340px;
-    margin-top: 3%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,7 +26,7 @@
 .ready-check-body {
     height: 340px;
     display: flex;
-    margin-top: 3%;
+    /* margin-top: 3%; */
     align-items: center;
     justify-content: space-between;
 
@@ -61,6 +60,7 @@ button.btn-yes {
 .ready-video-user {
     width: 29vw;
     height: 35vh;
+    margin-top: 10%;
 }
 
 .read-start-body {
@@ -108,4 +108,8 @@ button.btn-yes-start {
     background-color: rgba(64, 218, 199, 1);
     /* Green */
     color: white;
+}
+
+.ready-check-text {
+    margin-top: 10%;
 }
