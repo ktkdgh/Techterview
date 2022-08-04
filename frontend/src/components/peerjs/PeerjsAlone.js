@@ -14,6 +14,8 @@ import api from "../shared/api";
 import CountDown from './CountDown';
 import NoCountDown from './NoCountDown';
 import ReadyInterviewModal from "../modal/ReadyInterviewModal";
+import StartCountDownModal from "../modal/StartCountDownModal";
+
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 
@@ -196,6 +198,7 @@ function PeerjsAlone() {
               setTimeout(() => {
               }, 1500);
             }} />
+
           </div>
           <div className='training-alone-start-modal-footer'>
             {/* <button className='btn-yes' onClick={() => {
@@ -233,6 +236,7 @@ function PeerjsAlone() {
               </div>
             </div>
 
+            {/* <StartCountDownModal></StartCountDownModal> */}
 
             <div className="video-timer-container">
               <div className="video-user1" id="video-user1" style={{ display: "none" }}>

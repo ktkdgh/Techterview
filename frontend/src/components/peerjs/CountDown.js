@@ -48,7 +48,6 @@ function CountDown({ start, setCountDown }) {
       </div>
       <div className="timer-wrapper">
         <CountdownCircleTimer
-          delay={5}
           key={key}
           isPlaying={stopTimer}
           size={300}

@@ -4,12 +4,13 @@ import { ModalProvider, ModalContext, ModalRoot } from 'react-multi-modal';
 import alone from "../images/alone.jpg";
 import '../css/ReadyInterviewModal.css';
 import { GrPrevious, GrNext } from "react-icons/gr";
-
+import StartCountDownModal from './StartCountDownModal';
 
 
 
 function ReadyInterviewModal({ onStart }) {
     const currentUserVideoRef = useRef(null); //recordRef
+    const [openModal, setOpenModal] = useState(false);
 
     const call = () => {
         var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -86,7 +87,7 @@ function ReadyInterviewModal({ onStart }) {
                             <GrPrevious size="54" />
                         </button>
                     </div>
-                    <div>
+                    <div className="ready-check-text">
                         <h4>면접 시작전 카메라와 음성을 <br></br>
                             확인해주세요</h4>
                     </div>
@@ -119,13 +120,43 @@ function ReadyInterviewModal({ onStart }) {
                         </div>
                         <div></div>
                     </div>
-                    <div onClick={onStart}>
+                    {/* <div onClick={onStart}> */}
+                    <div onClick={()=>{setOpenModal(true)}}>
+
                         <button className='btn-yes'>시작하기</button>
                     </div>
+                    {openModal && <StartCountDownModal></StartCountDownModal>}
                 </div>
             )
         );
     }
+
+    function StartCount({ isOpen, modal }) {
+        return (
+            isOpen && (
+                <div>
+                    <div className='ready-start-body' >
+                        <div className='ready-prev' onClick={() => { showExampleThreeModal(modal); call(); }} >
+                            <button>
+                                <GrPrevious size="54" />
+                            </button>
+                        </div>
+                        <div  >
+                            <h3>이제 면접을 시작하러 가볼까요?</h3>
+                        </div>
+                        <div></div>
+                    </div>
+                    {/* <div onClick={onStart}> */}
+                    <div onClick={()=>{setOpenModal(true)}}>
+
+                        <button className='btn-yes'>시작하기</button>
+                    </div>
+                    {openModal && <StartCountDownModal></StartCountDownModal>}
+                </div>
+            )
+        );
+    }
+
 
     function showHomeModal(showModal) {
         // console.log("1231", showModal);
@@ -156,6 +187,14 @@ function ReadyInterviewModal({ onStart }) {
         });
     }
     function showExampleFourModal(showModal) {
+        showModal({
+            component: StartInterview,
+            modalProps: {
+                modal: showModal
+            }
+        });
+    }
+    function showExampleFiveModal(showModal) {
         showModal({
             component: StartInterview,
             modalProps: {

@@ -27,7 +27,6 @@ function NoCountDown({ start, clickNext }) {
       </div>
       <div className="timer-wrapper">
         <CountdownCircleTimer
-          strokeLinecap={['square']}
           trailColor={['#B0AAE3']}
           rotation={['counterclockwise']}
           key={key}
