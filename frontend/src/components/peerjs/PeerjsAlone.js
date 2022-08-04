@@ -14,8 +14,8 @@ import api from "../shared/api";
 import CountDown from './CountDown';
 import NoCountDown from './NoCountDown';
 import ReadyInterviewModal from "../modal/ReadyInterviewModal";
-window.Buffer = window.Buffer || require("buffer").Buffer;
 
+window.Buffer = window.Buffer || require("buffer").Buffer;
 
 
 function PeerjsAlone() {
@@ -28,6 +28,7 @@ function PeerjsAlone() {
 
   const currentUserVideoRef = useRef(null); //recordRef
   const [openModal, setOpenModal] = useState(false);
+
   const [RecordingUrl, SetRecordingUrl] = useState('');
   const { key } = useParams();
   const [Questions, SetQuestions] = useState([]);
@@ -38,6 +39,17 @@ function PeerjsAlone() {
   const [mediaRecorder, setMediaRecoder] = useState(null);
   const [QuestionString, SetQuestionString] = useState("");
   const [countDown, setCountDown] = useState(false);
+
+
+  // function setCountModal(){
+  //   console.log('버튼 클릭함')
+  //   return (
+
+
+  //     <><div>타이머타이머</div>
+  //     <StartCountDownModal></StartCountDownModal></>
+  //   )
+  // }
 
   useEffect(() => {
     async function getQuestions() {
@@ -185,29 +197,35 @@ function PeerjsAlone() {
     window.location.replace(`/`)
   }
 
+  
+  // if(openCount===true){
+
+  //   return(<StartCountDownModal></StartCountDownModal>)
+
+
+    
+  // }
 
   return (
     <div>
+      
       <div className='training-alone-start-modal' id='training-alone-start-modal' style={{ zIndex: "1" }}>
         <div className='training-alone-start-modal-content'>
           <div className='training-alone-start-modal-body'>
             <ReadyInterviewModal onStart={() => {
-              call(); setCountDown(true); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
+              call(); setCountDown(true); getHide(); getShow();  SetAudioIndex(AudioIndex + 1); audio.play();
               setTimeout(() => {
               }, 1500);
             }} />
+
           </div>
           <div className='training-alone-start-modal-footer'>
-            {/* <button className='btn-yes' onClick={() => {
-              call(); getHide(); getShow(); SetAudioIndex(AudioIndex + 1); audio.play();
-              setTimeout(() => {
-              }, 1500);
-            }} > 시작하기</button> */}
           </div >
         </div >
       </div >
 
       <div id="alone-wrapper" >
+
         <div className="alone-video-controls-button-container ">
           <div className="training-navigation-bar" >
             <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
@@ -218,7 +236,7 @@ function PeerjsAlone() {
               <div className="main-controls-block">
                 <div id='alone-questions' style={{ display: "none" }}>{getQuestion()}</div>
 
-                <div id="training-alone-main-controls-button" className="training-alone-main-controls-button" style={{ display: "none" }} onClick={() => {
+                <div id="training-alone-main-controls-button" className="training-alone-main-controls-button" onClick={() => {
                   audio.play();
                   setCountDown(true);
                   SetQuestionsIndex(QuestionsIndex + 1);
@@ -226,20 +244,20 @@ function PeerjsAlone() {
                   finish();
                   setTimeout(() => {
                   }, 500);
+                  hideNext();
                 }}>
-                  <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
+                  <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight}  style={{ display: "none" }}/>
                   {/* Next */}
                 </div>
               </div>
             </div>
 
-
             <div className="video-timer-container">
               <div className="video-user1" id="video-user1" style={{ display: "none" }}>
-                {countDown === true ? <CountDown start={start} setCountDown={setCountDown}></CountDown> : <NoCountDown start={start}></NoCountDown>}
+                {countDown === true ?  <CountDown start={start} setCountDown={setCountDown} showNext={showNext}></CountDown> : <NoCountDown start={start}></NoCountDown>}
 
                 <div className="button-wrapper">
-                  <button onClick={() => { start(); setCountDown(false) }}>
+                  <button id="answer-btn" onClick={() => { start(); setCountDown(false); showNext() }}>
                     답변 하기
                   </button>
                 </div>
@@ -254,6 +272,7 @@ function PeerjsAlone() {
                 <div className="main-controls-button-leave-meeting" id="leave-meeting">
                   <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
                   {openModal && <VideoQuestionModal />}
+
                 </div >
               </div>
 
@@ -286,8 +305,15 @@ function hideVideoTimer() {
 
 }
 function hideNext() {
-  document.getElementById("training-alone-main-controls-button").style.display = "none"
+  document.getElementById("faArrowAltIcon").style.display = "none"
+  document.getElementById("answer-btn").style.display = ""
 
+
+}
+
+function showNext() {
+  document.getElementById("faArrowAltIcon").style.display = ""
+  document.getElementById("answer-btn").style.display = "none"
 }
 
 function getShow() {
