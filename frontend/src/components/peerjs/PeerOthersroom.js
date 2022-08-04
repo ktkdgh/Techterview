@@ -16,7 +16,6 @@ import jwt from 'jwt-decode'
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from '../modal/VideoQuestionModal';
 import Recognition from '../shared/stt'
-import { motion } from "framer-motion";
 
 const keyWordList = []
 const tailList = []
