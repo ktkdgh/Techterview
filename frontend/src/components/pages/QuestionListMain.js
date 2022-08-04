@@ -45,7 +45,7 @@ function Question() {
             }
         }, [ClickArray]);
 
-    const arraydeleteidx = (data, idx) => {
+    const arraydeleteidx = (data) => {
         setClickArray(ClickArray.filter((el) => el !== data));
     }
 
@@ -60,10 +60,6 @@ function Question() {
 
             <div>
                 <div className="question-main-body">
-
-
-
-
 
                     <div className="feedback-table">
                         {

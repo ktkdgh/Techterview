@@ -4,7 +4,7 @@ import "../css/TrainingAloneStartModal.css"
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import InterviewerEndModal from "../modal/InterviewerEndModal"
-import { faArrowAltCircleRight, faChampagneGlasses } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleRight, faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +13,6 @@ import { socket } from '../../lib/socket'
 import { peer } from '../../lib/peer'
 import { uploadFile } from 'react-s3';
 import jwt from 'jwt-decode'
-import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from '../modal/VideoQuestionModal';
 import Recognition from '../shared/stt'
 
@@ -59,8 +58,7 @@ function PeerOthersroom() {
             tailList.push(value.questions_tail)
           }
         });
-    }
-    getQuestions();
+    } getQuestions();
   }, []);
 
 
@@ -372,11 +370,11 @@ function PeerOthersroom() {
                             <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
                           </div>
                           <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
-                        </div> : <div className="main-controls-block" id="main-controls-interviewee"><Recognition /></div>}
-                  </div >
-
-
-
+                        </div> :  
+                        <div className="main-controls-block">
+                          <div id='alone-questions' >면접관 안내에 따라 면접을 진행해주시기 바랍니다.</div>
+                        <br /><Recognition /><br /><br /><br /></div> }
+                      </div >
               <div id="others-video-container">
                 <div className="video-user1" id="video-user1" style={{ zIndex: 0 }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
                 <div className="video-user2" id="video-user2" style={{ zIndex: 0 }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>

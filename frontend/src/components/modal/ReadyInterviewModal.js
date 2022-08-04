@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { ModalProvider, ModalContext, ModalRoot } from 'react-multi-modal';
-import alone from "../images/alone.jpg";
+import alone from "../images/aloneImage.png";
 import '../css/ReadyInterviewModal.css';
 import { GrPrevious, GrNext } from "react-icons/gr";
 
