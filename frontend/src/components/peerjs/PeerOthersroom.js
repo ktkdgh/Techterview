@@ -313,7 +313,7 @@ function PeerOthersroom() {
 
                   {interview === '1' && CheckInterview ? <div className="main-controls-block">
 
-                  <div id='alone-questions' >면접관 안내에 따라 면접을 진행해주시기 바랍니다.</div>
+                  <div id="other-questions" >면접관 안내에 따라 면접을 진행해주시기 바랍니다.</div>
 
 
                  <br /><Recognition /><br /><br /><br /></div> :

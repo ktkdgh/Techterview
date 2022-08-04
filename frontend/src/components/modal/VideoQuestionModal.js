@@ -56,7 +56,7 @@ function VideoQuestionModal() {
                     <div className="video-save-modal-table-wrapper">
 
 
-                        <table className="video-save-modal-table">
+                        <div className="video-save-modal-table">
  
                         {getRecordingList.map((value, idx) => {
                             return(
@@ -80,7 +80,7 @@ function VideoQuestionModal() {
                                 </div>
                             )
                         })}
-                        </table>      </div> </>
+                        </div>      </div> </>
                         
                         : <div style={{fontSize:"130%", marginTop: '20%'}}>녹화된 영상이 없습니다.</div> }
                  

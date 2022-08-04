@@ -41,7 +41,7 @@
 .reply-btn-cancel {
     background-color: white;
     color: black;
-    border: 2px solid black;
+    border: 3px solid black;
     padding: 5px 20px;
     border-radius: 10px;
     transition-duration: 0.4s;
@@ -57,7 +57,7 @@
 .reply-btn-delete {
     background-color: white;
     color: red;
-    border: 2px solid red;
+    border: 3px solid red;
     /* Green */
     padding: 5px 20px;
     border-radius: 10px;
@@ -117,7 +117,7 @@
 .feedback-video-btn-cancel {
     background-color: white;
     color: black;
-    border: 2px solid black;
+    border: 3px solid black;
     padding: 5px 20px;
     border-radius: 10px;
     transition-duration: 0.4s;
@@ -133,7 +133,7 @@
 .feedback-video-btn-delete {
     background-color: white;
     color: red;
-    border: 2px solid red;
+    border: 3px solid red;
     padding: 5px 20px;
     border-radius: 10px;
     transition-duration: 0.4s;

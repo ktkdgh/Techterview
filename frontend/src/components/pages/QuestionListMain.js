@@ -58,7 +58,6 @@ function Question() {
 
 
 
-            <div>
                 <div className="question-main-body">
 
 
@@ -133,7 +132,6 @@ function Question() {
                     }
                 </div>
             </div>
-        </div>
   
   
   )

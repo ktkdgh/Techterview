@@ -150,7 +150,7 @@ function FeedbackDetail() {
                                             <div >
                                                 {Modify && Idx == idx + 1 ?
                                                 <div> <input onChange={onUpdate} value={UpdateText} /> </div> :
-                                                <div>{value.reply_comment}{value.updateCheck ? "" : <div className="feedbackdetail-edited">(수정됨)</div>}</div>}
+                                                <div className="feedback-text">{value.reply_comment}{value.updateCheck ? "" : <div className="feedbackdetail-edited">(수정됨)</div>}</div>}
                                                 <div className="comment-icon-container">
                                                         <div className="comment-date"> {YMDFormat(value.createdAt)} </div>
 
