@@ -298,7 +298,8 @@ function PeerOthersroom() {
 
             
               <div className="main-controls-button-share-icon" id="copy-link">
-              {interview === '2' && CheckInterview ?
+              {interview === '1' && CheckInterview ? "": 
+                interview === '2' && CheckInterview ? 
                 <div className="explanation">
                     <FontAwesomeIcon id="question-mark-icon"icon={faCircleQuestion}  />
                     <div id="explanation-text" className="explanation-text">
@@ -309,7 +310,17 @@ function PeerOthersroom() {
                     </div>
 
                 </div>
-              :""}
+              :
+              interview === '1' ?                <div className="explanation">
+              <FontAwesomeIcon id="question-mark-icon"icon={faCircleQuestion}  />
+              <div id="explanation-text" className="explanation-text">
+              <i className="fa fa-video-camera" size="lg" style={{color:"white", width:"50px", paddingLeft:"19px"}}  ></i>
+
+                카메라 버튼을 클릭하면 면접자의 화면이 녹화됩니다. <br></br>
+              <FontAwesomeIcon id="faArrowAltIcon" style={{color:"white", width:"50px"}} icon={faArrowAltCircleRight} />화살표 버튼을 클릭하면 다음 문제로 넘어갑니다. 
+              </div>
+
+          </div> : ""}
 
                     <FontAwesomeIcon icon={faShareFromSquare} onClick={() => { copyToClipboard(); }} />
                   </div>
