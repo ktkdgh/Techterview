@@ -5,7 +5,7 @@ import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import InterviewerEndModal from "../modal/InterviewerEndModal"
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
-import { faArrowAltCircleRight, faCommentDots } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { faShareFromSquare } from '@fortawesome/free-solid-svg-icons';
@@ -54,7 +54,6 @@ function PeerOthersroom() {
         .then(res => {
           SetQuestions(res.data);
           for (let value of res.data) {
-            SetActions(Actions => [...Actions, value.questions_keyword])
             keyWordList.push(value.questions_keyword)
             tailList.push(value.questions_tail)
           }
@@ -74,18 +73,6 @@ function PeerOthersroom() {
       }
     }
   };
-
-  const getAction = () => {
-    if (Actions && Actions.length !== 0) {
-      if (QuestionsIndex !== -1) {
-        const q = Actions[QuestionsIndex];
-        if (q && q.length !== 0) {
-          return q;
-        }
-      }
-    }
-  }
-
 
   useEffect(() => {
     peer.on("open", (id) => {
@@ -189,7 +176,6 @@ function PeerOthersroom() {
   let recordedMediaURL = null;
   const [recordedChunks, setRecordedChunks] = useState([]);
 
-  /* 화면 노출 */
   const call = () => {
     var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     getUserMedia({ video: true, audio: true }, (mediaStream) => {
@@ -198,22 +184,13 @@ function PeerOthersroom() {
     })
   }
 
-
-  /*녹화, 질문 버튼 관련 함수 */
   const start = () => {
-    // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
     let mediaRecorder = new MediaRecorder(remoteVideoRef.current.srcObject, {
       mimeType: 'video/webm; codecs=vp8'
     });
-    mediaRecorder.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
+    mediaRecorder.start(); 
 
-    console.log("start check");
-    console.log("mediaRecorder start:", mediaRecorder); // 첫 start 여기까지 출력
-
-    // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
     mediaRecorder.ondataavailable = function (e) {
-      console.log('ondataavailable');
-      console.log("e.data:", e.data);
       recordedChunks.push(e.data);
     };
     setMediaRecoder(mediaRecorder);
@@ -221,11 +198,7 @@ function PeerOthersroom() {
 
 
   function finish() {
-
     mediaRecorder.onstop = function () {
-      // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
-      // 그렇지 않으면 메모리 누수 문제가 발생합니다.
-      console.log('mediaRecorder.onstop:', mediaRecorder);
       if (recordedMediaURL) {
         URL.revokeObjectURL(recordedMediaURL);
       }
@@ -235,11 +208,9 @@ function PeerOthersroom() {
       const recordFile = new File([blob], fileName + ".mp4", {
         type: blob.type,
       })
-      console.log("recordFile:", recordFile);
 
       recordedMediaURL = window.URL.createObjectURL(recordFile);
 
-      // aws s3 upload 설정 
       const config = {
         bucketName: process.env.REACT_APP_S3_BUCKET,
         region: process.env.REACT_APP_REGION,
@@ -287,16 +258,11 @@ function PeerOthersroom() {
   }
 
   return (
-
     <div className="training-others-main-body">
-
-<div id="training-others-wrapper" >
-
+      <div id="training-others-wrapper" >
           <div className="training-others-inner-box" >
             <div className="training-navigation-bar" >
               <div className="navigation-bar-logo" onClick={() => { goToHome() }}> TECHTERVIEW </div>
-
-            
               <div className="main-controls-button-share-icon" id="copy-link">
               {interview === '1' && CheckInterview ? "": 
                 interview === '2' && CheckInterview ? 
@@ -304,42 +270,28 @@ function PeerOthersroom() {
                     <FontAwesomeIcon id="question-mark-icon"icon={faCircleQuestion}  />
                     <div id="explanation-text" className="explanation-text">
                     <i className="fa fa-video-camera" size="lg" style={{color:"white", width:"50px", paddingLeft:"19px"}}  ></i>
-
                       카메라 버튼을 클릭하면 면접자의 화면이 녹화됩니다. <br></br>
                     <FontAwesomeIcon id="faArrowAltIcon" style={{color:"white", width:"50px"}} icon={faArrowAltCircleRight} />화살표 버튼을 클릭하면 다음 문제로 넘어갑니다. 
                     </div>
-
                 </div>
               :
-              interview === '1' ?                <div className="explanation">
+              interview === '1' ?                
+              <div className="explanation">
               <FontAwesomeIcon id="question-mark-icon"icon={faCircleQuestion}  />
               <div id="explanation-text" className="explanation-text">
               <i className="fa fa-video-camera" size="lg" style={{color:"white", width:"50px", paddingLeft:"19px"}}  ></i>
-
                 카메라 버튼을 클릭하면 면접자의 화면이 녹화됩니다. <br></br>
               <FontAwesomeIcon id="faArrowAltIcon" style={{color:"white", width:"50px"}} icon={faArrowAltCircleRight} />화살표 버튼을 클릭하면 다음 문제로 넘어갑니다. 
               </div>
-
           </div> : ""}
-
                     <FontAwesomeIcon icon={faShareFromSquare} onClick={() => { copyToClipboard(); }} />
                   </div>
-
             </div>
-      
-
-
-
-
               <div className="others-question-video-container">
                 <div className="training-others-main-controls">
-
                   {interview === '1' && CheckInterview ? <div className="main-controls-block">
-
                   <div id="other-questions" >면접관 안내에 따라 면접을 진행해주시기 바랍니다.</div>
-
-
-                 <br /><Recognition /><br /><br /><br /></div> :
+                  <br /><Recognition /><br /><br /><br /></div> :
                     interview === '2' && CheckInterview ?
                       <div className="main-controls-block">
                         <div id='alone-questions' > {QuestionString ? QuestionString : getQuestion()} </div>
@@ -385,9 +337,7 @@ function PeerOthersroom() {
                             }, 500);
                           }}>
                             <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
-
                           </div>
-
                         </div> :  
                         <div className="main-controls-block">
                           <div id='alone-questions' >면접관 안내에 따라 면접을 진행해주시기 바랍니다.</div>
@@ -397,11 +347,8 @@ function PeerOthersroom() {
                 <div className="video-user1" id="video-user1" style={{ zIndex: 0 }}><video id="currentUserVideo" muted ref={currentUserVideoRef} /></div>
                 <div className="video-user2" id="video-user2" style={{ zIndex: 0 }}><video id="remoteUserVideo" ref={remoteVideoRef} /></div>
               </div>
-
-
             </div>
                 <div className="training-navigation-right">
-
                   <div className="main-controls-button-leave-meeting" id="leave-meeting">
                     <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
                     {interview === '1' && CheckInterview ? <div> {openModal && <VideoQuestionModal />} </div> :
@@ -409,10 +356,8 @@ function PeerOthersroom() {
                         interview === '1' ? <div> {openModal && <InterviewerEndModal closeModal={setOpenModal} />}  </div> : <div> {openModal && <VideoQuestionModal />} </div>}
                   </div >
                 </div>
-
           </div >
-
-       </div>   
+        </div>   
     </div >
   );
 
@@ -429,5 +374,3 @@ function PeerOthersroom() {
 }
 
 export default PeerOthersroom;
-
-

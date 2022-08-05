@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { socket } from "../../lib/socket";
 import Tab from 'react-bootstrap/Tab';
@@ -7,7 +7,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import jwt from 'jwt-decode'
 
-function CreateRoomWith({ closeModal , handleNewRoom}) {
+function CreateRoomWith({ closeModal }) {
 
     const Options = [
         {
@@ -111,14 +111,12 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
             socket.emit("createRoom", roomId, SendNum,roomName,checkedTitle,checkedValue, checkedInterview, memberId);
             handleClick();
         }
-// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [clicked]);
 
     const [radioValue, setRadioValue] = useState('1');
     const [checkedValue, setCheckedValue] = useState("");
     const [checkedTitle, setcheckedTitle] = useState("");
     const [checkedInterview, setCheckedInterview] = useState(0);
-    // const [secret, setSecret] = useState(0);
 
     const checkOnlyOne = (checkThis) => {
         if (!checkThis.checked) { 
@@ -232,13 +230,6 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
                             </Tab>
                         </Tabs>
                     </div>
-                    <div>
-
-
-
-                        {/* <input type="checkbox" onClick={()=> setSecret(1)} /> 비밀방 */}
-                    </div>
-
                     <div className="create-delete-modal-footer" style={{marginTop: "4rem", paddingTop:"1rem", position:"absolute",width:"82%",  top: "65%",left: "8%", borderTop: "1px solid #dee2e6", }}>
                         <button className="go-interview-btn" onClick={()=> { checkclicked(true)}}>면접하러 가기</button>
                         <button className="next-time-interview-btn" onClick={() => closeModal(false)}>다음에 할래요</button>
@@ -247,8 +238,5 @@ function CreateRoomWith({ closeModal , handleNewRoom}) {
         </div >
     )
 }
-
-
-
 
 export default CreateRoomWith

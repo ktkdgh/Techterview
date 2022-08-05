@@ -1,15 +1,11 @@
-
-import React, { Component, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import QuestionMenuNavBar from '../includes/QuestionListMenubar';
 import QuestionListAloneModal from '../modal/QuestionListAloneModal'
 import api from "../shared/api";
 import '../css/Question.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartPlus, faScaleUnbalancedFlip } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import TypeAnimation from 'react-type-animation';
-
-// import * as Icon from 'react-bootstrap-icons';
-
 
 function Question() {
     const [openQuestionListModal, SetopenQuestionListModal ] = useState(false);
@@ -18,7 +14,6 @@ function Question() {
     const [DeleteIdx, SetDeleteIdx] = useState(0);
     const [selectedPath, setSelectedPath] = useState('');
     useEffect(() => {
-        // console.log('select url ', `/api/questionList/getQuestionList${selectedPath}`);
         async function getQuestion() {
             if (selectedPath){
                 await api.get(`/api/questionList/getQuestionList${selectedPath}`)
@@ -55,11 +50,7 @@ function Question() {
             <div className='left-menu'>
                 <QuestionMenuNavBar selectMenu={(id) => selectMenu(id)} />
             </div>
-
-
-
                 <div className="question-main-body">
-
                     <div className="feedback-table">
                         {
                             QuestionArray?.map((value, idx) =>
@@ -68,19 +59,12 @@ function Question() {
                                 </div>
                             )
                         }
-
                     </div>
                     {
-                        QuestionArray.length === 0
-                        && 
+                        QuestionArray.length === 0 && 
                         <>
-                      {/* '질문 담기 페이지에서는 자신에게 맞는 질문 리스트를 만들어 면접을 진행할 수 있습니다. 좌측 상단의 카테고리를 선택하신 후 ADD 버튼을 클릭해서 질문 장바구니에 추가할 수 있습니다.',
-                        2000,
-                        '질문 담기 페이지에서는 자신에게 맞는 질문 리스트를 만들어 면접을 진행할 수 있습니다. 좌측 상단의 카테고리를 선택하신 후 ADD 버튼을 클릭해서 질문 장바구니에 추가할 수 있습니다.',
-                        2000, */}
                         <div className="type-animation" >
                         <img src={require("../images/chromebar.png")} className="chrome-bar" alt={"chrome-bar"} />
- 
                         <div className="typing">
                         <TypeAnimation
                         cursor={true}
@@ -89,19 +73,15 @@ function Question() {
                             2000,
                             '질문 담기 페이지에서는 자신에게 맞는 질문 리스트를 만들어 면접을 진행할 수 있습니다. 좌측 상단의 카테고리를 선택하신 후 ADD 버튼을 클릭해서 질문 장바구니에 추가해 보세요!',
                             2000,
-                          ]}
+                        ]}
                         wrapper="h4"
                         repeat={Infinity}/>
                         </div>
                     </div>
-                        
-                        
-                        
                         <img src={require("../images/desk3.png")} className="anything_woosik" alt={"studying man Question"} />
-
                         </>
                     }
-                    {openQuestionListModal && <QuestionListAloneModal closeModal={SetopenQuestionListModal} questionlist={ClickArray}/>}
+                        {openQuestionListModal && <QuestionListAloneModal closeModal={SetopenQuestionListModal} questionlist={ClickArray}/>}
                     {
                         QuestionArray.length !== 0
                         && <div className="feedback-table-cart">
@@ -117,23 +97,12 @@ function Question() {
                                                 <button className="question-delete-button" onClick={() => {SetDeleteIdx(idx); arraydeleteidx(click, DeleteIdx) }} >Delete </button>
                                             </div>)
                                     }
-
                                 </ul>
-                                
-
-                     
-
                         </div>
-                        
                     }
                 </div>
             </div>
-  
-  
-  )
+    )
 }
 
-
-
 export default Question
-

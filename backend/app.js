@@ -12,9 +12,6 @@ var authRouter = require('./routes/auth');
 var feedbackRouter = require('./routes/feedback');
 var questionListRouter = require('./routes/questionList');
 var aloneRouter = require('./routes/training/alone');
-var othersRouter = require('./routes/training/others');
-
-//socket//
 
 const http = require("http");
 var express = require('express');
@@ -24,7 +21,6 @@ const SocketRoutes = require("./socketRoutes");
 const app = express();
 const SocketIO = require("socket.io");
 const server = http.createServer(app);
-// const io = require("socket.io")(8000, { cors:{ origin: ['https://techterview.vercel.app:3000']} });
 
 const io = SocketIO(server, {
   cors: {
@@ -43,9 +39,8 @@ app.use("/", require("./routes/"));
 
 io.on("connection", (socket) => {
   socket.onAny(e => {
-    console.log(`SOCKET EVENT::::::${e}`);
+    console.log(`SOCKET EVENT:::::: ${e}`);
   });
-  // Connection
 
   SocketRoutes.video.createRoom(socket, SocketRoutes.video.event.createRoom);
   SocketRoutes.video.enterWaitRoom(socket, SocketRoutes.video.event.enterWaitRoom);
@@ -59,8 +54,6 @@ io.on("connection", (socket) => {
 server.listen(PORTNUM, () => {
   console.log(`Server is running... port: ${PORTNUM}`);
 });
-////////////
-
 
 const { sequelize } = require('./models/index');
 const { Socket } = require('dgram');
@@ -92,7 +85,6 @@ app.use('/api/auth', authRouter);
 app.use('/api/feedback', feedbackRouter);
 app.use('/api/questionList', questionListRouter);
 app.use('/api/training/alone', aloneRouter);
-app.use('/api/training/others', othersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

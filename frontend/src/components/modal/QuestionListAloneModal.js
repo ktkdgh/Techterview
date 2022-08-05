@@ -1,7 +1,6 @@
 import api from "../shared/api";
 
 function QuestionListAloneModal({ closeModal, questionlist }) {
-
     const getQeustions = async () => {
         await api.post('/api/questionList/randomQuestion', {
             list : questionlist

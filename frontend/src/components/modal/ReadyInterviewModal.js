@@ -1,14 +1,11 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { ModalProvider, ModalContext, ModalRoot } from 'react-multi-modal';
 import alone from "../images/aloneImage.png";
 import '../css/ReadyInterviewModal.css';
 import { GrPrevious, GrNext } from "react-icons/gr";
 
-
-
 function ReadyInterviewModal({ onStart }) {
-    const currentUserVideoRef = useRef(null); //recordRef
+    const currentUserVideoRef = useRef(null); 
 
     const call = () => {
         var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -54,7 +51,6 @@ function ReadyInterviewModal({ onStart }) {
                         </div>
 
                         <div>
-                            {/* <img src={alone} alt='alone' style={{ marginTop: 20, width: 500, height: 300 }} /> */}
                             <img src={alone} alt='alone' style={{ width: 650, height: 450 }} />
                             <div style={{ marginTop: 5 }} >
                                 <h4>
@@ -126,10 +122,7 @@ function ReadyInterviewModal({ onStart }) {
         );
     }
 
-
-
     function showHomeModal(showModal) {
-        // console.log("1231", showModal);
         showModal({
             component: Home,
             modalProps: {
@@ -172,9 +165,6 @@ function ReadyInterviewModal({ onStart }) {
         return <></>
 
     }
-    // function Button() {
-    //     return <button className={styles.btn}>Module</button>;
-    // }
 
     return (
         <ModalProvider>
@@ -184,17 +174,13 @@ function ReadyInterviewModal({ onStart }) {
                     <div className='ready-buttons-parent'>
                         <div className='ready-buttons-nav'>
                             <h2>혼자하기 가이드🧑🏻‍💻</h2>
-                            {/* <button className='ready-buttons' onClick={() => showHomeModal(showModal)}>시험 가이드</button> */}
                             <Test showHomeModal={showHomeModal} showModal={showModal} />
-                            {/* <button className='ready-buttons' onClick={showHomeModal(showModal)}>시험 가이드</button> */}
                         </div>
-                        <ModalRoot /> {/* 본문 내용들이 나오는 곳 */}
+                        <ModalRoot />
                     </div>
-                )
-                }
+                )}
             </ModalContext.Consumer >
         </ModalProvider >
-
     );
 }
 export default ReadyInterviewModal

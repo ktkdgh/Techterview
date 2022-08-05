@@ -1,12 +1,9 @@
-import React, { Component, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import CreateRoomAlone from '../modal/CreateRoomAlone';
 import LoginCheckModal from '../modal/LoginCheckModal';
-import {socket} from '../../lib/socket'
 
 function Mainbody() {
-    console.log(socket)
-    
+
     const [openModal, setOpenModal] = useState(false);
     const Authorization = sessionStorage.getItem('Authorization');
 
@@ -26,9 +23,7 @@ function Mainbody() {
                     <div className='main-image-button-container'>
                         <img className="alone-btn-img" onClick={() => { setOpenModal(true); }} src={require("../images/alonebutton.png")} alt={"혼자하기"} />
                         <img className="main-photo" src={require("../images/main-image.png")} alt={"studying man"} />
-                        {/* <Link to="/training/others/lobby"> */}
                         <img className="together-btn-img" onClick={() => { handleClick(); }} src={require("../images/togetherbutton.png")} alt={"함꼐하기"} />
-                        {/* </Link> */}
                         {openModal && <CreateRoomAlone closeModal={setOpenModal} />}
                     </div>
                     :
@@ -37,7 +32,6 @@ function Mainbody() {
                         <img className="main-photo" src={require("../images/main-image.png")} alt={"studying man"} />
                         <img className="together-btn-img" onClick={() => { setOpenModal(true); }} src={require("../images/togetherbutton.png")} alt={"함께하기"} />
                         {openModal && <LoginCheckModal closeModal={setOpenModal} />}
-
                     </div>
                 }
             </div>

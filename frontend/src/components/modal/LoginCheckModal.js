@@ -1,13 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import '../css/TrainingAloneStartModal.css';
 
-function LoginCheckModal( {closeModal } ) {
+function LoginCheckModal({ closeModal }) {
 
     function getLoginURL() {
         window.location.href = '/login'
-    }
-    function goToHome(){
-        window.location.reload(true)
     }
 
     return (

@@ -58,7 +58,7 @@ if (delay === true){
           colors={['#B0AAE3', '#1187CF', '#B0AAE3', '#F5320B']}
           colorsTime={[30, 20, 10, 0]}
           onComplete={() => {
-            return { shouldRepeat: false } // repeat animation in 1.5 seconds
+            return { shouldRepeat: false } 
           }}
         >
           {renderTime}
@@ -84,7 +84,7 @@ return (
         colors={['#B0AAE3', '#1187CF', '#B0AAE3', '#F5320B']}
         colorsTime={[30, 20, 10, 0]}
         onComplete={() => {
-          return { shouldRepeat: false } // repeat animation in 1.5 seconds
+          return { shouldRepeat: false } 
         }}
       >
         {renderTime}

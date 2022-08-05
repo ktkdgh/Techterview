@@ -1,4 +1,3 @@
-// import api from "../shared/api";
 import ReactPlayer from 'react-player'
 
 function MyVideoPreviewModal({ closeModal, videoUrl }) {
