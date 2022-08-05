@@ -32,9 +32,9 @@ function NoCountDown({ start, clickNext }) {
           key={key}
           isPlaying
           size={300}
-          duration={5}
+          duration={40}
           colors={['#40dac7']}
-          colorsTime={[30, 28, 27, 26, 25, 24, 23, 22]}
+          colorsTime={[]}
           onComplete={() => {
             return { shouldRepeat: true, delay: 0 }
           }}>

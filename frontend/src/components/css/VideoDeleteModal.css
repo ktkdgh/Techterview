@@ -95,15 +95,16 @@ button.btn-cancel {
 }
 
 .feedback-my-video-body {
-    width: calc(100vw - 30%);
+    width: calc(100% - 17vw);
 }
 
 
 .left-menu {
-    font-family: "Montserrat";
+    font-family: PretendardRegular;
     font-size: 120%;
     margin-top: 2%;
-    width: 0%;
+    width: 17vw;
+    /* width: 0%; */
     float: left;
     background-color: rgb(253, 253, 253);
 }

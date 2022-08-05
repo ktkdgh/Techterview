@@ -86,10 +86,10 @@ function MyVideo() {
                         <table>
                             <thead >
                                 {StatusCheck ?
-                                    <tr className="my-video-row" >
+                                    <tr className="my-video-row-head" >
                                         <th >번호</th><th>제목</th><th>작성자</th><th>좋아요 수</th><th>댓글 수</th><th>등록일</th>
                                     </tr> :
-                                    <tr className="my-video-recent" >
+                                    <tr className="my-video-recent-head" >
                                         <th></th><th >번호</th><th>제목</th><th>작성자</th><th>등록일</th>
                                     </tr>
                                 }

@@ -119,7 +119,7 @@ function FeedbackDetail() {
 
                             <div className="feedbackdetail-title" >
                                 <div className="feedbackdetail-title-left"> {DetailFeedback.title} </div> 
-                                <div className='feedbackdetail-title-right'>  {DetailFeedback.name}</div>        
+                                <div className='feedbackdetail-title-right'>  [{DetailFeedback.name}]</div>        
                                 <div className="feedbackdetail-video-delete-btn-container">
                                     <div className="feedbackdetail-video-btn">
                                         {LikeStatus ? <button className="feedbackdetail-video-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faThumbsUp}  />     {FeedLikeCnt} </button> :  <button className="feedbackdetail-video-no-like-btn"  onClick={() => { upLikeCnt() }}><FontAwesomeIcon icon={faThumbsUp} />     {FeedLikeCnt} </button>}
