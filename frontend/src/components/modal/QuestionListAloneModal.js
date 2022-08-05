@@ -27,7 +27,7 @@ function QuestionListAloneModal({ closeModal, questionlist }) {
                 </div>
                 <div className="question-list-modal-footer">
                     <button className="btn-yes" onClick={() => closeModal(false)}>취소</button>
-                    <button className="btn-cancel" onClick={() => getQeustions()}>나혼자 연습하러가기</button>
+                    <button className="btn-save" onClick={() => getQeustions()}>나혼자 연습하러가기</button>
                 </div>
             </div> : 
                 <div className="question-list-modal-content">

@@ -291,20 +291,15 @@ border-radius: 10px;
 .feedbackdetail-video-delete {
 background-color:rgb(249, 249, 250);
 } 
+
 .feedbackdetail-video-delete-btn {
 background-color: #dee2e6;
 color: black;
-
 position: absolute;
-/* right: 10px; */
 right: 0;
 top: 0px;
 height: 35px;
 padding: 0 20px;
-
-
-/* border: 3px solid black; */
-/* padding-left: 900px; */
 border-radius: 10px;
 
 }
