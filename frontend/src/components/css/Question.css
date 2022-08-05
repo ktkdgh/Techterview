@@ -6,7 +6,7 @@
   
 .question-main-body {
     display: flex;
-    width: calc(100% - 17vw);
+    width: calc(100% - 19vw);
     height: 85vh;
 
 }
@@ -114,7 +114,7 @@
 .type-animation {
     margin-top: 10%;
     font-family: PretendardRegular;
-    width: calc(100% - 17vw);
+    width: calc(100% - 19vw);
     height: 40vh;
     margin-top: 7%;
     border-radius: 15px;

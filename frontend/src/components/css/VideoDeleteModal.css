@@ -95,15 +95,15 @@ button.btn-cancel {
 }
 
 .feedback-my-video-body {
-    width: calc(100% - 17vw);
+    width: calc(100% - 19vw);
 }
 
 
 .left-menu {
     font-family: PretendardBold;
-    font-size: 110%;
+    /* font-size: 101%; */
     margin-top: 2%;
-    width: 17vw;
+    width: 19vw;
     /* width: 0%; */
     float: left;
     background-color: rgb(253, 253, 253);

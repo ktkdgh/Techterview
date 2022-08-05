@@ -18,7 +18,7 @@
 .feedback-main-body {
       display: flex;
       flex-direction: column;
-      width: calc(100% - 17vw);
+      width: calc(100% - 19vw);
       font-family: PretendardRegular;
 
   }
