@@ -424,6 +424,11 @@ img.login-photo {
   src: url("../assets/fonts/Pretendard-Regular.otf");
 }
 
+@font-face {
+  font-family: "PretendardBold";
+  src: url("../assets/fonts/Pretendard-Bold.otf");
+}
+
 .big_wrapper {
   min-height: 100vh;
   box-sizing: border-box;
@@ -476,7 +481,7 @@ img.login-photo {
   cursor: pointer;
 }
 .navigation-bar-content a {
-  margin: 5px;
+  margin:7px;
   text-align: center;
   width: 100px;
 }

@@ -219,8 +219,8 @@ function PeerjsAlone() {
             }} />
 
           </div>
-          {/* <div className='training-alone-start-modal-footer'>
-          </div > */}
+          <div className='training-alone-start-modal-footer'>
+          </div >
         </div >
       </div >
 
