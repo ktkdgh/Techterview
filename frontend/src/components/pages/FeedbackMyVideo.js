@@ -66,7 +66,6 @@ function MyVideo() {
             }
         }, [checkedList]);
 
-
     return (
         <div className='feedback-wrapper'>
             <div className='left-menu' >
