@@ -1,4 +1,4 @@
-const WaitingRoom = require("../../../models/waitingRoom");
+const WaitingRoom = require("../waitingRoom/waitingRoom");
  
 module.exports= (socket, event) => {
     socket.on(event, (roomId)=> {

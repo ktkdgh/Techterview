@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../css/TrainingAloneStartModal.css';
-
 import { v1 as uuid } from 'uuid';
 import jwt from "jwt-decode";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import VideoQuestionModal from "../modal/VideoQuestionModal"
 import { useParams } from 'react-router-dom';
@@ -17,10 +14,7 @@ import ReadyInterviewModal from "../modal/ReadyInterviewModal";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
-
 function PeerjsAlone() {
-
-  const [isPlaying, setIsPlaying] = React.useState(true)
 
   const Token = sessionStorage.getItem('Authorization')
   const QuestionList = JSON.parse(sessionStorage.getItem('QuestionList'))
@@ -29,27 +23,13 @@ function PeerjsAlone() {
   const currentUserVideoRef = useRef(null); //recordRef
   const [openModal, setOpenModal] = useState(false);
 
-  const [RecordingUrl, SetRecordingUrl] = useState('');
   const { key } = useParams();
   const [Questions, SetQuestions] = useState([]);
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
   const [AudioIndex, SetAudioIndex] = useState(0);
 
-  const [isFinish, setIsFinish] = useState(false);
   const [mediaRecorder, setMediaRecoder] = useState(null);
-  const [QuestionString, SetQuestionString] = useState("");
   const [countDown, setCountDown] = useState(false);
-
-
-  // function setCountModal(){
-  //   console.log('버튼 클릭함')
-  //   return (
-
-
-  //     <><div>타이머타이머</div>
-  //     <StartCountDownModal></StartCountDownModal></>
-  //   )
-  // }
 
   useEffect(() => {
     async function getQuestions() {
@@ -88,11 +68,9 @@ function PeerjsAlone() {
       }
     }
   };
-  // let mediaStream = null;
-  // let mediaRecorder = null;
+
   let recordedMediaURL = null;
   const [copy, setCopy] = useState();
-  // let recordedChunks = [];
   const [recordedChunks, setRecordedChunks] = useState([]);
 
   const mediaStream = navigator.mediaDevices.getUserMedia({
@@ -100,7 +78,6 @@ function PeerjsAlone() {
     video: true
   });
 
-  /* 화면 노출 */
   const call = () => {
     var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     getUserMedia({ video: true, audio: true }, (mediaStream) => {
@@ -110,67 +87,38 @@ function PeerjsAlone() {
   }
 
 
-  /*녹화, 질문 버튼 관련 함수 */
   const start = () => {
-    console.log("녹화 시작합니다 ~~~");
-    // let recordedChunks = [];
-
-    // 1.MediaStream을 매개변수로 MediaRecorder 생성자를 호출 
-    // let mediaRecorder2 = new MediaRecorder(currentUserVideoRef.current.srcObject, {
-    //   mimeType: 'video/webm; codecs=vp8'
-    // });
     let mediaRecorder = new MediaRecorder(currentUserVideoRef.current.srcObject, {
       mimeType: 'video/webm; codecs=vp8'
     });
-    mediaRecorder.start(); // 함수 마지막에 있던것을 올리니깐 start 정상작동
-    console.log("녹화 중일까!!!?");
+    mediaRecorder.start(); 
 
-    // 2. 전달받는 데이터를 처리하는 이벤트 핸들러 등록
     mediaRecorder.ondataavailable = function (e) {
-      console.log("e.data:", e.data);
       recordedChunks.push(e.data);
-      // setCopy(recordedChunks);
-
-      // // setIsFinish(true);
-      // setCopy(recordedChunks);
-      // console.log("set copy", copy);
     };
 
     setMediaRecoder(mediaRecorder);
   }
 
   function finish() {
-
     mediaRecorder.onstop = function () {
-      // createObjectURL로 생성한 url을 사용하지 않으면 revokeObjectURL 함수로 지워줘야합니다.
-      // 그렇지 않으면 메모리 누수 문제가 발생합니다.
       if (recordedMediaURL) {
         URL.revokeObjectURL(recordedMediaURL);
       }
 
-      console.log("finish copy!!!!:", copy);
-      console.log("recordedchunks", recordedChunks);
-      // recordedChunks = copy
       const blob = new Blob(recordedChunks, { type: 'video/mp4;' });
-      console.log("recordedChunks : ", recordedChunks);
       const fileName = uuid();
       const recordFile = new File([blob], fileName + ".mp4", {
         type: blob.type
       })
-      console.log("finish blob", blob);
       recordedMediaURL = window.URL.createObjectURL(recordFile);
-      // aws s3 upload 설정 
+      
       const config = {
         bucketName: process.env.REACT_APP_S3_BUCKET,
-        // dirName: process.env.REACT_APP_DIR_NAME,
         region: process.env.REACT_APP_REGION,
         accessKeyId: process.env.REACT_APP_ACCESS_KEY,
         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
       };
-      console.log("recordedchunks22", recordedChunks);
-      // uploadFile(recordFile, config)
-      //   .then(recordFile => console.log(recordFile))
-      //   .catch(err => console.error(err))
 
       uploadFile(recordFile, config)
         .then(recordFile => {
@@ -192,23 +140,12 @@ function PeerjsAlone() {
 
   let audio = new Audio(getQuestionAudio());
 
-
   function goToHome() {
     window.location.replace(`/`)
   }
 
-  
-  // if(openCount===true){
-
-  //   return(<StartCountDownModal></StartCountDownModal>)
-
-
-    
-  // }
-
   return (
     <div>
-      
       <div className='training-alone-start-modal' id='training-alone-start-modal' style={{ zIndex: "1" }}>
         <div className='training-alone-start-modal-content'>
           <div className='training-alone-start-modal-body'>
@@ -247,7 +184,6 @@ function PeerjsAlone() {
                   hideNext();
                 }}>
                   <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight}  style={{ display: "none" }}/>
-                  {/* Next */}
                 </div>
               </div>
             </div>
@@ -262,34 +198,16 @@ function PeerjsAlone() {
                   </button>
                 </div>
               </div>
-
-
-
               <div className="video-user2" id="video-user2"><video style={{ zIndex: "0" }} id="aloneCurrentUserVideoRef" muted ref={currentUserVideoRef} ></video></div>
-
-
               <div className="training-navigation-right">
                 <div className="main-controls-button-leave-meeting" id="leave-meeting">
                   <button className="video-end-btn" onClick={() => { setOpenModal(true); hideVideoTimer() }}>나가기</button>
                   {openModal && <VideoQuestionModal />}
-
                 </div >
               </div>
-
-
-
-
             </div>
-
           </div>
-
-
-
-
-
         </div>
-
-
       </div>
     </div>
   );
@@ -307,8 +225,6 @@ function hideVideoTimer() {
 function hideNext() {
   document.getElementById("faArrowAltIcon").style.display = "none"
   document.getElementById("answer-btn").style.display = ""
-
-
 }
 
 function showNext() {

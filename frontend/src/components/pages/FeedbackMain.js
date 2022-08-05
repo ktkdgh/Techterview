@@ -1,11 +1,10 @@
 import React, { Component, useEffect, useState } from 'react';
-import FeedbackMenu from "../includes/FeedbackMenubar"
-// import { Link } from 'react-router-dom';
+import FeedbackMenu from "../includes/FeedbackMenubar";
 import api from "../shared/api";
-import '../css/FeedBack.css'
-import '../../../src/index.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+import '../css/FeedBack.css';
+import '../../../src/index.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 function Feedback() {
     const [MainLengthCheck, SetMainLengthCheck] = useState("");
@@ -45,7 +44,6 @@ function Feedback() {
 
     return (
         <div className='feedback-wrapper'>
-            {/* <div className="others-lobby-header2" > */}
             <div className='left-menu'>
                 <FeedbackMenu selectFeedMenu={(id) => selectFeedMenu(id)} />
             </div>
@@ -62,12 +60,9 @@ function Feedback() {
                                     <div>등록일</div>
                                 </div>
                             </div>
-
                             <div className='feedback-container'>
-
                                 {FeedArray.map((value, idx) => {
                                     return (
-        
                                             <div className= 'feedback-main-greed-container' id="feedback-main-greed-row" key={idx}>
                                                 <div> {idx + 1} </div>
                                                 <a href={`/feedback/detail/${value.id}`}><div> {value.feedback_title}</div></a>
@@ -78,12 +73,11 @@ function Feedback() {
                                             </div>
                                     )
                                 })}
-
                             </div>
-                  </div>
+                    </div>
                 </div> : <div className="feedback-no-video-wrapper">
                     <div className="exclamation-circle"> <FontAwesomeIcon icon={faExclamationCircle} /></div>
-                   <div className="feedback-no-video"> 관련된 영상이 없습니다.</div>
+                    <div className="feedback-no-video"> 관련된 영상이 없습니다.</div>
                 </div>}
         </div >
     )

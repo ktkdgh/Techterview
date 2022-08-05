@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import '../css/Timer.css';
 
 
 function NoCountDown({ start, clickNext }) {
-
   const [key, setKey] = useState(0);
-
 
   function renderTime({ }) {
     return (
-
       <div className="timer">
         <div className="text"> 답변이 녹화되고 있습니다</div>
         <div className="value"></div>

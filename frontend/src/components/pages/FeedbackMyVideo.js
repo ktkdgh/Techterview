@@ -1,4 +1,4 @@
-import React, { Component, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import VideoDeleteModal from '../modal/VideoDeleteModal';
 import FeedbackCreateModal from '../modal/FeedbackCreateModal'
 import MyVideoPreviewModal from '../modal/MyVideoPreviewModal'
@@ -133,13 +133,8 @@ function MyVideo() {
                     </div> : 
                     <div className="feedback-no-video-wrapper">
                     <div className="exclamation-circle"> <FontAwesomeIcon icon={faExclamationCircle} /></div>
-                   <div className="feedback-no-video"> 저장된 영상이 없습니다.</div>
+                    <div className="feedback-no-video"> 저장된 영상이 없습니다.</div>
                 </div>}
-
-
-
-
-
             </div>
         </div>
     )

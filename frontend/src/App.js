@@ -22,8 +22,6 @@ import CreateRoomWith from "./components/modal/CreateRoomWith"
 
 class App extends Component {
   render() {
-
-
     return (
       <div className="App">
         <BrowserRouter>
@@ -43,8 +41,6 @@ class App extends Component {
             <Route path="/page/training/alone/:key" element={<TrainingAlone />} />
             <Route path="/training/with/:key/:id" element={<TrainingOthers />} />
             <Route path="/auth/kakao/callback" element={<KakaoAuthHandle />} />
-
-
           </Routes>
         </BrowserRouter>
       </div>

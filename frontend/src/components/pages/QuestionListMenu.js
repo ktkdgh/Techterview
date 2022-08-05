@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
 function QuestionMenu() {
@@ -15,5 +15,5 @@ function QuestionMenu() {
 
     )
 }
-export default QuestionMenu
 
+export default QuestionMenu

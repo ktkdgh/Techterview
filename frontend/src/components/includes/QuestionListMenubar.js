@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "../css/Question.css"
-
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 

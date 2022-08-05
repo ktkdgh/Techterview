@@ -10,19 +10,17 @@ function FeedbackDeleteModal({SetClickMinus, closeModal, feedbackId }) {
             })
     };
 
-function onclickclick () {
-    SetClickMinus(1);
-    closeModal(false)
-}
+    function onclickclick () {
+        SetClickMinus(1);
+        closeModal(false)
+    }
 
-function onclickDel () {
-    SetClickMinus(1);
-    deleteFeedbackPage(feedbackId)
-}
-
+    function onclickDel () {
+        SetClickMinus(1);
+        deleteFeedbackPage(feedbackId)
+    }
 
     return (
-
         <div className="feedback-video-delete-modal">
             <div className="feedback-video-delete-modal-content">
                 <div className="feedback-video-delete-modal-body">

@@ -2,7 +2,6 @@
 function InterviewerEndModal({ closeModal }) {
 
     return (
-
         <div className="video-delete-modal">
             <div className="video-delete-modal-content">
                 <div className="video-delete-modal-body">

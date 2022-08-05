@@ -7,10 +7,7 @@ import api from "../shared/api"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
-import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons'
-
 <img className="video-edit-thumbnail" src={require("../images/like.png")} alt={"video thumbnail"} />
-
 
 function FeedbackDetail() {
     const [openFeedbackDeleteModal, SetopenFeedbackDeleteModal] = useState(false);
@@ -109,14 +106,11 @@ function FeedbackDetail() {
 
     return (
         <div>
-
-                <div className="feedbackdetail-container" >
-
-                   <div className="feedbackdetail-left" > 
-                        {DetailFeedback.deletebotton ?
+            <div className="feedbackdetail-container" >
+                <div className="feedbackdetail-left" > 
+                    {DetailFeedback.deletebotton ?
                         <button className="feedbackdetail-video-delete-btn"  onClick={() => FeedbackDelete()}> 영상 삭제 <FontAwesomeIcon icon={faTrashCan} /></button>: ""}
                         <ReactPlayer  controls url={DetailFeedback.recordingUrl}    style={{zIndex: ClickMinus}} id= 'feedback-detail-video'/>
-
                             <div className="feedbackdetail-title" >
                                 <div className="feedbackdetail-title-left"> {DetailFeedback.title} </div> 
                                 <div className='feedbackdetail-title-right'>  [{DetailFeedback.name}]</div>        
@@ -126,15 +120,12 @@ function FeedbackDetail() {
                                     </div>
                                 </div>                
                             </div>
-
-                     </div>
+                        </div>
                     <div className='feedbackdetail-right'>
                         <div className="feedbackdetail-input-wrapper">
-                            {/* {DetailFeedback.replys}의 댓글 */}
                             <input className="add-comment-input" placeholder="  댓글을 입력해주세요" onChange={onChange} value={text} />
                             <button className="feedbackdetail-video-submit-btn"  onClick={() => { replyCreate() }}>등록</button>
                         </div>
-
                         { ReplyList.length !== 0 ? 
                         <div className="feedbackdetail-comment-table">
                             <div className="feedback-thead">
@@ -143,7 +134,7 @@ function FeedbackDetail() {
                                 </div>
                             </div>
                             <div className="feedback-tbody">
-                                {ReplyList.map((value, idx) => {
+                                { ReplyList.map((value, idx) => {
                                     return (
                                         <div className="feedback-table-container" key={idx}>
                                             <div> {value.user_name} </div>
@@ -176,11 +167,9 @@ function FeedbackDetail() {
                             </div>
                         </div> : <div className="no-comment">등록된 댓글이 없습니다.</div> }
                     </div>
-
             </div>
             {openFeedbackDeleteModal && <FeedbackDeleteModal SetClickMinus={SetClickMinus} closeModal={SetopenFeedbackDeleteModal} feedbackId={feedbackId}/>}
             {openReplyDeleteModal && <ReplyDeleteModal closeModal={SetopenReplyDeleteModal} replyId ={ReplyId} />}
-
         </div>
     )
 }

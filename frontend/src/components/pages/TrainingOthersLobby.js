@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CreateRoomWith from '../modal/CreateRoomWith';
 import "../css/TrainingOthersLobby.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faWindowClose } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faFaceSadTear } from '@fortawesome/free-solid-svg-icons';
 import {socket} from '../../lib/socket'
 
@@ -34,21 +34,15 @@ function OthersLobby() {
         }
     },[])
 
-    // room.sendNum,room.roomId
     function handleClick(a,b,c) {
-        socket.emit('checkUserNum',socket.id,b)
-            // console.log('room is full')
+        socket.emit('checkUserNum',socket.id,b);
             socket.on('allowEnter', () => {
-                window.location.replace(`/training/with/${a}/${b}`)
-                ;
+                window.location.replace(`/training/with/${a}/${b}`);
             }) 
             return () => {
                 socket.off('allowEnter')
             }
-            
         }  
-    
-
 
     return (
         <div className='Wrapper'>
@@ -79,7 +73,6 @@ function OthersLobby() {
                                                 </div>
                                                 <div className='room-people-count'>
                                                     <FontAwesomeIcon id="faUser" icon={faUser} />
-                                                    {/* <div> 1/2 </div> */}
                                                 </div>
                                             </div>    
                                         </div>

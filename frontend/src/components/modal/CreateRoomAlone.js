@@ -101,7 +101,6 @@ function CreateRoomAlone({ closeModal }) {
                             fill
                         >
                             <Tab eventKey="CS" title="CS">
-                                {/* <br/><br/> */}
                                 <ButtonGroup>
                                     {Options.map((radio, idx) => (
                                         <ToggleButton
@@ -121,7 +120,6 @@ function CreateRoomAlone({ closeModal }) {
 
                             </Tab>
                             <Tab eventKey="Language" title="Language">
-                                {/* <br/><br/> */}
                                 <ButtonGroup>
                                     {Options1.map((radio, idx) => (
                                         <ToggleButton
@@ -138,7 +136,6 @@ function CreateRoomAlone({ closeModal }) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
-
                             </Tab>
                             <Tab eventKey="Basic" title="Basic">
                                 <ButtonGroup>
@@ -188,29 +185,5 @@ function CreateRoomAlone({ closeModal }) {
         </div >
     )
 }
-
-// function Selection() {
-//     return (
-//         <Tabs style={{ width: 525 }}
-//             defaultActiveKey="profile"
-//             id="uncontrolled-tab-example"
-//             className="mb-3"
-//         >
-//             <Tab eventKey="CS" title="CS">
-//                 123123
-//             </Tab>
-//             <Tab eventKey="Language" title="언어">
-//                 456456
-//             </Tab>
-//             <Tab eventKey="base" title="기본질문 및 개발상식" >
-//                 678678
-//             </Tab>
-//             <Tab eventKey="position" title="직무별" >
-//                 890890
-//             </Tab>
-//         </Tabs>
-//     );
-// }
-
 
 export default CreateRoomAlone
