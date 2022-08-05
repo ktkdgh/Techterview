@@ -18,7 +18,7 @@
 .feedback-main-body {
       display: flex;
       flex-direction: column;
-    
+      flex: 1;
   }
 
 .feedback-no-video-wrapper {
@@ -244,7 +244,8 @@ background-color:#e8f8f6;
 .feedback-main-table {
 display: flex;
 flex-direction: column;
-width: calc(85vw - 30%);
+width: 90%;
+/* width: calc(85vw - 30%); */
 }
 .side-navigation-panel-select-wrap {
 margin-top: 0 !important;
