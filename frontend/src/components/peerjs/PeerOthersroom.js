@@ -21,6 +21,7 @@ const keyWordList = []
 const tailList = []
 let tempIndex = 0
 let tempCheck = "";
+let lengthCheck = 0;
 
 function PeerOthersroom() {
   if (!(!!sessionStorage.getItem('Authorization'))) {
@@ -45,7 +46,6 @@ function PeerOthersroom() {
   const { key } = useParams();
   const [Questions, SetQuestions] = useState([]);
   const [QuestionsIndex, SetQuestionsIndex] = useState(0);
-  const [Actions, SetActions] = useState([]);
   const [QuestionString, SetQuestionString] = useState("");
 
   useEffect(() => {
@@ -85,19 +85,23 @@ function PeerOthersroom() {
       let tailArray = tailList[tempIndex].split(',');
       let msgReplace = msg.replace(/ /g, '');
       let keywordsTemp = "";
-
-      for (let value of keyWordArray) {
-        if (msgReplace.indexOf(value) !== -1) {
-          let msgStart = msgReplace.indexOf(value);
-          let msgEnd = msgReplace.indexOf(value.slice(-1), msgStart);
-          keywordsTemp = msgReplace.slice(msgStart, msgEnd + 1);
       
-          if (keywordsTemp.length !== value.length || tempCheck === keywordsTemp) {
-            keywordsTemp = "";
-            continue;
-          }  
-          break;
+      if (lengthCheck !== keyWordList[tempIndex].split(',').length){
+        for (let value of keyWordArray) {
+          if (msgReplace.indexOf(value) !== -1) {
+            let msgStart = msgReplace.indexOf(value);
+            let msgEnd = msgReplace.indexOf(value.slice(-1), msgStart);
+            keywordsTemp = msgReplace.slice(msgStart, msgEnd + 1);
+        
+            if (keywordsTemp.length !== value.length || tempCheck === keywordsTemp) {
+              keywordsTemp = "";
+              continue;
+            }  
+            break;
+          }
         }
+      } else {
+        SetQuestionString("꼬리질문이 끝났습니다. 답변이 끝나면 다음 질문을 진행해주세요!")
       }
 
       if (keywordsTemp) {
@@ -105,6 +109,7 @@ function PeerOthersroom() {
           let valueReplace = value.replace(/ /g, '');
           if (valueReplace.indexOf(keywordsTemp) !== -1) {
             SetQuestionString(value);
+            lengthCheck++;
             break;
           }
         }
@@ -306,6 +311,7 @@ function PeerOthersroom() {
                           SetQuestionString("")
                           tempIndex++;
                           tempCheck = "";
+                          lengthCheck = 0;
                           SetQuestionsIndex(QuestionsIndex + 1)
                           finish();
                           setTimeout(() => {
@@ -330,6 +336,7 @@ function PeerOthersroom() {
                             SetQuestionString("")
                             tempIndex++;
                             tempCheck = "";
+                            lengthCheck = 0;
                             SetQuestionsIndex(QuestionsIndex + 1)
                             finish();
                             setTimeout(() => {

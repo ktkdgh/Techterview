@@ -33,7 +33,7 @@ function PeerjsAlone() {
 
   useEffect(() => {
     async function getQuestions() {
-      if (key == 15) {
+      if (key === '15') {
         SetQuestions(QuestionList)
       } else {
         await api.get(`/api/training/alone/questions/${key}`)
@@ -46,13 +46,17 @@ function PeerjsAlone() {
   }, []);
 
   const getQuestion = () => {
-    if (Questions && Questions.length !== 0) {
-      if (QuestionsIndex !== -1) {
-        const q = Questions[QuestionsIndex];
-        if (q && q.length !== 0) {
-          return q.questions_name;
+    if (Questions.length !== 0  && QuestionsIndex < Questions.length) {
+      if (Questions && Questions.length !== 0) {
+        if (QuestionsIndex !== -1) {
+          const q = Questions[QuestionsIndex];
+          if (q && q.length !== 0) {
+            return q.questions_name;
+          }
         }
       }
+    } else if (Questions.length !== 0) {
+      return "면접이 종료되었습니다 나가기 버튼을 눌러주세요!"
     }
   };
 
@@ -70,7 +74,6 @@ function PeerjsAlone() {
   };
 
   let recordedMediaURL = null;
-  const [copy, setCopy] = useState();
   const [recordedChunks, setRecordedChunks] = useState([]);
 
   const mediaStream = navigator.mediaDevices.getUserMedia({
