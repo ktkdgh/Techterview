@@ -131,7 +131,7 @@ function MyVideo() {
                             }
                         </table>
                     </div> : 
-                    <div className="feedback-no-video-wrapper">
+                    <div className="my-feedback-no-video-wrapper">
                     <div className="exclamation-circle"> <FontAwesomeIcon icon={faExclamationCircle} /></div>
                     <div className="feedback-no-video"> 저장된 영상이 없습니다.</div>
                 </div>}

@@ -11,7 +11,7 @@ function VideoDeleteModal({ closeModal, checkedList }) {
 
     return (
 
-        <div className="video-delete-modal">
+        <div className="video-delete-modal" >
             <div className="video-delete-modal-content">
                 <div className="video-delete-modal-body">
                     {checkedList.length !== 0 ? "선택한 영상을 삭제하시겠습니까?" : "선택한 영상이 없습니다!" }
