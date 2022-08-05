@@ -42,25 +42,25 @@ function CreateRoomWith({ closeModal }) {
     const Options1 = [
         {
             key: 8,
-            value: "JavaScript",
+            value: "개발상식",
         },
         {
             key: 9,
-            value: "Java",
-        },
-        {
-            key: 10,
-            value: "React",
+            value: "기본질문",
         }];
 
     const Options2 = [
         {
+            key: 10,
+            value: "JavaScript",
+        },
+        {
             key: 11,
-            value: "기본질문",
+            value: "Java",
         },
         {
             key: 12,
-            value: "개발상식",
+            value: "React",
         }];
 
     const Options3 = [
@@ -72,8 +72,8 @@ function CreateRoomWith({ closeModal }) {
         {
             key: 14,
             value: "백엔드"
-        }
-    ];
+        }];
+
     const roomId = uuidv4();
     const [clicked, checkclicked] = useState(false);
     const [SendNum, setSendNum] = useState(0)
@@ -173,13 +173,13 @@ function CreateRoomWith({ closeModal }) {
                                 </ButtonGroup>
 
                             </Tab>
-                            <Tab eventKey="Language" title="Language" onClick={()=> setcheckedTitle("Language")}>
+                            <Tab eventKey="Basic" title="Basic" onClick={()=> setcheckedTitle("Basic")}>
                                 <ButtonGroup style={{marginTop:"0.5rem"}}>
                                     {Options1.map((radio, idx) => (
                                         <ToggleButton
                                             style={{padding:"1rem"}}
                                             key={idx}
-                                            id={`radio1-${idx}`}
+                                            id={`radio2-${idx}`}
                                             type="radio"
                                             variant="outline-dark"
                                             name="radio"
@@ -190,15 +190,14 @@ function CreateRoomWith({ closeModal }) {
                                         > {radio.value} </ToggleButton>
                                     ))}
                                 </ButtonGroup>
-
                             </Tab>
-                            <Tab eventKey="Basic" title="Basic" onClick={()=> setcheckedTitle("Basic")}>
+                            <Tab eventKey="Language" title="Language" onClick={()=> setcheckedTitle("Language")}>
                                 <ButtonGroup style={{marginTop:"0.5rem"}}>
                                     {Options2.map((radio, idx) => (
                                         <ToggleButton
                                             style={{padding:"1rem"}}
                                             key={idx}
-                                            id={`radio2-${idx}`}
+                                            id={`radio1-${idx}`}
                                             type="radio"
                                             variant="outline-dark"
                                             name="radio"
