@@ -279,6 +279,10 @@ input.video-save-input-checkbox {
 
 }
 
+.video-save-title {
+    font-family: PretendardBold;
+}
+
 .video-save-modal-body {
     /* margin-top: 50px; */
     width: 100%;
