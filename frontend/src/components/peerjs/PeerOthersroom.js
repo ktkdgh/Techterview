@@ -4,6 +4,7 @@ import "../css/TrainingAloneStartModal.css"
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import InterviewerEndModal from "../modal/InterviewerEndModal"
+import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import { faArrowAltCircleRight, faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
 import uuid from 'react-uuid';
@@ -297,11 +298,24 @@ function PeerOthersroom() {
 
             
               <div className="main-controls-button-share-icon" id="copy-link">
+              {interview === '2' && CheckInterview ?
+                <div className="explanation">
+                    <FontAwesomeIcon id="question-mark-icon"icon={faCircleQuestion}  />
+                    <div id="explanation-text" className="explanation-text">
+                    <i className="fa fa-video-camera" size="lg" style={{color:"white", width:"50px", paddingLeft:"19px"}}  ></i>
+
+                      카메라 버튼을 클릭하면 면접자의 화면이 녹화됩니다. <br></br>
+                    <FontAwesomeIcon id="faArrowAltIcon" style={{color:"white", width:"50px"}} icon={faArrowAltCircleRight} />화살표 버튼을 클릭하면 다음 문제로 넘어갑니다. 
+                    </div>
+
+                </div>
+              :""}
+
                     <FontAwesomeIcon icon={faShareFromSquare} onClick={() => { copyToClipboard(); }} />
                   </div>
 
             </div>
-
+      
 
 
 
@@ -338,10 +352,6 @@ function PeerOthersroom() {
                           <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
 
                         </div>
-                        <div className="training-alone-main-controls-button">
-                          <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
-                        </div>
-                        <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
                       </div> :
                       interview === '1' ?
                         <div className="main-controls-block" >
@@ -366,10 +376,7 @@ function PeerOthersroom() {
                             <FontAwesomeIcon id="faArrowAltIcon" icon={faArrowAltCircleRight} />
 
                           </div>
-                          <div className="training-alone-main-controls-button" >
-                            <FontAwesomeIcon id="faCommentDots" icon={faCommentDots} onClick={() => { getShow() }} />
-                          </div>
-                          <div className="ballon" id="ballon" style={{ display: "none" }}> {getAction()} </div>
+
                         </div> :  
                         <div className="main-controls-block">
                           <div id='alone-questions' >면접관 안내에 따라 면접을 진행해주시기 바랍니다.</div>
@@ -401,9 +408,6 @@ function PeerOthersroom() {
   function getHide() {
     document.getElementById("startRecord").style.display = "none"
 
-  }
-  function getShow() {
-    document.getElementById("ballon").style.display = ""
   }
 
   function hideVideoTimer() {
