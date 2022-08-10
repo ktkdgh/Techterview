@@ -10,6 +10,13 @@
 
 ---
 
+# 🎤 프로젝트 한눈에 보기
+
+<img src = "https://user-images.githubusercontent.com/77824583/183840212-ab377e3d-e6a9-431c-87a1-bf50ab2b0584.png" width="700px">
+
+
+---
+
 # ⭐️ 기능 소개
 
 - [전체 기능](https://github.com/ktkdgh/Techterview/wiki/%EC%A0%84%EC%B2%B4-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C) 
