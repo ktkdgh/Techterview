@@ -27,8 +27,7 @@
 |:---:|:---:|
 |![혼자하기](https://user-images.githubusercontent.com/77824583/183863032-ff68b5b4-d545-468b-b371-8fccf8df3b68.gif)|![함께하기](https://user-images.githubusercontent.com/77824583/183862637-a2ae7fbc-b281-49a1-a8a1-9b280115342c.gif)
 |**질문 담기**|**답변 둘러보기**|
-|![질문!|![답변 둘러보기](https://user-images.githubusercontent.com/77824583/183862996-9f403ab8-a925-42fb-8cd4-c2dcafbaf1f1.gif)|
-
+|![질문 담기](https://user-images.githubusercontent.com/77824583/183865432-3a4b567c-95d1-4e87-9f57-4b84958490ee.gif)|![답변 둘러보기](https://user-images.githubusercontent.com/77824583/183862996-9f403ab8-a925-42fb-8cd4-c2dcafbaf1f1.gif)|
 
 ---
 # ⚙ 아키텍처
