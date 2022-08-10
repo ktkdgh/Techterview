@@ -1,4 +1,4 @@
-# 개발자 기술 면접 대비 사이트 <a href="https://techterview.vercel.app/">xTechterview</a>
+# 개발자 기술 면접 대비 사이트 <a href="https://techterview.vercel.app/">Techterview</a>
 
 <img src = "https://user-images.githubusercontent.com/77824583/183828734-b83c537e-e5a4-4611-b0be-d7e0013832a8.png" width="700px" height="380px">
 
