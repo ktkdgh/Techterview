@@ -25,9 +25,11 @@
 
 |**혼자 하기**|**함께 하기**|**답변 둘러보기**|
 |:---:|:---:|:---:|
-|![혼자 하기](url)|![함께 하기](url)|![답변 둘러보기](url)|
+|![혼자 하기](url)|![함께하기](https://user-images.githubusercontent.com/77824583/183854282-1768b141-b34e-4aef-aaf5-d6e6c989b189.gif)|![답변 둘러보기](https://user-images.githubusercontent.com/77824583/183854646-32a00652-079c-43a6-82e7-38d9fd363428.gif)
+|
 
 
+https://files.slack.com/files-pri/T01FZU4LB4Y-F03T2MJUC9Y/gif.gif
 
 ---
 # ⚙ 아키텍처
