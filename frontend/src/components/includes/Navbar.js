@@ -7,7 +7,9 @@ function Navbar() {
     const [ isLoggedIn, setIsLoggedIn ] = useState(false)
     const [openModal, setOpenModal] = useState(false);
     const [ isName, setIsName] = useState("")
-    
+    const [ isMobile, setIsMobile] = useState(false);
+
+
     useEffect(() => {
         if (sessionStorage.getItem('userName') === undefined || sessionStorage.getItem('userName') === null) return;
         async function test() {
@@ -32,8 +34,24 @@ function Navbar() {
         document.location.href = '/'
     }
 
+    useEffect(()=>{
+        handleAlert()
+    },[])
+  function handleAlert() {
+    if (detectMobileDevice()) {
+        setIsMobile(true);
+      return
+    } 
+  }
+
+  function detectMobileDevice() {
+    const minWidth = 600;
+    return window.innerWidth < minWidth;
+  }
+
     return (
         <>  
+        {!isMobile &&
             <div>
                 <div>
                     <div className="navigation-bar"> 
@@ -66,6 +84,7 @@ function Navbar() {
                     </div>
                 </div>
             </div>
+            }
             <Outlet/>
         </> 
     )
