@@ -55,7 +55,8 @@ function Question() {
                         {
                             QuestionArray?.map((value, idx) =>
                                 <div className="question-add-to-cart" key={idx}>
-                                    {idx + 1}. {value.name} <button className="question-add-button" onClick={(e) => { onCheckedElement(e.target.checked, idx); }} checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
+                                    {idx + 1}. {value.name} <button className="question-add-button" onClick={(e) => {
+             onCheckedElement(e.target.checked, idx); }} checked={ClickArray.includes(value.name) ? "" : value.name}> ADD </button>
                                 </div>
                             )
                         }
